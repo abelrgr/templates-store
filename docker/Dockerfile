@@ -21,6 +21,8 @@ RUN apk update && apk add --no-cache \
     php83-dom \
     php83-openssl \
     php83-phar \
+    php83-pdo \
+    php83-pdo_sqlite \
     curl \
     && ln -s /usr/bin/php83 /usr/bin/php \
     && rm -rf /var/cache/apk/*
