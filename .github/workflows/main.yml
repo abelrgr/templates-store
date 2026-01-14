@@ -91,6 +91,9 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # Create Docker volume for persistent data (managed by Portainer)
+            docker volume create ${{ env.CONTAINER_NAME }}-data || true
+
             # Pull the latest image
             docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
@@ -102,6 +105,7 @@ jobs:
             docker run -d \
               --name ${{ env.CONTAINER_NAME }} \
               --restart unless-stopped \
+              -v ${{ env.CONTAINER_NAME }}-data:/var/www/html/tmp \
               -p ${{ secrets.SERVER_PORT }}:80 \
               ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
