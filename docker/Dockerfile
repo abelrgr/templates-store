@@ -61,7 +61,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Ensure tmp directory exists and has write permissions for nginx
-RUN mkdir -p tmp && chown -R nginx:nginx /var/www/html/tmp && chmod -R 775 /var/www/html/tmp
+RUN mkdir -p tmp && chown -R nginx:nginx /var/www/html/tmp && chmod -R 777 /var/www/html/tmp
 
 # Change ownership of /var/www/html to nginx (general)
 RUN chown -R nginx:nginx /var/www/html
