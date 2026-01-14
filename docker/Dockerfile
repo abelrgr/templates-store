@@ -20,6 +20,7 @@ RUN apk update && apk add --no-cache \
     php83-ctype \
     php83-dom \
     curl \
+    && ln -s /usr/bin/php83 /usr/bin/php \
     && rm -rf /var/cache/apk/*
 
 # Install Composer
