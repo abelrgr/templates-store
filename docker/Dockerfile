@@ -19,6 +19,8 @@ RUN apk update && apk add --no-cache \
     php83-tokenizer \
     php83-ctype \
     php83-dom \
+    php83-openssl \
+    php83-phar \
     curl \
     && ln -s /usr/bin/php83 /usr/bin/php \
     && rm -rf /var/cache/apk/*
