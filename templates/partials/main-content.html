@@ -42,7 +42,7 @@
       <button
         @click="setFilterTag(tag)"
         :class="filterTag === tag ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400'"
-        class="text-xs font-medium px-2 py-1 rounded transition-colors"
+        class="text-xs font-medium px-2 py-1 rounded transition-colors cursor-pointer"
         x-text="'#' + tag"
       ></button>
     </template>
@@ -51,7 +51,7 @@
   <!-- Active Tag Filter Indicator -->
   <div x-show="filterTag" x-transition class="mb-8 flex justify-center">
     <div
-      class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full border border-indigo-200 dark:border-indigo-800"
+      class="flex items-center gap-2 px-4 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full border border-indigo-200 dark:border-indigo-800"
     >
       <span class="text-xs font-bold uppercase tracking-wider">
         Filtered by:
@@ -253,7 +253,7 @@
             <template x-for="tag in template.tags" :key="tag">
               <button
                 @click.stop="setFilterTag(tag)"
-                class="px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider bg-slate-100 dark:bg-slate-700/50 rounded-md text-slate-500 dark:text-slate-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 transition-colors"
+                class="px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider bg-slate-100 dark:bg-slate-700/50 rounded-md text-slate-500 dark:text-slate-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 transition-colors cursor-pointer"
                 x-text="tag"
               ></button>
             </template>
@@ -265,7 +265,7 @@
             <div
               class="text-xs font-medium text-slate-400 dark:text-slate-500 flex items-center gap-3"
             >
-              <div class="flex items-center gap-1">
+              <div class="flex items-center gap-1" title="Views">
                 <svg
                   class="w-4 h-4"
                   fill="none"
@@ -287,7 +287,7 @@
                 </svg>
                 <span x-text="template.stats.views"></span>
               </div>
-              <div class="flex items-center gap-1">
+              <div class="flex items-center gap-1" title="Downloads">
                 <svg
                   class="w-4 h-4"
                   fill="none"
@@ -306,7 +306,7 @@
             </div>
             <button
               @click="openModal(template)"
-              class="text-indigo-600 dark:text-indigo-400 font-semibold text-sm hover:underline flex items-center group-hover:translate-x-1 transition-transform"
+              class="text-indigo-600 dark:text-indigo-400 font-semibold text-sm hover:underline flex items-center group-hover:translate-x-1 transition-transform cursor-pointer"
             >
               Details
               <svg
