@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" x-data="appData()" :class="{ 'dark': darkMode }">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Templates Gallery</title>
+    <meta
+      name="description"
+      content="Browse and download modern web templates for your projects."
+    />
+    <meta
+      name="keywords"
+      content="web templates, HTML, CSS, JavaScript, responsive"
+    />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <script
+      src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <script
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body
+    class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100 font-sans antialiased"
+    :class="{ 'overflow-hidden': quickviewOpen || modalOpen }"
+  >
+    <include href="partials/header.html" />
+
+    <include href="partials/hero-section.html" />
+
+    <include href="partials/main-content.html" />
+
+    <include href="partials/footer.html" />
+
+    <!-- Back to Top Button -->
+    <button
+      @click="scrollToTop"
+      x-show="showBackToTop"
+      x-transition
+      id="back-to-top"
+      data-aos="fade-up"
+      data-aos-duration="500"
+      class="fixed bottom-4 right-4 z-30 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 dark:bg-blue-600 dark:hover:bg-blue-700"
+      aria-label="Back to top"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 10l7-7m0 0l7 7m-7-7v18"
+        />
+      </svg>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+
+    <script>
+      window.backendData = {
+        templates: JSON.parse(`{{ @templates | raw }}`),
+        countdownTargetDate: "{{ @countdownTargetDate }}",
+      };
+    </script>
+
+    <script src="/assets/main.js"></script>
+  </body>
+</html>
+<!-- 
+- revisa el modo oscuro que no se ve bien en algunas partes
+-->

@@ -1,0 +1,29 @@
+# Dependencies
+vendor/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Cache and temporary files
+cache/
+tmp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Composer lock file (optional, uncomment if you want to commit it)
+composer.lock

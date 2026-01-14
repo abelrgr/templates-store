@@ -1,0 +1,14 @@
+.git
+.github
+docker
+docker-compose.yml
+node_modules
+tmp/*
+!tmp/.gitkeep
+vendor/
+composer.lock
+.env
+.idea
+.vscode
+*.md
+```

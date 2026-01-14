@@ -1,0 +1,6 @@
+[submodule "template-techstore"]
+	path = template-techstore
+	url = git@github.com:abelrgr/template-techstore.git
+[submodule "template-healthstore"]
+	path = template-healthstore
+	url = git@github.com:abelrgr/template-healthstore.git
