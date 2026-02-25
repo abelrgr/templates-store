@@ -71,9 +71,27 @@ function appData() {
             window.scrollTo({ top: y, behavior: "smooth" });
           }
         }
+        this.$nextTick(() => {
+          if (typeof AOS !== "undefined") AOS.refresh();
+        });
       });
-      this.$watch("category", () => (this.currentPage = 1));
-      this.$watch("filterTag", () => (this.currentPage = 1));
+      this.$watch("category", () => {
+        this.currentPage = 1;
+        this.$nextTick(() => {
+          if (typeof AOS !== "undefined") AOS.refresh();
+        });
+      });
+      this.$watch("filterTag", () => {
+        this.currentPage = 1;
+        this.$nextTick(() => {
+          if (typeof AOS !== "undefined") AOS.refresh();
+        });
+      });
+      this.$watch("currentPage", () => {
+        this.$nextTick(() => {
+          if (typeof AOS !== "undefined") AOS.refresh();
+        });
+      });
 
       // Back to top button
       window.addEventListener("scroll", () => {

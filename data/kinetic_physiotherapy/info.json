@@ -1,19 +1,25 @@
 {
-    "id": "kinetic_physiotherapy",
-    "name": "Kinetic Physical Therapy & Rehab",
-    "category": "Health",
-    "description": "High-energy template for sports clinics and rehabilitation centers. Focused on recovery timelines, athlete performance, and movement science.",
-    "tags": ["Physiotherapy", "Sports Medicine", "Rehab", "Fitness", "Recovery"],
-    "features": [
-        "Injury Symptom Checker",
-        "Interactive Recovery Timeline",
-        "Strength Goal Calculator",
-        "Athlete Performance Tracking",
-        "Direct Therapist Chat"
-    ],
-    "colors": {
-        "primary": "#2563EB",
-        "secondary": "#F97316",
-        "accent": "#F1F5F9"
-    }
+  "id": "kinetic_physiotherapy",
+  "name": "Kinetic Physical Therapy & Rehab",
+  "category": "Health & Medical",
+  "description": "High-energy template for sports clinics and rehabilitation centers. Focused on recovery timelines, athlete performance, and movement science.",
+  "tags": [
+    "Physiotherapy",
+    "Sports Medicine",
+    "Rehab",
+    "Fitness",
+    "Recovery"
+  ],
+  "features": [
+    "Injury Symptom Checker",
+    "Interactive Recovery Timeline",
+    "Strength Goal Calculator",
+    "Athlete Performance Tracking",
+    "Direct Therapist Chat"
+  ],
+  "colors": {
+    "primary": "#2563EB",
+    "secondary": "#F97316",
+    "accent": "#F1F5F9"
+  }
 }
