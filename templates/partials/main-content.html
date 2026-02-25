@@ -329,7 +329,7 @@
     </template>
 
     <!-- Coming Soon Card -->
-    <div
+    <!-- <div
       x-data="{ isVisible: false, isVideoLoaded: false }"
       x-intersect.once="isVisible = true"
       x-show="!search && category === 'all' && !filterTag"
@@ -337,7 +337,6 @@
       data-aos="fade-up"
       :data-aos-delay="(paginatedTemplates.length) * 100"
     >
-      <!-- Loading Spinner for Video -->
       <div
         x-show="isVisible && !isVideoLoaded"
         class="absolute inset-0 flex items-center justify-center z-10"
@@ -378,7 +377,6 @@
         </video>
       </template>
 
-      <!-- Gradient Overlay -->
       <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-[1px]"></div>
 
       <div class="text-center relative z-10 p-6">
@@ -442,7 +440,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- Pagination -->
@@ -451,9 +449,9 @@
     x-show="totalPages > 1"
   >
     <button
-      @click="currentPage--"
+      @click="currentPage--; document.getElementById('templates').scrollIntoView({behavior: 'smooth', block: 'start'})"
       :disabled="currentPage === 1"
-      class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+      class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -475,9 +473,9 @@
       <span x-text="totalPages"></span>
     </div>
     <button
-      @click="currentPage++"
+      @click="currentPage++; document.getElementById('templates').scrollIntoView({behavior: 'smooth', block: 'start'})"
       :disabled="currentPage === totalPages"
-      class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+      class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
