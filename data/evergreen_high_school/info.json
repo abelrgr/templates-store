@@ -2,7 +2,6 @@
   "image": "imgs/template.webp",
   "title": "Evergreen High School - Empowering Future Success",
   "description": "A sophisticated and professional high school template designed for modern secondary education. Featuring academic pathways, sports achievements, club highlights, and advanced career preparation toolkit.",
-  "demo": "template-evergreen_high_school/index.html",
   "category": "Education",
   "tags": ["high school", "secondary education", "academic", "responsive", "alpine.js", "tailwind css", "professional"],
   "version": "1.0.0",

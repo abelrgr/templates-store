@@ -2,7 +2,6 @@
   "image": "imgs/template.webp",
   "title": "Global Language Academy - Master Your World",
   "description": "A light, clean, and modern language school template designed for international learners. Features interactive language course filters, cultural experience highlights, study abroad options, and live teacher scheduling components.",
-  "demo": "template-global_language_academy/index.html",
   "category": "Education",
   "tags": ["language academy", "linguistics", "international", "modern", "responsive", "alpine.js", "tailwind css", "minimal"],
   "version": "1.0.0",

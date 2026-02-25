@@ -1,9 +1,7 @@
 {
     "title": "Nexus Cardiology Group",
     "description": "High-tech cardiology specialty template with heart health monitoring stats, diagnostic overviews, and specialist referrals.",
-    "demo": "https://abelrgr.github.io/templates-store/data/nexus_cardiology_group/",
     "category": "Health & Medical",
-    "github": "https://github.com/abelrgr/templates-store/tree/master/data/nexus_cardiology_group",
     "tags": ["cardiology", "heart-health", "specialized-clinic", "diagnostics"],
     "version": "1.0.0",
     "author": "Abel Gallo Ruiz"

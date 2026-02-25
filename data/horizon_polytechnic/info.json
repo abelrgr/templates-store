@@ -2,7 +2,6 @@
   "image": "imgs/template.webp",
   "title": "Horizon Polytechnic - Technical & Vocational Excellence",
   "description": "A high-tech, modern polytechnic template focused on vocational training, engineering, and digital certifications. Features interactive skill paths, certification badges, industry partnership highlights, and student project portfolios.",
-  "demo": "template-horizon_polytechnic/index.html",
   "category": "Education",
   "tags": ["polytechnic", "vocational", "technical", "engineering", "responsive", "alpine.js", "tailwind css", "modern"],
   "version": "1.0.0",

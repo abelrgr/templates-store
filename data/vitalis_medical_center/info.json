@@ -1,10 +1,8 @@
 {
-    "title": "Vitalis Medical Center",
-    "description": "Premium multi-specialty medical clinic template with patient portal integration and appointment booking.",
-    "demo": "https://abelrgr.github.io/templates-store/data/vitalis_medical_center/",
-    "category": "Health & Medical",
-    "github": "https://github.com/abelrgr/templates-store/tree/master/data/vitalis_medical_center",
-    "tags": ["medical", "clinic", "healthcare", "booking", "patients"],
-    "version": "1.0.0",
-    "author": "Abel Gallo Ruiz"
+  "title": "Vitalis Medical Center",
+  "description": "Premium multi-specialty medical clinic template with patient portal integration and appointment booking.",
+  "category": "Health & Medical",
+  "tags": ["medical", "clinic", "healthcare", "booking", "patients"],
+  "version": "1.0.0",
+  "author": "Abel Gallo Ruiz"
 }
