@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andina Bakery | Tradición & Harina</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Quicksand', sans-serif; background-color: #faf7f2; color: #43332a; }
+        .font-artisanal { font-family: 'Cormorant Garamond', serif; }
+        
+        .wheat-bg {
+            background-image: radial-gradient(#d4a373 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            background-color: #faf7f2;
+            opacity: 0.15;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .pastry-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pastry-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(166, 124, 82, 0.1);
+        }
+
+        @keyframes steam-rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { transform: translateY(-40px) scale(1.5); opacity: 0; }
+        }
+        .steam { animation: steam-rise 3s infinite ease-out; }
+
+        .btn-artisanal {
+            background-color: #a67c52;
+            color: white;
+            transition: all 0.3s;
+        }
+        .btn-artisanal:hover {
+            background-color: #43332a;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body x-data="{ 
+    cart: 0, 
+    showMenu: false, 
+    freshTimer: 45,
+    selectedCategory: 'todo'
+}" x-init="setInterval(() => { if(freshTimer > 0) freshTimer-- }, 60000)">
+
+    <!-- Wheat Mesh Background -->
+    <div class="wheat-bg"></div>
+
+    <!-- Header / Nav -->
+    <header class="sticky top-0 z-50 bg-[#faf7f2]/90 backdrop-blur-md border-b border-[#a67c52]/10">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-12">
+                <a href="#" class="flex flex-col items-center">
+                    <span class="text-3xl font-artisanal font-bold tracking-tight">Andina</span>
+                    <span class="text-[10px] uppercase tracking-[0.4em] -mt-1 font-bold text-[#a67c52]">Bakery & Pastelería</span>
+                </a>
+                <nav class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-widest text-[#43332a]/60">
+                    <a href="#productos" class="hover:text-[#a67c52] transition">Productos</a>
+                    <a href="#historia" class="hover:text-[#a67c52] transition">Artesanía</a>
+                    <a href="#suscripcion" class="hover:text-[#a67c52] transition">Box Semanal</a>
+                </nav>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <!-- Fresh Batch Alert -->
+                <div class="hidden lg:flex items-center gap-3 bg-[#a67c52]/10 px-4 py-2 rounded-full border border-[#a67c52]/20">
+                    <div class="relative w-3 h-3">
+                        <span class="absolute inset-0 bg-green-500 rounded-full animate-ping"></span>
+                        <span class="absolute inset-0 bg-green-500 rounded-full"></span>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-tighter">Próxima Salteña: <span x-text="freshTimer + ' min'" class="text-[#a67c52]"></span></span>
+                </div>
+
+                <button @click="cart++" class="relative group">
+                    <i class="ti ti-basket text-2xl"></i>
+                    <span x-show="cart > 0" x-text="cart" class="absolute -top-1 -right-1 bg-[#a67c52] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
+            <div>
+                <h1 class="text-7xl lg:text-9xl font-artisanal font-bold leading-[0.9] text-[#43332a] mb-8">
+                    El alma del <span class="italic text-[#a67c52]">trigo</span> en tus manos.
+                </h1>
+                <p class="text-lg text-[#43332a]/80 mb-10 max-w-md leading-relaxed">
+                    Recetas ancestrales que cobran vida en hornos de barro y manos expertas. Pan de verdad, con fermentos naturales y paciencia andina.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#productos" class="btn-artisanal px-10 py-5 rounded-full font-bold uppercase text-xs tracking-widest shadow-xl">Explorar el Horno</a>
+                    <div class="flex items-center gap-4 px-6 py-4 bg-white rounded-full shadow-sm border border-[#a67c52]/10">
+                        <div class="flex -space-x-3">
+                            <img src="https://i.pravatar.cc/100?u=1" class="w-8 h-8 rounded-full border-2 border-white">
+                            <img src="https://i.pravatar.cc/100?u=2" class="w-8 h-8 rounded-full border-2 border-white">
+                            <img src="https://i.pravatar.cc/100?u=3" class="w-8 h-8 rounded-full border-2 border-white">
+                        </div>
+                        <span class="text-xs font-bold">1k+ Clientes Felices</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="absolute -inset-10 bg-[#d4a373]/10 blur-[100px] rounded-full"></div>
+                <div class="relative bg-white p-4 rounded-[40px] shadow-2xl rotate-2">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1000" class="rounded-[32px] w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 cursor-crosshair">
+                    
+                    <!-- Floating Steam Labels -->
+                    <div class="absolute top-1/4 -left-12 bg-[#faf7f2] p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-[#a67c52]/10 translate-y-4 animate-bounce" style="animation-duration: 4s">
+                        <i class="ti ti-flame text-[#a67c52]"></i>
+                        <div>
+                            <p class="text-[10px] font-bold uppercase">Calor Natural</p>
+                            <p class="text-xs italic font-artisanal">Fermentado 24h</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories / Menu -->
+    <section id="productos" class="py-24 bg-white/50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-artisanal font-bold mb-4">Nuestras Creaciones</h2>
+                <div class="flex justify-center gap-8 mt-8 border-b border-[#a67c52]/10">
+                    <button @click="selectedCategory = 'todo'" :class="selectedCategory == 'todo' ? 'text-[#a67c52] border-[#a67c52]' : 'text-[#43332a]/50 border-transparent'" class="pb-4 px-4 text-xs font-bold uppercase tracking-widest border-b-2 hover:text-[#a67c52] transition">Todos</button>
+                    <button @click="selectedCategory = 'panaderia'" :class="selectedCategory == 'panaderia' ? 'text-[#a67c52] border-[#a67c52]' : 'text-[#43332a]/50 border-transparent'" class="pb-4 px-4 text-xs font-bold uppercase tracking-widest border-b-2 hover:text-[#a67c52] transition">Panes</button>
+                    <button @click="selectedCategory = 'pasteleria'" :class="selectedCategory == 'pasteleria' ? 'text-[#a67c52] border-[#a67c52]' : 'text-[#43332a]/50 border-transparent'" class="pb-4 px-4 text-xs font-bold uppercase tracking-widest border-b-2 hover:text-[#a67c52] transition">Pastelería</button>
+                    <button @click="selectedCategory = 'tradicional'" :class="selectedCategory == 'tradicional' ? 'text-[#a67c52] border-[#a67c52]' : 'text-[#43332a]/50 border-transparent'" class="pb-4 px-4 text-xs font-bold uppercase tracking-widest border-b-2 hover:text-[#a67c52] transition">Tradición</button>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1: Salteñas -->
+                <div x-show="selectedCategory == 'todo' || selectedCategory == 'tradicional'" class="pastry-card group bg-white rounded-3xl p-4 shadow-sm border border-[#a67c52]/5">
+                    <div class="relative overflow-hidden rounded-2xl mb-6">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" class="w-full aspect-square object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-[#a67c52]/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="bg-white px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-xl">Ver Detalle</span>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-[#a67c52] text-white px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest">
+                            🔥 Recién Salido
+                        </div>
+                    </div>
+                    <div class="px-2">
+                        <h4 class="text-xl font-artisanal font-bold">Salteña Tradicional</h4>
+                        <p class="text-xs text-[#a67c52]/60 mb-4 italic">Carne de res macerada en ají suave.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold font-artisanal">Bs. 8.50</span>
+                            <button @click="cart++" class="w-10 h-10 rounded-full border border-[#a67c52]/20 flex items-center justify-center text-[#a67c52] hover:bg-[#a67c52] hover:text-white transition">
+                                <i class="ti ti-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Cuñapé -->
+                <div x-show="selectedCategory == 'todo' || selectedCategory == 'tradicional'" class="pastry-card group bg-white rounded-3xl p-4 shadow-sm border border-[#a67c52]/5">
+                    <div class="relative overflow-hidden rounded-2xl mb-6">
+                        <img src="https://images.unsplash.com/photo-1577221084712-45b0445d2b00?auto=format&fit=crop&q=80&w=400" class="w-full aspect-square object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 left-4 bg-[#43332a] text-white px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest">
+                            Best Seller
+                        </div>
+                    </div>
+                    <div class="px-2">
+                        <h4 class="text-xl font-artisanal font-bold">Cuñapé Abizcochado</h4>
+                        <p class="text-xs text-[#a67c52]/60 mb-4 italic">Almidón de yuca y harto queso cruceño.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold font-artisanal">Bs. 5.00</span>
+                            <button @click="cart++" class="w-10 h-10 rounded-full border border-[#a67c52]/20 flex items-center justify-center text-[#a67c52] hover:bg-[#a67c52] hover:text-white transition">
+                                <i class="ti ti-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Pan de Masa Madre -->
+                <div x-show="selectedCategory == 'todo' || selectedCategory == 'panaderia'" class="pastry-card group bg-white rounded-3xl p-4 shadow-sm border border-[#a67c52]/5 lg:translate-y-6">
+                    <div class="relative overflow-hidden rounded-2xl mb-6">
+                        <img src="https://images.unsplash.com/photo-1585478259715-876a6a81fc08?auto=format&fit=crop&q=80&w=400" class="w-full aspect-square object-cover transition duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="px-2">
+                        <h4 class="text-xl font-artisanal font-bold">Sourdough Campestre</h4>
+                        <p class="text-xs text-[#a67c52]/60 mb-4 italic">Corteza rústica y miga alveolada.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold font-artisanal">Bs. 25.00</span>
+                            <button @click="cart++" class="w-10 h-10 rounded-full border border-[#a67c52]/20 flex items-center justify-center text-[#a67c52] hover:bg-[#a67c52] hover:text-white transition">
+                                <i class="ti ti-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4: Croissants -->
+                <div x-show="selectedCategory == 'todo' || selectedCategory == 'pasteleria'" class="pastry-card group bg-white rounded-3xl p-4 shadow-sm border border-[#a67c52]/5 lg:translate-y-6">
+                    <div class="relative overflow-hidden rounded-2xl mb-6">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=400" class="w-full aspect-square object-cover transition duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="px-2">
+                        <h4 class="text-xl font-artisanal font-bold">Croissant de Mantequilla</h4>
+                        <p class="text-xs text-[#a67c52]/60 mb-4 italic">72 capas de hojaldre francés.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold font-artisanal">Bs. 12.00</span>
+                            <button @click="cart++" class="w-10 h-10 rounded-full border border-[#a67c52]/20 flex items-center justify-center text-[#a67c52] hover:bg-[#a67c52] hover:text-white transition">
+                                <i class="ti ti-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Section -->
+    <section id="suscripcion" class="py-24 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-[#43332a] text-white rounded-[40px] p-8 md:p-16 flex flex-col md:flex-row gap-12 items-center relative overflow-hidden shadow-2xl">
+                <!-- Abstract Grain -->
+                <div class="absolute -right-20 -top-20 opacity-10">
+                    <i class="ti ti-seeding text-[300px]"></i>
+                </div>
+
+                <div class="relative z-10 md:w-1/2">
+                    <span class="text-[#a67c52] font-bold uppercase tracking-widest text-[10px]">Morning Box</span>
+                    <h3 class="text-4xl lg:text-5xl font-artisanal font-bold mt-4 mb-6 leading-tight">Despierta con el aroma a pan fresco cada mañana.</h3>
+                    <p class="text-[#f7e7ce]/60 text-sm leading-relaxed mb-8">Únete a nuestra suscripción "Alva Andina" y recibe una selección curada de panes y pasteles sorpresa en tu puerta, de lunes a viernes.</p>
+                    
+                    <form class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" placeholder="Tu correo electrónico" class="flex-1 bg-white/10 border border-white/20 rounded-full px-6 py-4 text-xs focus:outline-none focus:border-[#a67c52]">
+                        <button class="bg-[#a67c52] px-8 py-4 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-[#d4a373] transition">Suscribirme</button>
+                    </form>
+                </div>
+
+                <div class="relative z-10 md:w-1/2">
+                    <div class="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 rotate-3">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-xs font-bold uppercase text-[#a67c52]">Plan Semanal</span>
+                            <span class="text-2xl font-artisanal font-bold">Bs. 85.00</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-3 text-xs opacity-70"><i class="ti ti-check text-[#a67c52]"></i> 4 Panes rústicos diarios</li>
+                            <li class="flex items-center gap-3 text-xs opacity-70"><i class="ti ti-check text-[#a67c52]"></i> 2 Salteñas los fines de semana</li>
+                            <li class="flex items-center gap-3 text-xs opacity-70"><i class="ti ti-check text-[#a67c52]"></i> Delivery incluido</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-[#a67c52]/10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex flex-col items-center gap-4 mb-8">
+                <span class="text-2xl font-artisanal font-bold">Andina</span>
+                <p class="text-[10px] text-[#43332a]/40 uppercase tracking-[0.3em]">Artesanos de la Harina • Est. 2018</p>
+            </div>
+            
+            <div class="flex justify-center gap-6 mb-12">
+                <a href="#" class="text-[#43332a]/60 hover:text-[#a67c52] transition"><i class="ti ti-brand-instagram text-xl"></i></a>
+                <a href="#" class="text-[#43332a]/60 hover:text-[#a67c52] transition"><i class="ti ti-brand-facebook text-xl"></i></a>
+                <a href="#" class="text-[#43332a]/60 hover:text-[#a67c52] transition"><i class="ti ti-brand-whatsapp text-xl"></i></a>
+            </div>
+
+            <p class="text-[10px] font-bold uppercase text-[#43332a]/30 tracking-widest">© 2024 Andina Bakery. Hecho con paciencia y masa madre.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Toast -->
+    <div x-show="cart > 0" x-transition x-cloak class="fixed bottom-8 right-8 z-[100] bg-white shadow-2xl rounded-2xl p-6 border border-[#a67c52]/20 flex items-center gap-6">
+        <div class="w-12 h-12 bg-[#a67c52]/10 rounded-xl flex items-center justify-center text-[#a67c52]">
+            <i class="ti ti-basket text-2xl"></i>
+        </div>
+        <div>
+            <p class="text-xs font-bold uppercase tracking-tight">¡Tu canasta crece!</p>
+            <p class="text-xs text-[#a67c52]" x-text="cart + ' productos seleccionados'"></p>
+        </div>
+        <button @click="window.location.reload()" class="bg-[#a67c52] py-2 px-4 rounded-lg text-white text-[10px] font-bold uppercase">Finalizar Pedido</button>
+    </div>
+
+</body>
+</html>

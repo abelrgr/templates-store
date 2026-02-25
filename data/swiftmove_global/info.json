@@ -1,0 +1,18 @@
+{
+    "id": "swiftmove_global",
+    "name": "SwiftMove Global",
+    "description": "Professional relocation and moving services template for national and international logistics companies.",
+    "category": "Logistics & Moving",
+    "theme": {
+        "primary_color": "#0047AB",
+        "secondary_color": "#C0C0C0",
+        "accent_color": "#FFFFFF",
+        "font_family": "Inter, sans-serif"
+    },
+    "features": [
+        "Inventory estimate calculator",
+        "International shipping quote tool",
+        "Real-time move tracking mockup",
+        "Multi-region service selector"
+    ]
+}

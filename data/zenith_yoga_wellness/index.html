@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith Yoga | Equilibrio & Paz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Quicksand', sans-serif; background-color: #fafaf9; color: #4b5563; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .soft-shadow {
+            box-shadow: 0 10px 50px -12px rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+        .breathe-indicator {
+            animation: breathe 8s infinite ease-in-out;
+        }
+
+        .zen-gradient {
+            background: linear-gradient(180deg, #fafaf9 0%, #f3f4f6 100%);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: #6b7280;
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body x-data="{ 
+    playing: false, 
+    sound: 'Silencio',
+    quotes: [
+        'La paz viene del interior. No la busques fuera.',
+        'Tu respiración es tu ancla en el caos.',
+        'El movimiento es vida, el equilibrio es salud.',
+        'Cada día es una nueva oportunidad para florecer.'
+    ],
+    activeQuote: 0
+}" x-init="setInterval(() => activeQuote = (activeQuote + 1) % quotes.length, 10000)">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/60 backdrop-blur-xl border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="ti ti-flower text-2xl text-sage-600"></i>
+                <span class="text-xl font-serif font-bold tracking-tight">Zenith <span class="italic font-light">Wellness</span></span>
+            </div>
+            <div class="hidden md:flex gap-10 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+                <a href="#yoga" class="nav-link relative">Prácticas</a>
+                <a href="#horarios" class="nav-link relative">Horarios</a>
+                <a href="#guias" class="nav-link relative">Guías</a>
+                <a href="#contacto" class="px-6 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-700 transition">Agendar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative py-24 md:py-40 overflow-hidden zen-gradient">
+        <!-- Abstract Shapes -->
+        <div class="absolute -top-20 -right-20 w-96 h-96 bg-purple-100/50 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-green-50/50 rounded-full blur-[80px]"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center relative z-10">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-6 block">Estudio de Yoga & Mindfulness</span>
+                <h1 class="text-6xl md:text-8xl font-serif leading-tight text-gray-800 mb-8">
+                    Respira. <br> <span class="italic">Suelta.</span> <br> Florece.
+                </h1>
+                <p class="text-gray-500 text-lg leading-relaxed mb-10 max-w-sm">
+                    Un refugio de paz en medio de la ciudad. Descubre el equilibrio entre cuerpo y mente a través del yoga y la meditación consciente.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="px-10 py-5 bg-gray-800 text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-gray-700 transition shadow-lg">Comenzar Gratis</button>
+                    <button @click="playing = !playing" class="flex items-center gap-3 px-8 py-5 border border-gray-200 rounded-full hover:bg-white transition text-xs font-bold uppercase tracking-widest">
+                        <i :class="playing ? 'ti ti-player-pause' : 'ti ti-player-play'" class="text-lg"></i> Sonidos Zen
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="relative z-10 p-4 bg-white rounded-[60px] soft-shadow transform rotate-3">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800" class="rounded-[40px] w-full aspect-square object-cover opacity-90">
+                </div>
+                <!-- Breathing Circle -->
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white rounded-full flex items-center justify-center soft-shadow z-20">
+                    <div class="w-24 h-24 bg-purple-50 rounded-full breathe-indicator opacity-50 absolute"></div>
+                    <p class="text-[10px] font-bold uppercase text-gray-400">Inhala</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Quote -->
+    <div class="bg-white py-12 border-y border-gray-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <template x-for="(quote, index) in quotes">
+                <p x-show="activeQuote === index" x-transition.opacity.duration.1000ms class="text-xl font-serif italic text-gray-400 px-4" x-text="'“' + quote + '”'"></p>
+            </template>
+        </div>
+    </div>
+
+    <!-- Sound UI -->
+    <div x-show="playing" x-transition x-cloak class="fixed bottom-10 left-10 z-[100] bg-white/80 backdrop-blur-md p-6 rounded-3xl border border-gray-100 soft-shadow max-w-xs flex gap-4 items-center">
+        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-400">
+            <i class="ti ti-music text-2xl animate-pulse"></i>
+        </div>
+        <div>
+            <p class="text-[8px] font-bold uppercase text-gray-400 block mb-1">Escuchando ahora</p>
+            <select x-model="sound" class="bg-transparent border-none text-xs font-bold focus:outline-none focus:ring-0 p-0 text-gray-600">
+                <option>Silencio de Bosque</option>
+                <option>Lluvia en el Templo</option>
+                <option>Vibración Cuencos</option>
+                <option>Zen Lo-fi</option>
+            </select>
+        </div>
+        <button @click="playing = false" class="text-gray-300 hover:text-gray-600"><i class="ti ti-x"></i></button>
+    </div>
+
+    <!-- Practices -->
+    <section id="yoga" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-serif text-gray-800 mb-6">Nuestras Prácticas</h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Desde la intensidad del Power Yoga hasta el descanso profundo del Yoga Nidra. Tenemos un espacio para cada cuerpo.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-[40px] mb-8">
+                        <img src="https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[4/5] object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/50 to-transparent">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] uppercase font-bold rounded-full">Intensidad: Media</span>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-serif text-gray-800 mb-3">Vinyasa Flow</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Movimientos sincronizados con la respiración para generar calor interno y fluidez.</p>
+                </div>
+
+                <div class="group cursor-pointer md:translate-y-12">
+                    <div class="relative overflow-hidden rounded-[40px] mb-8">
+                        <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[4/5] object-cover transition duration-700 group-hover:scale-110">
+                         <div class="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/50 to-transparent">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] uppercase font-bold rounded-full">Intensidad: Alta</span>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-serif text-gray-800 mb-3">Hatha Clasico</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Concentración en posturas estables para fortalecer la columna y centrar la mente.</p>
+                </div>
+
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-[40px] mb-8">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[4/5] object-cover transition duration-700 group-hover:scale-110">
+                         <div class="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/50 to-transparent">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] uppercase font-bold rounded-full">Intensidad: Suave</span>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-serif text-gray-800 mb-3">Meditación & Pranayama</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Técnicas de respiración y quietud para reducir el estrés y la ansiedad diaria.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Grid -->
+    <section id="horarios" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+             <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8 text-center md:text-left">
+                <h2 class="text-5xl font-serif text-gray-800">Próximas Clases</h2>
+                <div class="flex gap-4">
+                    <button class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-white transition"><i class="ti ti-chevron-left"></i></button>
+                    <button class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-white transition"><i class="ti ti-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="grid divide-y md:divide-y-0 md:grid-cols-3 gap-12 bg-white p-12 rounded-[50px] shadow-sm border border-gray-100">
+                <div class="py-4 md:py-0">
+                    <h5 class="text-[10px] font-bold uppercase text-purple-400 mb-6 tracking-widest">Mañana</h5>
+                    <ul class="space-y-8">
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <p class="text-lg font-bold">07:30</p>
+                                <p class="text-xs text-gray-400 uppercase font-medium">Power Yoga</p>
+                            </div>
+                            <span class="text-[10px] bg-green-50 text-green-600 px-3 py-1 rounded-full font-bold">5 Lugares</span>
+                        </li>
+                        <li class="flex justify-between items-start opacity-30">
+                            <div>
+                                <p class="text-lg font-bold">09:00</p>
+                                <p class="text-xs text-gray-400 uppercase font-medium">Morning Flow</p>
+                            </div>
+                            <span class="text-[10px] bg-red-50 text-red-600 px-3 py-1 rounded-full font-bold">Lleno</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="py-4 md:py-0">
+                    <h5 class="text-[10px] font-bold uppercase text-sage-400 mb-6 tracking-widest">Tarde</h5>
+                    <ul class="space-y-8">
+                        <li class="flex justify-between items-start">
+                            <div>
+                                <p class="text-lg font-bold">17:00</p>
+                                <p class="text-xs text-gray-400 uppercase font-medium">Pilates Mat</p>
+                            </div>
+                            <span class="text-[10px] bg-green-50 text-green-600 px-3 py-1 rounded-full font-bold">Libre</span>
+                        </li>
+                        <li class="flex justify-between items-start">
+                             <div>
+                                <p class="text-lg font-bold">18:30</p>
+                                <p class="text-xs text-gray-400 uppercase font-medium">Hatha Básico</p>
+                            </div>
+                            <span class="text-[10px] bg-green-50 text-green-600 px-3 py-1 rounded-full font-bold">8 Lugares</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="py-4 md:py-0">
+                    <h5 class="text-[10px] font-bold uppercase text-gray-300 mb-6 tracking-widest">Noche</h5>
+                    <ul class="space-y-8">
+                        <li class="flex justify-between items-start">
+                             <div>
+                                <p class="text-lg font-bold">20:00</p>
+                                <p class="text-xs text-gray-400 uppercase font-medium">Yoga Nidra</p>
+                            </div>
+                            <span class="text-[10px] bg-green-50 text-green-600 px-3 py-1 rounded-full font-bold">Libre</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App / Journaling -->
+    <section class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-purple-50 rounded-[60px] p-12 md:p-20 flex flex-col md:flex-row items-center gap-16 overflow-hidden relative">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white rounded-full opacity-50 blur-[40px]"></div>
+                
+                <div class="z-10 text-center md:text-left">
+                    <h3 class="text-4xl font-serif text-gray-800 mb-6">Tu Diario de Bienestar</h3>
+                    <p class="text-gray-500 mb-8 max-w-sm">Registra tu progreso, sigue nuestras guías de meditación en casa y gestiona tus reservas desde nuestra nueva App.</p>
+                    <div class="flex gap-4 justify-center md:justify-start">
+                        <i class="ti ti-brand-apple text-3xl opacity-20 hover:opacity-100 transition cursor-pointer"></i>
+                        <i class="ti ti-brand-android text-3xl opacity-20 hover:opacity-100 transition cursor-pointer"></i>
+                    </div>
+                </div>
+
+                <div class="relative w-full max-w-xs md:max-w-md">
+                    <div class="bg-white p-6 rounded-[30px] soft-shadow">
+                        <div class="flex items-center gap-4 mb-6 border-b border-gray-50 pb-4">
+                            <div class="w-10 h-10 bg-purple-50 rounded-full flex items-center justify-center text-purple-400"><i class="ti ti-sun"></i></div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800">Buenos Días, Alma</p>
+                                <p class="text-[10px] text-gray-400">¿Cómo te sientes hoy?</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 gap-2">
+                             <template x-for="i in 4">
+                                <div class="h-1 bg-gray-50 rounded-full overflow-hidden">
+                                     <div class="bg-purple-300 h-full w-2/3"></div>
+                                </div>
+                             </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col items-center gap-8">
+                <div class="flex items-center gap-2">
+                    <i class="ti ti-flower text-2xl text-sage-600"></i>
+                    <span class="text-xl font-serif font-bold tracking-tight">Zenith <span class="italic font-light text-gray-400">Wellness</span></span>
+                </div>
+                
+                <div class="flex gap-12 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                    <a href="#" class="hover:text-gray-800 transition">Cookies</a>
+                    <a href="#" class="hover:text-gray-800 transition">Privacidad</a>
+                    <a href="#" class="hover:text-gray-800 transition">Términos</a>
+                </div>
+
+                <p class="text-[8px] font-bold text-gray-300 uppercase tracking-[0.4em]">© 2024 Zenith Yoga Studio • Respira Bolivia</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "image": "imgs/template.webp",
+  "title": "HealthStore - Premium Wellness & Supplements Template",
+  "description": "A clean, modern, and responsive e-commerce template for health and wellness stores. Features include a flying-to-cart animation, parallax backgrounds, and an interactive product gallery. Built with Tailwind CSS, Alpine.js, and Anime.js.",
+  "demo": "template-healthstore/index.html",
+  "category": "health",
+  "tags": [
+    "healthcare",
+    "wellness",
+    "ecommerce",
+    "tailwindcss",
+    "alpinejs",
+    "animejs",
+    "modern",
+    "clean"
+  ],
+  "version": "1.0.0",
+  "date": "2026-01-05",
+  "github": "https://github.com/abelrgr/template-healthstore.git"
+}

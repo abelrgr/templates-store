@@ -1,0 +1,18 @@
+{
+    "id": "petrelocate_global",
+    "name": "PetRelocate International",
+    "description": "Heart-centered global pet transportation and relocation services template with compliance and comfort features.",
+    "category": "Logistics & Moving",
+    "theme": {
+        "primary_color": "#008080",
+        "secondary_color": "#FFDAB9",
+        "accent_color": "#FFFFFF",
+        "font_family": "Quicksand, sans-serif"
+    },
+    "features": [
+        "Interactive pet travel checklist",
+        "International IPATA compliance tracker",
+        "Live comfort-monitor status mockup",
+        "Pet-friendly flight search simulator"
+    ]
+}

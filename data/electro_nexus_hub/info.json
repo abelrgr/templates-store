@@ -1,0 +1,19 @@
+{
+    "id": "electro_nexus_hub",
+    "name": "ElectroNexus Tech Hub",
+    "category": "Retail",
+    "description": "A high-performance electronics store template featuring dynamic tech specifications, interactive product compare, and high-tech aesthetics.",
+    "tags": ["Electronics", "E-commerce", "Tech", "Computing", "Gaming"],
+    "features": [
+        "Product Spec Comparison",
+        "Dynamic Cart with Tech-Style UI",
+        "Dark Mode Optimized",
+        "Filterable Component Search",
+        "Pre-order countdowns"
+    ],
+    "colors": {
+        "primary": "#3B82F6",
+        "secondary": "#06B6D4",
+        "accent": "#F59E0B"
+    }
+}

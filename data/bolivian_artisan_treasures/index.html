@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ cartCount: 0, region: 'potosi', modalOpen: false, selectedStory: null }" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artesanía & Herencia | Tesoros de Bolivia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        heritage: {
+                            terracotta: '#D35400',
+                            clay: '#A04000',
+                            sand: '#F7DC6F',
+                            indigo: '#2D3436',
+                            cream: '#FCF3CF',
+                            gold: '#F1C40F'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Lora', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .pattern-overlay {
+            background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
+        }
+        .aguayo-border {
+            background: repeating-linear-gradient(
+                90deg,
+                #D35400, #D35400 10px,
+                #F1C40F 10px, #F1C40F 20px,
+                #27AE60 20px, #27AE60 30px,
+                #2980B9 30px, #2980B9 40px
+            );
+            height: 4px;
+        }
+    </style>
+</head>
+<body class="bg-heritage-cream/50 text-heritage-indigo font-sans">
+
+    <!-- Patterned Header -->
+    <div class="aguayo-border"></div>
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-heritage-terracotta/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-heritage-terracotta rounded-full flex items-center justify-center text-white shadow-lg">
+                        <i class="ti ti-pyramid text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-serif font-bold tracking-tight text-heritage-terracotta">Artesanía & Herencia</span>
+                </a>
+                <nav class="hidden lg:flex gap-8 text-sm font-semibold uppercase tracking-widest text-heritage-indigo/70">
+                    <a href="#catalogo" class="hover:text-heritage-terracotta transition">Tienda</a>
+                    <a href="#historia" class="hover:text-heritage-terracotta transition">Artistas</a>
+                    <a href="#regiones" class="hover:text-heritage-terracotta transition">Regiones</a>
+                </nav>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <div class="hidden sm:flex items-center gap-2 text-xs font-bold text-heritage-terracotta">
+                    <i class="ti ti-world"></i>
+                    Envío Internacional
+                </div>
+                <div class="relative group cursor-pointer" @click="modalOpen = true">
+                    <i class="ti ti-shopping-cart text-2xl text-heritage-terracotta"></i>
+                    <span class="absolute -top-2 -right-2 bg-heritage-indigo text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold" x-text="cartCount"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero: Cultural Focus -->
+    <section class="relative h-[80vh] flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1590422440673-868d4924c878?auto=format&fit=crop&q=80&w=1600" class="w-full h-full object-cover" alt="Bolivian Textiles">
+            <div class="absolute inset-0 bg-gradient-to-r from-heritage-indigo via-heritage-indigo/60 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 text-white">
+            <div class="max-w-2xl">
+                <span class="inline-block bg-heritage-terracotta px-4 py-1 text-[10px] uppercase font-bold tracking-[0.3em] mb-6">Autenticidad desde los Andes</span>
+                <h1 class="text-6xl lg:text-7xl font-serif leading-[1.1] mb-8">Cada pieza cuenta una <span class="italic text-heritage-sand">historia sagrada.</span></h1>
+                <p class="text-xl opacity-90 mb-10 leading-relaxed font-light">Directo de las manos de maestros artesanos de Potosí, La Paz y Sucre. Piezas únicas que preservan siglos de sabiduría ancestral.</p>
+                <div class="flex gap-4">
+                    <a href="#catalogo" class="bg-heritage-sand text-heritage-indigo px-8 py-4 font-bold rounded-sm shadow-xl hover:bg-white transition flex items-center gap-2">
+                        Explorar Catálogo <i class="ti ti-arrow-right"></i>
+                    </a>
+                    <a href="#historia" class="bg-white/10 backdrop-blur-md border border-white/30 px-8 py-4 font-bold rounded-sm hover:bg-white/20 transition">
+                        Nuestra Misión
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Float Map Navigation -->
+        <div class="absolute right-12 bottom-12 hidden xl:block">
+            <div class="bg-white/90 backdrop-blur p-6 rounded-2xl shadow-2xl border border-heritage-terracotta/20 max-w-xs">
+                <h3 class="font-serif font-bold text-heritage-terracotta mb-4">Filtrar por Origen</h3>
+                <div class="space-y-3">
+                    <button @click="region = 'la-paz'" :class="region === 'la-paz' ? 'text-heritage-terracotta font-bold' : 'opacity-60'" class="flex items-center gap-3 w-full text-left text-sm hover:opacity-100 transition">
+                        <i class="ti ti-map-pin"></i> La Paz (Textiles & Cerámica)
+                    </button>
+                    <button @click="region = 'potosi'" :class="region === 'potosi' ? 'text-heritage-terracotta font-bold' : 'opacity-60'" class="flex items-center gap-3 w-full text-left text-sm hover:opacity-100 transition">
+                        <i class="ti ti-map-pin"></i> Potosí (Platería Real)
+                    </button>
+                    <button @click="region = 'sucre'" :class="region === 'sucre' ? 'text-heritage-terracotta font-bold' : 'opacity-60'" class="flex items-center gap-3 w-full text-left text-sm hover:opacity-100 transition">
+                        <i class="ti ti-map-pin"></i> Sucre (Tejidos Jalq'a)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curator's Selection -->
+    <section id="catalogo" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div>
+                <h2 class="text-4xl font-serif text-heritage-terracotta mb-4">Selección de Curaduría</h2>
+                <p class="text-heritage-indigo/60 max-w-xl">Obras maestras seleccionadas por su calidad técnica y fidelidad a los métodos tradicionales de producción.</p>
+            </div>
+            <div class="flex gap-4">
+                <button class="w-12 h-12 rounded-full border border-heritage-terracotta/20 flex items-center justify-center hover:bg-heritage-terracotta hover:text-white transition">
+                    <i class="ti ti-chevron-left"></i>
+                </button>
+                <button class="w-12 h-12 rounded-full border border-heritage-terracotta/20 flex items-center justify-center hover:bg-heritage-terracotta hover:text-white transition">
+                    <i class="ti ti-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Item 1 -->
+            <div class="group">
+                <div class="relative aspect-[3/4] overflow-hidden bg-heritage-cream mb-6 rounded-xs shadow-md">
+                    <img src="https://images.unsplash.com/photo-1520038410233-7141be7e6f97?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Ceramic">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-heritage-indigo text-white text-[9px] px-2 py-1 font-bold rounded-sm uppercase italic">Pieza Única</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h3 class="font-serif text-xl mb-1">Tinaja de Barro Cocido</h3>
+                    <p class="text-xs text-heritage-indigo/50 mb-4 uppercase tracking-widest">Master: Mamani S.</p>
+                    <div class="font-bold text-heritage-terracotta text-lg mb-4">Bs. 450</div>
+                    <button @click="cartCount++" class="w-full border-2 border-heritage-terracotta py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-heritage-terracotta hover:text-white transition group-hover:shadow-lg">
+                        Añadir al Tesoro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="group">
+                <div class="relative aspect-[3/4] overflow-hidden bg-heritage-cream mb-6 rounded-xs shadow-md">
+                    <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Textile">
+                    <div class="absolute bottom-4 right-4 group-hover:translate-x-0 translate-x-12 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <button class="bg-white/90 p-2 shadow-lg rounded-full"><i class="ti ti-zoom-in text-heritage-terracotta"></i></button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h3 class="font-serif text-xl mb-1">Aguayo Real Tarabuco</h3>
+                    <p class="text-xs text-heritage-indigo/50 mb-4 uppercase tracking-widest">Tejido en Telar de Cintura</p>
+                    <div class="font-bold text-heritage-terracotta text-lg mb-4">Bs. 1,200</div>
+                    <button @click="cartCount++" class="w-full border-2 border-heritage-terracotta py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-heritage-terracotta hover:text-white transition group-hover:shadow-lg">
+                        Añadir al Tesoro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="group">
+                <div class="relative aspect-[3/4] overflow-hidden bg-heritage-cream mb-6 rounded-xs shadow-md">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Silver">
+                </div>
+                <div class="text-center">
+                    <h3 class="font-serif text-xl mb-1">Pendientes de Filigrana</h3>
+                    <p class="text-xs text-heritage-indigo/50 mb-4 uppercase tracking-widest">Plata 925 Certificada</p>
+                    <div class="font-bold text-heritage-terracotta text-lg mb-4">Bs. 890</div>
+                    <button @click="cartCount++" class="w-full border-2 border-heritage-terracotta py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-heritage-terracotta hover:text-white transition group-hover:shadow-lg">
+                        Añadir al Tesoro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="group">
+                <div class="relative aspect-[3/4] overflow-hidden bg-heritage-cream mb-6 rounded-xs shadow-md">
+                    <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Sculpture">
+                </div>
+                <div class="text-center">
+                    <h3 class="font-serif text-xl mb-1">Máscara Diablada Mini</h3>
+                    <p class="text-xs text-heritage-indigo/50 mb-4 uppercase tracking-widest">Oruro Folk Art</p>
+                    <div class="font-bold text-heritage-terracotta text-lg mb-4">Bs. 320</div>
+                    <button @click="cartCount++" class="w-full border-2 border-heritage-terracotta py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-heritage-terracotta hover:text-white transition group-hover:shadow-lg">
+                        Añadir al Tesoro
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artisan Feature Section -->
+    <section id="historia" class="bg-heritage-indigo py-32 overflow-hidden pattern-overlay">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1621801306185-99201a09d6f3?auto=format&fit=crop&q=80&w=800" class="rounded-xl shadow-2xl relative z-10" alt="Artisan">
+                <div class="absolute -top-10 -left-10 w-full h-full border-4 border-heritage-sand/30 rounded-xl"></div>
+                <div class="absolute bottom-8 left-8 bg-white p-6 rounded-lg shadow-xl z-20 max-w-xs">
+                    <div class="flex gap-1 text-heritage-sand mb-2">
+                        <i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
+                    </div>
+                    <p class="text-sm font-medium italic">"Mi abuela me enseñó el secreto del tinte natural. Hoy, yo lo preservo para el mundo."</p>
+                    <p class="text-xs mt-4 font-bold text-heritage-terracotta uppercase">— Doña Faustina, Tejedora de Jalq'a</p>
+                </div>
+            </div>
+
+            <div class="text-white">
+                <h2 class="text-5xl font-serif mb-8 leading-tight">Comercio <span class="text-heritage-sand">Justo</span> y Transparente.</h2>
+                <div class="space-y-8">
+                    <div class="flex gap-6">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center text-heritage-sand shrink-0">
+                            <i class="ti ti-certificate text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Certificado de Origen</h4>
+                            <p class="text-white/60 text-sm">Cada compra incluye un documento que detalla el origen, materiales y la historia del artesano creador.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center text-heritage-sand shrink-0">
+                            <i class="ti ti-hand-stop text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Pago Directo</h4>
+                            <p class="text-white/60 text-sm">El 70% del valor total va directamente a la comunidad artesana, eliminando intermediarios innecesarios.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="mt-12 bg-heritage-terracotta text-white px-10 py-5 font-bold rounded hover:bg-heritage-clay transition">
+                    Conoce a nuestros Maestros
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg- heritage-cream/20 py-24 px-6 border-t border-heritage-terracotta/10">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-2">
+                <span class="text-2xl font-serif font-bold text-heritage-terracotta block mb-6">Artesanía & Herencia</span>
+                <p class="text-heritage-indigo/60 max-w-md leading-relaxed">Promovemos la cultura boliviana a través de piezas de arte genuinas, asegurando que el legado de nuestros antepasados siga vivo en cada hogar del mundo.</p>
+                <div class="flex gap-4 mt-8">
+                    <a href="#" class="w-10 h-10 bg-heritage-terracotta text-white rounded-full flex items-center justify-center hover:scale-110 transition"><i class="ti ti-brand-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 bg-heritage-terracotta text-white rounded-full flex items-center justify-center hover:scale-110 transition"><i class="ti ti-brand-facebook"></i></a>
+                    <a href="#" class="w-10 h-10 bg-heritage-terracotta text-white rounded-full flex items-center justify-center hover:scale-110 transition"><i class="ti ti-brand-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-heritage-terracotta uppercase text-xs tracking-widest mb-8">Información</h4>
+                <ul class="space-y-4 text-sm font-medium opacity-70">
+                    <li><a href="#" class="hover:text-heritage-terracotta">Políticas de Envío</a></li>
+                    <li><a href="#" class="hover:text-heritage-terracotta">Garantía de Autenticidad</a></li>
+                    <li><a href="#" class="hover:text-heritage-terracotta">Cuidado de Piezas</a></li>
+                    <li><a href="#" class="hover:text-heritage-terracotta">Ventas por Mayoreo</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-heritage-terracotta uppercase text-xs tracking-widest mb-8">Contacto</h4>
+                <div class="space-y-4 text-sm opacity-70">
+                    <p class="flex items-center gap-2"><i class="ti ti-mail"></i> hola@artesaniaherencia.bo</p>
+                    <p class="flex items-center gap-2"><i class="ti ti-phone"></i> +591 2 244-XXXX</p>
+                    <p class="flex items-center gap-2"><i class="ti ti-map-pin"></i> Calle Sagárnaga, La Paz - Bolivia</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-heritage-terracotta/5 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold opacity-40 uppercase tracking-[0.2em]">
+            <p>&copy; 2024 Artesanía & Herencia Bolivia. Orgullosamente Hecho en Bolivia.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <span>Términos y Condiciones</span>
+                <span>Privacidad</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Simple Cart Overlay (Logic only) -->
+    <div x-show="modalOpen" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-6">
+        <div class="absolute inset-0 bg-heritage-indigo/80 backdrop-blur-sm" @click="modalOpen = false"></div>
+        <div class="bg-white w-full max-w-lg rounded-xl shadow-2xl relative z-10 overflow-hidden">
+            <div class="p-8 border-b">
+                <h2 class="text-2xl font-serif text-heritage-terracotta">Tu Carrito de Tesoros</h2>
+            </div>
+            <div class="p-8 h-64 flex flex-col items-center justify-center text-center opacity-40">
+                <i class="ti ti-package text-6xl mb-4"></i>
+                <p>Tu selección está vacía por ahora.</p>
+                <button @click="modalOpen = false" class="mt-8 text-heritage-terracotta font-bold underline">Volver a la tienda</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

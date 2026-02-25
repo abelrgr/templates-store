@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympus Multisport Complex | Elite Training Facility</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Archivo+Black&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .font-display { font-family: 'Archivo+Black', sans-serif; }
+        .bg-navy { background-color: #1B365D; }
+        .text-navy { color: #1B365D; }
+        .bg-flame { background-color: #FF4500; }
+        .text-flame { color: #FF4500; }
+        .border-flame { border-color: #FF4500; }
+        .clip-slant { clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%); }
+        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 overflow-x-hidden" x-data="olympusApp()">
+
+    <!-- Header Navigation -->
+    <nav class="fixed w-full z-50 bg-navy/95 text-white border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-flame rounded flex items-center justify-center">
+                <i class="ti ti-trophy text-2xl"></i>
+            </div>
+            <span class="font-display text-xl tracking-tighter">OLYMPUS</span>
+        </div>
+        <div class="hidden md:flex gap-8 font-bold text-sm uppercase">
+            <a href="#facilidades" class="hover:text-flame transition">Instalaciones</a>
+            <a href="#academias" class="hover:text-flame transition">Academias</a>
+            <a href="#reservas" class="hover:text-flame transition">Reservas</a>
+            <a href="#eventos" class="hover:text-flame transition">Eventos</a>
+        </div>
+        <button class="bg-flame hover:bg-orange-600 px-5 py-2 rounded font-bold transition flex items-center gap-2">
+            <i class="ti ti-user-circle"></i> Mi Portal
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center overflow-hidden bg-navy">
+        <div class="absolute inset-0 opacity-40">
+            <img src="https://images.unsplash.com/photo-1541252260730-0412e8e2108e?auto=format&fit=crop&q=80&w=2000" alt="Training" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/60 to-transparent"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl">
+                <span class="inline-block bg-flame text-white px-3 py-1 text-sm font-black mb-6 animate-bounce">EL ESTÁNDAR OLÍMPICO</span>
+                <h1 class="font-display text-6xl md:text-8xl text-white leading-none mb-8">FORJAMOS<br><span class="text-flame">CAMPEONES</span></h1>
+                <p class="text-xl text-slate-300 mb-10 max-w-xl">El complejo multideportivo más avanzado de la región. Tenis, natación, artes marciales y alto rendimiento en un solo lugar.</p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="bg-white text-navy px-8 py-4 rounded-full font-black text-lg hover:bg-flame hover:text-white transition-all transform hover:scale-105 shadow-xl">
+                        EXPLORAR SEDE
+                    </button>
+                    <button class="border-2 border-white/30 text-white px-8 py-4 rounded-full font-black text-lg hover:border-flame transition backdrop-blur-sm">
+                        RESERVAR CANCHA
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Live Ticker -->
+        <div class="absolute bottom-0 w-full bg-flame text-white py-3 whitespace-nowrap overflow-hidden">
+            <div class="animate-marquee inline-block">
+                🎾 Torneo Abierto de Tenis: Inscripciones abiertas • 🏊 Piscina Olímpica: Mantenimiento completado • 🏀 Liga Juvenil de Basket: Final este sábado • 🥋 Masterclass de Karate con Sensei Tanaka: Cupos limitados • 
+            </div>
+            <div class="animate-marquee inline-block">
+                🎾 Torneo Abierto de Tenis: Inscripciones abiertas • 🏊 Piscina Olímpica: Mantenimiento completado • 🏀 Liga Juvenil de Basket: Final este sábado • 🥋 Masterclass de Karate con Sensei Tanaka: Cupos limitados • 
+            </div>
+        </div>
+    </header>
+
+    <!-- Facilities Grid -->
+    <section id="facilidades" class="py-24 container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+            <div>
+                <h2 class="text-4xl font-display text-navy uppercase">Instalaciones de Clase Mundial</h2>
+                <p class="text-slate-500 mt-2">Tecnología y confort para cada disciplina.</p>
+            </div>
+            <div class="hidden md:flex gap-2">
+                <button class="p-4 rounded-full bg-slate-200 hover:bg-navy hover:text-white transition"><i class="ti ti-chevron-left"></i></button>
+                <button class="p-4 rounded-full bg-slate-200 hover:bg-navy hover:text-white transition"><i class="ti ti-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <!-- Facility 1 -->
+            <div class="group relative overflow-hidden rounded-2xl h-[450px]">
+                <img src="https://images.unsplash.com/photo-1595435064219-510ccbdbd93f?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                <div class="absolute bottom-0 p-6">
+                    <span class="bg-flame text-[10px] font-bold px-2 py-0.5 rounded text-white mb-2 inline-block">6 CANCHAS</span>
+                    <h3 class="text-2xl font-display text-white">TENIS PRO</h3>
+                    <p class="text-slate-300 text-sm mt-2 opacity-0 group-hover:opacity-100 transition duration-500">Superficie dura certificada y clínicas personalizadas.</p>
+                </div>
+            </div>
+
+            <!-- Facility 2 -->
+            <div class="group relative overflow-hidden rounded-2xl h-[450px]">
+                <img src="https://images.unsplash.com/photo-1519315901367-f34ff9154487?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                <div class="absolute bottom-0 p-6">
+                    <span class="bg-blue-600 text-[10px] font-bold px-2 py-0.5 rounded text-white mb-2 inline-block">OLÍMPICA</span>
+                    <h3 class="text-2xl font-display text-white">NATACIÓN</h3>
+                    <p class="text-slate-300 text-sm mt-2 opacity-0 group-hover:opacity-100 transition duration-500">Piscina de 50 metros con control de temperatura inteligente.</p>
+                </div>
+            </div>
+
+            <!-- Facility 3 -->
+            <div class="group relative overflow-hidden rounded-2xl h-[450px]">
+                <img src="https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                <div class="absolute bottom-0 p-6">
+                    <span class="bg-orange-500 text-[10px] font-bold px-2 py-0.5 rounded text-white mb-2 inline-block">TABLONCILLO</span>
+                    <h3 class="text-2xl font-display text-white">MULTI-ARENA</h3>
+                    <p class="text-slate-300 text-sm mt-2 opacity-0 group-hover:opacity-100 transition duration-500">Ideal para Basketball, Volleyball y Badminton.</p>
+                </div>
+            </div>
+
+            <!-- Facility 4 -->
+            <div class="group relative overflow-hidden rounded-2xl h-[450px]">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                <div class="absolute bottom-0 p-6">
+                    <span class="bg-slate-700 text-[10px] font-bold px-2 py-0.5 rounded text-white mb-2 inline-block">ELITE AREA</span>
+                    <h3 class="text-2xl font-display text-white">GYM & CROSS</h3>
+                    <p class="text-slate-300 text-sm mt-2 opacity-0 group-hover:opacity-100 transition duration-500">Zona de pesas, cardio y entrenamiento funcional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Booking Tabbed System -->
+    <section id="reservas" class="py-24 bg-navy text-white relative overflow-hidden">
+        <!-- Abstract Background -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-flame/10 rounded-full blur-[100px]"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-display mb-4">RESERVA TU ESPACIO</h2>
+                <div class="w-24 h-1 bg-flame mx-auto"></div>
+            </div>
+
+            <div class="bg-white/5 rounded-3xl p-8 backdrop-blur-md border border-white/10 shadow-2xl">
+                <!-- Sport Selector -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <template x-for="sport in sportsList" :key="sport.id">
+                        <button 
+                            @click="selectedSport = sport.id"
+                            :class="selectedSport === sport.id ? 'bg-flame text-white scale-110' : 'bg-white/10 text-slate-400 hover:bg-white/20'"
+                            class="px-6 py-3 rounded-full font-bold transition-all duration-300 flex items-center gap-2"
+                        >
+                            <i :class="sport.icon"></i>
+                            <span x-text="sport.name"></span>
+                        </button>
+                    </template>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Configurator -->
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-sm font-bold uppercase text-slate-400 mb-4">Selecciona Fecha</label>
+                            <div class="flex gap-2 overflow-x-auto pb-4 scrollbar-hide">
+                                <template x-for="day in nextWeek" :key="day.date">
+                                    <button 
+                                        @click="selectedDate = day.date"
+                                        :class="selectedDate === day.date ? 'border-flame bg-flame/20' : 'border-white/10 hover:border-white/30'"
+                                        class="min-w-[80px] text-center p-4 border-2 rounded-xl transition cursor-pointer"
+                                    >
+                                        <div class="text-[10px] uppercase opacity-50" x-text="day.name"></div>
+                                        <div class="text-xl font-display" x-text="day.day"></div>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold uppercase text-slate-400 mb-4">Horarios Disponibles</label>
+                            <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                                <template x-for="time in timeSlots" :key="time">
+                                    <button 
+                                        @click="selectedTime = time"
+                                        :class="selectedTime === time ? 'bg-flame text-white' : 'bg-white/10 text-slate-300 hover:bg-white/20'"
+                                        class="py-3 px-4 rounded-lg font-bold text-sm transition"
+                                        x-text="time"
+                                    ></button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 bg-flame/10 rounded-xl border border-flame/30">
+                            <i class="ti ti-info-circle text-2xl text-flame"></i>
+                            <p class="text-sm">El alquiler incluye acceso a vestuarios y 2 botellas de agua mineral.</p>
+                        </div>
+                    </div>
+
+                    <!-- Summary Card -->
+                    <div class="bg-white text-navy rounded-2xl p-8 flex flex-col justify-between shadow-xl">
+                        <div>
+                            <h4 class="font-display text-2xl mb-6">Detalle de Reserva</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b pb-4">
+                                    <span class="text-slate-500">Deporte</span>
+                                    <span class="font-bold uppercase" x-text="sportsList.find(s => s.id === selectedSport)?.name"></span>
+                                </div>
+                                <div class="flex justify-between items-center border-b pb-4">
+                                    <span class="text-slate-500">Fecha</span>
+                                    <span class="font-bold" x-text="selectedDate"></span>
+                                </div>
+                                <div class="flex justify-between items-center border-b pb-4">
+                                    <span class="text-slate-500">Hora</span>
+                                    <span class="font-bold" x-text="selectedTime || 'No seleccionado'"></span>
+                                </div>
+                                <div class="flex justify-between items-center pt-4">
+                                    <span class="text-slate-500">Costo Estimado</span>
+                                    <span class="text-3xl font-display text-flame" x-text="'$' + (sportsList.find(s => s.id === selectedSport)?.price || 0)"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-navy text-white py-5 rounded-xl font-bold mt-10 hover:bg-slate-800 transition shadow-lg flex items-center justify-center gap-2">
+                            CONFIRMAR Y PAGAR <i class="ti ti-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Peak Hours Visualizer -->
+    <section class="py-24 container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <span class="text-flame font-bold">MONITOREO EN VIVO</span>
+                <h2 class="text-4xl font-display text-navy mt-4 mb-6">FLUJO DE ATLETAS</h2>
+                <p class="text-slate-600 mb-8 leading-relaxed">
+                    Visualiza en tiempo real la concurrencia en nuestras instalaciones para planificar mejor tu entrenamiento. Olympus utiliza sensores IoT para garantizar que nunca entrenes en un espacio saturado.
+                </p>
+                <div class="space-y-6">
+                    <div x-data="{ level: 85 }">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">Gimnasio & Cardio</span>
+                            <span class="text-flame font-black" x-text="level + '%'"></span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+                            <div class="bg-flame h-full transition-all duration-1000" :style="`width: ${level}%`"></div>
+                        </div>
+                    </div>
+                    <div x-data="{ level: 40 }">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">Piscina Olímpica</span>
+                            <span class="text-blue-600 font-black" x-text="level + '%'"></span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+                            <div class="bg-blue-600 h-full transition-all duration-1000" :style="`width: ${level}%`"></div>
+                        </div>
+                    </div>
+                    <div x-data="{ level: 60 }">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">Canchas de Tenis</span>
+                            <span class="text-green-600 font-black" x-text="level + '%'"></span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+                            <div class="bg-green-600 h-full transition-all duration-1000" :style="`width: ${level}%`"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="bg-navy rounded-3xl p-8 text-white shadow-3xl">
+                    <h3 class="font-display text-xl mb-6">Tendencia Semanal (Hrs Pico)</h3>
+                    <div class="flex items-end justify-between h-48 gap-2">
+                        <template x-for="h in [20, 35, 50, 40, 90, 80, 50, 30, 45, 70, 60, 40]" :key="Math.random()">
+                            <div class="w-full bg-flame/30 hover:bg-flame transition rounded-t-lg relative group" :style="`height: ${h}%`">
+                                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-navy text-[10px] px-1 rounded opacity-0 group-hover:opacity-100 transition" x-text="h + '%'"></div>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="flex justify-between mt-4 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                        <span>06:00</span>
+                        <span>12:00</span>
+                        <span>18:00</span>
+                        <span>22:00</span>
+                    </div>
+                </div>
+                <!-- Floating Card -->
+                <div class="absolute -bottom-10 -left-10 bg-white p-6 rounded-2xl shadow-2xl border border-slate-100 hidden md:block">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                            <i class="ti ti-clock-check text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-bold">PRÓXIMO HUECO LIBRE</p>
+                            <p class="font-display text-lg text-navy">13:30 - Cancha 4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academies & Programs -->
+    <section id="academias" class="py-24 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-display text-navy mb-4">NUESTRAS ACADEMIAS</h2>
+                <div class="w-20 h-1 bg-flame mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Academy card -->
+                <div class="bg-white rounded-3xl p-10 shadow-xl border border-white hover:border-flame transition-all group">
+                    <div class="w-16 h-16 bg-navy text-white rounded-2xl flex items-center justify-center mb-8 group-hover:bg-flame transition">
+                        <i class="ti ti-ball-tennis text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display text-navy mb-4">Tenis Élite</h3>
+                    <p class="text-slate-500 mb-8">Programa oficial para competitores nacionales e internacionales. Metodología ITF.</p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Coaching 1-a-1</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Análisis de Video</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Psicoterapia Deportiva</li>
+                    </ul>
+                    <button class="w-full border-2 border-navy text-navy hover:bg-navy hover:text-white py-4 rounded-xl font-bold transition">PRE-INSCRICIÓN</button>
+                </div>
+
+                <div class="bg-white rounded-3xl p-10 shadow-xl border border-white hover:border-flame transition-all group">
+                    <div class="w-16 h-16 bg-navy text-white rounded-2xl flex items-center justify-center mb-8 group-hover:bg-flame transition">
+                        <i class="ti ti-swimmer text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display text-navy mb-4">Tiburones Olympus</h3>
+                    <p class="text-slate-500 mb-8">Escuela de natación desde niveles iniciales hasta selección de alto rendimiento.</p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Estilos Olímpicos</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Aqua-Fitness</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Competición Federada</li>
+                    </ul>
+                    <button class="w-full border-2 border-navy text-navy hover:bg-navy hover:text-white py-4 rounded-xl font-bold transition">PRE-INSCRICIÓN</button>
+                </div>
+
+                <div class="bg-white rounded-3xl p-10 shadow-xl border border-white hover:border-flame transition-all group">
+                    <div class="w-16 h-16 bg-navy text-white rounded-2xl flex items-center justify-center mb-8 group-hover:bg-flame transition">
+                        <i class="ti ti-fencing text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display text-navy mb-4">Artes Marciales</h3>
+                    <p class="text-slate-500 mb-8">Dojo especializado en Karate, Judo y Brazilian Jiu-Jitsu. Disciplina y mente.</p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Senseis Certificados</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Defensa Personal</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><i class="ti ti-check text-flame"></i> Exámenes de Grado</li>
+                    </ul>
+                    <button class="w-full border-2 border-navy text-navy hover:bg-navy hover:text-white py-4 rounded-xl font-bold transition">PRE-INSCRICIÓN</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-20 px-6">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-8 h-8 bg-flame rounded flex items-center justify-center">
+                            <i class="ti ti-trophy text-xl"></i>
+                        </div>
+                        <span class="font-display text-xl tracking-tighter">OLYMPUS</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Redefiniendo el entrenamiento deportivo en Bolivia con infraestructura de vanguardia y programas de alto impacto.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display mb-8">EXPLORA</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-flame transition">Sedes</a></li>
+                        <li><a href="#" class="hover:text-flame transition">Membresías</a></li>
+                        <li><a href="#" class="hover:text-flame transition">Coach Online</a></li>
+                        <li><a href="#" class="hover:text-flame transition">App Olympus</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display mb-8">CONTACTO</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm">
+                        <li class="flex items-center gap-3"><i class="ti ti-map-pin text-flame"></i> Av. Circunvalación #450</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-phone text-flame"></i> +591 4 4567890</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-mail text-flame"></i> info@olympus.bo</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display mb-8">NEWSLETTER</h4>
+                    <p class="text-slate-400 text-sm mb-4">Recibe tips de entrenamiento y ofertas.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/10 border border-white/20 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-flame">
+                        <button class="bg-flame p-2 rounded-lg hover:bg-orange-600 transition"><i class="ti ti-send"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:row justify-between items-center gap-6">
+                <p class="text-slate-500 text-xs">© 2024 Olympus Multisport Complex. Todos los derechos reservados.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-flame transition"><i class="ti ti-brand-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-flame transition"><i class="ti ti-brand-facebook"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-flame transition"><i class="ti ti-brand-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function olympusApp() {
+            return {
+                selectedSport: 'tennis',
+                selectedDate: '2024-05-20',
+                selectedTime: '',
+                sportsList: [
+                    { id: 'tennis', name: 'Tenis', icon: 'ti ti-ball-tennis', price: 45 },
+                    { id: 'swimming', name: 'Natación', icon: 'ti ti-swimmer', price: 30 },
+                    { id: 'basket', name: 'Multi-Arena', icon: 'ti ti-ball-basketball', price: 60 },
+                    { id: 'gym', name: 'Elite Gym', icon: 'ti ti-barbell', price: 25 },
+                    { id: 'combat', name: 'Combat Room', icon: 'ti ti-fencing', price: 35 }
+                ],
+                timeSlots: ['07:00', '08:30', '10:00', '11:30', '13:00', '14:30', '16:00', '17:30', '19:00', '20:30'],
+                nextWeek: [
+                    { name: 'Lun', day: '20', date: '2024-05-20' },
+                    { name: 'Mar', day: '21', date: '2024-05-21' },
+                    { name: 'Mie', day: '22', date: '2024-05-22' },
+                    { name: 'Jue', day: '23', date: '2024-05-23' },
+                    { name: 'Vie', day: '24', date: '2024-05-24' },
+                    { name: 'Sab', day: '25', date: '2024-05-25' },
+                    { name: 'Dom', day: '26', date: '2024-05-26' }
+                ]
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</body>
+</html>

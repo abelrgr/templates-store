@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan Fitness | No Excuses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Inter', sans-serif; background-color: #080808; color: #ffffff; }
+        .font-mono { font-family: 'Roboto+Mono', monospace; }
+        
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+        }
+
+        .outline-text {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            color: transparent;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scanline {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 0, 0.1);
+            animation: scanline 4s linear infinite;
+        }
+
+        .btn-neon {
+            position: relative;
+            background: #00FF00;
+            color: #000;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .btn-neon:hover {
+            box-shadow: 0 0 30px #00FF00;
+            transform: scale(1.05);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body x-data="{ 
+    weight: 70, 
+    height: 175, 
+    bmi: 22.9,
+    calculateBMI() {
+        let h = this.height / 100;
+        this.bmi = (this.weight / (h * h)).toFixed(1);
+    },
+    scrolled: false
+}" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigation -->
+    <nav :class="scrolled ? 'bg-black/95 border-b border-green-500/20 py-4' : 'bg-transparent py-8'" class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-green-500 flex items-center justify-center -skew-x-12">
+                    <i class="ti ti-bolt text-black font-black"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tighter uppercase italic">Titan<span class="text-green-500">Fitness</span></span>
+            </div>
+            <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em]">
+                <a href="#planes" class="hover:text-green-500 transition">Planes</a>
+                <a href="#clases" class="hover:text-green-500 transition">Horarios</a>
+                <a href="#calculadora" class="hover:text-green-500 transition">BMI Tool</a>
+                <a href="#" class="btn-neon px-6 py-2 rounded-full text-black">Unirme Ahora</a>
+            </div>
+            <button class="md:hidden text-2xl"><i class="ti ti-menu-2"></i></button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative min-h-screen flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover">
+            <div class="scanline"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <span class="inline-block text-green-500 font-mono text-sm mb-4 tracking-widest bg-green-500/10 px-4 py-1 rounded-full border border-green-500/20">ELITE TRAINING CENTER</span>
+            <h1 class="text-7xl md:text-9xl font-black uppercase leading-none mb-6 italic">
+                Sin <span class="text-green-500">Límites.</span><br>
+                <span class="outline-text">Sin Excusas.</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-lg mb-10 leading-relaxed">
+                Transformamos cuerpos, forjamos mentes. El ecosistema fitness más avanzado de Bolivia para atletas que buscan el siguiente nivel.
+            </p>
+            <div class="flex flex-wrap gap-6">
+                <button class="btn-neon px-12 py-5 font-black uppercase text-sm tracking-widest italic">Comenzar Reto 30 Días</button>
+                <button class="flex items-center gap-4 px-8 py-5 border border-white/10 hover:border-green-500/50 transition bg-white/5 rounded-xl uppercase text-xs font-bold tracking-widest">
+                    <i class="ti ti-player-play-filled text-green-500"></i> Ver Instalaciones
+                </button>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-20">
+            <i class="ti ti-chevron-down text-3xl"></i>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="bg-black py-12 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <p class="text-4xl font-black text-green-500 mb-1">50+</p>
+                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Máquinas Pro</p>
+            </div>
+            <div class="text-center">
+                <p class="text-4xl font-black mb-1">24/7</p>
+                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Acceso Total</p>
+            </div>
+            <div class="text-center">
+                <p class="text-4xl font-black text-green-500 mb-1">12k</p>
+                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Kilos Movidos</p>
+            </div>
+            <div class="text-center">
+                <p class="text-4xl font-black mb-1">15+</p>
+                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Coaches Certs</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BMI Calculator -->
+    <section id="calculadora" class="py-24 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-green-500/5 blur-[120px] -z-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+            <div>
+                <h2 class="text-5xl font-black uppercase mb-8 italic">Mide tu <span class="text-green-500 underline decoration-4 underline-offset-8">Progreso</span></h2>
+                <p class="text-gray-400 mb-12">Ingresa tus datos para obtener tu Índice de Masa Corporal (IMC) y descubre en qué nivel de la escala te encuentras hoy.</p>
+                
+                <div class="space-y-8 glass-panel p-10 rounded-3xl">
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-gray-500 mb-4">Peso (KG)</label>
+                            <input type="range" x-model="weight" min="40" max="150" @input="calculateBMI()" class="w-full accent-green-500 mb-4">
+                            <p class="text-2xl font-black" x-text="weight + ' kg'"></p>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-gray-500 mb-4">Altura (CM)</label>
+                            <input type="range" x-model="height" min="140" max="220" @input="calculateBMI()" class="w-full accent-green-500 mb-4">
+                            <p class="text-2xl font-black" x-text="height + ' cm'"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <div class="relative inline-block">
+                    <div class="w-64 h-64 rounded-full border-8 border-white/5 flex flex-col items-center justify-center">
+                        <span class="text-[10px] font-mono text-green-500 mb-2 uppercase">Tu IMC es</span>
+                        <span class="text-7xl font-black glow-text" x-text="bmi"></span>
+                    </div>
+                    <!-- Indicator dots -->
+                    <div class="absolute top-0 right-0 p-4">
+                        <div class="flex items-center gap-2">
+                            <div :class="bmi < 18.5 ? 'bg-blue-500' : (bmi < 25 ? 'bg-green-500' : 'bg-red-500')" class="w-4 h-4 rounded-full shadow-[0_0_15px_rgba(0,0,0,0.5)]"></div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest" x-text="bmi < 18.5 ? 'Bajo' : (bmi < 25 ? 'Normal' : 'Sobrepeso')"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Cards -->
+    <section class="py-24 bg-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="group relative bg-[#111] p-12 rounded-[40px] border border-white/5 overflow-hidden transition hover:border-green-500/30">
+                    <div class="absolute -right-4 -top-4 w-32 h-32 bg-green-500/10 rounded-full blur-[40px] group-hover:bg-green-500/20 transition"></div>
+                    <i class="ti ti-stretching text-5xl text-green-500 mb-8 block"></i>
+                    <h3 class="text-2xl font-black uppercase mb-4">Funcional & Cross</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-8">Circuitos de alta intensidad diseñados para quemar grasa y potenciar tu explosividad.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-xs font-extra-bold uppercase tracking-widest hover:text-green-500 transition">Saber más <i class="ti ti-arrow-right"></i></a>
+                </div>
+
+                <div class="group relative bg-[#111] p-12 rounded-[40px] border border-white/5 overflow-hidden transition hover:border-green-500/30">
+                    <i class="ti ti-barbell text-5xl text-green-500 mb-8 block"></i>
+                    <h3 class="text-2xl font-black uppercase mb-4">Powerlifting Elite</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-8">Zonas especializadas con plataformas de halterofilia y discos de competencia olímpicos.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-xs font-extra-bold uppercase tracking-widest hover:text-green-500 transition">Saber más <i class="ti ti-arrow-right"></i></a>
+                </div>
+
+                <div class="group relative bg-[#111] p-12 rounded-[40px] border border-white/5 overflow-hidden transition hover:border-green-500/30">
+                    <i class="ti ti-heart-rate-monitor text-5xl text-green-500 mb-8 block"></i>
+                    <h3 class="text-2xl font-black uppercase mb-4">Nutrición & Bio</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-8">Bioimpedancia y planes de alimentación personalizados por expertos en rendimiento deportivo.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-xs font-extra-bold uppercase tracking-widest hover:text-green-500 transition">Saber más <i class="ti ti-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="planes" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-6xl font-black uppercase italic mb-4">Escoge tu <span class="text-green-500">Nivel</span></h2>
+                <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Basic -->
+                <div class="bg-white/5 p-12 rounded-3xl border border-white/10 hover:bg-white/10 transition">
+                    <p class="text-[10px] font-bold uppercase text-gray-500 mb-4 tracking-widest">Iniciación</p>
+                    <h4 class="text-4xl font-black mb-6 italic">Titan <span class="text-green-500">Lite</span></h4>
+                    <div class="text-5xl font-black mb-8 italic">Bs. 250<span class="text-xs text-gray-500 not-italic uppercase font-medium"> / mes</span></div>
+                    <ul class="space-y-4 mb-10 text-sm opacity-60">
+                        <li class="flex items-center gap-3"><i class="ti ti-check text-green-500"></i> Acceso 8:00 - 17:00</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-check text-green-500"></i> Cardio & Musculación</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-check text-green-500"></i> Lockers</li>
+                        <li class="flex items-center gap-3 opacity-30 line-through"><i class="ti ti-x"></i> Clases Grupales</li>
+                    </ul>
+                    <button class="w-full py-4 border border-white/20 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-white hover:text-black transition">Seleccionar</button>
+                </div>
+
+                <!-- Pro -->
+                <div class="bg-green-500 p-12 rounded-3xl transform md:scale-110 shadow-3xl text-black">
+                    <p class="text-[10px] font-bold uppercase mb-4 tracking-widest bg-black text-white inline-block px-3 py-1 rounded-full">Más Popular</p>
+                    <h4 class="text-4xl font-black mb-6 italic uppercase">Titan PRO</h4>
+                    <div class="text-5xl font-black mb-8 italic">Bs. 380<span class="text-xs text-black/50 not-italic uppercase font-medium"> / mes</span></div>
+                    <ul class="space-y-4 mb-10 text-sm font-bold">
+                        <li class="flex items-center gap-3"><i class="ti ti-check"></i> Acceso 24/7</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-check"></i> Clases Ilimitadas</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-check"></i> Invitado Mensual</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-check"></i> App Personalizada</li>
+                    </ul>
+                    <button class="w-full py-4 bg-black text-white rounded-xl font-black uppercase text-xs tracking-widest shadow-xl">Obtener Pro</button>
+                </div>
+
+                <!-- Black -->
+                <div class="bg-white/5 p-12 rounded-3xl border border-white/10 hover:bg-white/10 transition">
+                    <p class="text-[10px] font-bold uppercase text-gray-500 mb-4 tracking-widest">Máximo Rendimiento</p>
+                    <h4 class="text-4xl font-black mb-6 italic uppercase">Titan BLACK</h4>
+                    <div class="text-5xl font-black mb-8 italic">Bs. 650<span class="text-xs text-gray-500 not-italic uppercase font-medium"> / mes</span></div>
+                    <ul class="space-y-4 mb-10 text-sm opacity-60">
+                        <li class="flex items-center gap-3"><i class="ti ti-check text-green-500"></i> Todo lo Pro +</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-check text-green-500"></i> 4 Sesiones Coach Pro</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-check text-green-500"></i> Suplementación %</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-check text-green-500"></i> Sauna & Spa</li>
+                    </ul>
+                    <button class="w-full py-4 border border-white/20 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-white hover:text-black transition">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black pt-24 pb-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-20 mb-20">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-2 mb-8">
+                         <div class="w-8 h-8 bg-green-500 flex items-center justify-center -skew-x-12">
+                            <i class="ti ti-bolt text-black font-black"></i>
+                        </div>
+                        <span class="text-2xl font-black tracking-tighter uppercase italic">Titan<span class="text-green-500">Fitness</span></span>
+                    </div>
+                    <p class="text-gray-500 max-w-sm mb-8">No somos un gimnasio, somos una comunidad de alto rendimiento. Construimos la versión más fuerte de ti mismo.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-black transition"><i class="ti ti-brand-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-black transition"><i class="ti ti-brand-tiktok"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-xs font-black uppercase text-white mb-8 tracking-widest">Ubícanos</h5>
+                    <ul class="text-gray-500 space-y-4 text-sm font-bold uppercase italic">
+                        <li>Zona Sur, Mall Las Torres</li>
+                        <li>La Paz, Bolivia</li>
+                        <li class="text-green-500">info@titanfitness.bo</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xs font-black uppercase text-white mb-8 tracking-widest">App Titan</h5>
+                    <div class="space-y-4">
+                        <button class="flex items-center gap-3 bg-white text-black px-6 py-3 rounded-xl w-full">
+                            <i class="ti ti-brand-apple text-2xl"></i>
+                            <div class="text-left">
+                                <p class="text-[8px] font-bold uppercase leading-none">Descargar en</p>
+                                <p class="text-sm font-black leading-none">App Store</p>
+                            </div>
+                        </button>
+                        <button class="flex items-center gap-3 bg-white text-black px-6 py-3 rounded-xl w-full">
+                            <i class="ti ti-brand-google-play text-2xl"></i>
+                            <div class="text-left">
+                                <p class="text-[8px] font-bold uppercase leading-none">Disponible en</p>
+                                <p class="text-sm font-black leading-none">Google Play</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white/5 text-center">
+                <p class="text-[8px] font-mono text-gray-700 uppercase tracking-widest">© 2024 Titan Fitness Corp. Forjando Campeones Since 2020.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+    "id": "origenes_cafe_tostaduria",
+    "name": "Orígenes Café",
+    "description": "Specialty coffee shop and roastery with a focus on Bolivian beans and brewing methods.",
+    "category": "Food & Beverage",
+    "theme": {
+        "primary_color": "#4E342E",
+        "secondary_color": "#D7CCC8",
+        "accent_color": "#8D6E63",
+        "font_family": "Crimson Pro, serif"
+    },
+    "features": [
+        "Interactive brew guide",
+        "Bean origin map",
+        "Subscription management UI",
+        "Live roasting schedule"
+    ]
+}

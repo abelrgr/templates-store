@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFreight Solutions | Sustainable Global Logistics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:italic,wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        eco: '#2E8B57',
+                        earth: '#8B4513',
+                        cream: '#F5F5DC',
+                        leaf: '#98FB98'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .eco-mesh {
+            background-image: radial-gradient(#2E8B57 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .grainy-bottom {
+            background: linear-gradient(to bottom, transparent, rgba(245, 245, 220, 0.5));
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 font-sans overflow-x-hidden" x-data="ecoFreightApp()">
+
+    <!-- Eco Banner -->
+    <div class="bg-eco text-white text-[10px] py-1 text-center font-bold tracking-[0.2em] uppercase">
+        <i class="ti ti-seeding mr-2"></i> Join the 100% Carbon Neutral Revolution
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-eco/10 px-8 py-5 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 border-2 border-eco rounded-full flex items-center justify-center text-eco">
+                <i class="ti ti-leaf text-2xl"></i>
+            </div>
+            <span class="font-extrabold text-2xl tracking-tighter text-slate-900">ECO<span class="text-eco">FREIGHT</span></span>
+        </div>
+
+        <div class="hidden lg:flex gap-10 font-bold text-xs uppercase tracking-widest text-slate-500">
+            <a href="#offset" class="hover:text-eco transition">Offset Tool</a>
+            <a href="#packaging" class="hover:text-eco transition">Packaging</a>
+            <a href="#fleet" class="hover:text-eco transition">Electric Fleet</a>
+            <a href="#vision" class="hover:text-eco transition">2030 Vision</a>
+        </div>
+
+        <button class="bg-eco text-white px-8 py-3 rounded-full font-bold text-xs shadow-lg shadow-eco/20 hover:scale-105 active:scale-95 transition-all">
+            BOOK GREEN SHIPMENT
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen relative flex items-center pt-20 px-8 eco-mesh overflow-hidden">
+        <div class="absolute right-[-10%] top-[-10%] w-[600px] h-[600px] bg-eco/5 rounded-full blur-[120px]"></div>
+        
+        <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
+            <div>
+                <h1 class="font-extrabold text-6xl md:text-8xl text-slate-900 leading-[0.9] mb-10">
+                    GOOD FOR <br> BUSINESS <br> <span class="text-eco italic font-serif">Kind to Earth.</span>
+                </h1>
+                <p class="text-lg text-slate-600 mb-12 max-w-lg leading-relaxed">
+                    The world's first fully electric last-mile delivery network. We offset every mile we drive, ensuring your logistics leave no footprint—only progress.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <div class="bg-cream/50 p-6 rounded-3xl border border-eco/20 flex flex-col justify-center">
+                        <span class="text-4xl font-extrabold text-eco">0.0</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Net Carbon Emission</span>
+                    </div>
+                    <div class="bg-cream/50 p-6 rounded-3xl border border-eco/20 flex flex-col justify-center">
+                        <span class="text-4xl font-extrabold text-eco">100%</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Recycled Boxes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Map Mockup -->
+            <div class="relative">
+                <div class="absolute inset-0 bg-eco/10 rounded-[60px] blur-3xl transform rotate-3"></div>
+                <div class="relative bg-white border border-eco/10 p-10 rounded-[60px] shadow-2xl">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h3 class="font-extrabold text-xl">Electric Corridor</h3>
+                            <p class="text-xs text-slate-400 italic font-serif">Currently optimising Hub-London-A</p>
+                        </div>
+                        <div class="w-12 h-12 bg-eco/10 rounded-2xl flex items-center justify-center text-eco">
+                            <i class="ti ti-map-pin text-3xl"></i>
+                        </div>
+                    </div>
+
+                    <div class="h-64 bg-slate-100 rounded-[40px] relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-eco/20 to-transparent"></div>
+                        <!-- Pulse Point -->
+                        <div class="absolute top-1/2 left-1/3 flex items-center justify-center">
+                            <div class="w-8 h-8 bg-eco/20 rounded-full animate-ping absolute"></div>
+                            <div class="w-4 h-4 bg-eco rounded-full border-2 border-white relative"></div>
+                        </div>
+                        <div class="absolute top-1/4 right-1/4 flex items-center justify-center scale-75 opacity-50">
+                            <div class="w-4 h-4 bg-eco rounded-full border-2 border-white relative"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400">VAN-239 BATTERY</span>
+                            <span class="text-xs font-bold text-eco">84%</span>
+                        </div>
+                        <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-eco w-[84%] rounded-full"></div>
+                        </div>
+                        <p class="text-[10px] font-bold text-slate-300 italic">Estimated Carbon Offset this route: 4.2kg CO2e</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carbon Footprint Tool -->
+    <section id="offset" class="py-24 bg-cream relative">
+        <div class="container mx-auto px-8 max-w-5xl">
+            <div class="text-center mb-16">
+                <h2 class="font-extrabold text-5xl text-slate-900 mb-4">IMPACT ESTIMATOR</h2>
+                <div class="w-12 h-1 bg-eco mx-auto mb-6"></div>
+                <p class="text-slate-500 max-w-xl mx-auto">Compare a standard diesel shipment with our Eco-Net solutions to see the immediate planet benefit.</p>
+            </div>
+
+            <div class="bg-white rounded-[50px] shadow-2xl p-12 grid grid-cols-1 md:grid-cols-2 gap-20">
+                <div class="flex flex-col justify-center gap-12">
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-6">Total Distance (km)</label>
+                        <input type="range" x-model="distance" min="10" max="5000" class="w-full h-1.5 bg-eco/10 rounded-full appearance-none cursor-pointer accent-eco">
+                        <div class="mt-4 text-5xl font-extrabold text-slate-900" x-text="distance"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <template x-for="type in shippingTypes">
+                            <button 
+                                @click="selectedType = type.id"
+                                :class="selectedType === type.id ? 'bg-eco text-white' : 'bg-slate-50 text-slate-400'"
+                                class="px-6 py-4 rounded-3xl font-extrabold text-[10px] uppercase tracking-widest transition-all"
+                                x-text="type.label"
+                            ></button>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="bg-eco text-white p-10 rounded-[40px] flex flex-col justify-between shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-10 opacity-10 pointer-events-none">
+                        <i class="ti ti-seeding text-[150px]"></i>
+                    </div>
+                    
+                    <div>
+                        <p class="text-xs font-bold text-white/50 uppercase tracking-[0.2em] mb-4">Carbon Saved (Est.)</p>
+                        <div class="flex items-baseline gap-4">
+                            <span class="text-7xl font-extrabold" x-text="totalSaved"></span>
+                            <span class="text-xl font-bold text-white/40 uppercase tracking-widest">kg CO2</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 space-y-6 pt-10 border-t border-white/10">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-white/10 rounded-2xl flex items-center justify-center">
+                                <i class="ti ti-trees text-2xl"></i>
+                            </div>
+                            <p class="text-xs">Equivalent to planting <span class="font-extrabold" x-text="treeCount"></span> mature oak trees.</p>
+                        </div>
+                        <button class="w-full bg-cream text-eco py-5 rounded-3xl font-extrabold uppercase text-[10px] tracking-widest hover:brightness-105 transition-all shadow-lg">
+                            Apply This To My Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Circular Packaging -->
+    <section id="packaging" class="py-24 px-8 container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=1000" class="rounded-[60px] shadow-3xl grayscale hover:grayscale-0 transition duration-1000">
+            </div>
+            <div>
+                <span class="text-eco font-extrabold text-xs uppercase tracking-[0.3em] mb-4 inline-block">Circular Logistics</span>
+                <h2 class="font-extrabold text-5xl text-slate-900 leading-tight mb-8 italic font-serif text-earth">Zero Waste. <br> Period.</h2>
+                <div class="space-y-8">
+                    <div class="flex gap-6 group">
+                        <div class="w-14 h-14 bg-earth/10 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-earth group-hover:text-white transition cursor-help">
+                            <i class="ti ti-package-export text-3xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-lg mb-2">Compostable Bubble-Wrap</h4>
+                            <p class="text-sm text-slate-500">Made from mycelium and seaweed, our interior protection dissolves in water in under 48 hours.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 group">
+                        <div class="w-14 h-14 bg-earth/10 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-earth group-hover:text-white transition cursor-help">
+                            <i class="ti ti-solar-panel text-3xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-lg mb-2">Solar-Chilled Transit</h4>
+                            <p class="text-sm text-slate-500">Sensitive goods are transported in active solar-powered refrigeration units, no diesel coolant required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Footer -->
+    <footer class="bg-slate-900 text-white pt-24 pb-12 px-8">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-16 mb-24">
+                <div class="col-span-1 lg:col-span-2">
+                    <div class="flex items-center gap-3 mb-10">
+                        <i class="ti ti-leaf text-eco text-4xl"></i>
+                        <span class="font-extrabold text-3xl tracking-tighter">ECOFREIGHT</span>
+                    </div>
+                    <p class="text-slate-400 font-bold max-w-sm leading-relaxed text-sm mb-12 italic font-serif">
+                        "Logistics is the bloodstream of civilization. We just want to make it healthy again." — Founders Manifesto, 2021.
+                    </p>
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-eco transition cursor-pointer"><i class="ti ti-brand-instagram"></i></div>
+                        <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-eco transition cursor-pointer"><i class="ti ti-brand-pinterest"></i></div>
+                        <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-eco transition cursor-pointer"><i class="ti ti-brand-twitter-filled"></i></div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-extrabold text-xs uppercase tracking-widest text-eco mb-8">Green Policy</h4>
+                    <ul class="space-y-4 text-xs font-bold text-slate-500 uppercase">
+                        <li><a href="#" class="hover:text-white transition">Recycling Program</a></li>
+                        <li><a href="#" class="hover:text-white transition">Solar Hub Map</a></li>
+                        <li><a href="#" class="hover:text-white transition">Emission Report</a></li>
+                        <li><a href="#" class="hover:text-white transition">Partner With Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-extrabold text-xs uppercase tracking-widest text-eco mb-8">Legal</h4>
+                    <ul class="space-y-4 text-xs font-bold text-slate-500 uppercase">
+                        <li><a href="#" class="hover:text-white transition">Privacy Cloud</a></li>
+                        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition">Security Hub</a></li>
+                        <li><a href="#" class="hover:text-white transition">Safety Codes</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center pt-8 border-t border-white/5">
+                <p class="text-[9px] font-bold text-slate-700 uppercase tracking-[0.4em]">EcoFreight Solutions International. Powered by 100% Renewable Energy. 2026.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function ecoFreightApp() {
+            return {
+                distance: 450,
+                selectedType: 'parcel',
+                shippingTypes: [
+                    { id: 'parcel', label: 'E-Commerce Parcel' },
+                    { id: 'pallet', label: 'LTL Pallet' }
+                ],
+                get totalSaved() {
+                    const base = this.selectedType === 'parcel' ? 0.05 : 0.85;
+                    return (this.distance * base).toFixed(1);
+                },
+                get treeCount() {
+                    return Math.floor(this.totalSaved / 22);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

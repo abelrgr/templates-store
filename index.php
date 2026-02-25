@@ -133,7 +133,7 @@ class HomeController
   public function download($f3)
   {
     $template = $f3->get('PARAMS.template');
-    $templatePath = __DIR__ . '/' . $template;
+    $templatePath = __DIR__ . '/data/' . $template;
     $ip = $f3->get('IP');
 
     // Validate template exists and is a directory
@@ -211,28 +211,42 @@ class HomeController
   private function getTemplates($f3)
   {
     $templates = [];
-    $dir = opendir(__DIR__);
     $db = $f3->get('db');
-
+    $dataDir = __DIR__ . '/data';
+    if (!is_dir($dataDir)) {
+      return $templates;
+    }
+    $dir = opendir($dataDir);
     while (($file = readdir($dir)) !== false) {
-      if ($file === '.' || $file === '..' || !is_dir($file) || $file === 'vendor' || $file === 'tmp' || $file === 'assets' || $file === 'templates') {
+      if ($file === '.' || $file === '..') {
         continue;
       }
-
-      $infoFile = $file . '/info.json';
+      $templatePath = $dataDir . '/' . $file;
+      if (!is_dir($templatePath)) {
+        continue;
+      }
+      $infoFile = $templatePath . '/info.json';
       if (!file_exists($infoFile)) {
         continue;
       }
-
       $info = json_decode(file_get_contents($infoFile), true);
-      if (!$info || !isset($info['image'], $info['title'], $info['description'], $info['demo'])) {
+      if (!$info) {
         continue;
       }
+      
+      // Ensure basic fields exist with fallbacks
+      $info['title'] = $info['title'] ?? $info['name'] ?? ucfirst(str_replace('_', ' ', $file));
+      $info['description'] = $info['description'] ?? '';
+      $info['image'] = isset($info['image']) ? '/data/' . $file . '/' . $info['image'] : '/data/' . $file . '/imgs/template.webp';
+      
+      // If demo is not set or is an external URL, normalize it to local path if index.html exists
+      if (!isset($info['demo']) || strpos($info['demo'], 'http') === 0) {
+        $info['demo'] = '/data/' . $file . '/index.html';
+      } else {
+        $info['demo'] = '/data/' . $file . '/' . ltrim($info['demo'], '/');
+      }
 
-      $info['image'] = '/' . $file . '/' . $info['image'];
-      $info['demo'] = '/' . $info['demo'];
       $info['folder'] = $file;
-
       $stats = $db->exec("SELECT * FROM stats WHERE id = ?", [$file]);
       if ($stats) {
         $info['stats'] = $stats[0];
@@ -241,10 +255,8 @@ class HomeController
         $info['stats'] = ['views' => 0, 'downloads' => 0, 'favorites' => 0, 'rating_sum' => 0, 'rating_count' => 0];
         $info['rating'] = 0;
       }
-
       $templates[] = $info;
     }
-
     closedir($dir);
     return $templates;
   }
@@ -252,6 +264,14 @@ class HomeController
   public function trackView($f3)
   {
     $template = $f3->get('PARAMS.template');
+    $templatePath = __DIR__ . '/data/' . $template;
+    if (!is_dir($templatePath)) {
+      $this->logError($f3, "Template $template not found for view");
+      header('Content-Type: application/json');
+      http_response_code(404);
+      echo json_encode(['error' => true, 'message' => 'Template not found']);
+      return;
+    }
     $this->logAction($f3);
     $db = $f3->get('db');
     $db->exec("INSERT OR IGNORE INTO stats (id) VALUES (?)", [$template]);
@@ -262,8 +282,17 @@ class HomeController
   public function rate($f3)
   {
     $template = $f3->get('PARAMS.template');
+    $templatePath = __DIR__ . '/data/' . $template;
     $rating = (int)$f3->get('POST.rating');
     $ip = $f3->get('IP');
+
+    if (!is_dir($templatePath)) {
+      $this->logError($f3, "Template $template not found for rating");
+      header('Content-Type: application/json');
+      http_response_code(404);
+      echo json_encode(['error' => true, 'message' => 'Template not found']);
+      return;
+    }
 
     if ($rating < 1 || $rating > 5) {
       $this->logError($f3, "Invalid rating $rating for $template");
@@ -347,9 +376,16 @@ class HomeController
   public function favorite($f3)
   {
     $template = $f3->get('PARAMS.template');
+    $templatePath = __DIR__ . '/data/' . $template;
     $action = $f3->get('POST.action'); // 'add' or 'remove'
+    if (!is_dir($templatePath)) {
+      $this->logError($f3, "Template $template not found for favorite");
+      header('Content-Type: application/json');
+      http_response_code(404);
+      echo json_encode(['error' => true, 'message' => 'Template not found']);
+      return;
+    }
     $this->logAction($f3);
-
     $db = $f3->get('db');
     $db->exec("INSERT OR IGNORE INTO stats (id) VALUES (?)", [$template]);
     if ($action === 'add') {

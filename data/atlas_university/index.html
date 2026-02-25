@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas University | Global Research excellence</title>
+    <meta name="description" content="A prestigious university template for world-class research and higher education. Shaping leaders of tomorrow.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        crimson: {
+                            50: '#fef2f2',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        },
+                        tan: {
+                            50: '#faf9f6',
+                            100: '#f5f5f0',
+                            200: '#e5e5d1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Tabler Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        [x-cloak] { display: none !important; }
+        .bg-pattern { background-image: radial-gradient(rgba(153, 27, 27, 0.05) 1px, transparent 0); background-size: 40px 40px; }
+    </style>
+</head>
+<body class="bg-tan-50 dark:bg-slate-950 text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300 bg-pattern"
+      x-data="{ 
+          mobileMenu: false, 
+          toast: { show: false, message: '' },
+          showToast(msg) { 
+              this.toast.message = msg; 
+              this.toast.show = true; 
+              setTimeout(() => this.toast.show = false, 3000); 
+          }
+      }">
+
+    <!-- Toast Notification -->
+    <div x-show="toast.show" 
+         x-transition:enter="transition duration-500 ease-in-out" 
+         x-transition:leave="transition duration-400 ease-in-out"
+         class="fixed top-24 right-8 z-[200] bg-white dark:bg-slate-900 border-l-4 border-crimson-800 p-6 shadow-[20px_20px_60px_-15px_rgba(0,0,0,0.1)] flex items-center gap-4 min-w-[300px]"
+         x-cloak>
+        <i class="ti ti-info-square-rounded text-crimson-800 text-2xl"></i>
+        <div class="flex-1">
+            <h5 class="text-xs uppercase font-bold tracking-widest text-slate-400 mb-1">Notice</h5>
+            <p x-text="toast.message" class="text-sm font-semibold"></p>
+        </div>
+    </div>
+
+    <!-- Navigation Header (Prestigious style) -->
+    <header class="border-b-2 border-crimson-800 bg-white dark:bg-slate-900 sticky top-0 z-[100]">
+        <div class="container mx-auto px-6 flex items-center justify-between py-6">
+            <a href="#" @click.prevent="showToast('Home')" class="flex items-center space-x-4">
+                <i class="ti ti-world-latitude text-crimson-800 text-5xl"></i>
+                <div class="h-10 w-px bg-slate-200"></div>
+                <div class="leading-none">
+                    <span class="block text-3xl font-serif font-extrabold text-crimson-800 dark:text-crimson-50 shadow-crimson-100">ATLAS</span>
+                    <span class="block text-xs uppercase tracking-[.4em] font-bold text-slate-500">University</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Items -->
+            <ul class="hidden lg:flex items-center space-x-10 text-sm font-bold uppercase tracking-wider">
+                <li><a href="#about" class="hover:text-crimson-800 border-b-2 border-transparent hover:border-crimson-800 py-2 transition-all">University</a></li>
+                <li><a href="#programs" class="hover:text-crimson-800 border-b-2 border-transparent hover:border-crimson-800 py-2 transition-all">Research</a></li>
+                <li><a href="#campus" class="hover:text-crimson-800 border-b-2 border-transparent hover:border-crimson-800 py-2 transition-all">Campus</a></li>
+                <li><a href="#admission" class="hover:text-crimson-800 border-b-2 border-transparent hover:border-crimson-800 py-2 transition-all">Admissions</a></li>
+                <button @click="darkMode = !darkMode" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                    <i :class="darkMode ? 'ti ti-sun' : 'ti ti-moon'" class="text-xl"></i>
+                </button>
+                <a href="#contact" class="bg-crimson-800 text-white px-8 py-3.5 hover:bg-crimson-900 transition-colors shadow-lg active:scale-95">Enroll Now</a>
+            </ul>
+
+            <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-4">
+                <i class="ti ti-square-rounded-plus text-crimson-800 text-3xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav overlay -->
+        <div x-show="mobileMenu" x-cloak class="lg:hidden fixed inset-0 z-[150] bg-white dark:bg-slate-950 p-10 flex flex-col justify-center text-center">
+            <button @click="mobileMenu = false" class="absolute top-10 right-10"><i class="ti ti-square-rounded-x text-5xl text-slate-300"></i></button>
+            <ul class="space-y-12 text-4xl font-serif font-bold italic">
+                <li><a href="#about" @click="mobileMenu = false" class="hover:text-crimson-800">Vision</a></li>
+                <li><a href="#programs" @click="mobileMenu = false" class="hover:text-crimson-800">Degrees</a></li>
+                <li><a href="#campus" @click="mobileMenu = false" class="hover:text-crimson-800">Life</a></li>
+                <li><a href="#admission" @click="mobileMenu = false" class="hover:text-crimson-800">Join</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Full-height Hero with prestigious overlay -->
+        <section class="h-[90vh] relative flex items-center justify-center text-center px-6">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&q=80&w=1500" class="w-full h-full object-cover grayscale opacity-20" alt="Library">
+                <div class="absolute inset-0 bg-gradient-to-b from-tan-50/0 via-tan-50/80 to-tan-50 dark:from-slate-950/0 dark:via-slate-950/80 dark:to-slate-950"></div>
+            </div>
+            
+            <div class="relative z-10 max-w-5xl" x-init="gsap.from($el, { y: 50, opacity: 0, duration: 1})">
+                <span class="inline-block px-6 py-2 bg-crimson-50 text-crimson-800 dark:bg-crimson-900/20 dark:text-crimson-400 text-xs font-black tracking-[.6em] uppercase mb-12">Educating Global Leaders</span>
+                <h1 class="text-7xl md:text-9xl font-serif font-black leading-none italic mb-12 text-slate-800 dark:text-white">
+                    Future <br> <span class="text-crimson-800/80">Legacy.</span>
+                </h1>
+                <p class="text-xl md:text-3xl font-light text-slate-500 max-w-2xl mx-auto mb-16 italic">
+                    Where historic values meet futuristic exploration. Atlas is more than an institution; it's a launchpad for world-changing discoveries.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-8 justify-center items-center">
+                    <a href="#admission" class="px-12 py-5 bg-crimson-800 text-white font-bold text-lg hover:bg-slate-900 transition-all shadow-xl shadow-crimson-800/20 active:translate-y-1">Start Application</a>
+                    <a href="#" @click.prevent="showToast('Playing intro film')" class="group flex items-center gap-4 text-slate-400 font-bold hover:text-crimson-800 transition-colors uppercase tracking-widest text-xs">
+                        <i class="ti ti-brand-youtube text-4xl group-hover:scale-110 transition-transform"></i> Atlas Documentary
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Academic Sections (Expandable Details via Alpine) -->
+        <section id="programs" class="py-32 bg-white dark:bg-slate-900" x-data="{ expandedId: null }">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-end justify-between mb-24">
+                    <div class="max-w-2xl">
+                        <h2 class="text-5xl font-serif font-bold italic mb-6">World-Class Academics</h2>
+                        <p class="text-lg text-slate-500">Choose from 150+ degree programs across our 12 specialized colleges.</p>
+                    </div>
+                    <div class="mt-8 md:mt-0">
+                        <a href="#" @click.prevent="showToast('Program Catalog')" class="font-bold border-b-4 border-crimson-800/20 hover:border-crimson-800 py-2 transition-all">Explore All Degrees</a>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-1px bg-slate-100 dark:bg-slate-800 border dark:border-slate-800 overflow-hidden shadow-2xl">
+                    <template x-for="prog in [
+                        { id: 1, title: 'Medicine & Bioscience', desc: 'Leading the global response to health crises through pioneering mRNA research and clinical excellence.', icon: 'dna' },
+                        { id: 2, title: 'Quantum Tech & Physics', desc: 'Developing the next generation of computing at the Atlas Quantum Materials Lab.', icon: 'atom-2' },
+                        { id: 3, title: 'Global Diplomacy', desc: 'Preparing future secretaries of state and UN delegates at our School of Foreign Service.', icon: 'world' },
+                        { id: 4, title: 'Renewable Economy', desc: 'Redefining global markets through sustainable circular economy models and tech policy.', icon: 'leaf' },
+                        { id: 5, title: 'Digital Arts & AI', desc: 'Exploring the intersection of human creativity and machine learning within our creative studio.', icon: 'brush' },
+                        { id: 6, title: 'Aeronautical Space', desc: 'Partnering with space agencies to launch the next frontier of planetary exploration.', icon: 'rocket' }
+                    ]" :key="prog.id">
+                        <div class="bg-white dark:bg-slate-900 p-12 transition-all duration-500 cursor-pointer group hover:bg-tan-50 dark:hover:bg-slate-800 flex flex-col h-full"
+                             @click="expandedId = (expandedId === prog.id ? null : prog.id)">
+                            <div class="mb-10 flex items-center justify-between">
+                                <div class="w-16 h-16 bg-crimson-50 dark:bg-crimson-900/30 text-crimson-800 flex items-center justify-center text-4xl group-hover:rotate-12 transition-transform">
+                                    <i :class="'ti ti-' + prog.icon"></i>
+                                </div>
+                                <i class="ti text-slate-200" :class="expandedId === prog.id ? 'ti-minus' : 'ti-plus'"></i>
+                            </div>
+                            <h3 class="text-2xl font-serif font-bold italic mb-4" x-text="prog.title"></h3>
+                            <div x-show="expandedId === prog.id" x-collapse x-cloak>
+                                <p class="text-slate-500 mb-8 leading-relaxed" x-text="prog.desc"></p>
+                                <a href="#" @click.prevent.stop="showToast('Dept details')" class="bg-crimson-800 text-white px-6 py-2.5 text-xs font-bold uppercase tracking-widest inline-block transition-transform active:scale-95">Enroll in Dept</a>
+                            </div>
+                            <div x-show="expandedId !== prog.id" class="mt-auto pt-8 border-t border-slate-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span class="text-xs uppercase font-black tracking-widest text-slate-300">View Program</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Big Stats/Gallery Mix -->
+        <section class="py-32 bg-tan-100 dark:bg-slate-950">
+            <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-24 items-center">
+                <div class="relative group">
+                    <img src="https://images.unsplash.com/photo-1592280771190-3e2e4d571952?auto=format&fit=crop&q=80&w=800" class="w-full grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl" alt="Grad">
+                    <div class="absolute -bottom-12 -right-12 bg-crimson-800 p-12 text-white shadow-2xl hidden md:block">
+                        <p class="text-6xl font-serif font-bold italic leading-none">#4</p>
+                        <p class="text-xs font-bold uppercase tracking-[.2em] mt-2">Global Research Ranking</p>
+                    </div>
+                </div>
+                <div>
+                     <span class="block text-crimson-800 font-black tracking-widest uppercase mb-8">Numbers that matter</span>
+                     <h2 class="text-5xl font-serif font-bold italic mb-12">A Global Presence</h2>
+                     <div class="grid grid-cols-2 gap-12">
+                        <div>
+                            <p class="text-5xl font-bold italic font-serif text-crimson-800 mb-2">240K+</p>
+                            <p class="text-slate-500 font-bold uppercase tracking-widest text-xs">Global Alumni</p>
+                        </div>
+                        <div>
+                            <p class="text-5xl font-bold italic font-serif text-crimson-800 mb-2">84</p>
+                            <p class="text-slate-500 font-bold uppercase tracking-widest text-xs">Research Labs</p>
+                        </div>
+                        <div>
+                            <p class="text-5xl font-bold italic font-serif text-crimson-800 mb-2">$1.2B</p>
+                            <p class="text-slate-500 font-bold uppercase tracking-widest text-xs">Endowment Fund</p>
+                        </div>
+                        <div>
+                            <p class="text-5xl font-bold italic font-serif text-crimson-800 mb-2">100+</p>
+                            <p class="text-slate-500 font-bold uppercase tracking-widest text-xs">Nations Represented</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA "Join the Legacy" -->
+        <section id="admission" class="bg-crimson-800 py-32 text-center text-white relative overflow-hidden">
+            <div class="absolute inset-x-0 bottom-0 top-0 pointer-events-none overflow-hidden opacity-10">
+                <i class="ti ti-world text-[800px] absolute -right-[400px] -bottom-[400px]"></i>
+            </div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-6xl md:text-8xl font-serif font-bold italic mb-12">Shape the Future.</h2>
+                <p class="text-xl md:text-2xl text-crimson-100 max-w-3xl mx-auto mb-16 font-light italic">
+                    Our admissions committee seeks visionaries, thinkers, and explorers who are ready to push the boundaries of what's possible.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="#contact" class="bg-white text-crimson-800 px-12 py-5 font-bold hover:bg-tan-50 transition-all shadow-xl active:scale-95">Enroll for 2026/27</a>
+                    <a href="#" @click.prevent="showToast('Campus Tour schedule')" class="border-2 border-white/20 hover:bg-white/10 px-12 py-5 font-bold transition-all">Visit Campus</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- News/Research Feed -->
+        <section class="py-32 bg-white dark:bg-slate-900 border-b dark:border-slate-800">
+            <div class="container mx-auto px-6">
+                <div class="flex items-center justify-between mb-16">
+                    <h2 class="text-4xl font-serif font-bold tracking-tight italic">Research & Impact</h2>
+                    <a href="#" @click.prevent="showToast('News Archive')" class="flex items-center gap-2 font-bold group">
+                        News Archive <i class="ti ti-arrow-up-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <template x-for="n in [1,2,3]" :key="n">
+                        <div class="group cursor-pointer">
+                            <div class="h-64 overflow-hidden mb-8 shadow-sm">
+                                <img :src="'https://images.unsplash.com/photo-' + (1500000000000 + n*10000) + '?auto=format&fit=crop&q=80&w=600'" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale" alt="News">
+                            </div>
+                            <p class="text-xs uppercase font-black text-crimson-800 tracking-[.4em] mb-4">Science & Ethics • FEB 2026</p>
+                            <h4 class="text-2xl font-serif font-bold italic mb-6 group-hover:text-crimson-800 transition-colors">Decoding the Neuronal Fabric of Decision Making</h4>
+                            <p class="text-slate-500 leading-relaxed mb-6">Dr. Aris Varma leads the international team uncovering the foundations of cognitive ethics...</p>
+                            <a href="#" @click.prevent="showToast('Article read more')" class="font-bold border-b border-slate-200 group-hover:border-crimson-800 pb-1">Read Publication</a>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-32 bg-tan-50 dark:bg-slate-950">
+             <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-32">
+                    <div>
+                        <h2 class="text-5xl font-serif font-bold italic mb-12">Admissions Office</h2>
+                        <div class="space-y-12">
+                            <div class="flex gap-8">
+                                <div class="w-16 h-16 bg-white dark:bg-slate-900 shadow-xl flex items-center justify-center text-crimson-800">
+                                    <i class="ti ti-mail-opened text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Email Inquiries</p>
+                                    <p class="text-xl font-bold">admissions@atlas.edu.world</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-8">
+                                <div class="w-16 h-16 bg-white dark:bg-slate-900 shadow-xl flex items-center justify-center text-crimson-800">
+                                    <i class="ti ti-map text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Global Campus</p>
+                                    <p class="text-xl font-bold">Atlas Plaza 1, Academic District, World City</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div x-data="{ 
+                        sent: false, 
+                        loading: false,
+                        submit() {
+                            this.loading = true;
+                            setTimeout(() => {
+                                this.loading = false;
+                                this.sent = true;
+                                showToast('Inquiry request submitted.');
+                            }, 2000)
+                        }
+                    }">
+                        <h3 class="text-2xl font-serif font-bold italic mb-10">Application Inquiry</h3>
+                        <form @submit.prevent="submit" class="grid sm:grid-cols-2 gap-8">
+                            <div class="sm:col-span-1">
+                                <label class="block text-[10px] uppercase font-black tracking-widest text-slate-400 mb-3">Applicant Name</label>
+                                <input type="text" required class="w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-800 py-4 focus:border-crimson-800 outline-none font-bold">
+                            </div>
+                            <div class="sm:col-span-1">
+                                <label class="block text-[10px] uppercase font-black tracking-widest text-slate-400 mb-3">Nationality</label>
+                                <input type="text" required class="w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-800 py-4 focus:border-crimson-800 outline-none font-bold">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-[10px] uppercase font-black tracking-widest text-slate-400 mb-3">Primary Field of Interest</label>
+                                <select class="w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-800 py-4 focus:border-crimson-800 outline-none font-bold">
+                                    <option>Medicine & Health</option>
+                                    <option>Tech & Engineering</option>
+                                    <option>Arts & Design</option>
+                                    <option>Law & Policy</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-[10px] uppercase font-black tracking-widest text-slate-400 mb-3">Personal Inquiry</label>
+                                <textarea rows="3" class="w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-800 py-4 focus:border-crimson-800 outline-none font-bold"></textarea>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <button type="submit" :disabled="loading" class="bg-crimson-800 text-white w-full py-6 font-bold shadow-2xl hover:bg-black transition-all active:scale-[0.98]">
+                                    <span x-text="loading ? 'Validating Application...' : 'Submit Official Inquiry'"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+             </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 pt-32 pb-16">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-5 gap-16 mb-24">
+                <div class="md:col-span-2">
+                     <a href="#" class="flex items-center space-x-4 mb-10">
+                        <i class="ti ti-world-latitude text-crimson-800 text-4xl"></i>
+                        <span class="text-2xl font-serif font-black text-slate-800 dark:text-white uppercase">Atlas</span>
+                    </a>
+                    <p class="text-slate-500 max-w-sm mb-12">Atlas University is a global leader in high-impact research, dedicated to the cultivation of intellect and character.</p>
+                    <div class="flex gap-4">
+                        <template x-for="i in ['brand-linkedin', 'brand-x', 'brand-facebook', 'brand-youtube']">
+                             <a href="#" @click.prevent="showToast('Go to Social')" class="w-12 h-12 bg-tan-50 dark:bg-slate-900 flex items-center justify-center text-slate-400 hover:text-crimson-800 transition-all shadow-sm">
+                                <i :class="'ti ti-' + i"></i>
+                             </a>
+                        </template>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-[.3em] mb-10 text-slate-300">University</h4>
+                    <ul class="space-y-4 font-bold text-sm">
+                        <li><a href="#" class="hover:text-crimson-800">Our Charter</a></li>
+                        <li><a href="#" class="hover:text-crimson-800">Governance</a></li>
+                        <li><a href="#" class="hover:text-crimson-800">Ethics Committee</a></li>
+                        <li><a href="#" class="hover:text-crimson-800">Digital Library</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-[.3em] mb-10 text-slate-300">Campus</h4>
+                    <ul class="space-y-4 font-bold text-sm">
+                        <li><a href="#" class="hover:text-crimson-800">Housing</a></li>
+                        <li><a href="#" class="hover:text-crimson-800">Health Services</a></li>
+                        <li><a href="#" class="hover:text-crimson-800">Athletics</a></li>
+                        <li><a href="#" class="hover:text-crimson-800">Interactive Map</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-[.3em] mb-10 text-slate-300">Resources</h4>
+                    <ul class="space-y-4 font-bold text-sm">
+                        <li><a href="#" class="hover:text-crimson-800">Student Portal</a></li>
+                        <li><a href="#" @click.prevent="showToast('Staff Page')" class="hover:text-crimson-800">Staff Portal</a></li>
+                        <li><a href="#" class="hover:text-crimson-800">Alumni Services</a></li>
+                        <li><a href="#" class="hover:text-crimson-800">IT Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-50 dark:border-slate-900 pt-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <p>&copy; 2026 Atlas University. Accredited by the Global Council of Higher Education.</p>
+                <div class="flex gap-10 mt-8 md:mt-0">
+                    <a href="#">Privacy Policies</a>
+                    <a href="#">Terms & Conditions</a>
+                    <span class="text-slate-200">Authored by Abel Gallo Ruiz</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

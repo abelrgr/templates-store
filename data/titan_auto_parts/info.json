@@ -1,0 +1,18 @@
+{
+    "id": "titan_auto_parts",
+    "name": "Titan Auto Parts",
+    "description": "Industrial-grade e-commerce platform for automotive spares and performance parts.",
+    "category": "Retail",
+    "theme": {
+        "primary_color": "#2C3E50",
+        "secondary_color": "#3498DB",
+        "accent_color": "#E74C3C",
+        "font_family": "Roboto, sans-serif"
+    },
+    "features": [
+        "VIN & Part Search Integration",
+        "Vehicle Compatibility Checker",
+        "Exploded view product diagrams",
+        "Performance vs OEM part toggle"
+    ]
+}

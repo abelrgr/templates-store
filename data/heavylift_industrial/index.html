@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeavyLift | Industrial Logistics & High-Tonnage Shipping</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        safety: '#FDB813',
+                        anthracite: '#2D2D2D',
+                        steel: '#4A4A4A',
+                        caution: '#EB2D2D'
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        condensed: ['Barlow Condensed', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .industrial-pattern {
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .caution-tape {
+            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, #2D2D2D 10px, #2D2D2D 20px);
+        }
+        .bevel-edge {
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+    </style>
+</head>
+<body class="bg-anthracite font-sans text-stone-200 antialiased overflow-x-hidden" x-data="heavyLiftApp()">
+
+    <!-- Industrial Header -->
+    <header class="border-b-8 border-safety py-6 px-8 flex justify-between items-center bg-black/50 backdrop-blur-xl sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-safety text-black flex items-center justify-center rounded-sm rotate-45 border-4 border-black">
+                <i class="ti ti-crane text-2xl -rotate-45"></i>
+            </div>
+            <div>
+                <span class="font-condensed text-4xl font-black tracking-tighter leading-none text-white italic">HEAVY<span class="text-safety">LIFT</span></span>
+                <p class="text-[8px] font-bold tracking-[0.3em] uppercase opacity-50">Industrial Grade Logistics</p>
+            </div>
+        </div>
+
+        <nav class="hidden xl:flex gap-10 font-bold uppercase text-xs tracking-widest text-safety">
+            <a href="#services" class="hover:text-white transition">Capabilities</a>
+            <a href="#warehouse" class="hover:text-white transition">Inventory</a>
+            <a href="#fleet" class="hover:text-white transition">Asset Registry</a>
+            <a href="#calc" class="hover:text-white transition">Tonnage Calculator</a>
+        </nav>
+
+        <div class="flex gap-4">
+            <button class="hidden lg:flex items-center gap-2 border border-white/20 px-4 py-2 text-[10px] font-bold uppercase hover:bg-white hover:text-black transition">
+                <i class="ti ti-key"></i> Client Login
+            </button>
+            <button @click="showModal = true" class="bg-safety text-black px-6 py-2 font-black uppercase text-[10px] tracking-widest hover:brightness-110 transition">
+                Request Manifest
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Hero -->
+    <section class="relative min-h-[90vh] flex items-center pt-20 p-8 industrial-pattern overflow-hidden">
+        <!-- Floating Machinery Accents -->
+        <div class="absolute -right-20 top-20 opacity-10 blur-sm pointer-events-none">
+            <i class="ti ti-crane text-[500px]"></i>
+        </div>
+
+        <div class="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
+            <div class="lg:col-span-12 xl:col-span-7">
+                <div class="caution-tape h-2 w-full mb-10 opacity-50"></div>
+                <h1 class="font-condensed text-7xl md:text-9xl font-black italic text-white uppercase leading-[0.85] mb-8">
+                    WE MOVE <br> THE <br> <span class="text-safety">UNMOVABLE</span>
+                </h1>
+                <p class="text-lg md:text-xl text-stone-400 max-w-xl font-light leading-relaxed mb-12">
+                    Specialized in oversized machinery transport, global factory relocations, and high-safety storage protocols.
+                </p>
+
+                <div class="flex flex-wrap gap-8">
+                    <div class="flex flex-col border-l-4 border-safety pl-6">
+                        <span class="text-4xl font-black text-white italic">250T+</span>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-stone-500">Max Single Lift</span>
+                    </div>
+                    <div class="flex flex-col border-l-4 border-white/20 pl-6">
+                        <span class="text-4xl font-black text-white italic">140k</span>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-stone-500">Sq. Ft Warehousing</span>
+                    </div>
+                </div>
+
+                <div class="mt-16 flex gap-4">
+                    <button class="bg-safety text-black font-black uppercase px-8 py-5 text-sm tracking-widest hover:scale-105 transition-transform flex items-center gap-3">
+                        EXPLORE CAPABILITIES <i class="ti ti-arrow-right"></i>
+                    </button>
+                    <button class="border border-white/10 hover:border-safety text-white font-black uppercase px-8 py-5 text-sm tracking-widest transition-all">
+                        SAFETY STANDARDS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Mockup -->
+            <div class="xl:col-span-5 hidden xl:block">
+                <div class="bg-black/80 p-8 rounded-lg border border-white/5 shadow-2xl backdrop-blur-3xl overflow-hidden relative">
+                    <div class="absolute top-0 right-0 py-2 px-4 bg-caution text-white font-black text-[8px] uppercase italic">ALERT: HIGH LOAD TRANSIT</div>
+                    <h3 class="font-condensed text-2xl font-black text-white mb-8 border-b border-white/10 pb-4">Real-Time Ops Monitor</h3>
+                    
+                    <div class="space-y-6">
+                        <template x-for="op in activeOps">
+                            <div class="flex justify-between items-center p-4 bg-white/5 border-l-2 border-safety">
+                                <div>
+                                    <p class="text-[10px] font-bold text-stone-500 uppercase" x-text="op.id"></p>
+                                    <p class="font-bold text-white text-sm" x-text="op.cargo"></p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs font-black text-safety" x-text="op.status"></p>
+                                    <p class="text-[8px] text-stone-600 uppercase" x-text="op.loc"></p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="mt-12 bg-safety/5 p-6 border border-safety/20 rounded">
+                        <p class="text-[10px] font-bold text-safety uppercase mb-4">Industrial Heatmap: Hub A2</p>
+                        <div class="flex gap-2">
+                            <template x-for="i in 12">
+                                <div class="h-10 flex-1 rounded bg-safety opacity-20" :class="i % 3 === 0 ? 'opacity-80' : 'opacity-20'"></div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section id="services" class="py-24 bg-white text-anthracite">
+        <div class="container mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div>
+                    <h2 class="font-condensed text-6xl font-black uppercase leading-none">CORE SPECIALTIES</h2>
+                    <p class="text-stone-500 mt-4 font-bold border-l-4 border-safety pl-4">Beyond Standard Logistics</p>
+                </div>
+                <p class="max-w-md text-sm text-stone-400">Our team executes complex multi-modal shipments globally, managing everything from oceanic freight of drilling equipment to cross-country transport of precision turbines.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Cap 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative h-64 mb-8 overflow-hidden grayscale hover:grayscale-0 transition duration-1000">
+                        <img src="https://images.unsplash.com/photo-1577093256038-f09b55577609?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-anthracite/20 group-hover:bg-transparent"></div>
+                    </div>
+                    <h3 class="font-condensed text-3xl font-black mb-4 group-hover:text-safety transition">TURBINE & ENERGY</h3>
+                    <p class="text-sm font-bold text-stone-500 mb-6">Secured transport for wind turbine components, oversized generators, and high-voltage grid infrastructure.</p>
+                    <i class="ti ti-bolt text-safety text-2xl"></i>
+                </div>
+
+                <!-- Cap 2 -->
+                <div class="group cursor-pointer">
+                    <div class="relative h-64 mb-8 overflow-hidden grayscale hover:grayscale-0 transition duration-1000">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-anthracite/20 group-hover:bg-transparent"></div>
+                    </div>
+                    <h3 class="font-condensed text-3xl font-black mb-4 group-hover:text-safety transition">RIGGING & HAULING</h3>
+                    <p class="text-sm font-bold text-stone-500 mb-6">Expert rigging teams for factory floor maneuvers and site-to-site heavy vehicle deployment.</p>
+                    <i class="ti ti-hook text-safety text-2xl"></i>
+                </div>
+
+                <!-- Cap 3 -->
+                <div class="group cursor-pointer">
+                    <div class="relative h-64 mb-8 overflow-hidden grayscale hover:grayscale-0 transition duration-1000">
+                        <img src="https://images.unsplash.com/photo-1590674000103-042ba49ca512?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-anthracite/20 group-hover:bg-transparent"></div>
+                    </div>
+                    <h3 class="font-condensed text-3xl font-black mb-4 group-hover:text-safety transition">PRECISION STORAGE</h3>
+                    <p class="text-sm font-bold text-stone-500 mb-6">High-ceiling warehouse facilities with dust-free areas for precision electronic machinery.</p>
+                    <i class="ti ti-dimensions text-safety text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tonnage Calculator -->
+    <section id="calc" class="py-24 bg-black relative overflow-hidden">
+        <div class="container mx-auto px-8 relative z-10">
+            <div class="max-w-4xl mx-auto bg-anthracite/50 p-12 border-y border-white/5 border-l-4 border-l-safety rounded-r-3xl">
+                <h2 class="font-condensed text-5xl font-black text-white mb-10">LOAD CONFIGURATOR</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="space-y-10">
+                        <div>
+                            <label class="block text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-4">Total Transit Tonnage</label>
+                            <input type="range" x-model="tons" min="1" max="500" class="w-full h-1 bg-black rounded-lg appearance-none cursor-pointer accent-safety">
+                            <div class="mt-4 text-6xl font-black text-white italic" x-text="tons + 'T'"></div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-4">Cargo Class</label>
+                            <div class="flex gap-4">
+                                <template x-for="cat in cargoTypes">
+                                    <button 
+                                        @click="selectedCargo = cat.id"
+                                        :class="selectedCargo === cat.id ? 'bg-safety text-black' : 'bg-black text-stone-500'"
+                                        class="px-4 py-2 text-[10px] font-bold uppercase transition"
+                                        x-text="cat.name"
+                                    ></button>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-center gap-6 p-10 bg-black/40 border border-white/5 rounded-2xl">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-stone-500">Suggested Unit:</span>
+                            <span class="font-black text-white italic" x-text="suggestedTruck"></span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-stone-500">Hazard Rating:</span>
+                            <span class="font-black" :class="tons > 100 ? 'text-caution' : 'text-green-500'" x-text="tons > 100 ? 'LEVEL 4 CRITICAL' : 'STANDARD SAFE'"></span>
+                        </div>
+                        <div class="h-0.5 bg-white/5"></div>
+                        <button class="w-full bg-safety text-black font-black uppercase py-4 text-xs tracking-[0.2em] hover:brightness-110 active:scale-95 transition">
+                            GET ENGINEER REVIEW
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industrial Footer -->
+    <footer class="bg-black text-white pt-24 pb-12 px-8 border-t border-white/5">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-4 mb-10">
+                        <div class="w-10 h-10 bg-safety text-black flex items-center justify-center rotate-45 border-2 border-black">
+                            <i class="ti ti-crane text-xl -rotate-45"></i>
+                        </div>
+                        <span class="font-condensed text-4xl font-black tracking-tighter italic">HEAVY<span class="text-safety">LIFT</span></span>
+                    </div>
+                    <p class="text-stone-500 font-bold max-w-sm mb-12">Authorized global carrier for government defense contractors, energy conglomerates, and automotive giants. Built for the industrial core.</p>
+                    <div class="flex gap-6">
+                        <a href="#"><i class="ti ti-brand-linkedin text-2xl hover:text-safety transition"></i></a>
+                        <a href="#"><i class="ti ti-brand-twitter-filled text-2xl hover:text-safety transition"></i></a>
+                        <a href="#"><i class="ti ti-brand-instagram text-2xl hover:text-safety transition"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-condensed text-xl font-black mb-8 italic uppercase text-safety">Resources</h4>
+                    <ul class="space-y-4 text-xs font-bold text-stone-500 uppercase tracking-widest">
+                        <li><a href="#" class="hover:text-white transition">Tonnage Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition">Permit Hub</a></li>
+                        <li><a href="#" class="hover:text-white transition">Customs Codes</a></li>
+                        <li><a href="#" class="hover:text-white transition">Risk Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-condensed text-xl font-black mb-8 italic uppercase text-safety">Contact HQ</h4>
+                    <ul class="space-y-4 text-xs font-bold text-stone-500 uppercase tracking-widest">
+                        <li class="flex items-center gap-3"><i class="ti ti-map-pin text-safety"></i> Houston Port Authority</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-phone-call text-safety"></i> +1 (713) HEAVY-LIFT</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-news text-safety"></i> ops@heavylift.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:row justify-between items-center pt-8 border-t border-white/5 gap-8">
+                <p class="text-[10px] font-black italic tracking-widest text-stone-700 uppercase">HEAVYLIFT INDUSTRIAL LOGISTICS GROUP © 2026. ALL CARGO INSURED BY STELLAR GUARANTEE.</p>
+                <div class="flex border-2 border-white/10 italic font-black text-[8px] p-2 bg-white/5">
+                    <span class="px-2 text-white/50 border-r border-white/10">ISO 45001</span>
+                    <span class="px-2 text-safety border-r border-white/10">SAFETY FIRST</span>
+                    <span class="px-2 text-white/50">LEED GOLD</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function heavyLiftApp() {
+            return {
+                tons: 85,
+                selectedCargo: 'machinery',
+                showModal: false,
+                cargoTypes: [
+                    { id: 'machinery', name: 'Industrial machinery' },
+                    { id: 'energy', name: 'Energy Parts' },
+                    { id: 'mining', name: 'Mining Eq' }
+                ],
+                activeOps: [
+                    { id: 'HL-0019', cargo: 'Gas Turbine X4', status: 'IN TRANSIT', loc: 'Berlin → Port of Hamburg' },
+                    { id: 'HL-0022', cargo: 'Mining Excavator', status: 'LOADING', loc: 'Sydney Dock' },
+                    { id: 'HL-0025', cargo: 'Bridge Truss B', status: 'DELAYED', loc: 'Cross-Pass Highway' }
+                ],
+                get suggestedTruck() {
+                    if (this.tons < 20) return 'Standard Lowboy';
+                    if (this.tons < 100) return 'Multi-Axle Heavy Hauler';
+                    if (this.tons < 300) return 'SPMT (Self-Propelled)';
+                    return 'Rail Specialized Carrier';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

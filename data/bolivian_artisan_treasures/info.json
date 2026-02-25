@@ -1,0 +1,18 @@
+{
+    "id": "bolivian_artisan_treasures",
+    "name": "Artesania & Herencia",
+    "description": "High-end marketplace for authentic Bolivian handicrafts and folk art.",
+    "category": "Retail",
+    "theme": {
+        "primary_color": "#D35400",
+        "secondary_color": "#2980B9",
+        "accent_color": "#F1C40F",
+        "font_family": "Lora, serif"
+    },
+    "features": [
+        "Cultural storytelling blocks",
+        "Artisan profile spotlights",
+        "Material authenticity verification",
+        "Interactive texture maps"
+    ]
+}

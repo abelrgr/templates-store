@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="black" />
+  <text x="50" y="65" font-family="Arial Black" font-size="50" fill="#9FEF00" text-anchor="middle">UV</text>
+  <path d="M10 10 L90 10 L90 90 L10 90 Z" fill="none" stroke="#9FEF00" stroke-width="2" />
+</svg>

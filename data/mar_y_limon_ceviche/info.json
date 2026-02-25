@@ -1,0 +1,18 @@
+{
+    "id": "mar_y_limon_ceviche",
+    "name": "Mar & Limón",
+    "description": "Contemporary cevichería and seafood bar template with coastal aesthetics.",
+    "category": "Food & Beverage",
+    "theme": {
+        "primary_color": "#2980B9",
+        "secondary_color": "#27AE60",
+        "accent_color": "#F1C40F",
+        "font_family": "Plus Jakarta Sans, sans-serif"
+    },
+    "features": [
+        "Fresh catch of the day ticker",
+        "Citrus acidity scale for dishes",
+        "Interactive seafood platter builder",
+        "Live ocean-vibe background animations"
+    ]
+}

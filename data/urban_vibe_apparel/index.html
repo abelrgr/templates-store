@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: true, scrolled: false, activeCategory: 'all', cartOpen: false }" :class="{ 'dark': darkMode }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URBANVIBE | RECODE THE STREETS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        street: {
+                            black: '#000000',
+                            white: '#FFFFFF',
+                            neon: '#9FEF00', // Volt Green
+                            acid: '#D1FF00',
+                            gray: '#1A1A1A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .brutalist-card {
+            box-shadow: 10px 10px 0px 0px #9FEF00;
+            transition: all 0.2s ease;
+        }
+        .brutalist-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 16px 16px 0px 0px #9FEF00;
+        }
+        .text-outline {
+            -webkit-text-stroke: 1px currentColor;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-street-white dark:bg-street-black text-street-black dark:text-street-white transition-all duration-300 font-sans selection:bg-street-neon selection:text-black">
+
+    <!-- Top News Ticker -->
+    <div class="bg-street-black dark:bg-street-neon text-street-neon dark:text-street-black py-2 overflow-hidden border-b border-white/10">
+        <div class="marquee font-display font-black uppercase text-sm tracking-tighter">
+            NEXT DROP IN 02:45:12 • WORLDWIDE SHIPPING • JOIN THE VIBE • NEXT DROP IN 02:45:12 • WORLDWIDE SHIPPING • JOIN THE VIBE • NEXT DROP IN 02:45:12 • WORLDWIDE SHIPPING • JOIN THE VIBE • 
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 transition-all duration-500" :class="scrolled ? 'bg-street-white dark:bg-street-black py-4 border-b border-black dark:border-white' : 'py-8 bg-transparent'">
+        <div class="max-w-[1500px] mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="#" class="text-4xl font-black font-display tracking-tighter hover:text-street-neon transition">URBANVIBE®</a>
+                <div class="hidden lg:flex gap-8 font-black uppercase text-xs tracking-[0.2em] italic">
+                    <a href="#" class="hover:underline underline-offset-8 decoration-street-neon decoration-4">New Arrivals</a>
+                    <a href="#" class="hover:underline underline-offset-8 decoration-street-neon decoration-4">Lookbook</a>
+                    <a href="#" class="hover:underline underline-offset-8 decoration-street-neon decoration-4">Archives</a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <button @click="darkMode = !darkMode" class="p-2 border-2 border-black dark:border-white rounded-full hover:bg-street-neon hover:text-black transition">
+                    <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon-stars'"></i>
+                </button>
+                <div class="relative group cursor-pointer" @click="cartOpen = true">
+                    <i class="ti ti-shopping-bag text-2xl"></i>
+                    <span class="absolute -top-2 -right-2 bg-street-neon text-black text-[10px] font-black px-1 rounded-sm">03</span>
+                </div>
+                <button class="bg-street-black dark:bg-street-white text-street-white dark:text-street-black px-6 py-2 font-black uppercase text-xs tracking-widest hover:scale-105 active:scale-95 transition">
+                    Member Access
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero: Static Chaos -->
+    <header class="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-6">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=1600')] bg-cover bg-fixed grayscale opacity-30 dark:opacity-20 animate-[pulse_8s_infinite]"></div>
+        
+        <div class="relative z-10 text-center">
+            <h1 class="text-[12vw] font-black font-display leading-[0.8] tracking-tighter mb-8 uppercase">
+                FUTURE <br>
+                <span class="text-outline">ARCHIVE</span> <br>
+                <span class="text-street-neon">CORE v2.0</span>
+            </h1>
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                <p class="text-lg font-bold max-w-sm italic opacity-80 mb-6 md:mb-0">
+                    Proprietary street silhouettes designed for the digital native elite. Limited distribution.
+                </p>
+                <div class="flex gap-4">
+                    <button class="bg-street-neon text-black px-12 py-6 text-xl font-black uppercase italic tracking-tighter hover:bg-street-white transition group">
+                        Enter Shop <i class="ti ti-arrow-right group-hover:translate-x-4 transition inline-block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-10 hidden xl:block">
+            <div class="border-l-4 border-street-neon pl-6">
+                <div class="text-xs font-black uppercase tracking-widest mb-2">Social Feed</div>
+                <div class="text-4xl font-display font-black">#OFFTHESTREETS</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section: Grid of Drops -->
+    <section class="py-32 px-6">
+        <div class="max-w-[1500px] mx-auto">
+            <div class="flex justify-between items-end mb-20">
+                <h2 class="text-6xl font-black font-display uppercase tracking-tighter">Current <br> Drop</h2>
+                <div class="text-right">
+                    <div class="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-2">Available Since</div>
+                    <div class="text-2xl font-black italic">FEB 25 / 2024</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Product Card 1 -->
+                <template x-for="item in [
+                    { name: 'Oversized Volt Hoodie', price: '$120', img: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=600' },
+                    { name: 'Tactical Cargo V1', price: '$155', img: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&q=80&w=600' },
+                    { name: 'Graffiti Tee / White', price: '$65', img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=600' },
+                    { name: 'Neon Beanie 03', price: '$40', img: 'https://images.unsplash.com/photo-1576871337622-98d48d1cf021?auto=format&fit=crop&q=80&w=600' }
+                ]" :key="item.name">
+                    <div class="group cursor-pointer">
+                        <div class="relative aspect-[3/4] overflow-hidden bg-street-gray mb-6">
+                            <img :src="item.img" :alt="item.name" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                            <div class="absolute inset-0 bg-street-neon/40 opacity-0 group-hover:opacity-100 transition duration-500 mix-blend-multiply"></div>
+                            
+                            <div class="absolute top-4 right-4 bg-street-neon text-black px-3 py-1 font-black text-[10px] uppercase italic">Sold Out</div>
+                            
+                            <div class="absolute bottom-0 left-0 w-full p-6 translate-y-full group-hover:translate-y-0 transition duration-500">
+                                <button class="w-full bg-street-white text-black py-4 font-black uppercase text-sm italic shadow-2xl">Notify Me</button>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-start font-display">
+                            <div>
+                                <h3 class="font-black text-xl uppercase tracking-tighter" x-text="item.name"></h3>
+                                <p class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">Drop ID: #UV-024</p>
+                            </div>
+                            <span class="font-black text-xl italic" x-text="item.price"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature: The Vibe Room -->
+    <section class="py-40 bg-street-black text-street-white overflow-hidden relative">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-street-neon to-transparent opacity-30"></div>
+        
+        <div class="max-w-[1500px] mx-auto px-6 grid lg:grid-cols-2 gap-24 items-center">
+            <div class="relative">
+                <div class="absolute -top-20 -left-20 text-[20vw] font-black text-street-neon opacity-5 select-none pointer-events-none">RAW</div>
+                <h2 class="text-7xl lg:text-9xl font-black font-display uppercase leading-[0.8] mb-12">
+                    CRAFTED <br> IN THE <br> <span class="text-street-neon">VOID.</span>
+                </h2>
+                <p class="text-2xl font-bold italic mb-12 opacity-80 max-w-lg">
+                    We don't follow trends. We observe them, then we destroy them. Our design language is noise.
+                </p>
+                <button class="border-4 border-street-white hover:bg-street-neon hover:border-street-neon hover:text-black transition-all px-12 py-6 text-2xl font-black uppercase italic tracking-tighter">
+                    Read Manifesto
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-6 pt-20">
+                    <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&q=80&w=600" class="brutalist-card border-4 border-white grayscale hover:grayscale-0 transition duration-500" alt="Detail">
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=600" class="brutalist-card border-4 border-white scale-90" alt="Detail">
+                </div>
+                <div class="space-y-6">
+                    <img src="https://images.unsplash.com/photo-1520006403993-4740f0adaca9?auto=format&fit=crop&q=80&w=600" class="brutalist-card border-4 border-white" alt="Detail">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=600" class="brutalist-card border-4 border-white grayscale" alt="Detail">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer: Industrial Exit -->
+    <footer class="py-24 px-6 border-t-8 border-street-neon bg-street-white dark:bg-street-black">
+        <div class="max-w-[1500px] mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-24 mb-24">
+                <div>
+                    <div class="text-5xl font-black font-display tracking-tighter mb-8">UV®</div>
+                    <p class="font-bold opacity-60">
+                        URBANVIBE INDUSTRIES PTY LTD. <br>
+                        OPERATING AT THE INTERSECTION OF <br>
+                        HARDCORE STREETWEAR & DIGITAL CHAOS.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-12">
+                    <div>
+                        <h4 class="font-black uppercase tracking-[0.2em] text-[10px] mb-8 opacity-40">System</h4>
+                        <ul class="space-y-4 font-black italic">
+                            <li><a href="#" class="hover:text-street-neon transition">Legal.exe</a></li>
+                            <li><a href="#" class="hover:text-street-neon transition">Shipping.sh</a></li>
+                            <li><a href="#" class="hover:text-street-neon transition">Security.pdf</a></li>
+                            <li><a href="#" class="hover:text-street-neon transition">Returns.api</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-black uppercase tracking-[0.2em] text-[10px] mb-8 opacity-40">Connect</h4>
+                        <ul class="space-y-4 font-black italic">
+                            <li><a href="#" class="hover:text-street-neon transition">Discord App</a></li>
+                            <li><a href="#" class="hover:text-street-neon transition">Instagram</a></li>
+                            <li><a href="#" class="hover:text-street-neon transition">TikTok Pro</a></li>
+                            <li><a href="#" class="hover:text-street-neon transition">Email HQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-black uppercase tracking-[0.2em] text-[10px] mb-8 opacity-40">Broadcast</h4>
+                    <form class="flex border-b-4 border-black dark:border-white pb-2">
+                        <input type="email" placeholder="YOUR@EMAIL.COM" class="bg-transparent border-none flex-1 font-black italic uppercase placeholder:opacity-30 focus:ring-0">
+                        <button class="bg-street-neon text-black p-2 hover:bg-street-white transition"><i class="ti ti-arrow-right text-xl"></i></button>
+                    </form>
+                    <p class="text-[10px] font-bold mt-4 opacity-40 italic uppercase">Sync with our database for priority alerts.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-[10px] font-black uppercase tracking-[0.4em] gap-8">
+                <div>&copy; 1999-2024 URBANVIBE WORLDWIDE. ALL RIGHTS DESTROYED.</div>
+                <div class="flex gap-12 text-lg">
+                    <i class="ti ti-brand-mastercard"></i>
+                    <i class="ti ti-brand-visa"></i>
+                    <i class="ti ti-brand-paypal"></i>
+                    <i class="ti ti-brand-apple-pay"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

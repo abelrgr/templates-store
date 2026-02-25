@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ orderModal: false, people: 1, pailaStatus: 'hirviendo', cart: [] }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Palacio del Chicharrón | ¡Sabor Cochala Original!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chicha: {
+                            gold: '#F1C40F',
+                            orange: '#E67E22',
+                            red: '#C0392B',
+                            dark: '#2D1B17',
+                            cream: '#FFF9E3',
+                            wood: '#5D4037'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Arvo', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .bubble {
+            animation: bubble 2s ease-in infinite;
+        }
+        @keyframes bubble {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-30px) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-chicha-cream text-chicha-dark font-sans selection:bg-chicha-orange selection:text-white">
+
+    <!-- Top Banner: Slogan/Status -->
+    <div class="bg-chicha-red text-white py-2 px-6 flex justify-between items-center text-xs font-bold uppercase tracking-widest overflow-hidden">
+        <div class="animate-pulse flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-white"></span>
+            Pailas Calientes: ¡Pide Ahora!
+        </div>
+        <div class="hidden md:block">Tradición Cochabambina desde 1970</div>
+        <div class="flex gap-4">
+            <i class="ti ti-brand-whatsapp"></i> +591 7XXXXXXX
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b-4 border-chicha-gold shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-16 h-16 bg-chicha-gold rounded-full flex items-center justify-center -rotate-12 border-4 border-chicha-orange shadow-xl relative">
+                        <i class="ti ti-flame text-chicha-red text-3xl"></i>
+                        <div class="absolute -top-1 -right-1 w-6 h-6 bg-chicha-red rounded-full flex items-center justify-center text-white text-[10px] font-bold">CO!</div>
+                    </div>
+                    <div>
+                        <span class="text-3xl font-serif font-bold text-chicha-red italic leading-none block">EL PALACIO</span>
+                        <span class="text-xs font-bold text-chicha-orange uppercase tracking-[0.3em]">del Chicharrón</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hidden lg:flex gap-10 font-bold uppercase text-sm tracking-widest">
+                <a href="#menu" class="hover:text-chicha-orange transition">El Menú</a>
+                <a href="#tradicion" class="hover:text-chicha-orange transition">Nuestro Secreto</a>
+                <a href="#ubicaciones" class="hover:text-chicha-orange transition">Sucursales</a>
+                <button @click="orderModal = true" class="bg-chicha-red text-white px-8 py-3 rounded-full hover:scale-105 transition shadow-lg">Pide Entrega</button>
+            </div>
+            
+            <div class="lg:hidden text-2xl"><i class="ti ti-menu-2"></i></div>
+        </div>
+    </nav>
+
+    <!-- Hero: Festive & Tasty -->
+    <header class="relative py-24 px-6 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1544025162-d27da76afa2f?auto=format&fit=crop&q=80&w=1600" class="w-full h-full object-cover grayscale-[0.3] opacity-30" alt="Pork texture">
+            <div class="absolute inset-0 bg-gradient-to-b from-chicha-cream via-transparent to-chicha-cream"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h1 class="text-6xl lg:text-8xl font-serif italic mb-8 leading-tight">
+                    El crujiente <br> de <span class="text-chicha-orange text-shadow-xl">oro puro.</span>
+                </h1>
+                <p class="text-xl opacity-80 mb-12 leading-relaxed font-medium">Cocinado en paila de bronce con leña, servido con mote, k'ahui y el picante justo de nuestra llajua auténtica.</p>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-2xl border-l-8 border-chicha-red max-w-md">
+                    <h3 class="font-serif text-2xl mb-4">Calcula tu Pedido</h3>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-sm font-bold opacity-60 uppercase">¿Cuántos Comensales?</span>
+                        <div class="flex items-center gap-4">
+                            <button @click="people > 1 ? people-- : 1" class="w-8 h-8 rounded-full bg-chicha-gold flex items-center justify-center font-bold">-</button>
+                            <span class="text-2xl font-bold" x-text="people"></span>
+                            <button @click="people++" class="w-8 h-8 rounded-full bg-chicha-gold flex items-center justify-center font-bold">+</button>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-chicha-gold/20 rounded-lg mb-8">
+                        <p class="text-[10px] font-bold uppercase text-chicha-orange mb-1">Recomendación Sugerida:</p>
+                        <p class="text-lg font-bold" x-show="people <= 2">1 Plancha Mediana + Refresco</p>
+                        <p class="text-lg font-bold" x-show="people > 2 && people <= 5">1 Plancha Extra Grande + Picada</p>
+                        <p class="text-lg font-bold" x-show="people > 5">Combo Familiar "El Grande" (2Kg)</p>
+                    </div>
+                    <button class="w-full bg-chicha-orange text-white py-4 font-bold rounded-xl shadow-lg hover:bg-chicha-red transition uppercase tracking-widest">
+                        ¡Mandar a Preparar!
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative flex justify-center">
+                <div class="w-full max-w-md aspect-square bg-chicha-gold rounded-full p-4 relative shadow-[0_0_50px_rgba(230,126,34,0.3)]">
+                    <img src="https://images.unsplash.com/photo-1621348888031-7521783472f8?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover rounded-full border-8 border-white shadow-2xl" alt="Chicharrón de Cerdo">
+                    <!-- Floating Icons -->
+                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-chicha-red rounded-full flex flex-col items-center justify-center text-white border-4 border-white rotate-12 shadow-xl">
+                        <span class="text-[10px] font-bold uppercase">Desde</span>
+                        <span class="text-2xl font-serif">Bs 45</span>
+                    </div>
+                    <div class="absolute bottom-10 -left-10 bg-white p-4 rounded-xl shadow-xl border-t-4 border-chicha-gold max-w-[150px]">
+                        <p class="text-[10px] font-bold uppercase opacity-60 mb-2">Estado de la Paila</p>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+                            <span class="text-xs font-bold uppercase" x-text="pailaStatus">Hirviendo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Grid -->
+    <section id="menu" class="py-32 max-w-7xl mx-auto px-6">
+        <div class="text-center mb-24">
+            <span class="text-chicha-red font-bold uppercase tracking-[0.4em] mb-4 block">Carta Tradicional</span>
+            <h2 class="text-5xl font-serif italic text-chicha-dark">Sabores de Llajta</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Product 1 -->
+            <div class="bg-white p-4 rounded-3xl shadow-xl hover:shadow-2xl transition group">
+                <div class="relative overflow-hidden rounded-2xl mb-6">
+                    <img src="https://images.unsplash.com/photo-1544025162-d27da76afa2f?auto=format&fit=crop&q=80&w=600" class="w-full h-64 object-cover group-hover:scale-110 transition duration-700" alt="Chicharrón">
+                    <div class="absolute bottom-4 left-4 bg-chicha-red text-white text-[10px] px-3 py-1 font-bold rounded-full">EL MÁS PEDIDO</div>
+                </div>
+                <div class="px-4 pb-6">
+                    <h3 class="text-2xl font-serif italic mb-2">Chicharrón Tradicional</h3>
+                    <p class="text-sm opacity-60 mb-6">Cerdo criollo cocido en su propia manteca, servido con mote blanco, k'ahui de maíz y papa lura.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-chicha-orange">Bs 50</span>
+                        <button class="bg-chicha-gold p-3 rounded-full hover:bg-chicha-orange hover:text-white transition shadow-md"><i class="ti ti-shopping-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white p-4 rounded-3xl shadow-xl hover:shadow-2xl transition group mt-8">
+                <div class="relative overflow-hidden rounded-2xl mb-6">
+                    <img src="https://images.unsplash.com/photo-1621348888031-7521783472f8?auto=format&fit=crop&q=80&w=600" class="w-full h-64 object-cover group-hover:scale-110 transition duration-700" alt="Escabeche">
+                </div>
+                <div class="px-4 pb-6">
+                    <h3 class="text-2xl font-serif italic mb-2">Escabeche Imperial</h3>
+                    <p class="text-sm opacity-60 mb-6">Patitas de cerdo marinadas en vinagre de la casa, cebolla morada, locoto y zanahorias crocantes.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-chicha-orange">Bs 35</span>
+                        <button class="bg-chicha-gold p-3 rounded-full hover:bg-chicha-orange hover:text-white transition shadow-md"><i class="ti ti-shopping-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="bg-white p-4 rounded-3xl shadow-xl hover:shadow-2xl transition group">
+                <div class="relative overflow-hidden rounded-2xl mb-6">
+                    <img src="https://images.unsplash.com/photo-1599411933575-d227c2443048?auto=format&fit=crop&q=80&w=600" class="w-full h-64 object-cover group-hover:scale-110 transition duration-700" alt="Plancha">
+                    <div class="absolute top-4 right-4 bg-chicha-orange text-white text-[10px] px-3 py-1 font-bold rounded-full">FAMILIAR</div>
+                </div>
+                <div class="px-4 pb-6">
+                    <h3 class="text-2xl font-serif italic mb-2">Plancha Familiar</h3>
+                    <p class="text-sm opacity-60 mb-6">Mezcla generosa de chicharrón, costillitas, chorizo criollo y una montaña de mote y papa.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-chicha-orange">Bs 180</span>
+                        <button class="bg-chicha-gold p-3 rounded-full hover:bg-chicha-orange hover:text-white transition shadow-md"><i class="ti ti-shopping-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heritage CTA -->
+    <section id="tradicion" class="bg-chicha-dark text-white py-40 overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100" fill="white" />
+            </svg>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-5xl lg:text-7xl font-serif italic mb-10 text-chicha-gold">El Secreto de la Abuela</h2>
+            <p class="text-xl font-light opacity-80 mb-16 leading-relaxed">No es solo el cerdo, es la paila de cobre que ha pasado por tres generaciones. Es el maíz pelado a mano y el tiempo lento del fuego. Aquí no hay prisas, solo sabor puro.</p>
+            
+            <div class="flex items-center justify-center gap-12 flex-wrap">
+                <div class="text-center">
+                    <div class="text-4xl font-serif text-chicha-orange mb-2">100%</div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Cerdo Criollo</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-serif text-chicha-orange mb-2">50+</div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Años de Sabor</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-serif text-chicha-orange mb-2">24h</div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Marinado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations -->
+    <section id="ubicaciones" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-20">
+            <div class="lg:w-1/2">
+                <h2 class="text-4xl font-serif italic mb-12">Donde encontrarnos</h2>
+                <div class="space-y-8">
+                    <div class="flex gap-6 p-6 rounded-2xl hover:bg-chicha-cream transition cursor-pointer border border-transparent hover:border-chicha-gold">
+                        <div class="w-12 h-12 bg-chicha-red text-white flex items-center justify-center rounded-xl text-2xl shrink-0"><i class="ti ti-map-pin"></i></div>
+                        <div>
+                            <h4 class="text-xl font-bold">Sucursal Central (Cochabamba)</h4>
+                            <p class="text-sm opacity-60">Av. Villazón Km 3, Zona El Abra</p>
+                            <p class="text-sm font-bold mt-2 text-chicha-orange">Abierto Mar - Dom (09:00 - 18:00)</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 p-6 rounded-2xl hover:bg-chicha-cream transition cursor-pointer border border-transparent hover:border-chicha-gold">
+                        <div class="w-12 h-12 bg-chicha-orange text-white flex items-center justify-center rounded-xl text-2xl shrink-0"><i class="ti ti-map-pin"></i></div>
+                        <div>
+                            <h4 class="text-xl font-bold">Sucursal Santa Cruz (Equipetrol)</h4>
+                            <p class="text-sm opacity-60">Calle Los Pinos 45, Edif. Tradición</p>
+                            <p class="text-sm font-bold mt-2 text-chicha-orange">Abierto Vier - Dom (10:00 - 17:00)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:w-1/2 bg-chicha-cream rounded-3xl p-1 overflow-hidden shadow-2xl min-h-[400px]">
+                <div class="w-full h-full bg-stone-300 flex items-center justify-center text-white italic">
+                    <span class="text-chicha-dark opacity-40">[ Mapa Interactivo Cargando ]</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-chicha-red py-24 px-6 text-white border-t-[20px] border-chicha-gold">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-20">
+            <div class="max-w-xs">
+                <span class="text-3xl font-serif italic block mb-6">El Palacio</span>
+                <p class="text-sm opacity-80 leading-relaxed mb-8">El destino final para los amantes del buen chicharrón. Calidad garantizada en cada bocado.</p>
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="ti ti-brand-facebook"></i></div>
+                    <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="ti ti-brand-tiktok"></i></div>
+                    <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center"><i class="ti ti-brand-whatsapp"></i></div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-20">
+                <div>
+                    <h5 class="font-bold uppercase text-[10px] tracking-widest mb-8 opacity-60">Nuestra Casa</h5>
+                    <ul class="text-xs space-y-4 font-bold tracking-wider">
+                        <li><a href="#">Historia</a></li>
+                        <li><a href="#">Proveedores</a></li>
+                        <li><a href="#">Frankquicias</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold uppercase text-[10px] tracking-widest mb-8 opacity-60">Ayuda</h5>
+                    <ul class="text-xs space-y-4 font-bold tracking-wider">
+                        <li><a href="#">Pide por WhatsApp</a></li>
+                        <li><a href="#">Quejas y Sugerencias</a></li>
+                        <li><a href="#">Bolsa de Trabajo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between text-[10px] uppercase font-bold tracking-[0.3em] opacity-40">
+            <p>&copy; 2024 El Palacio del Chicharrón Bolivia. Derechos Reservados.</p>
+            <p>Diseñado con Sabor por GitHub Copilot</p>
+        </div>
+    </footer>
+
+</body>
+</html>

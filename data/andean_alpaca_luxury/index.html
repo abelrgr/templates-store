@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false, fiberOrigin: 'peru', scrolled: false }" :class="{ 'dark': darkMode }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heritage Alpaca | The Golden Fiber of the Andes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        alpaca: {
+                            gold: '#C5A059',
+                            taupe: '#967969',
+                            sand: '#E8DED1',
+                            brown: '#4A3728',
+                            earth: '#2D231B',
+                            light: '#FAF7F2'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .lux-transition { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-in { animation: fadeIn 2s ease-out forwards; }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .grain-bg {
+            background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+        }
+    </style>
+</head>
+<body class="bg-alpaca-light dark:bg-alpaca-earth text-alpaca-brown dark:text-alpaca-sand transition-colors duration-700 font-sans selection:bg-alpaca-gold selection:text-white">
+
+    <!-- Global Shipping Bar -->
+    <div class="bg-alpaca-brown text-alpaca-sand py-2.5 text-[10px] tracking-[0.3em] uppercase text-center font-semibold">
+        Complimentary global shipping on all orders over $300 USD
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 transition-all duration-700" :class="scrolled ? 'bg-alpaca-light/95 dark:bg-alpaca-earth/95 py-4 border-b border-alpaca-brown/5 backdrop-blur-md' : 'py-8'">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="hidden lg:flex gap-10 text-[10px] uppercase font-bold tracking-[0.2em]">
+                <a href="#collection" class="hover:text-alpaca-gold transition">Collection</a>
+                <a href="#heritage" class="hover:text-alpaca-gold transition">Our Heritage</a>
+                <a href="#bespoke" class="hover:text-alpaca-gold transition">Bespoke</a>
+            </div>
+
+            <div class="text-center">
+                <a href="#" class="text-3xl font-serif tracking-widest uppercase">Heritage Alpaca</a>
+                <div class="text-[8px] tracking-[0.5em] uppercase opacity-60 mt-1">Est. 1924 • Andes</div>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <button @click="darkMode = !darkMode" class="p-1.5 opacity-60 hover:opacity-100 transition">
+                    <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon-stars'"></i>
+                </button>
+                <div class="relative group cursor-pointer">
+                    <i class="ti ti-shopping-bag text-xl"></i>
+                    <span class="absolute -top-1 -right-1 bg-alpaca-gold text-white text-[8px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">0</span>
+                </div>
+                <div class="lg:hidden"><i class="ti ti-menu-2"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero: Soft Editorial -->
+    <header class="relative h-[85vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1600" class="w-full h-full object-cover scale-105" alt="Luxury Knitwear">
+            <div class="absolute inset-0 bg-alpaca-brown/10 backdrop-contrast-[1.1]"></div>
+        </div>
+
+        <div class="relative z-10 text-center max-w-4xl px-6 fade-in">
+            <h1 class="text-6xl lg:text-8xl font-serif italic text-white mb-8 leading-tight">
+                Quiet luxury, <br>
+                <span class="font-normal not-italic">eternal warmth.</span>
+            </h1>
+            <p class="text-white/90 text-lg lg:text-xl font-light tracking-wide mb-12 max-w-xl mx-auto leading-relaxed">
+                Discover the world's rarest natural fiber. Hand-sorted and ethically knitted in the heart of the Peruvian Andes.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <button class="bg-white text-alpaca-brown px-12 py-4 text-xs font-bold uppercase tracking-[0.3em] hover:bg-alpaca-gold hover:text-white transition duration-500">
+                    S/S 24 Collection
+                </button>
+                <button class="border border-white text-white px-12 py-4 text-xs font-bold uppercase tracking-[0.3em] backdrop-blur-sm hover:bg-white hover:text-alpaca-brown transition duration-500">
+                    View Lookbook
+                </button>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-white opacity-40">
+            <div class="text-[8px] uppercase tracking-[0.5em]">Scroll to Explore</div>
+            <div class="w-[1px] h-12 bg-white/40"></div>
+        </div>
+    </header>
+
+    <!-- Fiber Science Section -->
+    <section class="py-32 bg-alpaca-sand/30 dark:bg-black/20 grain-bg">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+                <div class="relative">
+                    <div class="absolute -top-10 -left-10 w-40 h-40 border border-alpaca-gold/30"></div>
+                    <img src="https://images.unsplash.com/photo-1574273509043-f94f45e5b164?auto=format&fit=crop&q=80&w=800" class="shadow-2xl grayscale-[0.2] hover:grayscale-0 transition duration-1000" alt="Alpacas">
+                    <div class="absolute -bottom-12 -right-12 bg-alpaca-light dark:bg-alpaca-earth p-10 shadow-xl max-w-xs border border-alpaca-brown/5">
+                        <div class="text-3xl font-serif mb-4 italic">Hypoallergenic.</div>
+                        <p class="text-xs leading-loose opacity-70">Unlike sheep's wool, Alpaca fiber contains no lanolin, making it soft enough for even the most sensitive skin.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-12">
+                    <h2 class="text-4xl lg:text-5xl font-serif leading-tight">Crafting the Fiber of the <span class="text-alpaca-gold">Gods</span>.</h2>
+                    <p class="text-lg leading-relaxed opacity-80">Chosen by Incan royalty for centuries, our Baby Alpaca wool is harvested through non-mulesed, sustainable practices that honor both animal and artisan.</p>
+                    
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <div class="text-2xl font-serif mb-2 italic">7x Warmer</div>
+                            <p class="text-[10px] uppercase font-bold tracking-widest opacity-40">Than wool</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif mb-2 italic">100% Biodegradable</div>
+                            <p class="text-[10px] uppercase font-bold tracking-widest opacity-40">Earth friendly</p>
+                        </div>
+                    </div>
+
+                    <a href="#" class="inline-block border-b-2 border-alpaca-gold pb-2 text-xs font-bold uppercase tracking-[0.3em] hover:opacity-60 transition">
+                        The Sustainability Fiber Report <i class="ti ti-arrow-right ml-2 text-lg align-middle"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Grid: Silent Elegance -->
+    <section id="collection" class="py-32 max-w-7xl mx-auto px-6">
+        <div class="text-center mb-24">
+            <span class="text-[10px] font-bold uppercase tracking-[0.5em] opacity-40 mb-4 block">New Season Arrivals</span>
+            <h2 class="text-5xl font-serif italic">Curated Essentials</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Product 1 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden mb-8 bg-alpaca-sand/20">
+                    <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&q=80&w=800" class="w-full transition duration-[1.5s] ease-[cubic-bezier(0.16, 1, 0.3, 1)] group-hover:scale-110" alt="Product">
+                    <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <button class="bg-white/90 backdrop-blur px-6 py-3 text-[10px] font-bold uppercase tracking-widest shadow-xl">Quick View</button>
+                    </div>
+                </div>
+                <div class="flex justify-between items-start mb-2 px-1">
+                    <h3 class="text-lg font-serif italic">Andean Sky Cardigan</h3>
+                    <span class="text-sm font-semibold opacity-60">$285</span>
+                </div>
+                <div class="flex gap-2 px-1">
+                    <div class="w-2.5 h-2.5 rounded-full bg-alpaca-brown cursor-pointer border border-alpaca-gold"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-stone-400 cursor-pointer"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-alpaca-sand cursor-pointer"></div>
+                </div>
+            </div>
+
+            <!-- Product 2 (Large Middle) -->
+            <div class="group cursor-pointer md:mt-20">
+                <div class="relative overflow-hidden mb-8 bg-alpaca-sand/20">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=800" class="w-full transition duration-[1.5s] group-hover:scale-105" alt="Product">
+                    <div class="absolute inset-0 bg-alpaca-brown/5 opacity-0 group-hover:opacity-100 transition duration-700"></div>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-2xl font-serif italic mb-2">Heritage Overcoat</h3>
+                    <span class="text-sm font-semibold opacity-60 font-sans tracking-widest uppercase">$740</span>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden mb-8 bg-alpaca-sand/20">
+                    <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&q=80&w=800" class="w-full transition duration-[1.5s] group-hover:scale-110" alt="Product">
+                </div>
+                <div class="flex justify-between items-start mb-2 px-1">
+                    <h3 class="text-lg font-serif italic">Chullo Lounge Scarf</h3>
+                    <span class="text-sm font-semibold opacity-60">$120</span>
+                </div>
+                <div class="flex gap-2 px-1 opacity-40 text-[10px] font-bold uppercase tracking-tighter">
+                    Available in 4 Shades
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bespoke Service CTA -->
+    <section id="bespoke" class="py-40 bg-alpaca-brown text-alpaca-sand overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 flex items-center justify-center">
+            <div class="text-[50vw] font-serif italic opacity-10 select-none">H</div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-5xl lg:text-7xl font-serif italic mb-10 leading-tight">Mastered by Hand. <br> Created for You.</h2>
+            <p class="text-lg font-light opacity-80 mb-16 leading-relaxed">Experience our Bespoke Knitting service. Collaborate with our Andean master weavers to create a one-of-a-kind piece tailored to your measurements and color preferences.</p>
+            <button class="border-2 border-alpaca-gold text-alpaca-gold px-12 py-5 text-xs font-bold uppercase tracking-[0.4em] hover:bg-alpaca-gold hover:text-white transition duration-500 rounded-full">
+                Begin Consultation
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer: Minimal Editorial -->
+    <footer class="py-24 px-6 border-t border-alpaca-brown/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-20 mb-32">
+                <div class="md:col-span-2">
+                    <h4 class="text-xl font-serif italic mb-8">Newsletter</h4>
+                    <p class="text-sm opacity-60 max-w-sm mb-8">Join the Heritage Circle for early access to limited edition fiber releases and artisan stories.</p>
+                    <form class="flex border-b border-alpaca-brown dark:border-alpaca-sand pb-4">
+                        <input type="email" placeholder="YOUR@EMAIL.COM" class="bg-transparent border-none flex-1 italic text-xs tracking-widest focus:ring-0">
+                        <button class="uppercase text-[10px] font-bold tracking-[0.3em] hover:text-alpaca-gold transition">Join</button>
+                    </form>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-10 opacity-40">Client Care</h4>
+                    <ul class="space-y-4 text-xs font-medium">
+                        <li><a href="#" class="hover:text-alpaca-gold transition">Private Appointments</a></li>
+                        <li><a href="#" class="hover:text-alpaca-gold transition">Fiber Care Guide</a></li>
+                        <li><a href="#" class="hover:text-alpaca-gold transition">Order Tracking</a></li>
+                        <li><a href="#" class="hover:text-alpaca-gold transition">Returns & Exchange</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-10 opacity-40">The Atelier</h4>
+                    <ul class="space-y-4 text-xs font-medium">
+                        <li><a href="#" class="hover:text-alpaca-gold transition">Lima Store</a></li>
+                        <li><a href="#" class="hover:text-alpaca-gold transition">London Showroom</a></li>
+                        <li><a href="#" class="hover:text-alpaca-gold transition">New York Studio</a></li>
+                        <li><a href="#" class="hover:text-alpaca-gold transition">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-[8px] font-bold uppercase tracking-[0.5em] gap-8 opacity-40">
+                <div>&copy; 1924-2024 Heritage Alpaca Ateliers. All rights reserved.</div>
+                <div class="flex gap-12">
+                    <span class="hover:text-alpaca-brown cursor-pointer transition">Ethics & Sustainability</span>
+                    <span class="hover:text-alpaca-brown cursor-pointer transition">Accessibility</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

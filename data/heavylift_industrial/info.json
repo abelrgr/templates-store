@@ -1,0 +1,18 @@
+{
+    "id": "heavylift_industrial",
+    "name": "HeavyLift Industrial",
+    "description": "Robust industrial logistics and heavy machinery transport template with warehouse management visualizers.",
+    "category": "Logistics & Moving",
+    "theme": {
+        "primary_color": "#2D2D2D",
+        "secondary_color": "#FDB813",
+        "accent_color": "#4A4A4A",
+        "font_family": "Space Grotesk, sans-serif"
+    },
+    "features": [
+        "Heavy-load specialized machinery calculator",
+        "Real-time warehouse capacity visualizer",
+        "Safe-transportation protocol checklist",
+        "Industrial fleet specifications viewer"
+    ]
+}

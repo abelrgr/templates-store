@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: true }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Polytechnic | Engineering & Tech Excellence</title>
+    <meta name="description" content="A high-tech polytechnic template for vocational and engineering education. Build your future with hands-on technical skills.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Google Fonts: JetBrains Mono & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        violet: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Tabler Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        [x-cloak] { display: none !important; }
+        .grid-pattern { background-image: radial-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 0); background-size: 24px 24px; }
+        .neon-glow { text-shadow: 0 0 10px rgba(139, 92, 246, 0.5); }
+    </style>
+</head>
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300 grid-pattern"
+      x-data="{ 
+          mobileMenu: false, 
+          toast: { show: false, message: '' },
+          showToast(msg) { 
+              this.toast.message = msg; 
+              this.toast.show = true; 
+              setTimeout(() => this.toast.show = false, 3000); 
+          }
+      }">
+
+    <!-- Toast -->
+    <div x-show="toast.show" 
+         x-transition:enter="transition duration-200"
+         class="fixed bottom-6 right-6 z-[200] bg-violet-600 text-white p-4 font-mono text-xs uppercase tracking-tighter shadow-[0_0_30px_rgba(139,92,246,0.3)] border-l-4 border-white"
+         x-cloak>
+        <span x-text="toast.message"></span>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" @click.prevent="showToast('Init System')" class="flex items-center gap-3">
+                <div class="h-10 w-10 bg-violet-600 flex items-center justify-center text-white rounded">
+                    <i class="ti ti-settings text-2xl animate-spin [animation-duration:5s]"></i>
+                </div>
+                <div class="leading-none">
+                    <span class="block text-xl font-extrabold tracking-tighter uppercase font-mono">Horizon</span>
+                    <span class="block text-[8px] font-bold text-violet-500 uppercase tracking-widest mt-0.5">Polytechnic Institute</span>
+                </div>
+            </a>
+
+            <ul class="hidden md:flex items-center space-x-10 text-xs font-bold uppercase font-mono tracking-widest">
+                <li><a href="#specializations" class="hover:text-violet-600">Specializations</a></li>
+                <li><a href="#workshops" class="hover:text-violet-600">Workshops</a></li>
+                <li><a href="#partners" class="hover:text-violet-600">Industries</a></li>
+                <button @click="darkMode = !darkMode" class="p-2 border dark:border-slate-800 rounded bg-slate-50 dark:bg-slate-900">
+                    <i :class="darkMode ? 'ti ti-cpu' : 'ti ti-sun'" class="text-lg"></i>
+                </button>
+                <li><a href="#contact" class="bg-violet-600 text-white px-6 py-3 rounded hover:bg-violet-700 transition-all shadow-lg active:translate-y-0.5">Apply Now</a></li>
+            </ul>
+
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden"><i class="ti ti-menu-2 text-3xl"></i></button>
+        </nav>
+
+        <div x-show="mobileMenu" x-cloak class="md:hidden bg-white dark:bg-slate-950 border-t dark:border-slate-800 p-8">
+            <ul class="space-y-6 font-mono font-bold tracking-widest text-sm">
+                <li><a href="#specializations" @click="mobileMenu = false">Specializations</a></li>
+                <li><a href="#workshops" @click="mobileMenu = false">Workshops</a></li>
+                <li><a href="#partners" @click="mobileMenu = false">Industries</a></li>
+                <li><a href="#contact" @click="mobileMenu = false" class="text-violet-500">Apply System</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Industrial Hero -->
+        <section class="min-h-[80vh] flex items-center relative py-20 overflow-hidden">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative z-10">
+                    <div class="mb-8 inline-flex items-center gap-4 bg-slate-100 dark:bg-slate-900 p-1 pr-6 rounded-full border dark:border-slate-800">
+                        <span class="bg-violet-600 text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase font-mono">v3.0.1</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest opacity-60">Future Skills Engine</span>
+                    </div>
+                    <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8 neon-glow">
+                        Built for <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-600">Machines.</span> <br>Engineered for <span class="text-violet-600">You.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-12 max-w-lg font-medium leading-relaxed">
+                        Industry-led vocational training focusing on hands-on proficiency, next-gen engineering, and digital-first certifications. 100% employability target.
+                    </p>
+                    <div class="flex flex-wrap gap-6 font-mono uppercase text-xs">
+                        <a href="#contact" class="bg-violet-600 text-white px-10 py-5 rounded font-black tracking-widest hover:bg-violet-700 shadow-2xl flex items-center gap-3 group">
+                            Access Enrollment <i class="ti ti-chevron-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#" @click.prevent="showToast('Loading Lab 360 tour')" class="px-10 py-5 border-2 border-slate-200 dark:border-slate-800 rounded font-black tracking-widest hover:bg-slate-50 dark:hover:bg-slate-900">
+                            Visit Labs
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="aspect-square bg-slate-100 dark:bg-slate-900 rounded-[4rem] flex items-center justify-center p-8 border dark:border-slate-700 relative overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1544725121-be3b54124cb7?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover rounded-[3rem] grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl" alt="Engineering">
+                        <div class="absolute inset-x-8 top-8 py-4 px-6 bg-white/10 backdrop-blur-md border border-white/20 text-white font-mono text-[10px] uppercase font-bold">
+                            Live Station: Lab-01 Power Grid
+                        </div>
+                    </div>
+                    <!-- Absolute Decals -->
+                    <div class="absolute -top-10 -right-10 w-32 h-32 border-4 border-violet-600 opacity-20 rotate-45 pointer-events-none"></div>
+                    <div class="absolute -bottom-10 -left-10 w-48 h-48 border-[12px] border-slate-200 dark:border-slate-800 rounded-full opacity-30 pointer-events-none"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skill Tracks (Interactive) -->
+        <section id="specializations" class="py-24 bg-slate-50 dark:bg-slate-900/50" x-data="{ active: 'electrical' }">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
+                    <div>
+                        <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Core Specializations</h2>
+                        <p class="text-slate-500 font-mono text-sm max-w-lg">Advanced pathways designed for the 2030 industrial landscape.</p>
+                    </div>
+                    <div class="flex gap-2 font-mono text-[10px] font-bold uppercase tracking-widest">
+                        <button @click="active = 'electrical'" :class="active === 'electrical' ? 'bg-violet-600 text-white' : 'bg-white dark:bg-slate-800 border dark:border-slate-700'" class="px-5 py-2 transition-all">Electrical</button>
+                        <button @click="active = 'robotics'" :class="active === 'robotics' ? 'bg-violet-600 text-white' : 'bg-white dark:bg-slate-800 border dark:border-slate-700'" class="px-5 py-2 transition-all">Robotics</button>
+                        <button @click="active = 'green-tech'" :class="active === 'green-tech' ? 'bg-violet-600 text-white' : 'bg-white dark:bg-slate-800 border dark:border-slate-700'" class="px-5 py-2 transition-all">Green-Tech</button>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div x-show="active === 'electrical'" x-transition:enter="transition duration-500 transform" x-transition:enter-start="scale-95 opacity-0">
+                         <h3 class="text-3xl font-black mb-8 border-l-4 border-violet-600 pl-6 uppercase tracking-tighter">Power Systems Specialist</h3>
+                         <p class="text-slate-600 dark:text-slate-400 mb-10 text-lg leading-relaxed">Master industrial automation, grid management, and smart circuit topography. Curriculum aligned with International Electro-Standards.</p>
+                         <div class="grid grid-cols-2 gap-6 font-mono text-xs font-bold uppercase tracking-widest">
+                             <div class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm"><i class="ti ti-bolt text-violet-500 text-xl"></i> HV Systems</div>
+                             <div class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm"><i class="ti ti-devices text-violet-500 text-xl"></i> PLC Logic</div>
+                             <div class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm"><i class="ti ti-tool text-violet-500 text-xl"></i> Maintenance</div>
+                             <div class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm"><i class="ti ti-shield-check text-violet-500 text-xl"></i> OSHE Safe</div>
+                         </div>
+                    </div>
+                    <!-- Other specialization logic omitted for speed but included in mind -->
+                    <div x-show="active === 'robotics'" x-cloak x-transition:enter="transition duration-500 transform" x-transition:enter-start="scale-95 opacity-0">
+                         <h3 class="text-3xl font-black mb-8 border-l-4 border-violet-600 pl-6 uppercase tracking-tighter">Autonomous Engineering</h3>
+                         <p class="text-slate-600 dark:text-slate-400 mb-10 text-lg leading-relaxed">AI-driven manufacturing mechanics. We build the bots that build the world. Includes 1-year internship with partner tech hubs.</p>
+                         <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600" class="rounded-3xl shadow-xl">
+                    </div>
+                    <div x-show="active === 'green-tech'" x-cloak x-transition:enter="transition duration-500 transform" x-transition:enter-start="scale-95 opacity-0">
+                         <h3 class="text-3xl font-black mb-8 border-l-4 border-violet-600 pl-6 uppercase tracking-tighter">Hydrogen & Solar Systems</h3>
+                         <p class="text-slate-600 dark:text-slate-400 mb-10 text-lg leading-relaxed">Training for the transition to carbon-neutral infrastructure. Direct pathway to government utility roles.</p>
+                    </div>
+                    <div class="relative h-[400px]">
+                         <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover rounded-[3rem] grayscale-0 hover:grayscale transition-all duration-700 shadow-2xl" alt="Code">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Grid (Compact) -->
+        <section class="py-20 border-y dark:border-slate-800">
+            <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 font-mono">
+                <div class="flex flex-col">
+                    <span class="text-4xl font-extrabold text-violet-600 mb-2">94%</span>
+                    <span class="text-[10px] uppercase font-bold tracking-[.3em] text-slate-400">Industry Hire</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-4xl font-extrabold text-violet-600 mb-2">18m</span>
+                    <span class="text-[10px] uppercase font-bold tracking-[.3em] text-slate-400">Avg Graduation</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-4xl font-extrabold text-violet-600 mb-2">24/7</span>
+                    <span class="text-[10px] uppercase font-bold tracking-[.3em] text-slate-400">Lab Access</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-4xl font-extrabold text-violet-600 mb-2">12</span>
+                    <span class="text-[10px] uppercase font-bold tracking-[.3em] text-slate-400">Global Partners</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workshop Feature (Expanding Details via Alpine) -->
+        <section id="workshops" class="py-24 bg-white dark:bg-slate-950" x-data="{ expanded: null }">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-black uppercase tracking-tighter mb-16 text-center">In-Sity Workshops</h2>
+                <div class="grid md:grid-cols-3 gap-1px bg-slate-100 dark:bg-slate-800 border dark:border-slate-800 overflow-hidden">
+                    <template x-for="lab in [
+                        { name: 'Foundry-A', type: 'Materials Science', desc: 'Precision smelting and CNC molding for aerospace-grade alloys.', img: 'https://images.unsplash.com/photo-1504917595217-d4dc5f566f18?auto=format&fit=crop&q=80&w=400' },
+                        { name: 'Logic-B', type: 'Control Systems', desc: 'Digital Twin simulation and industrial sensor integration.', img: 'https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&q=80&w=400' },
+                        { name: 'Current-C', type: 'Energy Grid', desc: 'High-voltage safe-training zones and renewable integration pods.', img: 'https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&q=80&w=400' }
+                    ]" :key="lab.name">
+                        <div class="bg-white dark:bg-slate-950 p-10 flex flex-col group transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-900">
+                             <div class="h-48 mb-8 overflow-hidden rounded-xl">
+                                <img :src="lab.img" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110" alt="Lab">
+                             </div>
+                             <span class="font-mono text-[10px] font-black text-violet-600 uppercase tracking-widest mb-2" x-text="lab.type"></span>
+                             <h4 class="text-2xl font-black uppercase mb-6" x-text="lab.name"></h4>
+                             <button @click="expanded = (expanded === lab.name ? null : lab.name)" class="mt-auto flex items-center gap-3 text-xs font-bold uppercase tracking-widest border border-slate-200 dark:border-slate-800 self-start px-6 py-3 hover:bg-violet-600 hover:text-white hover:border-violet-600 transition-all">
+                                <span x-text="expanded === lab.name ? 'Collapse Spec' : 'Expand Lab Spec'"></span>
+                                <i :class="expanded === lab.name ? 'ti ti-chevron-up' : 'ti ti-chevron-down'"></i>
+                             </button>
+                             <div x-show="expanded === lab.name" x-collapse x-cloak>
+                                 <p class="mt-6 text-slate-500 text-sm italic" x-text="lab.desc"></p>
+                             </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section id="partners" class="py-16 bg-slate-900">
+            <div class="container mx-auto px-6 overflow-hidden">
+                <div class="flex items-center gap-12 animate-[scroll_40s_linear_infinite]">
+                    <template x-for="p in ['Tesla', 'Siemens', 'ABB', 'Intel', 'NASA', 'BMW', 'SpaceX', 'Google']">
+                        <span class="text-white font-mono text-3xl font-black opacity-10 whitespace-nowrap uppercase tracking-[.5em] px-12" x-text="p"></span>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section (Industrial Form) -->
+        <section id="contact" class="py-24 bg-white dark:bg-slate-950 overflow-hidden relative">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-20">
+                    <div class="flex-1">
+                        <h2 class="text-5xl font-black uppercase tracking-tighter mb-8 leading-none">System Orientation</h2>
+                        <p class="text-xl text-slate-500 mb-12 font-medium">Ready to enter the industrial pipeline? Book a tour or start your certification eligibility test.</p>
+                        <div class="space-y-4 font-mono text-xs font-bold uppercase tracking-widest">
+                            <div class="p-6 bg-slate-50 dark:bg-slate-900 flex items-center gap-6"><i class="ti ti-map-2 text-violet-600 text-2xl"></i> Tech Ave 505, Industrial Quad, WA 98004</div>
+                            <div class="p-6 bg-slate-50 dark:bg-slate-900 flex items-center gap-6"><i class="ti ti-mail-fast text-violet-600 text-2xl"></i> protocol@horizon.edu</div>
+                        </div>
+                    </div>
+                    <div x-data="{ sending: false }" class="flex-1 bg-white dark:bg-slate-900 p-10 shadow-[40px_40px_100px_-20px_rgba(0,0,0,0.1)] border dark:border-slate-800">
+                        <form @submit.prevent="sending = true; setTimeout(() => { sending = false; showToast('Request queued successfully'); }, 2000)" class="space-y-8">
+                             <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] uppercase font-black tracking-widest mb-2 opacity-50">Terminal User ID</label>
+                                    <input type="text" placeholder="Full Name" required class="w-full bg-slate-50 dark:bg-slate-800 border-b-2 border-slate-100 dark:border-slate-700 p-4 focus:border-violet-600 outline-none font-mono">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] uppercase font-black tracking-widest mb-2 opacity-50">Secure Email</label>
+                                    <input type="email" placeholder="Email Address" required class="w-full bg-slate-50 dark:bg-slate-800 border-b-2 border-slate-100 dark:border-slate-700 p-4 focus:border-violet-600 outline-none font-mono">
+                                </div>
+                             </div>
+                             <div>
+                                <label class="block text-[10px] uppercase font-black tracking-widest mb-2 opacity-50">Target Track</label>
+                                <select class="w-full bg-slate-50 dark:bg-slate-800 border-b-2 border-slate-100 dark:border-slate-700 p-4 focus:border-violet-600 outline-none font-mono uppercase text-xs font-bold">
+                                    <option>Industrial Robotics [CERT-A]</option>
+                                    <option>Advanced Grids [CERT-B]</option>
+                                    <option>Green Infrastructure [CERT-G]</option>
+                                </select>
+                             </div>
+                             <button type="submit" :disabled="sending" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-950 py-5 font-black uppercase font-mono tracking-[.3em] hover:bg-violet-600 hover:text-white transition-all">
+                                <span x-text="sending ? 'Queuing Request...' : 'Initialize Enrollement'"></span>
+                             </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Decal background strings -->
+            <div class="absolute -right-20 bottom-20 text-[200px] font-black opacity-5 pointer-events-none select-none tracking-tighter">TECH</div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 py-20 border-t dark:border-slate-800 overflow-hidden">
+        <div class="container mx-auto px-6 grid md:grid-cols-4 gap-12 font-mono uppercase text-[10px] font-black tracking-widest">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="h-8 w-8 bg-violet-600 flex items-center justify-center text-white rounded">
+                        <i class="ti ti-settings text-md"></i>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tighter">Horizon POLY</span>
+                </div>
+                <p class="max-w-xs text-slate-400 mb-10 leading-loose">Horizon Polytechnic is an ISO-9001:2026 certified educational engine driving technical excellence in the 21st century.</p>
+                <div class="flex gap-4">
+                     <template x-for="s in ['brand-github', 'brand-discord', 'brand-linkedin', 'rss']">
+                         <a href="#" class="w-10 h-10 border dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-violet-600 transition-all"><i :class="'ti ti-' + s + ' text-base'"></i></a>
+                     </template>
+                </div>
+            </div>
+            <div>
+                 <h5 class="text-violet-600 mb-8">System Structure</h5>
+                 <ul class="space-y-4">
+                    <li><a href="#" class="hover:text-violet-600">Specializations</a></li>
+                    <li><a href="#" class="hover:text-violet-600">Lab Protocols</a></li>
+                    <li><a href="#" class="hover:text-violet-600">Security Dept</a></li>
+                    <li><a href="#" class="hover:text-violet-600">Alumni Terminal</a></li>
+                 </ul>
+            </div>
+            <div>
+                 <h5 class="text-violet-600 mb-8">Access Logs</h5>
+                 <ul class="space-y-4">
+                    <li><a href="#" class="hover:text-violet-600">Apply Protocol</a></li>
+                    <li><a href="#" class="hover:text-violet-600">Fee Calculation</a></li>
+                    <li><a href="#" class="hover:text-violet-600">Partner Portals</a></li>
+                 </ul>
+            </div>
+            <div class="col-span-full pt-20 flex flex-col md:flex-row justify-between items-center border-t dark:border-slate-900 gap-8">
+                <p class="opacity-30">&copy; 2026 HORIZON POLYTECHNIC. ALL SYSTEMS NOMINAL.</p>
+                <div class="flex gap-12 text-slate-300">
+                    <a href="#" class="hover:text-violet-600">Privacy Policy</a>
+                    <a href="#" class="hover:text-violet-600">Engineering Ethics</a>
+                    <span>Abel Gallo Ruiz</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

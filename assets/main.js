@@ -12,7 +12,7 @@ function appData() {
     category: "all",
     filterTag: "",
     currentPage: 1,
-    itemsPerPage: 6,
+    itemsPerPage: 20,
     favorites: JSON.parse(
       localStorage.getItem("abelrgr_templates_favorites") || "[]"
     ),
@@ -217,6 +217,7 @@ function appData() {
     openQuickview(template) {
       this.selectedQuickview = template;
       this.quickviewOpen = true;
+      this.trackView(template.folder);
     },
 
     closeQuickview() {

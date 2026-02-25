@@ -27,3 +27,7 @@ Thumbs.db
 
 # Composer lock file (optional, uncomment if you want to commit it)
 composer.lock
+
+# docs
+prompt.md
+reqs.md

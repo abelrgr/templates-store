@@ -1,0 +1,18 @@
+{
+    "id": "andina_bakery",
+    "name": "Andina Bakery & Pastelería",
+    "description": "Charming and elegant bakery template focused on traditional Bolivian pastries and artisanal high-altitude baking.",
+    "category": "Food & Beverage",
+    "theme": {
+        "primary_color": "#F7E7CE",
+        "secondary_color": "#A67C52",
+        "accent_color": "#D4A373",
+        "font_family": "Quicksand, sans-serif"
+    },
+    "features": [
+        "Fresh Batch Timer (Live updates)",
+        "Pastry pairing guide",
+        "Subscription for breakfast boxes",
+        "Interactive texture showcases"
+    ]
+}

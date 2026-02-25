@@ -1,0 +1,18 @@
+{
+    "id": "titan_fitness_gym",
+    "name": "Titan Fitness Gym",
+    "description": "High-intensity gym and fitness center template with membership management and BMI calculator.",
+    "category": "Sports & Wellness",
+    "theme": {
+        "primary_color": "#00FF00",
+        "secondary_color": "#111111",
+        "accent_color": "#FFFFFF",
+        "font_family": "Inter, sans-serif"
+    },
+    "features": [
+        "Interactive BMI Calculator",
+        "Class schedule toggle",
+        "Membership plan comparison",
+        "Training intensity visualizer"
+    ]
+}

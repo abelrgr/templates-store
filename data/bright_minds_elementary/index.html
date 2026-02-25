@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright Minds Elementary | Nurturing Future Leaders</title>
+    <meta name="description" content="A playful and comprehensive school template for elementary education centers. Designed for engagement and growth.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Google Fonts: Inter & Quicksand for a friendly feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        friendly: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        secondary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Tabler Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        [x-cloak] { display: none !important; }
+        .scroll-smooth { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-amber-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans scroll-smooth transition-colors duration-300"
+      x-data="{ 
+          mobileMenu: false, 
+          toast: { show: false, message: '' },
+          showToast(msg) { 
+              this.toast.message = msg; 
+              this.toast.show = true; 
+              setTimeout(() => this.toast.show = false, 3000); 
+          }
+      }">
+
+    <!-- Toast Notification -->
+    <div x-show="toast.show" 
+         x-transition:enter="transition ease-out duration-300 transform" 
+         x-transition:enter-start="translate-y-10 opacity-0" 
+         x-transition:enter-end="translate-y-0 opacity-100" 
+         x-transition:leave="transition ease-in duration-200" 
+         x-transition:leave-start="opacity-100" 
+         x-transition:leave-end="opacity-0"
+         class="fixed bottom-5 right-5 z-[100] bg-primary-600 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center space-x-3 pointer-events-none"
+         x-cloak>
+        <i class="ti ti-info-circle text-xl"></i>
+        <span x-text="toast.message" class="font-medium"></span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-primary-100 dark:border-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" @click.prevent="showToast('Home page')" class="flex items-center space-x-2">
+                <div class="bg-primary-500 p-2 rounded-lg text-white">
+                    <i class="ti ti-school text-2xl"></i>
+                </div>
+                <span class="font-friendly text-2xl font-bold tracking-tight text-primary-600 dark:text-primary-500">Bright Minds</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <ul class="hidden md:flex items-center space-x-8">
+                <li><a href="#about" class="hover:text-primary-500 font-medium transition-colors">About Us</a></li>
+                <li><a href="#programs" class="hover:text-primary-500 font-medium transition-colors">Programs</a></li>
+                <li><a href="#staff" class="hover:text-primary-500 font-medium transition-colors">Our Team</a></li>
+                <li><a href="#faq" class="hover:text-primary-500 font-medium transition-colors">FAQ</a></li>
+                <li><a href="#contact" class="bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-full font-bold transition-all transform hover:scale-105 shadow-md">Enroll Now</a></li>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-lg bg-primary-50 dark:bg-slate-800 text-primary-600 dark:text-primary-400 hover:opacity-80 transition-all">
+                    <i :class="darkMode ? 'ti ti-sun' : 'ti ti-moon'" class="text-xl"></i>
+                </button>
+            </ul>
+
+            <!-- Mobile Toggle -->
+            <div class="flex items-center space-x-4 md:hidden">
+                <button @click="darkMode = !darkMode" class="p-2 rounded-lg bg-primary-50 dark:bg-slate-800 text-primary-600 dark:text-primary-400">
+                    <i :class="darkMode ? 'ti ti-sun' : 'ti ti-moon'" class="text-xl"></i>
+                </button>
+                <button @click="mobileMenu = !mobileMenu" class="text-slate-800 dark:text-white p-2">
+                    <i :class="mobileMenu ? 'ti ti-x' : 'ti ti-menu-2'" class="text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-cloak
+             class="md:hidden bg-white dark:bg-slate-900 border-t dark:border-slate-800 px-6 py-6 pb-8">
+            <ul class="space-y-4">
+                <li><a href="#about" @click="mobileMenu = false" class="block text-lg font-medium">About Us</a></li>
+                <li><a href="#programs" @click="mobileMenu = false" class="block text-lg font-medium">Programs</a></li>
+                <li><a href="#staff" @click="mobileMenu = false" class="block text-lg font-medium">Our Team</a></li>
+                <li><a href="#faq" @click="mobileMenu = false" class="block text-lg font-medium">FAQ</a></li>
+                <li class="pt-2"><a href="#contact" @click="mobileMenu = false" class="block text-center bg-primary-500 text-white py-3 rounded-xl font-bold">Enroll Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative overflow-hidden pt-12 pb-20 md:pt-24 md:pb-32">
+            <div class="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                <div class="max-w-2xl text-center md:text-left">
+                    <span class="inline-block bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 px-4 py-1.5 rounded-full text-sm font-bold tracking-wide uppercase mb-6">Learning with Joy</span>
+                    <h1 class="font-friendly text-5xl md:text-7xl font-bold leading-tight mb-8">
+                        Where Every <span class="text-primary-500">Child</span> Discovers Their Potential
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 leading-relaxed">
+                        At Bright Minds, we provide a nurturing environment where creativity meets curiosity. Join us in building the foundation for a lifetime of success.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#contact" class="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl shadow-primary-500/20 transition-all transform hover:-translate-y-1">Start Enrollment</a>
+                        <a href="#" @click.prevent="showToast('Feature coming soon: Virtual Tour')" class="w-full sm:w-auto group flex items-center justify-center space-x-2 px-8 py-4 rounded-2xl font-bold text-lg border-2 border-slate-200 dark:border-slate-800 hover:border-primary-500 transition-all">
+                            <i class="ti ti-player-play text-primary-500 group-hover:scale-110"></i>
+                            <span>Virtual Tour</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-primary-100 dark:bg-primary-900/40 rounded-[3rem] p-4 transform rotate-3 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1000" 
+                             alt="Happy Kids Learning" 
+                             class="rounded-[2.5rem] transform -rotate-3 transition-transform hover:rotate-0 duration-700 shadow-2xl"
+                             loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <!-- Decorative Shapes -->
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-200 dark:bg-primary-900/20 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-secondary-200 dark:bg-secondary-900/20 rounded-full blur-3xl opacity-50"></div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-white dark:bg-slate-900">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="font-friendly text-4xl font-bold mb-6">Built for Today, Ready for Tomorrow</h2>
+                    <p class="text-slate-600 dark:text-slate-400">Founded on the belief that children learn best through play and exploration, Bright Minds has been a pillar of the community since 2010.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-[2rem] bg-amber-50 dark:bg-slate-800 border border-amber-100 dark:border-slate-700 transition-all hover:shadow-xl hover:-translate-y-2">
+                        <div class="w-14 h-14 bg-amber-500 rounded-2xl flex items-center justify-center mb-6 text-white text-2xl">
+                            <i class="ti ti-palette"></i>
+                        </div>
+                        <h3 class="font-friendly text-xl font-bold mb-4">Creative Arts</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Unlocking imagination through painting, music, and theater from day one.</p>
+                    </div>
+                    <div class="p-8 rounded-[2rem] bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-slate-700 transition-all hover:shadow-xl hover:-translate-y-2">
+                        <div class="w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center mb-6 text-white text-2xl">
+                            <i class="ti ti-flask"></i>
+                        </div>
+                        <h3 class="font-friendly text-xl font-bold mb-4">Science Discovery</h3>
+                        <p class="text-slate-600 dark:text-slate-400">STEM-focused curriculum that encourages questioning and experimentation.</p>
+                    </div>
+                    <div class="p-8 rounded-[2rem] bg-emerald-50 dark:bg-slate-800 border border-emerald-100 dark:border-slate-700 transition-all hover:shadow-xl hover:-translate-y-2">
+                        <div class="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center mb-6 text-white text-2xl">
+                            <i class="ti ti-mood-kid"></i>
+                        </div>
+                        <h3 class="font-friendly text-xl font-bold mb-4">Safe Playground</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Indoor and outdoor spaces designed with safety and social growth in mind.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section (Interactive Academic Details) -->
+        <section id="programs" class="py-24 bg-primary-50 dark:bg-slate-950" x-data="{ expandedId: 1 }">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-end justify-between gap-6 mb-16">
+                    <div class="max-w-xl">
+                        <h2 class="font-friendly text-4xl font-bold mb-4">Academic Pathways</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Our programs are tailored to different stages of development, ensuring every student finds their pace.</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="bg-white dark:bg-slate-800 p-3 rounded-full shadow-sm hover:shadow-md transition-all text-primary-500" @click.prevent="showToast('Previous item')">
+                            <i class="ti ti-chevron-left"></i>
+                        </button>
+                        <button class="bg-white dark:bg-slate-800 p-3 rounded-full shadow-sm hover:shadow-md transition-all text-primary-500" @click.prevent="showToast('Next item')">
+                            <i class="ti ti-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-4">
+                    <!-- Program 1 -->
+                    <div class="cursor-pointer transition-all duration-300 transform" 
+                         :class="expandedId === 1 ? 'md:col-span-2' : 'col-span-1'"
+                         @click="expandedId = 1">
+                        <div class="h-full bg-white dark:bg-slate-900 rounded-[2.5rem] overflow-hidden border-2 p-8 flex flex-col justify-between group"
+                             :class="expandedId === 1 ? 'border-primary-500 shadow-2xl' : 'border-transparent hover:border-primary-100 shadow-lg'">
+                            <div>
+                                <div class="flex items-center justify-between mb-8">
+                                    <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 text-primary-600 rounded-2xl flex items-center justify-center text-3xl">
+                                        <i class="ti ti-butterfly"></i>
+                                    </div>
+                                    <span class="text-sm font-bold opacity-40 group-hover:opacity-100">Preschool</span>
+                                </div>
+                                <h3 class="font-friendly text-2xl font-bold mb-4">Kindergarten Journey</h3>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6" x-show="expandedId === 1" x-collapse>
+                                    Focuses on social skills, emotional regulation, and early literacy through discovery-based learning environments.
+                                    <span class="block mt-4 text-primary-600 font-bold">Ages 4 - 6</span>
+                                </p>
+                            </div>
+                            <div class="mt-auto">
+                                <a href="#" @click.prevent="showToast('Applying to Kindergarten')" class="inline-flex items-center space-x-2 text-primary-600 font-bold group-hover:scale-105 transition-transform" x-show="expandedId === 1">
+                                    <span>Learn More</span>
+                                    <i class="ti ti-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Program 2 -->
+                    <div class="cursor-pointer transition-all duration-300 transform" 
+                         :class="expandedId === 2 ? 'md:col-span-2' : 'col-span-1'"
+                         @click="expandedId = 2">
+                        <div class="h-full bg-white dark:bg-slate-900 rounded-[2.5rem] overflow-hidden border-2 p-8 flex flex-col justify-between group"
+                             :class="expandedId === 2 ? 'border-blue-500 shadow-2xl' : 'border-transparent hover:border-blue-100 shadow-lg'">
+                            <div>
+                                <div class="flex items-center justify-between mb-8">
+                                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center text-3xl">
+                                        <i class="ti ti-staircase"></i>
+                                    </div>
+                                    <span class="text-sm font-bold opacity-40 group-hover:opacity-100">Lower School</span>
+                                </div>
+                                <h3 class="font-friendly text-2xl font-bold mb-4">Primary Discovery</h3>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6" x-show="expandedId === 2" x-collapse>
+                                    Core subjects introduced with a focus on project-based learning and creative problem-solving.
+                                    <span class="block mt-4 text-blue-600 font-bold">Grades 1 - 3</span>
+                                </p>
+                            </div>
+                            <div class="mt-auto">
+                                <a href="#" @click.prevent="showToast('Lower School curriculum details')" class="inline-flex items-center space-x-2 text-blue-600 font-bold group-hover:scale-105 transition-transform" x-show="expandedId === 2">
+                                    <span>Learn More</span>
+                                    <i class="ti ti-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Program 3 -->
+                    <div class="cursor-pointer transition-all duration-300 transform" 
+                         :class="expandedId === 3 ? 'md:col-span-2' : 'col-span-1'"
+                         @click="expandedId = 3">
+                        <div class="h-full bg-white dark:bg-slate-900 rounded-[2.5rem] overflow-hidden border-2 p-8 flex flex-col justify-between group"
+                             :class="expandedId === 3 ? 'border-emerald-500 shadow-2xl' : 'border-transparent hover:border-emerald-100 shadow-lg'">
+                            <div>
+                                <div class="flex items-center justify-between mb-8">
+                                    <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl">
+                                        <i class="ti ti-rocket"></i>
+                                    </div>
+                                    <span class="text-sm font-bold opacity-40 group-hover:opacity-100">Upper Prep</span>
+                                </div>
+                                <h3 class="font-friendly text-2xl font-bold mb-4">Middle Prep Core</h3>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6" x-show="expandedId === 3" x-collapse>
+                                    Preparation for advanced studies with self-guided research projects and leadership workshops.
+                                    <span class="block mt-4 text-emerald-600 font-bold">Grades 4 - 5</span>
+                                </p>
+                            </div>
+                            <div class="mt-auto">
+                                <a href="#" @click.prevent="showToast('Middle Prep info page')" class="inline-flex items-center space-x-2 text-emerald-600 font-bold group-hover:scale-105 transition-transform" x-show="expandedId === 3">
+                                    <span>Learn More</span>
+                                    <i class="ti ti-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="py-24 bg-white dark:bg-slate-900 overflow-hidden" x-data="{ current: 0, testimonials: [
+            { name: 'Sarah Jenkins', role: 'Parent of 2', text: 'Bright Minds has completely transformed my children\'s attitude towards learning. They wake up excited for school every single day.', avatar: 'https://i.pravatar.cc/150?u=sarah' },
+            { name: 'David Chen', role: 'Community Leader', text: 'The staff here isn\'t just teaching; they are mentoring. The level of individual attention is unmatched.', avatar: 'https://i.pravatar.cc/150?u=david' }
+        ]}">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="font-friendly text-4xl font-bold mb-8">Hear From Our <span class="text-secondary-500">Community</span></h2>
+                        <div class="relative min-h-[250px]">
+                            <template x-for="(test, index) in testimonials" :key="index">
+                                <div x-show="current === index" 
+                                     x-transition:enter="transition ease-out duration-500"
+                                     x-transition:enter-start="opacity-0 translate-x-8"
+                                     x-transition:enter-end="opacity-100 translate-x-0"
+                                     class="absolute inset-0">
+                                    <p class="text-2xl text-slate-600 dark:text-slate-400 italic mb-8 leading-relaxed">
+                                        &ldquo;<span x-text="test.text"></span>&rdquo;
+                                    </p>
+                                    <div class="flex items-center space-x-4">
+                                        <img :src="test.avatar" alt="Avatar" class="w-14 h-14 rounded-full border-2 border-primary-500">
+                                        <div>
+                                            <p class="font-bold text-lg" x-text="test.name"></p>
+                                            <p class="text-slate-500 text-sm" x-text="test.role"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="flex space-x-4 mt-12">
+                            <template x-for="(t, i) in testimonials" :key="i">
+                                <button @click="current = i" 
+                                        class="h-2 rounded-full transition-all duration-300" 
+                                        :class="current === i ? 'w-12 bg-primary-500' : 'w-2 bg-slate-200 dark:bg-slate-700'"></button>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="grid grid-cols-2 gap-4">
+                            <img src="https://images.unsplash.com/photo-1453733190371-0a9bedd82893?auto=format&fit=crop&q=80&w=400" alt="Activity" class="rounded-3xl shadow-lg border-4 border-white transform -rotate-3">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400" alt="Learning" class="rounded-3xl shadow-lg border-4 border-white translate-y-8">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-24 bg-primary-50 dark:bg-slate-950" x-data="{ active: null }">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-16">
+                    <h2 class="font-friendly text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                    <p class="text-slate-600 dark:text-slate-400">Everything parents need to know about our school ecosystem.</p>
+                </div>
+                <div class="space-y-4">
+                    <template x-for="(item, index) in [
+                        { q: 'What are the school hours?', a: 'Standard hours are 8:30 AM to 3:30 PM, with before-care starting at 7:30 AM and after-care until 6:00 PM.' },
+                        { q: 'Is there a school uniform?', a: 'We believe in creative expression, so there is no strict uniform, though we do have a basic dress code for safety.' },
+                        { q: 'How do you handle dietary restrictions?', a: 'Our cafeteria is nut-free, and we offer gluten-free and vegetarian options daily. Parents can manage restrictions via our app.' }
+                    ]" :key="index">
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+                            <button @click="active = (active === index ? null : index)" class="w-full px-8 py-6 flex items-center justify-between text-left">
+                                <span class="font-bold text-lg" x-text="item.q"></span>
+                                <i class="ti transition-transform duration-300" :class="active === index ? 'ti-minus rotate-180' : 'ti-plus'"></i>
+                            </button>
+                            <div x-show="active === index" x-collapse>
+                                <div class="px-8 pb-6 text-slate-600 dark:text-slate-400" x-text="item.a"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-24 bg-primary-600 relative overflow-hidden">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h2 class="font-friendly text-4xl md:text-5xl font-bold text-white mb-8">Ready to Start the Journey?</h2>
+                <p class="text-white/80 text-xl mb-12 max-w-2xl mx-auto">Registration for the 2026 academic year is now open. Seats are limited to ensure high teacher-student ratios.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contact" class="bg-white text-primary-600 px-10 py-4 rounded-2xl font-bold text-lg shadow-xl hover:scale-105 transition-transform">Apply Today</a>
+                    <a href="#" @click.prevent="showToast('Information booklet downloaded')" class="bg-primary-700 text-white border-2 border-white/20 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-white hover:text-primary-600 transition-all">Download Brochure</a>
+                </div>
+            </div>
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 p-12 text-white/10">
+                <i class="ti ti-backpack text-[200px]"></i>
+            </div>
+            <div class="absolute bottom-0 left-0 p-12 text-white/10">
+                <i class="ti ti-pencil text-[150px] rotate-45"></i>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-white dark:bg-slate-950">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-20">
+                    <div>
+                        <h2 class="font-friendly text-4xl font-bold mb-8">Get in Touch</h2>
+                        <div class="space-y-8 mb-12">
+                            <div class="flex items-start space-x-6">
+                                <div class="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 text-primary-600 rounded-2xl flex items-center justify-center shrink-0">
+                                    <i class="ti ti-map-pin text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-lg">Our Campus</p>
+                                    <p class="text-slate-600 dark:text-slate-400">123 Education Drive, Sunnyvale, CA 94087</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-6">
+                                <div class="w-14 h-14 bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 rounded-2xl flex items-center justify-center shrink-0">
+                                    <i class="ti ti-phone text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-lg">Call Us</p>
+                                    <p class="text-slate-600 dark:text-slate-400">(555) 123-4567</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-6">
+                                <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center shrink-0">
+                                    <i class="ti ti-mail text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-lg">Email Us</p>
+                                    <p class="text-slate-600 dark:text-slate-400">hello@brightminds.edu</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-3xl overflow-hidden shadow-lg h-64 grayscale hover:grayscale-0 transition-all">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.62829776453!2d-122.0838511!3d37.3860517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02425dad15%3A0x51d74d39c791d975!2sSunnyvale%2C%20CA!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                                class="w-full h-full border-0" 
+                                allowfullscreen="" 
+                                loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div x-data="{ 
+                        form: { name: '', email: '', subject: '', message: '' },
+                        errors: {},
+                        sending: false,
+                        validate() {
+                            this.errors = {};
+                            if (!this.form.name) this.errors.name = 'Name is required';
+                            if (!this.form.email || !/^\S+@\S+\.\S+$/.test(this.form.email)) this.errors.email = 'Valid email is required';
+                            if (!this.form.message) this.errors.message = 'Message is required';
+                            return Object.keys(this.errors).length === 0;
+                        },
+                        submit() {
+                            if (!this.validate()) return;
+                            this.sending = true;
+                            setTimeout(() => {
+                                this.sending = false;
+                                showToast('Message sent successfully!');
+                                this.form = { name: '', email: '', subject: '', message: '' };
+                            }, 1500);
+                        }
+                    }" class="bg-primary-50 dark:bg-slate-900 p-10 rounded-[3rem] shadow-xl">
+                        <h3 class="font-friendly text-2xl font-bold mb-8">Inquiry Form</h3>
+                        <form @submit.prevent="submit" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Name</label>
+                                <input type="text" x-model="form.name" class="w-full bg-white dark:bg-slate-800 border-2 px-6 py-3 rounded-2xl focus:border-primary-500 outline-none transition-all" :class="errors.name ? 'border-red-500' : 'border-slate-100 dark:border-slate-700'" placeholder="Full Name">
+                                <p x-show="errors.name" class="text-red-500 text-xs mt-1" x-text="errors.name"></p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Email</label>
+                                <input type="email" x-model="form.email" class="w-full bg-white dark:bg-slate-800 border-2 px-6 py-3 rounded-2xl focus:border-primary-500 outline-none transition-all" :class="errors.email ? 'border-red-500' : 'border-slate-100 dark:border-slate-700'" placeholder="email@address.com">
+                                <p x-show="errors.email" class="text-red-500 text-xs mt-1" x-text="errors.email"></p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Subject</label>
+                                <select x-model="form.subject" class="w-full bg-white dark:bg-slate-800 border-2 px-6 py-3 rounded-2xl focus:border-primary-500 outline-none transition-all border-slate-100 dark:border-slate-700">
+                                    <option value="">Select a topic</option>
+                                    <option value="enrollment">General Enrollment</option>
+                                    <option value="visit">Schedule Visit</option>
+                                    <option value="support">Parent Support</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Message</label>
+                                <textarea x-model="form.message" rows="4" class="w-full bg-white dark:bg-slate-800 border-2 px-6 py-3 rounded-2xl focus:border-primary-500 outline-none transition-all" :class="errors.message ? 'border-red-500' : 'border-slate-100 dark:border-slate-700'" placeholder="How can we help?"></textarea>
+                                <p x-show="errors.message" class="text-red-500 text-xs mt-1" x-text="errors.message"></p>
+                            </div>
+                            <button type="submit" :disabled="sending" class="w-full bg-primary-500 hover:bg-primary-600 disabled:bg-slate-400 text-white font-bold py-4 rounded-2xl transition-all shadow-lg flex items-center justify-center space-x-2">
+                                <span x-text="sending ? 'Sending...' : 'Send Message'"></span>
+                                <i class="ti ti-send" x-show="!sending"></i>
+                                <i class="ti ti-loader animate-spin" x-show="sending"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 pt-20 pb-10 border-t border-slate-100 dark:border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" @click.prevent="showToast('Home')" class="flex items-center space-x-2 mb-8">
+                        <div class="bg-primary-500 p-2 rounded-lg text-white">
+                            <i class="ti ti-school text-2xl"></i>
+                        </div>
+                        <span class="font-friendly text-2xl font-bold text-primary-600">Bright Minds</span>
+                    </a>
+                    <p class="max-w-md text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                        Bright Minds Elementary is dedicated to providing high-quality education in a safe and supportive environment. Our goal is to inspire lifelong learning and global citizenship.
+                    </p>
+                    <div class="flex space-x-4">
+                        <template x-for="icon in ['brand-facebook', 'brand-x', 'brand-instagram', 'brand-youtube']">
+                            <a href="#" @click.prevent="showToast('Social link')" class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary-500 hover:text-white transition-all shadow-sm">
+                                <i :class="'ti ti-' + icon + ' text-xl'"></i>
+                            </a>
+                        </template>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-friendly text-lg font-bold mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-slate-600 dark:text-slate-400">
+                        <li><a href="#about" class="hover:text-primary-500 transition-colors">Our Ethos</a></li>
+                        <li><a href="#programs" class="hover:text-primary-500 transition-colors">Curriculum</a></li>
+                        <li><a href="#" @click.prevent="showToast('Calendar')" class="hover:text-primary-500 transition-colors">Term Dates</a></li>
+                        <li><a href="#" @click.prevent="showToast('Admissions')" class="hover:text-primary-500 transition-colors">Admissions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-friendly text-lg font-bold mb-6">Resources</h4>
+                    <ul class="space-y-4 text-slate-600 dark:text-slate-400">
+                        <li><a href="#" @click.prevent="showToast('Parent Portal')" class="hover:text-primary-500 transition-colors font-bold">Parent Portal</a></li>
+                        <li><a href="#" @click.prevent="showToast('E-Library')" class="hover:text-primary-500 transition-colors">E-Library</a></li>
+                        <li><a href="#" @click.prevent="showToast('Newsletter')" class="hover:text-primary-500 transition-colors">Monthly Newsletter</a></li>
+                        <li><a href="#" @click.prevent="showToast('Careers')" class="hover:text-primary-500 transition-colors">Join our Team</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2026 Bright Minds Elementary. All rights reserved.</p>
+                <div class="flex space-x-8 mt-4 md:mt-0">
+                    <a href="#" @click.prevent="showToast('Privacy Policy')" class="hover:underline">Privacy Policy</a>
+                    <a href="#" @click.prevent="showToast('Terms of Service')" class="hover:underline">Terms of Service</a>
+                    <p>Designed by Abel Gallo Ruiz</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

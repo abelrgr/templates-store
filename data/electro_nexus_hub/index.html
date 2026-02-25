@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: true, cartCount: 0, compareList: [], showCompare: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroNexus HQ | Your Portal to Pure Power</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        electro: {
+                            blue: '#3B82F6',
+                            cyan: '#06B6D4',
+                            amber: '#F59E0B',
+                            dark: '#020617',
+                            slate: '#1E293B',
+                            neon: '#10B981',
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Chakra Petch', 'sans-serif'],
+                        sans: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .shimer {
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.2), transparent);
+            background-size: 200% 100%;
+            animation: shimer 3s infinite;
+        }
+        @keyframes shimer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .scanline {
+            height: 2px;
+            background: rgba(6, 182, 212, 0.1);
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+            top: 0;
+            animation: scan 8s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-electro-dark text-slate-800 dark:text-slate-100 transition-colors duration-300 font-sans">
+    
+    <!-- Header Section -->
+    <header class="sticky top-0 z-50 glass-card bg-white/70 dark:bg-electro-dark/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Branding -->
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-electro-blue blur-lg opacity-30 animate-pulse"></div>
+                        <div class="w-12 h-12 bg-gradient-to-tr from-electro-blue to-electro-cyan rounded-lg flex items-center justify-center text-white relative z-10 border border-white/20">
+                            <i class="ti ti-cpu text-2xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-2xl font-black font-heading tracking-tighter uppercase">Nexus<span class="text-electro-blue italic">Hub</span></span>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-wider">
+                    <a href="#" class="text-electro-blue border-b-2 border-electro-blue pb-1">Prototypes</a>
+                    <a href="#" class="hover:text-electro-cyan transition">Components</a>
+                    <a href="#" class="hover:text-electro-cyan transition">Stations</a>
+                    <a href="#" class="hover:text-electro-cyan transition">Support</a>
+                </nav>
+
+                <!-- Action Group -->
+                <div class="flex items-center gap-4">
+                    <button @click="darkMode = !darkMode" class="p-2 transition dark:text-amber-400">
+                        <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon-stars'"></i>
+                    </button>
+                    
+                    <div class="relative group cursor-pointer" @click="showCompare = !showCompare">
+                        <i class="ti ti-git-compare text-2xl"></i>
+                        <span x-show="compareList.length" x-text="compareList.length" class="absolute -top-2 -right-2 bg-electro-cyan text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center"></span>
+                    </div>
+
+                    <div class="relative group cursor-pointer">
+                        <div class="relative">
+                            <i class="ti ti-shopping-cart text-2xl"></i>
+                            <span x-show="cartCount" x-text="cartCount" class="absolute -top-2 -right-2 bg-electro-blue text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center"></span>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:block w-[1px] h-8 bg-slate-200 dark:bg-slate-800 mx-2"></div>
+                    
+                    <button class="bg-electro-blue hover:bg-electro-blue/90 text-white px-6 py-2 rounded-lg font-bold transition flex items-center gap-2">
+                        <i class="ti ti-user-circle"></i>
+                        Terminal Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Compare Drawer -->
+    <div x-show="showCompare" x-transition x-cloak class="fixed right-0 top-0 h-full w-80 bg-white dark:bg-slate-950 shadow-2xl z-[60] border-l border-slate-200 dark:border-slate-800 p-8 overflow-y-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="font-heading font-bold text-xl uppercase italic">Hardware Comparison</h3>
+            <button @click="showCompare = false" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
+                <i class="ti ti-x text-2xl"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-6">
+            <template x-if="compareList.length === 0">
+                <div class="text-center py-20 opacity-40">
+                    <i class="ti ti-layers-intersect text-5xl mb-4 block"></i>
+                    <p>Selection queue is empty</p>
+                </div>
+            </template>
+            <template x-for="(item, index) in compareList" :key="index">
+                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl relative group">
+                    <button @click="compareList.splice(index, 1)" class="absolute -top-2 -right-2 bg-rose-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-lg">
+                        <i class="ti ti-minus"></i>
+                    </button>
+                    <div class="text-xs uppercase font-bold opacity-60 mb-1" x-text="item.category"></div>
+                    <div class="font-bold mb-4" x-text="item.name"></div>
+                    <div class="grid grid-cols-2 gap-2 text-[10px] font-bold uppercase italic opacity-80">
+                        <div class="p-2 border border-slate-200 dark:border-slate-800 rounded bg-white dark:bg-black" x-text="item.spec1"></div>
+                        <div class="p-2 border border-slate-200 dark:border-slate-800 rounded bg-white dark:bg-black" x-text="item.spec2"></div>
+                    </div>
+                </div>
+            </template>
+        </div>
+        
+        <button x-show="compareList.length > 1" class="w-full mt-10 bg-electro-blue py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:scale-105 transition active:scale-95 shadow-lg shadow-blue-500/20">
+            Compare Matrix
+        </button>
+    </div>
+
+    <!-- Hero Hero Hero -->
+    <main class="relative overflow-hidden grid-bg pt-12">
+        <div class="scanline"></div>
+        <div class="max-w-7xl mx-auto px-4 h-full relative z-20 pb-24">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-electro-blue/10 rounded-full border border-electro-blue/20 mb-8">
+                        <span class="w-2 h-2 rounded-full bg-electro-blue animate-pulse"></span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-electro-blue italic">Next-Gen Prototyping Systems</span>
+                    </div>
+                    <h1 class="text-7xl lg:text-8xl font-black font-heading leading-none mb-8 italic">
+                        RECODE <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-electro-blue via-electro-cyan to-electro-neon">REALITY.</span>
+                    </h1>
+                    <p class="text-xl opacity-60 max-w-lg mb-12 leading-relaxed font-light">
+                        Industrial-grade hardware engineered for high-frequency architecture. Zero latency. Pure performance.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-electro-blue hover:bg-electro-blue/90 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm italic transition shadow-2xl flex items-center gap-2 group">
+                            Configure System <i class="ti ti-chevron-right group-hover:translate-x-2 transition"></i>
+                        </button>
+                        <button class="bg-slate-200 dark:bg-slate-800 px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm italic transition">
+                            Tech Specs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-electro-blue/20 blur-[100px] animate-pulse"></div>
+                    <div class="relative bg-white dark:bg-slate-950 p-6 rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-2xl rotate-3 group-hover:rotate-0 transition duration-700 overflow-hidden">
+                        <div class="shimer absolute inset-0 opacity-10"></div>
+                        <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=800" class="rounded-[2rem] w-full" alt="High End PC">
+                        
+                        <!-- Floating HUD Element -->
+                        <div class="absolute top-10 right-10 p-4 bg-electro-dark/90 backdrop-blur border border-electro-blue/40 rounded-2xl text-white shadow-2xl">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-3 h-3 rounded-full bg-electro-neon"></div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest">Core Stability</span>
+                            </div>
+                            <div class="text-2xl font-black font-heading">100% OK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Component Grid -->
+    <section class="py-24 max-w-7xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+            <div class="relative">
+                <span class="text-electro-blue font-black italic tracking-widest uppercase text-xs mb-2 block">Stock Inventory v2.4</span>
+                <h2 class="text-5xl font-black font-heading uppercase italic tracking-tighter">Current Modules</h2>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-200 dark:bg-slate-900 p-2 rounded-xl">
+                <div class="w-10 h-10 bg-electro-blue rounded-lg flex items-center justify-center text-white cursor-pointer"><i class="ti ti-layout-grid"></i></div>
+                <div class="w-10 h-10 hover:bg-slate-300 dark:hover:bg-slate-800 rounded-lg flex items-center justify-center cursor-pointer transition"><i class="ti ti-list"></i></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <template x-for="product in [
+                { id: 1, name: 'Nexus Prime X1', category: 'Computing', price: '$2,499', spec1: '128GB RAM', spec2: 'RTX 5090', img: 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&q=80&w=600' },
+                { id: 2, name: 'Quantum Key-X', category: 'Peripherals', price: '$299', spec1: 'Optical Switches', spec2: '0.1ms Latency', img: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&q=80&w=600' },
+                { id: 3, name: 'Atlas Monitor 4K', category: 'Visuals', price: '$899', spec1: '240Hz Refresh', spec2: 'Mini-LED', img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&q=80&w=600' },
+                { id: 4, name: 'Neuro Audio H1', category: 'Audio', price: '$350', spec1: 'Spatial Audio', spec2: 'AI-Noise Cancel', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600' }
+            ]" :key="product.id">
+                <div class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2.5rem] hover:border-electro-blue transition-all duration-500 overflow-hidden flex flex-col h-full hover:shadow-[0_0_30px_rgba(59,130,246,0.1)]">
+                    <div class="relative mb-6 aspect-square rounded-[2rem] overflow-hidden bg-slate-100 dark:bg-slate-950">
+                        <img :src="product.img" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" :alt="product.name">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                             <span class="bg-electro-blue text-white text-[10px] uppercase font-black px-3 py-1 rounded-full italic tracking-widest">In Stock</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-electro-cyan italic" x-text="product.category"></span>
+                            <span class="text-lg font-black font-heading" x-text="product.price"></span>
+                        </div>
+                        <h3 class="text-xl font-black font-heading group-hover:text-electro-blue transition italic mb-4" x-text="product.name"></h3>
+                        
+                        <div class="grid grid-cols-2 gap-2 mb-6 text-[10px] font-bold uppercase italic opacity-60">
+                            <div class="p-2 border border-slate-200 dark:border-slate-800 rounded flex items-center justify-center text-center" x-text="product.spec1"></div>
+                            <div class="p-2 border border-slate-200 dark:border-slate-800 rounded flex items-center justify-center text-center" x-text="product.spec2"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <button @click="cartCount++" class="bg-electro-blue text-white py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:scale-105 active:scale-95 transition flex items-center justify-center gap-2">
+                            <i class="ti ti-plus"></i> Cart
+                        </button>
+                        <button @click="compareList.find(i => i.id === product.id) ? null : compareList.push(product)" class="bg-slate-200 dark:bg-slate-800 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:scale-105 transition flex items-center justify-center gap-2">
+                            <i class="ti ti-git-compare"></i> Compare
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- Newsletter Tech Section -->
+    <section class="py-24 bg-slate-950 text-white relative overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-electro-blue/10 blur-[150px] rounded-full"></div>
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-electro-cyan/10 blur-[150px] rounded-full"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <i class="ti ti-mail-fast text-6xl text-electro-blue mb-8 block font-thin"></i>
+            <h2 class="text-5xl font-black font-heading mb-6 italic italic tracking-tighter">SUBSCRIBE TO THE PATCH.</h2>
+            <p class="text-lg opacity-40 mb-12 max-w-lg mx-auto">Get firmware updates, hardware drops, and priority beta access tokens delivered to your console.</p>
+            
+            <div class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto bg-slate-900 border border-white/10 p-2 rounded-2xl">
+                <input type="email" placeholder="terminal@address.hq" class="flex-1 bg-transparent border-none p-4 text-lg focus:ring-0">
+                <button class="bg-electro-blue hover:bg-white hover:text-electro-blue text-white px-10 py-4 rounded-xl font-black uppercase italic tracking-[0.2em] transition">
+                    Sync Now
+                </button>
+            </div>
+            
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-12 text-xs font-black uppercase tracking-[0.4em] opacity-30">
+                <div class="flex items-center justify-center gap-2 italic">PCI-E GEN5</div>
+                <div class="flex items-center justify-center gap-2 italic">DDR5 READY</div>
+                <div class="flex items-center justify-center gap-2 italic">ZERO LATENCY</div>
+                <div class="flex items-center justify-center gap-2 italic">QUANTUM SYNC</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-electro-dark border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-electro-blue rounded flex items-center justify-center text-white font-black">N</div>
+                    <span class="text-xl font-black font-heading uppercase italic tracking-tighter">Nexus<span class="text-electro-cyan">HQ</span></span>
+                </div>
+                
+                <div class="flex gap-8 text-[10px] font-bold uppercase tracking-[0.3em] opacity-40">
+                    <a href="#" class="hover:text-white transition">Kernel Docs</a>
+                    <a href="#" class="hover:text-white transition">Network Status</a>
+                    <a href="#" class="hover:text-white transition">Privacy Protocol</a>
+                </div>
+
+                <div class="text-[10px] font-bold opacity-30 uppercase tracking-widest leading-loose text-center md:text-right">
+                    Hardware design by Nexus Labs. <br>
+                    &copy; 2024 ELECTRO NEXUS HQ. SYSTEM OK.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

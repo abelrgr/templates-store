@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ 
+    darkMode: localStorage.getItem('darkMode') === 'true',
+    mobileMenu: false,
+    showToast: false,
+    toastMsg: '',
+    scrolled: false,
+    activeLang: 'all',
+    activeLevel: 'all',
+    courses: [
+        { id: 1, title: 'English Mastery', lang: 'en', level: 'b2', price: '$299', img: 'https://images.unsplash.com/photo-1543165796-5426273ea498?q=80&w=800' },
+        { id: 2, title: 'Español para Todos', lang: 'es', level: 'a1', price: '$249', img: 'https://images.unsplash.com/photo-1566121316354-91b3563a2321?q=80&w=800' },
+        { id: 3, title: 'Business French', lang: 'fr', level: 'c1', price: '$349', img: 'https://images.unsplash.com/photo-1502602898657-3e917247a183?q=80&w=800' },
+        { id: 4, title: 'Deutsch Intensiv', lang: 'de', level: 'b1', price: '$279', img: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800' },
+        { id: 5, title: 'Advanced English', lang: 'en', level: 'c2', price: '$399', img: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=800' },
+        { id: 6, title: 'Italiano Dolce Vita', lang: 'it', level: 'a2', price: '$259', img: 'https://images.unsplash.com/photo-1525874684015-58379d421a52?q=80&w=800' }
+    ],
+    get filteredCourses() {
+        return this.courses.filter(c => 
+            (this.activeLang === 'all' || c.lang === this.activeLang) &&
+            (this.activeLevel === 'all' || c.level === this.activeLevel)
+        );
+    },
+    triggerToast(msg) {
+        this.toastMsg = msg;
+        this.showToast = true;
+        setTimeout(() => this.showToast = false, 3000);
+    }
+}" 
+:class="{ 'dark': darkMode }" 
+@scroll.window="scrolled = (window.pageYOffset > 20)"
+class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Language Academy | Speak the World</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Tailwind & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        academy: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Lora', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300"
+         :class="scrolled ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4 text-white'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="ti ti-world-latitude text-3xl academy-600"></i>
+                <span class="text-xl font-bold tracking-tight" :class="!scrolled && 'text-white'">GLOBAL<span class="text-academy-600">LY</span></span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="hover:text-academy-600 transition-colors">Home</a>
+                <a href="#courses" class="hover:text-academy-600 transition-colors">Courses</a>
+                <a href="#teachers" class="hover:text-academy-600 transition-colors">Teachers</a>
+                <a href="#about" class="hover:text-academy-600 transition-colors">Why Us</a>
+                <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" 
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-all">
+                    <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+                </button>
+                <a href="#contact" class="bg-academy-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-academy-700 transition shadow-lg shadow-academy-600/20">Enroll Now</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-2xl">
+                <i class="ti" :class="mobileMenu ? 'ti-x' : 'ti-menu-2'"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-cloak 
+             class="absolute top-0 left-0 w-full h-screen bg-white dark:bg-slate-900 flex flex-col items-center justify-center space-y-8 text-2xl z-40"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-x-full"
+             x-transition:enter-end="opacity-100 translate-x-0">
+            <a @click="mobileMenu = false" href="#home">Home</a>
+            <a @click="mobileMenu = false" href="#courses">Courses</a>
+            <a @click="mobileMenu = false" href="#teachers">Teachers</a>
+            <a @click="mobileMenu = false" href="#contact">Contact</a>
+            <button @click="darkMode = !darkMode; mobileMenu = false" class="flex items-center space-x-2">
+                <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+                <span x-text="darkMode ? 'Light Mode' : 'Dark Mode'"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative h-screen flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2000" 
+                 alt="Students learning" 
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-academy-900/80 to-transparent"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-white mt-20">
+            <span class="inline-block px-4 py-1 bg-academy-600/30 backdrop-blur-sm border border-academy-600/50 rounded-full text-sm font-semibold mb-6">World-Class Educators</span>
+            <h1 class="text-5xl md:text-7xl font-bold font-serif mb-6 leading-tight">Master Any Language.<br><span class="text-academy-200">Connect to the World.</span></h1>
+            <p class="text-lg md:text-xl text-gray-200 max-w-2xl mb-10 leading-relaxed">Join over 15,000 students learning from native speakers through immersive cultural experiences and modern interactive methods.</p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#courses" class="bg-academy-600 text-white px-8 py-4 rounded-full font-bold text-center hover:bg-academy-700 transition transform hover:scale-105 shadow-xl shadow-academy-600/40">Explore Courses</a>
+                <a href="#about" class="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full font-bold text-center hover:bg-white/20 transition">Our Method</a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/50 text-2xl">
+            <i class="ti ti-chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <section class="py-12 bg-white dark:bg-slate-800 border-b dark:border-slate-700">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center group">
+                <div class="text-4xl font-bold text-academy-600 mb-1 group-hover:scale-110 transition-transform">12+</div>
+                <div class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Languages</div>
+            </div>
+            <div class="text-center group">
+                <div class="text-4xl font-bold text-academy-600 mb-1 group-hover:scale-110 transition-transform">100%</div>
+                <div class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Native Teachers</div>
+            </div>
+            <div class="text-center group">
+                <div class="text-4xl font-bold text-academy-600 mb-1 group-hover:scale-110 transition-transform">50k+</div>
+                <div class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Certificates</div>
+            </div>
+            <div class="text-center group">
+                <div class="text-4xl font-bold text-academy-600 mb-1 group-hover:scale-110 transition-transform">24/7</div>
+                <div class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Support</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-24 bg-gray-50 dark:bg-slate-900">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <h2 class="text-4xl font-bold font-serif mb-4">International Programs</h2>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-xl">From beginner basics to advanced professional certifications, find the path that fits your goals.</p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-4">
+                    <select x-model="activeLang" class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg px-4 py-2 focus:ring-2 ring-academy-600 outline-none">
+                        <option value="all">All Languages</option>
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="it">Italian</option>
+                    </select>
+                    <div class="flex bg-white dark:bg-slate-800 p-1 rounded-lg border border-gray-200 dark:border-slate-700">
+                        <button @click="activeLevel = 'all'" :class="activeLevel === 'all' ? 'bg-academy-600 text-white' : 'text-gray-500'" class="px-3 py-1 rounded-md text-sm font-semibold transition">All</button>
+                        <button @click="activeLevel = 'a1'" :class="activeLevel === 'a1' ? 'bg-academy-600 text-white' : 'text-gray-500'" class="px-3 py-1 rounded-md text-sm font-semibold transition">A1</button>
+                        <button @click="activeLevel = 'b2'" :class="activeLevel === 'b2' ? 'bg-academy-600 text-white' : 'text-gray-500'" class="px-3 py-1 rounded-md text-sm font-semibold transition">B2</button>
+                        <button @click="activeLevel = 'c2'" :class="activeLevel === 'c2' ? 'bg-academy-600 text-white' : 'text-gray-500'" class="px-3 py-1 rounded-md text-sm font-semibold transition">C2</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="course in filteredCourses" :key="course.id">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition group relative"
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="scale-95 opacity-0"
+                         x-transition:enter-end="scale-100 opacity-100">
+                        <div class="h-56 overflow-hidden relative">
+                            <img :src="course.img" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute top-4 left-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-academy-700" x-text="course.level"></div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-academy-600 transition" x-text="course.title"></h3>
+                            <div class="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-6 space-x-4">
+                                <span class="flex items-center"><i class="ti ti-clock-hour-4 mr-1"></i> 12 Weeks</span>
+                                <span class="flex items-center"><i class="ti ti-users mr-1"></i> 15 per class</span>
+                            </div>
+                            <div class="flex items-center justify-between border-t dark:border-slate-700 pt-6">
+                                <span class="text-2xl font-bold text-academy-600" x-text="course.price"></span>
+                                <button @click="triggerToast('Added ' + course.title + ' to wishlist!')" 
+                                        class="p-2 rounded-full border border-gray-200 dark:border-slate-700 hover:bg-academy-600 hover:text-white transition">
+                                    <i class="ti ti-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            
+            <div x-show="filteredCourses.length === 0" x-cloak class="text-center py-20">
+                <i class="ti ti-search text-6xl text-gray-300 mb-4 block"></i>
+                <p class="text-gray-500">No courses match your active filters.</p>
+                <button @click="activeLang = 'all'; activeLevel = 'all'" class="mt-4 text-academy-600 font-bold hover:underline">Reset Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teacher Spotlight -->
+    <section id="teachers" class="py-24 bg-white dark:bg-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold font-serif mb-4">Learn From the Best</h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Expert educators from London, Madrid, Paris, and Tokyo ready to guide your journey.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Teacher 1 -->
+                <div class="group relative overflow-hidden rounded-3xl" x-data="{ open: false }">
+                    <img src="https://images.unsplash.com/photo-1544717297-fa154da09f5b?q=80&w=800" class="w-full h-96 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition">
+                        <h4 class="text-xl font-bold">Dr. Elena Rossi</h4>
+                        <p class="text-academy-200 text-sm mb-4">Italian & Art History</p>
+                        <button @click="open = true" class="text-xs uppercase font-bold tracking-widest hover:text-academy-200 transition">View Bio <i class="ti ti-arrow-right ml-1"></i></button>
+                    </div>
+                    
+                    <!-- Bio Modal -->
+                    <div x-show="open" x-cloak class="fixed inset-0 z-[60] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
+                        <div @click.away="open = false" class="bg-white dark:bg-slate-800 p-8 rounded-3xl max-w-md w-full relative">
+                            <button @click="open = false" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i class="ti ti-x text-2xl"></i></button>
+                            <img src="https://images.unsplash.com/photo-1544717297-fa154da09f5b?q=80&w=200" class="w-20 h-20 rounded-full object-cover mb-4">
+                            <h3 class="text-2xl font-bold mb-2">Dr. Elena Rossi</h3>
+                            <p class="text-academy-600 font-semibold mb-4">12 Years Experience</p>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">Born in Florence, Elena specializes in helping advanced students master conversational Italian through literature and historical context.</p>
+                            <button @click="open = false; triggerToast('Inquiry sent to Dr. Rossi!')" class="w-full bg-academy-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-academy-700 transition">Book a Consultation</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teacher 2 -->
+                <div class="group relative overflow-hidden rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=800" class="w-full h-96 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition">
+                        <h4 class="text-xl font-bold">Liam Smith</h4>
+                        <p class="text-academy-200 text-sm mb-4">Business English</p>
+                        <span class="text-xs uppercase font-bold tracking-widest opacity-70">Cambridge Certified</span>
+                    </div>
+                </div>
+
+                <!-- Teacher 3 -->
+                <div class="group relative overflow-hidden rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800" class="w-full h-96 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition">
+                        <h4 class="text-xl font-bold">Yasu Tanaka</h4>
+                        <p class="text-academy-200 text-sm mb-4">Japanese JLPT N1-N5</p>
+                        <span class="text-xs uppercase font-bold tracking-widest opacity-70">Polyglot Expert</span>
+                    </div>
+                </div>
+
+                <!-- Teacher 4 -->
+                <div class="group relative overflow-hidden rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800" class="w-full h-96 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition">
+                        <h4 class="text-xl font-bold">Marie Laurent</h4>
+                        <p class="text-academy-200 text-sm mb-4">French Linguistics</p>
+                        <span class="text-xs uppercase font-bold tracking-widest opacity-70">Sorbonne Alumna</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="about" class="py-24 bg-academy-50 dark:bg-slate-900 border-y dark:border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=600" class="rounded-2xl shadow-xl mt-8">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600" class="rounded-2xl shadow-xl">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-4xl font-bold font-serif mb-8 leading-tight">Immersive learning beyond the textbooks.</h2>
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-academy-600 shadow-sm">
+                                <i class="ti ti-microphone-2 text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Speaking First Method</h4>
+                                <p class="text-gray-600 dark:text-gray-400">Our courses focus 70% of time on verbal communication to build confidence fast.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-academy-600 shadow-sm">
+                                <i class="ti ti-plane-departure text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Cultural Immersion</h4>
+                                <p class="text-gray-600 dark:text-gray-400">Quarterly exchange trips and cultural mixers with native exchange students.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-academy-600 shadow-sm">
+                                <i class="ti ti-device-desktop-analytics text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">AI-Powered Progress</h4>
+                                <p class="text-gray-600 dark:text-gray-400">Smart dashboard tracks your vocabulary growth and pronunciation accuracy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-white dark:bg-slate-800 overflow-hidden">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold font-serif mb-16">What Our Global Students Say</h2>
+            <div x-data="{ active: 0, items: 3 }" class="max-w-4xl mx-auto relative px-12">
+                <div class="flex transition-transform duration-700 ease-in-out" :style="'transform: translateX(-' + (active * 100) + '%)'">
+                    <!-- Testimonial 1 -->
+                    <div class="w-full flex-shrink-0">
+                        <i class="ti ti-quote text-6xl text-academy-200 mb-6"></i>
+                        <p class="text-2xl font-serif italic mb-8">"I moved from A2 to B2 in French in just 6 months. The teachers at Global Academy are incredibly patient and the cultural mixers were a game changer."</p>
+                        <div class="flex items-center justify-center space-x-4">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100" class="w-12 h-12 rounded-full border-2 border-academy-600 p-0.5">
+                            <div class="text-left">
+                                <div class="font-bold">Sarah Jenkins</div>
+                                <div class="text-sm text-gray-500">Marketing Executive</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="w-full flex-shrink-0">
+                        <i class="ti ti-quote text-6xl text-academy-200 mb-6"></i>
+                        <p class="text-2xl font-serif italic mb-8">"Business English was essential for my career growth. The curriculum is specifically tailored for corporate needs. Highly recommended!"</p>
+                        <div class="flex items-center justify-center space-x-4">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100" class="w-12 h-12 rounded-full border-2 border-academy-600 p-0.5">
+                            <div class="text-left">
+                                <div class="font-bold">Marco Silva</div>
+                                <div class="text-sm text-gray-500">Software Engineer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button @click="active = active > 0 ? active - 1 : items - 1" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-100 dark:bg-slate-700 p-3 rounded-full hover:bg-academy-600 hover:text-white transition">
+                    <i class="ti ti-chevron-left"></i>
+                </button>
+                <button @click="active = active < items - 1 ? active + 1 : 0" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-100 dark:bg-slate-700 p-3 rounded-full hover:bg-academy-600 hover:text-white transition">
+                    <i class="ti ti-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support CTA -->
+    <section id="contact" class="py-24 bg-academy-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-academy-600 rounded-full blur-[120px] opacity-30"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 md:p-16 rounded-[3rem] shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold font-serif mb-6">Ready to start your journey?</h2>
+                        <p class="text-academy-100 mb-10 text-lg">Leave your details and our academic counselors will contact you within 24 hours to schedule a placement test.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-center"><i class="ti ti-check bg-academy-600 rounded-full p-1 mr-3"></i> Free Placement Evaluation</li>
+                            <li class="flex items-center"><i class="ti ti-check bg-academy-600 rounded-full p-1 mr-3"></i> Virtual Tour of Facilities</li>
+                            <li class="flex items-center"><i class="ti ti-check bg-academy-600 rounded-full p-1 mr-3"></i> Scholarship Application Help</li>
+                        </ul>
+                    </div>
+                    
+                    <form @submit.prevent="triggerToast('Thank you! Counselor will call soon.')" 
+                          x-data="{ name: '', email: '', lang: '' }"
+                          class="bg-white p-8 md:p-12 rounded-3xl text-gray-900 shadow-xl">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">Full Name</label>
+                                <input type="text" x-model="name" required class="w-full bg-gray-50 border-gray-200 border rounded-xl px-4 py-3 outline-none focus:ring-2 ring-academy-600 transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
+                                <input type="email" x-model="email" required class="w-full bg-gray-50 border-gray-200 border rounded-xl px-4 py-3 outline-none focus:ring-2 ring-academy-600 transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">Language of Interest</label>
+                                <select x-model="lang" required class="w-full bg-gray-50 border-gray-200 border rounded-xl px-4 py-3 outline-none focus:ring-2 ring-academy-600 transition">
+                                    <option value="">Select a language...</option>
+                                    <option>English</option>
+                                    <option>Spanish</option>
+                                    <option>French</option>
+                                    <option>Japanese</option>
+                                    <option>German</option>
+                                </select>
+                            </div>
+                            <button class="w-full bg-academy-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-academy-700 transition transform active:scale-95">Send Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 dark:bg-slate-900 pt-20 pb-10 border-t dark:border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <i class="ti ti-world-latitude text-3xl text-academy-600"></i>
+                        <span class="text-xl font-bold tracking-tight">GLOBAL<span class="text-academy-600">LY</span></span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 mb-6">Pioneering in linguistic excellence since 2012. We connect people through the power of language.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-sm hover:text-academy-600 transition"><i class="ti ti-brand-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-sm hover:text-academy-600 transition"><i class="ti ti-brand-linkedin"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-sm hover:text-academy-600 transition"><i class="ti ti-brand-twitter"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-6 uppercase tracking-widest text-sm">Languages</h5>
+                    <ul class="space-y-4 text-gray-500 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-academy-600 transition">English Courses</a></li>
+                        <li><a href="#" class="hover:text-academy-600 transition">Spanish Division</a></li>
+                        <li><a href="#" class="hover:text-academy-600 transition">Japanese Studies</a></li>
+                        <li><a href="#" class="hover:text-academy-600 transition">Corporate Programs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-6 uppercase tracking-widest text-sm">Academy</h5>
+                    <ul class="space-y-4 text-gray-500 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-academy-600 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-academy-600 transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-academy-600 transition">Partner with Us</a></li>
+                        <li><a href="#" class="hover:text-academy-600 transition">Legal & Privacy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-6 uppercase tracking-widest text-sm">Newsletter</h5>
+                    <p class="text-sm text-gray-500 mb-4">Get language learning tips & weekly discounts.</p>
+                    <div class="relative">
+                        <input type="email" placeholder="email@address.com" class="w-full bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-xl px-4 py-3 pr-12 outline-none">
+                        <button class="absolute right-2 top-2 p-1.5 bg-academy-600 text-white rounded-lg"><i class="ti ti-mail"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t dark:border-slate-800 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2026 Global Language Academy. Part of the Abel Gallo Ruiz Template Gallery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Notification -->
+    <div x-show="showToast" 
+         x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="translate-y-20 opacity-0"
+         x-transition:enter-end="translate-y-0 opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]">
+        <div class="bg-academy-900 border border-academy-600/50 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-3 backdrop-blur-md">
+            <i class="ti ti-circle-check text-academy-600 text-2xl"></i>
+            <span class="font-bold" x-text="toastMsg"></span>
+        </div>
+    </div>
+
+</body>
+</html>

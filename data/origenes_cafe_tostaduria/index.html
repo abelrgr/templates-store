@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ scrolled: false, brewMethod: 'v60', cartCount: 0 }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orígenes Café | Tostaduría de Especialidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cafe: {
+                            espresso: '#2D1B17',
+                            roast: '#4E342E',
+                            wood: '#8D6E63',
+                            crema: '#D7CCC8',
+                            paper: '#F5F2F0',
+                            gold: '#C5A059'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Crimson Pro', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .steam {
+            animation: steam 4s ease-in-out infinite;
+            opacity: 0;
+        }
+        @keyframes steam {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-40px) scale(1.5); opacity: 0; }
+        }
+        .grain {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+    </style>
+</head>
+<body class="bg-cafe-paper text-cafe-espresso font-sans selection:bg-cafe-roast selection:text-white">
+
+    <!-- Sticky Nav -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-500" :class="scrolled ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' : 'py-8'">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <a href="#" class="flex flex-col">
+                    <span class="text-3xl font-serif font-semibold tracking-tighter leading-none">ORÍGENES</span>
+                    <span class="text-[10px] tracking-[0.4em] font-bold opacity-60">CAFÉ ARÁBICA</span>
+                </a>
+                <div class="hidden md:flex gap-8 text-[11px] font-bold uppercase tracking-widest opacity-70">
+                    <a href="#menu" class="hover:text-cafe-wood transition">Menú</a>
+                    <a href="#granose" class="hover:text-cafe-wood transition">Granos</a>
+                    <a href="#metodos" class="hover:text-cafe-wood transition">Métodos</a>
+                    <a href="#visita" class="hover:text-cafe-wood transition">Visítanos</a>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <button class="hidden lg:block text-[11px] font-bold uppercase tracking-widest border-b-2 border-cafe-gold">Tostamos hoy</button>
+                <div class="relative cursor-pointer">
+                    <i class="ti ti-shopping-bag text-2xl"></i>
+                    <span class="absolute -top-2 -right-2 bg-cafe-roast text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold" x-text="cartCount"></span>
+                </div>
+                <div class="md:hidden"><i class="ti ti-menu-2 text-2xl"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero: Sensory Focus -->
+    <header class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=1600" class="w-full h-full object-cover" alt="Coffee Pour">
+            <div class="absolute inset-0 bg-cafe-espresso/40"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-white">
+                <span class="inline-block bg-cafe-gold/80 px-4 py-1 text-[10px] uppercase font-bold tracking-[0.3em] mb-6">Cosecha de Altura • Bolivia</span>
+                <h1 class="text-6xl lg:text-8xl font-serif italic mb-8 leading-[0.9]">Más que una taza, <br> <span class="font-normal not-italic">un ritual.</span></h1>
+                <p class="text-lg font-light opacity-90 mb-10 max-w-md leading-relaxed">Granos seleccionados de Caranavi y los Yungas, tostados semanalmente en nuestro taller para preservar cada nota de sabor.</p>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="#menu" class="bg-white text-cafe-espresso px-10 py-4 font-bold rounded-sm text-center hover:bg-cafe-gold hover:text-white transition">Ver Menú</a>
+                    <a href="#visita" class="border border-white text-white px-10 py-4 font-bold rounded-sm text-center hover:bg-white/10 transition">Reservar Mesa</a>
+                </div>
+            </div>
+            
+            <!-- Animated Steam Element -->
+            <div class="hidden md:flex justify-center relative">
+                <div class="relative w-80 h-96 border border-white/20 p-4">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab752?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale opacity-80" alt="Latte Art">
+                    <div class="absolute -top-10 -right-10 steam"><i class="ti ti-mist text-7xl text-white"></i></div>
+                    <div class="absolute -top-20 right-0 steam" style="animation-delay: 1s"><i class="ti ti-mist text-6xl text-white"></i></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Specialty Beans Catalog -->
+    <section id="granos" class="py-32 grain">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-24">
+                <h2 class="text-4xl font-serif italic mb-4">Nuestros Granos de Origen</h2>
+                <div class="w-20 h-1 bg-cafe-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Bean 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-8 bg-cafe-crema">
+                        <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=800" class="w-full h-80 object-cover group-hover:scale-110 transition duration-1000" alt="Coffee beans">
+                        <div class="absolute inset-0 bg-cafe-roast/20 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-serif italic mb-2">Supremo Caranavi</h3>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-cafe-wood mb-4">Notas: Chocolate & Cítricos</p>
+                        <div class="flex items-center justify-center gap-1 text-cafe-gold mb-6">
+                            <i class="ti ti-box"></i><i class="ti ti-box"></i><i class="ti ti-box"></i><i class="ti ti-box"></i><i class="ti ti-box-off opacity-30"></i>
+                            <span class="text-[10px] ml-2 uppercase font-bold">Tueste Medio</span>
+                        </div>
+                        <button @click="cartCount++" class="border-2 border-cafe-roast px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-cafe-roast hover:text-white transition">Comprar Bolsa • Bs 65</button>
+                    </div>
+                </div>
+
+                <!-- Bean 2 -->
+                <div class="group cursor-pointer md:-mt-10">
+                    <div class="relative overflow-hidden mb-8 bg-cafe-crema">
+                        <img src="https://images.unsplash.com/photo-1580915411954-282cb1b0d780?auto=format&fit=crop&q=80&w=800" class="w-full h-96 object-cover group-hover:scale-110 transition duration-1000" alt="Coffee beans">
+                        <div class="absolute top-4 left-4 bg-cafe-espresso text-white text-[9px] font-bold p-2 uppercase tracking-tighter">Edición Limitada</div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-serif italic mb-2">Honey Geisha</h3>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-cafe-wood mb-4">Notas: Jazmín & Melón</p>
+                        <div class="flex items-center justify-center gap-1 text-cafe-gold mb-6">
+                            <i class="ti ti-box"></i><i class="ti ti-box"></i><i class="ti ti-box-off opacity-30"></i><i class="ti ti-box-off opacity-30"></i><i class="ti ti-box-off opacity-30"></i>
+                            <span class="text-[10px] ml-2 uppercase font-bold">Tueste Claro</span>
+                        </div>
+                        <button @click="cartCount++" class="border-2 border-cafe-roast px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-cafe-roast hover:text-white transition">Comprar Bolsa • Bs 120</button>
+                    </div>
+                </div>
+
+                <!-- Bean 3 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden mb-8 bg-cafe-crema">
+                        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?auto=format&fit=crop&q=80&w=800" class="w-full h-80 object-cover group-hover:scale-110 transition duration-1000" alt="Coffee beans">
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-serif italic mb-2">Robusta Premium</h3>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-cafe-wood mb-4">Notas: Frutos Secos & Cuerpo Pesado</p>
+                        <div class="flex items-center justify-center gap-1 text-cafe-gold mb-6">
+                            <i class="ti ti-box"></i><i class="ti ti-box"></i><i class="ti ti-box"></i><i class="ti ti-box"></i><i class="ti ti-box"></i>
+                            <span class="text-[10px] ml-2 uppercase font-bold">Tueste Oscuro</span>
+                        </div>
+                        <button @click="cartCount++" class="border-2 border-cafe-roast px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-cafe-roast hover:text-white transition">Comprar Bolsa • Bs 55</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brew Methods Interactive Section -->
+    <section id="metodos" class="bg-cafe-espresso text-cafe-crema py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-cafe-gold mb-4 block">Laboratorio de Extracción</span>
+                    <h2 class="text-5xl font-serif italic mb-12">El arte de la <br> paciencia.</h2>
+                    
+                    <div class="space-y-4">
+                        <button @click="brewMethod = 'v60'" :class="brewMethod === 'v60' ? 'bg-white/10 border-cafe-gold' : 'border-white/10'" class="w-full flex items-center justify-between p-6 border-l-4 transition hover:bg-white/5">
+                            <div class="flex items-center gap-6">
+                                <i class="ti ti-flask text-3xl"></i>
+                                <div class="text-left">
+                                    <h4 class="font-bold text-sm uppercase tracking-widest">Hario V60</h4>
+                                    <p class="text-[10px] opacity-60">Resultados claros y brillantes.</p>
+                                </div>
+                            </div>
+                            <i class="ti ti-chevron-right" x-show="brewMethod === 'v60'"></i>
+                        </button>
+
+                        <button @click="brewMethod = 'chemex'" :class="brewMethod === 'chemex' ? 'bg-white/10 border-cafe-gold' : 'border-white/10'" class="w-full flex items-center justify-between p-6 border-l-4 transition hover:bg-white/5">
+                            <div class="flex items-center gap-6">
+                                <i class="ti ti-glass-full text-3xl"></i>
+                                <div class="text-left">
+                                    <h4 class="font-bold text-sm uppercase tracking-widest">Chemex</h4>
+                                    <p class="text-[10px] opacity-60">Filtrado elegante y balanceado.</p>
+                                </div>
+                            </div>
+                            <i class="ti ti-chevron-right" x-show="brewMethod === 'chemex'"></i>
+                        </button>
+
+                        <button @click="brewMethod = 'french'" :class="brewMethod === 'french' ? 'bg-white/10 border-cafe-gold' : 'border-white/10'" class="w-full flex items-center justify-between p-6 border-l-4 transition hover:bg-white/5">
+                            <div class="flex items-center gap-6">
+                                <i class="ti ti-cup text-3xl"></i>
+                                <div class="text-left">
+                                    <h4 class="font-bold text-sm uppercase tracking-widest">Prensa Francesa</h4>
+                                    <p class="text-[10px] opacity-60">Inmersión completa, cuerpo intenso.</p>
+                                </div>
+                            </div>
+                            <i class="ti ti-chevron-right" x-show="brewMethod === 'french'"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative bg-white/5 p-12 aspect-square flex flex-col items-center justify-center text-center">
+                    <div x-show="brewMethod === 'v60'" x-transition class="space-y-8">
+                        <img src="https://images.unsplash.com/photo-1544259509-546059fb2756?auto=format&fit=crop&q=80&w=400" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-cafe-gold" alt="V60">
+                        <h3 class="text-3xl font-serif italic">Guía V60</h3>
+                        <p class="text-sm opacity-70 leading-relaxed font-light">Molienda media-fina (sal de mesa). Proporción 1:15. Vierte en círculos lentos para una extracción que resalta la acidez cítrica de nuestros granos de montaña.</p>
+                    </div>
+                    <div x-show="brewMethod === 'chemex'" x-transition class="space-y-8">
+                        <img src="https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?auto=format&fit=crop&q=80&w=400" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-cafe-gold" alt="Chemex">
+                        <h3 class="text-3xl font-serif italic">Curaduría Chemex</h3>
+                        <p class="text-sm opacity-70 leading-relaxed font-light">Ideal para compartir. El filtro grueso elimina aceites, resultando en una taza limpia donde las notas dulces del chocolate boliviano brillan con pureza.</p>
+                    </div>
+                    <div x-show="brewMethod === 'french'" x-transition class="space-y-8">
+                        <img src="https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&q=80&w=400" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-cafe-gold" alt="French Press">
+                        <h3 class="text-3xl font-serif italic">Poder de Prensa</h3>
+                        <p class="text-sm opacity-70 leading-relaxed font-light">Para los que buscan textura. Molienda gruesa, 4 minutos de espera. Una experiencia rústica que honra la fuerza del café boliviano tradicional.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Menu List -->
+    <section id="menu" class="py-32 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif italic mb-2">Carta de la Casa</h2>
+                <p class="text-xs uppercase tracking-[0.3em] opacity-40">Bebidas & Complementos</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-x-20 gap-y-12">
+                <div class="space-y-10">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-cafe-gold border-b border-cafe-crema pb-4">Clásicos</h3>
+                    <div class="flex justify-between items-end border-b border-dashed border-cafe-crema pb-2">
+                        <div>
+                            <span class="font-serif italic text-xl">Espresso Doble</span>
+                            <p class="text-[10px] opacity-50 uppercase">Extracción corta, 100% Arábica</p>
+                        </div>
+                        <span class="font-bold">Bs 15</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-dashed border-cafe-crema pb-2">
+                        <div>
+                            <span class="font-serif italic text-xl">Flat White</span>
+                            <p class="text-[10px] opacity-50 uppercase">Leche micro-texturizada</p>
+                        </div>
+                        <span class="font-bold">Bs 22</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-dashed border-cafe-crema pb-2">
+                        <div>
+                            <span class="font-serif italic text-xl">Cold Brew 12hrs</span>
+                            <p class="text-[10px] opacity-50 uppercase">Infusión fría ultra refrescante</p>
+                        </div>
+                        <span class="font-bold">Bs 25</span>
+                    </div>
+                </div>
+
+                <div class="space-y-10">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-cafe-gold border-b border-cafe-crema pb-4">Dulces & Pan</h3>
+                    <div class="flex justify-between items-end border-b border-dashed border-cafe-crema pb-2">
+                        <div>
+                            <span class="font-serif italic text-xl">Croissant de Mantequilla</span>
+                            <p class="text-[10px] opacity-50 uppercase">Hojaldre artesanal</p>
+                        </div>
+                        <span class="font-bold">Bs 18</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-dashed border-cafe-crema pb-2">
+                        <div>
+                            <span class="font-serif italic text-xl">Tarta de Queso & Café</span>
+                            <p class="text-[10px] opacity-50 uppercase">Nuestra receta especial</p>
+                        </div>
+                        <span class="font-bold">Bs 28</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-dashed border-cafe-crema pb-2">
+                        <div>
+                            <span class="font-serif italic text-xl">Tostada de Centeno</span>
+                            <p class="text-[10px] opacity-50 uppercase">Palta & aceite de café</p>
+                        </div>
+                        <span class="font-bold">Bs 32</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cafe-roast text-cafe-crema py-24 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-2">
+                <span class="text-2xl font-serif font-bold tracking-tighter block mb-6">ORÍGENES CAFÉ</span>
+                <p class="text-sm opacity-60 max-w-sm mb-8">Honramos el trabajo de las manos bolivianas, desde el caficultor hasta el barista. Visítanos en nuestro santuario del café.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-cafe-espresso transition"><i class="ti ti-brand-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-cafe-espresso transition"><i class="ti ti-brand-facebook"></i></a>
+                    <a href="#" class="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-cafe-espresso transition"><i class="ti ti-brand-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div id="visita">
+                <h4 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-8 text-cafe-gold">Visítanos</h4>
+                <div class="text-sm opacity-70 space-y-4">
+                    <p>Av. 20 de Octubre esq. Aspiazu<br>La Paz, Bolivia</p>
+                    <p>Lun - Sáb: 08:00 - 20:00<br>Dom: 10:00 - 18:00</p>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-8 text-cafe-gold">Academia</h4>
+                <ul class="text-sm opacity-70 space-y-4 font-medium">
+                    <li><a href="#" class="hover:text-white transition">Taller de Barismo</a></li>
+                    <li><a href="#" class="hover:text-white transition">Cata de Origen</a></li>
+                    <li><a href="#" class="hover:text-white transition">Venta Mayorista</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] font-bold opacity-30 uppercase tracking-[0.4em]">
+            <p>&copy; 2024 Orígenes Tostaduría Bolivia.</p>
+            <div class="flex gap-8 mt-4 md:mt-0">
+                <a href="#">Ética y Sostenibilidad</a>
+                <a href="#">Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

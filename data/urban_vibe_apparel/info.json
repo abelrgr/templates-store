@@ -1,0 +1,19 @@
+{
+    "id": "urban_vibe_apparel",
+    "name": "UrbanVibe Streetwear",
+    "category": "Retail",
+    "description": "An edgy and high-energy clothing store template for youth and streetwear brands. Features bold typography, oversized imagery, and social-first design.",
+    "tags": ["Clothing", "Streetwear", "Youth", "Fashion", "Retail"],
+    "features": [
+        "Oversized Lookbook Sliders",
+        "Instagram-Style Product Feed",
+        "Interactive Size & Fit Guide",
+        "Drop Countdown Timers",
+        "Shoppable Video Header"
+    ],
+    "colors": {
+        "primary": "#000000",
+        "secondary": "#FFFFFF",
+        "accent": "#9FEF00"
+    }
+}
