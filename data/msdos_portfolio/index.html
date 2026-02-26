@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ darkMode: true, mobileMenuOpen: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Retro MS-DOS</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['VT323', 'monospace'],
+                    },
+                    colors: {
+                        dos: {
+                            bg: '#0000aa', // Azul clásico MS-DOS
+                            text: '#aaaaaa', // Gris claro
+                            highlight: '#ffffff', // Blanco brillante
+                            cyan: '#00aaaa',
+                            yellow: '#ffff55'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #0000aa;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+        .dos-border {
+            border: 2px solid #aaaaaa;
+            box-shadow: 2px 2px 0 #000000;
+        }
+        .dos-border-double {
+            border: 4px double #aaaaaa;
+            box-shadow: 4px 4px 0 #000000;
+        }
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        ::selection { background: #aaaaaa; color: #0000aa; }
+    </style>
+</head>
+<body class="text-dos-text font-mono antialiased min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto dos-border-double p-1 bg-dos-bg relative">
+        
+        <!-- Header / Title Bar -->
+        <div class="bg-dos-text text-dos-bg flex justify-between px-2 py-1 mb-4 font-bold">
+            <span>C:\PORTFOLIO.EXE</span>
+            <span>[X]</span>
+        </div>
+
+        <div class="px-4 pb-4 space-y-8">
+            
+            <!-- Boot Sequence -->
+            <section id="inicio">
+                <p>MS-DOS Version 6.22</p>
+                <p>(C)Copyright Microsoft Corp 1981-1994.</p>
+                <br>
+                <p>C:\> AUTOEXEC.BAT</p>
+                <p>Loading Developer Profile...</p>
+                <p class="text-dos-highlight">OK.</p>
+                <br>
+                <div class="text-dos-yellow mb-4">
+                    <pre class="hidden sm:block">
+  ___  ____  ____  __   
+ / _ \(  _ \(  __)(  )  
+/ __ \ ) _ ( ) _) / (_/\
+\_)(_/(____/(____)\____/
+                    </pre>
+                    <h1 class="sm:hidden text-2xl font-bold">ABEL</h1>
+                </div>
+                <p class="text-dos-highlight">NAME: ABEL</p>
+                <p class="text-dos-highlight">CLASS: WEB DEVELOPER</p>
+                <p class="text-dos-highlight">STATUS: READY</p>
+                <br>
+                <p>I build websites like it's 1995, but with 2026 technology.</p>
+                <p>Specialized in fast, accessible, and bloat-free HTML/CSS/JS.</p>
+                <br>
+                <div class="flex gap-4">
+                    <a href="#contacto" class="bg-dos-cyan text-dos-bg px-2 hover:bg-dos-highlight transition">[CONTACT]</a>
+                    <a href="#" class="bg-dos-cyan text-dos-bg px-2 hover:bg-dos-highlight transition">[DOWNLOAD_CV.TXT]</a>
+                </div>
+            </section>
+
+            <!-- Skills -->
+            <section id="skills">
+                <p>C:\> DIR SKILLS\*.*</p>
+                <br>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+                    <div class="flex justify-between"><span>HTML5.SYS</span> <span class="text-dos-highlight">100%</span></div>
+                    <div class="flex justify-between"><span>CSS3.SYS</span> <span class="text-dos-highlight">95%</span></div>
+                    <div class="flex justify-between"><span>JS_ES6.EXE</span> <span class="text-dos-highlight">90%</span></div>
+                    <div class="flex justify-between"><span>REACT.DLL</span> <span class="text-dos-highlight">85%</span></div>
+                    <div class="flex justify-between"><span>NODE.COM</span> <span class="text-dos-highlight">80%</span></div>
+                    <div class="flex justify-between"><span>SQL.DAT</span> <span class="text-dos-highlight">75%</span></div>
+                </div>
+                <br>
+                <p>6 file(s) found.</p>
+            </section>
+
+            <!-- Projects -->
+            <section id="proyectos">
+                <p>C:\> TYPE PROJECTS.LST</p>
+                <br>
+                <div class="space-y-6">
+                    <div class="dos-border p-2">
+                        <h3 class="text-dos-yellow font-bold">01. RETRO_BBS_CLONE</h3>
+                        <p class="mb-2">A modern recreation of a 90s Bulletin Board System using WebSockets.</p>
+                        <p class="text-dos-cyan">TECH: NODE.JS, SOCKET.IO, VANILLA JS</p>
+                        <div class="mt-2 flex gap-4">
+                            <a href="#" class="hover:text-dos-highlight">> RUN DEMO</a>
+                            <a href="#" class="hover:text-dos-highlight">> VIEW SOURCE</a>
+                        </div>
+                    </div>
+                    <div class="dos-border p-2">
+                        <h3 class="text-dos-yellow font-bold">02. ASCII_ART_GENERATOR</h3>
+                        <p class="mb-2">Converts uploaded images into ASCII art in the browser.</p>
+                        <p class="text-dos-cyan">TECH: HTML5 CANVAS, REACT</p>
+                        <div class="mt-2 flex gap-4">
+                            <a href="#" class="hover:text-dos-highlight">> RUN DEMO</a>
+                            <a href="#" class="hover:text-dos-highlight">> VIEW SOURCE</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section id="contacto">
+                <p>C:\> MAIL.EXE</p>
+                <br>
+                <div class="dos-border p-4 bg-[#000000]">
+                    <p class="text-dos-highlight mb-4 text-center">--- COMPOSE MESSAGE ---</p>
+                    <form x-data="{ enviado: false }" @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)" class="space-y-4">
+                        <div class="flex">
+                            <label class="w-16 text-dos-cyan">TO:</label>
+                            <span class="text-dos-highlight">ABEL@LOCALHOST</span>
+                        </div>
+                        <div class="flex">
+                            <label class="w-16 text-dos-cyan">FROM:</label>
+                            <input type="text" required class="flex-1 bg-transparent border-b border-dos-text focus:outline-none focus:border-dos-highlight text-dos-highlight">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-dos-cyan mb-1">MESSAGE:</label>
+                            <textarea rows="3" required class="w-full bg-transparent border border-dos-text focus:outline-none focus:border-dos-highlight text-dos-highlight p-1 resize-none"></textarea>
+                        </div>
+                        <div class="text-center pt-2">
+                            <button type="submit" class="bg-dos-text text-dos-bg px-4 hover:bg-dos-highlight transition">
+                                <span x-show="!enviado">[ SEND (F2) ]</span>
+                                <span x-show="enviado" x-cloak class="text-dos-bg">[ SENT OK ]</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Footer Prompt -->
+            <div class="pt-8">
+                <p>C:\> <span class="blink text-dos-highlight">_</span></p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

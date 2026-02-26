@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ darkMode: false, mobileMenuOpen: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Tarjetas Flotantes (Material Design)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        mat: {
+                            bg: '#f0f2f5',
+                            primary: '#6200ea', // Deep Purple
+                            secondary: '#03dac6', // Teal
+                            surface: '#ffffff',
+                            text: '#1d1d1d',
+                            darkBg: '#121212',
+                            darkSurface: '#1e1e1e',
+                            darkText: '#e0e0e0'
+                        }
+                    },
+                    boxShadow: {
+                        'mat-1': '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)',
+                        'mat-2': '0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12)',
+                        'mat-3': '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)',
+                        'mat-4': '0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { transition: background-color 0.3s, color 0.3s; }
+        .mat-card {
+            transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1), transform 0.3s cubic-bezier(.25,.8,.25,1);
+        }
+        .mat-card:hover {
+            box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+            transform: translateY(-2px);
+        }
+        .dark .mat-card:hover {
+            box-shadow: 0 5px 5px -3px rgba(0,0,0,.5), 0 8px 10px 1px rgba(0,0,0,.4), 0 3px 14px 2px rgba(0,0,0,.4);
+        }
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ripple::after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+        .btn-ripple:active::after {
+            transform: scale(0, 0);
+            opacity: .3;
+            transition: 0s;
+        }
+    </style>
+</head>
+<body class="bg-mat-bg text-mat-text dark:bg-mat-darkBg dark:text-mat-darkText font-sans antialiased">
+
+    <!-- App Bar -->
+    <header class="fixed top-0 w-full z-50 bg-mat-primary text-white shadow-mat-2 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-4">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-full hover:bg-white/20 transition btn-ripple">
+                        <i class="ti ti-menu-2 text-xl"></i>
+                    </button>
+                    <a href="#" class="text-xl font-medium tracking-wide">Abel Portfolio</a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-2">
+                    <a href="#inicio" class="px-4 py-2 rounded-md hover:bg-white/20 transition font-medium text-sm uppercase btn-ripple">Inicio</a>
+                    <a href="#proyectos" class="px-4 py-2 rounded-md hover:bg-white/20 transition font-medium text-sm uppercase btn-ripple">Proyectos</a>
+                    <a href="#habilidades" class="px-4 py-2 rounded-md hover:bg-white/20 transition font-medium text-sm uppercase btn-ripple">Habilidades</a>
+                    <a href="#blog" class="px-4 py-2 rounded-md hover:bg-white/20 transition font-medium text-sm uppercase btn-ripple">Blog</a>
+                    <a href="#contacto" class="px-4 py-2 rounded-md hover:bg-white/20 transition font-medium text-sm uppercase btn-ripple">Contacto</a>
+                </nav>
+
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-white/20 transition btn-ripple">
+                    <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Drawer (Menú Móvil) -->
+    <div x-show="mobileMenuOpen" class="fixed inset-0 z-40 flex md:hidden">
+        <!-- Overlay -->
+        <div x-show="mobileMenuOpen" x-transition.opacity class="fixed inset-0 bg-black/50" @click="mobileMenuOpen = false"></div>
+        
+        <!-- Sidebar -->
+        <div x-show="mobileMenuOpen" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="-translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="-translate-x-full"
+             class="relative flex-1 flex flex-col max-w-xs w-full bg-mat-surface dark:bg-mat-darkSurface shadow-mat-4">
+            
+            <div class="h-32 bg-mat-primary p-4 flex flex-col justify-end text-white">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full mb-2 border-2 border-white">
+                <span class="font-medium">Fred Developer</span>
+                <span class="text-xs opacity-80">abel@example.com</span>
+            </div>
+            
+            <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
+                <a href="#inicio" @click="mobileMenuOpen = false" class="flex items-center gap-4 px-4 py-3 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 btn-ripple"><i class="ti ti-home text-gray-500"></i> Inicio</a>
+                <a href="#proyectos" @click="mobileMenuOpen = false" class="flex items-center gap-4 px-4 py-3 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 btn-ripple"><i class="ti ti-apps text-gray-500"></i> Proyectos</a>
+                <a href="#habilidades" @click="mobileMenuOpen = false" class="flex items-center gap-4 px-4 py-3 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 btn-ripple"><i class="ti ti-star text-gray-500"></i> Habilidades</a>
+                <a href="#blog" @click="mobileMenuOpen = false" class="flex items-center gap-4 px-4 py-3 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 btn-ripple"><i class="ti ti-article text-gray-500"></i> Blog</a>
+                <a href="#contacto" @click="mobileMenuOpen = false" class="flex items-center gap-4 px-4 py-3 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 btn-ripple"><i class="ti ti-mail text-gray-500"></i> Contacto</a>
+            </nav>
+        </div>
+    </div>
+
+    <main class="pt-24 pb-12 px-4 max-w-7xl mx-auto space-y-8">
+
+        <!-- Hero Card -->
+        <section id="inicio" class="bg-mat-surface dark:bg-mat-darkSurface rounded-lg shadow-mat-1 mat-card overflow-hidden">
+            <div class="h-32 md:h-48 bg-gradient-to-r from-mat-primary to-mat-secondary"></div>
+            <div class="px-6 pb-8 relative">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Perfil" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-mat-surface dark:border-mat-darkSurface absolute -top-12 md:-top-16 shadow-mat-2">
+                
+                <div class="pt-16 md:pt-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                    <div>
+                        <h1 class="text-3xl font-medium mb-1">Fred Developer</h1>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Ingeniero de Software & Diseñador UI</p>
+                        <p class="max-w-2xl text-sm leading-relaxed">
+                            Desarrollo aplicaciones web modernas utilizando los principios de Material Design para crear interfaces intuitivas, accesibles y hermosas.
+                        </p>
+                    </div>
+                    <div class="flex gap-3 w-full md:w-auto">
+                        <a href="#contacto" class="flex-1 md:flex-none text-center bg-mat-primary text-white px-6 py-2 rounded shadow-mat-1 hover:shadow-mat-2 transition font-medium text-sm uppercase btn-ripple">Contactar</a>
+                        <a href="#" class="flex-1 md:flex-none text-center border border-gray-300 dark:border-gray-600 px-6 py-2 rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition font-medium text-sm uppercase text-mat-primary dark:text-mat-secondary btn-ripple">CV</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Principal -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Columna Izquierda (Habilidades & Contacto) -->
+            <div class="space-y-8 lg:col-span-1">
+                
+                <!-- Habilidades Card -->
+                <section id="habilidades" class="bg-mat-surface dark:bg-mat-darkSurface rounded-lg shadow-mat-1 mat-card p-6">
+                    <h2 class="text-xl font-medium mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Habilidades</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Angular / React</span>
+                                <span class="text-gray-500">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                <div class="bg-mat-primary h-1.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>HTML / CSS / JS</span>
+                                <span class="text-gray-500">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                <div class="bg-mat-secondary h-1.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Node.js / Express</span>
+                                <span class="text-gray-500">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                <div class="bg-mat-primary h-1.5 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>UI / UX Design</span>
+                                <span class="text-gray-500">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                <div class="bg-mat-secondary h-1.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-xs font-medium">Git</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-xs font-medium">Firebase</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-xs font-medium">Figma</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-xs font-medium">MongoDB</span>
+                    </div>
+                </section>
+
+                <!-- Contacto Card -->
+                <section id="contacto" class="bg-mat-surface dark:bg-mat-darkSurface rounded-lg shadow-mat-1 mat-card p-6">
+                    <h2 class="text-xl font-medium mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Enviar Mensaje</h2>
+                    
+                    <form x-data="{ enviado: false }" @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)" class="space-y-4">
+                        <!-- Input Material Style -->
+                        <div class="relative">
+                            <input type="text" id="name" required class="block px-2.5 pb-2.5 pt-4 w-full text-sm bg-transparent rounded border border-gray-300 dark:border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-mat-primary peer">
+                            <label for="name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-mat-surface dark:bg-mat-darkSurface px-2 peer-focus:px-2 peer-focus:text-mat-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre</label>
+                        </div>
+                        <div class="relative">
+                            <input type="email" id="email" required class="block px-2.5 pb-2.5 pt-4 w-full text-sm bg-transparent rounded border border-gray-300 dark:border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-mat-primary peer">
+                            <label for="email" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-mat-surface dark:bg-mat-darkSurface px-2 peer-focus:px-2 peer-focus:text-mat-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                        </div>
+                        <div class="relative">
+                            <textarea id="msg" rows="3" required class="block px-2.5 pb-2.5 pt-4 w-full text-sm bg-transparent rounded border border-gray-300 dark:border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-mat-primary peer resize-none"></textarea>
+                            <label for="msg" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-mat-surface dark:bg-mat-darkSurface px-2 peer-focus:px-2 peer-focus:text-mat-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-6 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mensaje</label>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-mat-primary text-white px-4 py-2 rounded shadow-mat-1 hover:shadow-mat-2 transition font-medium text-sm uppercase btn-ripple">
+                            <span x-show="!enviado">Enviar</span>
+                            <span x-show="enviado" x-cloak>Enviado ✓</span>
+                        </button>
+                    </form>
+
+                    <div class="mt-6 flex justify-center gap-4">
+                        <a href="#" class="text-gray-500 hover:text-mat-primary transition"><i class="ti ti-brand-github text-2xl"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-mat-primary transition"><i class="ti ti-brand-linkedin text-2xl"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-mat-primary transition"><i class="ti ti-mail text-2xl"></i></a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Columna Derecha (Proyectos & Blog) -->
+            <div class="space-y-8 lg:col-span-2">
+                
+                <!-- Proyectos -->
+                <section id="proyectos">
+                    <h2 class="text-2xl font-medium mb-6 px-2">Proyectos</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <!-- Proyecto 1 -->
+                        <div class="bg-mat-surface dark:bg-mat-darkSurface rounded-lg shadow-mat-1 mat-card overflow-hidden flex flex-col">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-40 object-cover">
+                            <div class="p-4 flex-grow">
+                                <h3 class="text-lg font-medium mb-2">App de Gestión de Tareas</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Aplicación web progresiva (PWA) con sincronización offline y notificaciones push.</p>
+                            </div>
+                            <div class="px-4 py-3 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-2">
+                                <a href="#" class="text-mat-primary dark:text-mat-secondary font-medium text-sm uppercase px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition btn-ripple">Código</a>
+                                <a href="#" class="text-mat-primary dark:text-mat-secondary font-medium text-sm uppercase px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition btn-ripple">Demo</a>
+                            </div>
+                        </div>
+
+                        <!-- Proyecto 2 -->
+                        <div class="bg-mat-surface dark:bg-mat-darkSurface rounded-lg shadow-mat-1 mat-card overflow-hidden flex flex-col">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-40 object-cover">
+                            <div class="p-4 flex-grow">
+                                <h3 class="text-lg font-medium mb-2">Dashboard Financiero</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Panel de control con gráficos interactivos y exportación de reportes en PDF.</p>
+                            </div>
+                            <div class="px-4 py-3 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-2">
+                                <a href="#" class="text-mat-primary dark:text-mat-secondary font-medium text-sm uppercase px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition btn-ripple">Código</a>
+                                <a href="#" class="text-mat-primary dark:text-mat-secondary font-medium text-sm uppercase px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition btn-ripple">Demo</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Blog -->
+                <section id="blog">
+                    <h2 class="text-2xl font-medium mb-6 px-2">Artículos Recientes</h2>
+                    <div class="space-y-4">
+                        
+                        <!-- Articulo 1 -->
+                        <div class="bg-mat-surface dark:bg-mat-darkSurface rounded-lg shadow-mat-1 mat-card p-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center cursor-pointer">
+                            <div class="w-full sm:w-24 h-24 bg-gray-200 dark:bg-gray-700 rounded flex-shrink-0 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-medium mb-1">Implementando Material Design 3</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Guía práctica para adaptar tus aplicaciones web a las nuevas guías de diseño de Google.</p>
+                                <span class="text-xs text-gray-500">Hace 2 semanas • 5 min de lectura</span>
+                            </div>
+                        </div>
+
+                        <!-- Articulo 2 -->
+                        <div class="bg-mat-surface dark:bg-mat-darkSurface rounded-lg shadow-mat-1 mat-card p-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center cursor-pointer">
+                            <div class="w-full sm:w-24 h-24 bg-gray-200 dark:bg-gray-700 rounded flex-shrink-0 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-medium mb-1">El estado de CSS en 2026</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Nuevas propiedades, selectores y cómo Tailwind sigue dominando el mercado.</p>
+                                <span class="text-xs text-gray-500">Hace 1 mes • 8 min de lectura</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-mat-surface dark:bg-mat-darkSurface border-t border-gray-200 dark:border-gray-800 py-6 mt-8">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+            <p>&copy; 2026 Fred Developer.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-mat-primary transition">Política de Privacidad</a>
+                <a href="#" class="hover:text-mat-primary transition">Términos</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

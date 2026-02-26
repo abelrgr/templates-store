@@ -1,10 +1,18 @@
-{
+﻿{
   "image": "imgs/template.webp",
-  "title": "Bright Minds Elementary - Nurturing Future Leaders",
   "description": "A vibrant and playful template designed specifically for elementary schools and early education centers. Features fun animations, responsive layout, clear academic pathways, and interactive student/parent engagement tools.",
-  "category": "Education",
-  "tags": ["elementary school", "early learning", "education", "playful", "responsive", "alpine.js", "tailwind css"],
+  "demo": "index.html",
   "version": "1.0.0",
-  "date": "2026-02-24",
-  "github": "https://github.com/abelrgr/template-bright_minds_elementary.git"
+  "category": "Education",
+  "tags": [
+    "elementary school",
+    "early learning",
+    "education",
+    "playful",
+    "responsive",
+    "alpine.js",
+    "tailwind css"
+  ],
+  "date": "2026-02-25",
+  "title": "Bright Minds Elementary - Nurturing Future Leaders"
 }

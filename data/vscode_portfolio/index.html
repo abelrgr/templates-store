@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ darkMode: true, activeTab: 'readme' }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | VS Code Theme</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Segoe UI', 'system-ui', 'sans-serif'],
+                        mono: ['Consolas', 'Courier New', 'monospace'],
+                    },
+                    colors: {
+                        vsc: {
+                            bg: '#1e1e1e',
+                            sidebar: '#252526',
+                            activity: '#333333',
+                            tab: '#2d2d2d',
+                            tabActive: '#1e1e1e',
+                            text: '#cccccc',
+                            blue: '#4fc1ff',
+                            yellow: '#dcdcaa',
+                            green: '#b5cea8',
+                            orange: '#ce9178',
+                            purple: '#c586c0',
+                            pink: '#c586c0',
+                            comment: '#6a9955',
+                            lineNum: '#858585'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <style>
+        html, body { height: 100%; margin: 0; overflow: hidden; }
+        .code-line { display: flex; }
+        .code-line:hover { background-color: #2a2d2e; }
+        .line-num { width: 40px; text-align: right; padding-right: 16px; user-select: none; }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #1e1e1e; }
+        ::-webkit-scrollbar-thumb { background: #424242; }
+        ::-webkit-scrollbar-thumb:hover { background: #4f4f4f; }
+    </style>
+</head>
+<body class="bg-vsc-bg text-vsc-text font-mono text-[14px] flex flex-col h-screen">
+
+    <!-- Title Bar -->
+    <div class="h-8 bg-[#323233] flex items-center justify-between px-3 text-xs font-sans select-none">
+        <div class="flex items-center gap-4">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg" class="w-4 h-4">
+            <div class="hidden sm:flex gap-3 text-[#cccccc]">
+                <span class="hover:bg-white/10 px-2 py-1 rounded cursor-pointer">File</span>
+                <span class="hover:bg-white/10 px-2 py-1 rounded cursor-pointer">Edit</span>
+                <span class="hover:bg-white/10 px-2 py-1 rounded cursor-pointer">Selection</span>
+                <span class="hover:bg-white/10 px-2 py-1 rounded cursor-pointer">View</span>
+                <span class="hover:bg-white/10 px-2 py-1 rounded cursor-pointer">Go</span>
+            </div>
+        </div>
+        <div class="text-center flex-1 text-[#cccccc]">Abel - Visual Studio Code</div>
+        <div class="flex gap-2">
+            <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+        </div>
+    </div>
+
+    <div class="flex flex-1 overflow-hidden">
+        
+        <!-- Activity Bar -->
+        <div class="w-12 bg-vsc-activity flex flex-col items-center py-2 gap-4 text-[#858585]">
+            <i class="ti ti-files text-2xl text-white cursor-pointer"></i>
+            <i class="ti ti-search text-2xl hover:text-white cursor-pointer"></i>
+            <i class="ti ti-git-branch text-2xl hover:text-white cursor-pointer"></i>
+            <i class="ti ti-bug text-2xl hover:text-white cursor-pointer"></i>
+            <i class="ti ti-extensions text-2xl hover:text-white cursor-pointer"></i>
+            <div class="mt-auto flex flex-col gap-4">
+                <i class="ti ti-user text-2xl hover:text-white cursor-pointer"></i>
+                <i class="ti ti-settings text-2xl hover:text-white cursor-pointer"></i>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="w-64 bg-vsc-sidebar border-r border-[#252526] flex flex-col hidden md:flex">
+            <div class="px-4 py-2 text-xs font-sans uppercase tracking-wider text-[#cccccc]">Explorer</div>
+            <div class="px-2 py-1 text-sm font-bold flex items-center gap-1 cursor-pointer">
+                <i class="ti ti-chevron-down text-xs"></i> PORTFOLIO
+            </div>
+            <div class="flex flex-col text-sm">
+                <div @click="activeTab = 'readme'" class="flex items-center gap-2 px-6 py-1 cursor-pointer hover:bg-[#2a2d2e]" :class="activeTab === 'readme' ? 'bg-[#37373d] text-white' : ''">
+                    <i class="ti ti-markdown text-[#4fc1ff]"></i> README.md
+                </div>
+                <div @click="activeTab = 'about'" class="flex items-center gap-2 px-6 py-1 cursor-pointer hover:bg-[#2a2d2e]" :class="activeTab === 'about' ? 'bg-[#37373d] text-white' : ''">
+                    <i class="ti ti-brand-javascript text-[#ffbd2e]"></i> about.js
+                </div>
+                <div @click="activeTab = 'projects'" class="flex items-center gap-2 px-6 py-1 cursor-pointer hover:bg-[#2a2d2e]" :class="activeTab === 'projects' ? 'bg-[#37373d] text-white' : ''">
+                    <i class="ti ti-json text-[#ffbd2e]"></i> projects.json
+                </div>
+                <div @click="activeTab = 'contact'" class="flex items-center gap-2 px-6 py-1 cursor-pointer hover:bg-[#2a2d2e]" :class="activeTab === 'contact' ? 'bg-[#37373d] text-white' : ''">
+                    <i class="ti ti-html text-[#e34c26]"></i> contact.html
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Area (Split) -->
+        <div class="flex-1 flex flex-row bg-vsc-bg overflow-hidden">
+            
+            <!-- Left Pane (Code) -->
+            <div class="flex-1 flex flex-col border-r border-[#252526] overflow-hidden w-1/2">
+                <!-- Tabs -->
+                <div class="flex bg-vsc-sidebar h-9 font-sans text-sm overflow-x-auto">
+                    <div @click="activeTab = 'readme'" class="flex items-center gap-2 px-4 min-w-[120px] border-r border-[#252526] cursor-pointer" :class="activeTab === 'readme' ? 'bg-vsc-bg text-white border-t border-t-[#4fc1ff]' : 'bg-vsc-tab text-[#858585]'">
+                        <i class="ti ti-markdown text-[#4fc1ff]"></i> README.md <i class="ti ti-x ml-auto text-xs hover:bg-white/10 rounded"></i>
+                    </div>
+                    <div @click="activeTab = 'about'" class="flex items-center gap-2 px-4 min-w-[120px] border-r border-[#252526] cursor-pointer" :class="activeTab === 'about' ? 'bg-vsc-bg text-white border-t border-t-[#4fc1ff]' : 'bg-vsc-tab text-[#858585]'">
+                        <i class="ti ti-brand-javascript text-[#ffbd2e]"></i> about.js <i class="ti ti-x ml-auto text-xs hover:bg-white/10 rounded"></i>
+                    </div>
+                    <div @click="activeTab = 'projects'" class="flex items-center gap-2 px-4 min-w-[120px] border-r border-[#252526] cursor-pointer" :class="activeTab === 'projects' ? 'bg-vsc-bg text-white border-t border-t-[#4fc1ff]' : 'bg-vsc-tab text-[#858585]'">
+                        <i class="ti ti-json text-[#ffbd2e]"></i> projects.json <i class="ti ti-x ml-auto text-xs hover:bg-white/10 rounded"></i>
+                    </div>
+                    <div @click="activeTab = 'contact'" class="flex items-center gap-2 px-4 min-w-[120px] border-r border-[#252526] cursor-pointer" :class="activeTab === 'contact' ? 'bg-vsc-bg text-white border-t border-t-[#4fc1ff]' : 'bg-vsc-tab text-[#858585]'">
+                        <i class="ti ti-html text-[#e34c26]"></i> contact.html <i class="ti ti-x ml-auto text-xs hover:bg-white/10 rounded"></i>
+                    </div>
+                </div>
+
+                <!-- Breadcrumbs -->
+                <div class="h-6 flex items-center px-4 text-xs font-sans text-[#cccccc] border-b border-[#252526] shadow-sm">
+                    <span>portfolio</span> <i class="ti ti-chevron-right text-[10px] mx-1"></i> 
+                    <span x-text="activeTab === 'readme' ? 'README.md' : activeTab === 'about' ? 'about.js' : activeTab === 'projects' ? 'projects.json' : 'contact.html'"></span>
+                </div>
+
+                <!-- Code Content -->
+                <div class="flex-1 overflow-y-auto py-4">
+                    
+                    <!-- README.md (Raw) -->
+                    <div x-show="activeTab === 'readme'" class="whitespace-pre">
+<div class="code-line"><span class="line-num text-vsc-lineNum">1</span><span class="text-vsc-blue"># 👋 Hi, I'm Abel</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">2</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">3</span>A passionate Full Stack Developer from Earth.</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">4</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">5</span><span class="text-vsc-blue">## 🚀 Quick Links</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">6</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">7</span>- [Download Resume](#)</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">8</span>- [View GitHub Profile](#)</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">9</span>- [Connect on LinkedIn](#)</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">10</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">11</span><span class="text-vsc-blue">## 🛠️ Tech Stack</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">12</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">13</span>![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">14</span>![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">15</span>![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)</div>
+                    </div>
+
+                    <!-- about.js -->
+                    <div x-show="activeTab === 'about'" class="whitespace-pre">
+<div class="code-line"><span class="line-num text-vsc-lineNum">1</span><span class="text-vsc-purple">const</span> <span class="text-vsc-blue">developer</span> <span class="text-vsc-text">=</span> {</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">2</span>    <span class="text-vsc-blue">name</span>: <span class="text-vsc-orange">'Abel'</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">3</span>    <span class="text-vsc-blue">role</span>: <span class="text-vsc-orange">'Full Stack Engineer'</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">4</span>    <span class="text-vsc-blue">location</span>: <span class="text-vsc-orange">'Remote'</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">5</span>    <span class="text-vsc-blue">skills</span>: [</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">6</span>        <span class="text-vsc-orange">'JavaScript'</span>, <span class="text-vsc-orange">'TypeScript'</span>, <span class="text-vsc-orange">'React'</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">7</span>        <span class="text-vsc-orange">'Node.js'</span>, <span class="text-vsc-orange">'Express'</span>, <span class="text-vsc-orange">'PostgreSQL'</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">8</span>    ],</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">9</span>    <span class="text-vsc-blue">passion</span>: <span class="text-vsc-orange">'Building scalable web applications'</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">10</span>    </div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">11</span>    <span class="text-vsc-yellow">sayHello</span>() {</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">12</span>        <span class="text-vsc-text">console.</span><span class="text-vsc-yellow">log</span>(<span class="text-vsc-orange">`Hi! I'm </span><span class="text-vsc-blue">${</span><span class="text-vsc-purple">this</span><span class="text-vsc-text">.</span><span class="text-vsc-blue">name</span><span class="text-vsc-blue">}</span><span class="text-vsc-orange">, a </span><span class="text-vsc-blue">${</span><span class="text-vsc-purple">this</span><span class="text-vsc-text">.</span><span class="text-vsc-blue">role</span><span class="text-vsc-blue">}</span><span class="text-vsc-orange">.`</span>);</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">13</span>    }</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">14</span>};</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">15</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">16</span><span class="text-vsc-text">developer.</span><span class="text-vsc-yellow">sayHello</span>();</div>
+                    </div>
+
+                    <!-- projects.json -->
+                    <div x-show="activeTab === 'projects'" class="whitespace-pre">
+<div class="code-line"><span class="line-num text-vsc-lineNum">1</span>{</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">2</span>  <span class="text-vsc-blue">"projects"</span>: [</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">3</span>    {</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">4</span>      <span class="text-vsc-blue">"name"</span>: <span class="text-vsc-orange">"E-commerce Platform"</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">5</span>      <span class="text-vsc-blue">"description"</span>: <span class="text-vsc-orange">"A full-stack online store with Stripe integration."</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">6</span>      <span class="text-vsc-blue">"tech"</span>: [<span class="text-vsc-orange">"Next.js"</span>, <span class="text-vsc-orange">"Tailwind"</span>, <span class="text-vsc-orange">"Prisma"</span>],</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">7</span>      <span class="text-vsc-blue">"github"</span>: <span class="text-vsc-orange">"https://github.com/abel/ecommerce"</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">8</span>      <span class="text-vsc-blue">"live"</span>: <span class="text-vsc-orange">"https://demo-store.com"</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">9</span>    },</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">10</span>    {</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">11</span>      <span class="text-vsc-blue">"name"</span>: <span class="text-vsc-orange">"Task Manager API"</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">12</span>      <span class="text-vsc-blue">"description"</span>: <span class="text-vsc-orange">"RESTful API for managing tasks with JWT auth."</span>,</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">13</span>      <span class="text-vsc-blue">"tech"</span>: [<span class="text-vsc-orange">"Node.js"</span>, <span class="text-vsc-orange">"Express"</span>, <span class="text-vsc-orange">"MongoDB"</span>],</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">14</span>      <span class="text-vsc-blue">"github"</span>: <span class="text-vsc-orange">"https://github.com/abel/task-api"</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">15</span>    }</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">16</span>  ]</div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">17</span>}</div>
+                    </div>
+
+                    <!-- contact.html -->
+                    <div x-show="activeTab === 'contact'" class="whitespace-pre">
+<div class="code-line"><span class="line-num text-vsc-lineNum">1</span><span class="text-vsc-comment">&lt;!-- Interactive Form (Alpine.js) --&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">2</span><span class="text-vsc-text">&lt;</span><span class="text-vsc-blue">div</span> <span class="text-vsc-blue">class</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"mt-8 p-4 border border-[#333] rounded max-w-md font-sans"</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">3</span>  <span class="text-vsc-text">&lt;</span><span class="text-vsc-blue">form</span> <span class="text-vsc-blue">x-data</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"{ sent: false }"</span> <span class="text-vsc-blue">@submit.prevent</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"sent = true; setTimeout(() =&gt; sent = false, 3000)"</span> <span class="text-vsc-blue">class</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"flex flex-col gap-3"</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">4</span>    <span class="text-vsc-text">&lt;</span><span class="text-vsc-blue">input</span> <span class="text-vsc-blue">type</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"text"</span> <span class="text-vsc-blue">placeholder</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"Name"</span> <span class="text-vsc-blue">class</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"bg-[#3c3c3c] border border-[#3c3c3c] text-white p-2 focus:outline-none focus:border-[#007fd4]"</span> <span class="text-vsc-blue">required</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">5</span>    <span class="text-vsc-text">&lt;</span><span class="text-vsc-blue">input</span> <span class="text-vsc-blue">type</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"email"</span> <span class="text-vsc-blue">placeholder</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"Email"</span> <span class="text-vsc-blue">class</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"bg-[#3c3c3c] border border-[#3c3c3c] text-white p-2 focus:outline-none focus:border-[#007fd4]"</span> <span class="text-vsc-blue">required</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">6</span>    <span class="text-vsc-text">&lt;</span><span class="text-vsc-blue">textarea</span> <span class="text-vsc-blue">placeholder</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"Message"</span> <span class="text-vsc-blue">rows</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"3"</span> <span class="text-vsc-blue">class</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"bg-[#3c3c3c] border border-[#3c3c3c] text-white p-2 focus:outline-none focus:border-[#007fd4] resize-none"</span> <span class="text-vsc-blue">required</span><span class="text-vsc-text">&gt;&lt;/</span><span class="text-vsc-blue">textarea</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">7</span>    <span class="text-vsc-text">&lt;</span><span class="text-vsc-blue">button</span> <span class="text-vsc-blue">type</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"submit"</span> <span class="text-vsc-blue">class</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"bg-[#0e639c] hover:bg-[#1177bb] text-white py-2 px-4 transition"</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">8</span>      <span class="text-vsc-text">&lt;</span><span class="text-vsc-blue">span</span> <span class="text-vsc-blue">x-show</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"!sent"</span><span class="text-vsc-text">&gt;</span>Submit<span class="text-vsc-text">&lt;/</span><span class="text-vsc-blue">span</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">9</span>      <span class="text-vsc-text">&lt;</span><span class="text-vsc-blue">span</span> <span class="text-vsc-blue">x-show</span><span class="text-vsc-text">=</span><span class="text-vsc-orange">"sent"</span> <span class="text-vsc-blue">x-cloak</span><span class="text-vsc-text">&gt;</span>Message Sent!<span class="text-vsc-text">&lt;/</span><span class="text-vsc-blue">span</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">10</span>    <span class="text-vsc-text">&lt;/</span><span class="text-vsc-blue">button</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">11</span>  <span class="text-vsc-text">&lt;/</span><span class="text-vsc-blue">form</span><span class="text-vsc-text">&gt;</span></div>
+<div class="code-line"><span class="line-num text-vsc-lineNum">12</span><span class="text-vsc-text">&lt;/</span><span class="text-vsc-blue">div</span><span class="text-vsc-text">&gt;</span></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right Pane (Preview) -->
+            <div class="flex-1 flex flex-col overflow-hidden w-1/2 bg-[#1e1e1e]">
+                <!-- Preview Header -->
+                <div class="flex bg-vsc-sidebar h-9 font-sans text-sm items-center px-4 text-[#cccccc] border-b border-[#252526] shadow-sm">
+                    <i class="ti ti-layout-sidebar-right mr-2"></i> Preview <span class="mx-2 text-[#858585]">|</span> <span x-text="activeTab === 'readme' ? 'README.md' : activeTab === 'about' ? 'Terminal' : activeTab === 'projects' ? 'Projects UI' : 'Contact Form'"></span>
+                </div>
+
+                <!-- Preview Content -->
+                <div class="flex-1 overflow-y-auto p-6 bg-white text-black" :class="activeTab === 'about' ? 'bg-[#1e1e1e] text-[#cccccc] font-mono' : 'bg-white text-black font-sans'">
+                    
+                    <!-- README Preview -->
+                    <div x-show="activeTab === 'readme'" class="max-w-3xl">
+                        <h1 class="text-4xl font-bold mb-4 border-b pb-2">👋 Hi, I'm Abel</h1>
+                        <p class="mb-4 text-lg text-gray-700">A passionate Full Stack Developer from Earth.</p>
+                        
+                        <h2 class="text-2xl font-bold mt-8 mb-3 border-b pb-1">🚀 Quick Links</h2>
+                        <ul class="list-disc pl-5 space-y-2 mb-6 text-blue-600">
+                            <li><a href="#" class="hover:underline">Download Resume</a></li>
+                            <li><a href="#" class="hover:underline">View GitHub Profile</a></li>
+                            <li><a href="#" class="hover:underline">Connect on LinkedIn</a></li>
+                        </ul>
+
+                        <h2 class="text-2xl font-bold mt-8 mb-3 border-b pb-1">🛠️ Tech Stack</h2>
+                        <div class="flex gap-2 mb-6">
+                            <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
+                            <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
+                            <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
+                        </div>
+                    </div>
+
+                    <!-- Terminal Preview (about.js) -->
+                    <div x-show="activeTab === 'about'" class="h-full flex flex-col">
+                        <div class="text-[#858585] mb-2">Terminal</div>
+                        <div class="flex-1 bg-[#1e1e1e] p-2">
+                            <div class="text-vsc-green mb-1">➜  portfolio git:(main) ✗ node about.js</div>
+                            <div class="text-[#cccccc]">Hi! I'm Abel, a Full Stack Engineer.</div>
+                            <div class="text-vsc-green mt-4">➜  portfolio git:(main) ✗ <span class="animate-pulse">_</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Projects Preview -->
+                    <div x-show="activeTab === 'projects'" class="max-w-3xl">
+                        <h2 class="text-2xl font-bold mb-6">My Projects</h2>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="border rounded-lg p-5 shadow-sm hover:shadow-md transition">
+                                <h3 class="text-xl font-bold text-blue-600 mb-2">E-commerce Platform</h3>
+                                <p class="text-gray-600 mb-4">A full-stack online store with Stripe integration.</p>
+                                <div class="flex gap-2 mb-4">
+                                    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Next.js</span>
+                                    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Tailwind</span>
+                                    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Prisma</span>
+                                </div>
+                                <div class="flex gap-4 text-sm">
+                                    <a href="#" class="text-gray-600 hover:text-black flex items-center gap-1"><i class="ti ti-brand-github"></i> GitHub</a>
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 flex items-center gap-1"><i class="ti ti-external-link"></i> Live Demo</a>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-5 shadow-sm hover:shadow-md transition">
+                                <h3 class="text-xl font-bold text-blue-600 mb-2">Task Manager API</h3>
+                                <p class="text-gray-600 mb-4">RESTful API for managing tasks with JWT auth.</p>
+                                <div class="flex gap-2 mb-4">
+                                    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Node.js</span>
+                                    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Express</span>
+                                    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">MongoDB</span>
+                                </div>
+                                <div class="flex gap-4 text-sm">
+                                    <a href="#" class="text-gray-600 hover:text-black flex items-center gap-1"><i class="ti ti-brand-github"></i> GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Preview -->
+                    <div x-show="activeTab === 'contact'" class="max-w-md mx-auto mt-10">
+                        <h2 class="text-2xl font-bold mb-6 text-center">Get in Touch</h2>
+                        <form x-data="{ sent: false }" @submit.prevent="sent = true; setTimeout(() => sent = false, 3000)" class="flex flex-col gap-4 bg-gray-50 p-6 rounded-lg shadow-sm">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea rows="4" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none" required></textarea>
+                            </div>
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition">
+                                <span x-show="!sent">Send Message</span>
+                                <span x-show="sent" x-cloak>Message Sent Successfully!</span>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <div class="h-6 bg-[#007acc] text-white flex items-center justify-between px-2 text-xs font-sans select-none">
+        <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1 hover:bg-white/20 px-1 cursor-pointer"><i class="ti ti-git-branch text-[10px]"></i> main</span>
+            <span class="flex items-center gap-1 hover:bg-white/20 px-1 cursor-pointer"><i class="ti ti-refresh text-[10px]"></i></span>
+            <span class="flex items-center gap-1 hover:bg-white/20 px-1 cursor-pointer"><i class="ti ti-x text-[10px]"></i> 0 <i class="ti ti-alert-triangle text-[10px]"></i> 0</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="hover:bg-white/20 px-1 cursor-pointer">Ln 1, Col 1</span>
+            <span class="hover:bg-white/20 px-1 cursor-pointer">Spaces: 2</span>
+            <span class="hover:bg-white/20 px-1 cursor-pointer">UTF-8</span>
+            <span class="hover:bg-white/20 px-1 cursor-pointer" x-text="activeTab === 'readme' ? 'Markdown' : activeTab === 'about' ? 'JavaScript' : activeTab === 'projects' ? 'JSON' : 'HTML'"></span>
+            <span class="hover:bg-white/20 px-1 cursor-pointer"><i class="ti ti-bell text-[10px]"></i></span>
+        </div>
+    </div>
+
+</body>
+</html>

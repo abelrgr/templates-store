@@ -1,25 +1,10 @@
-{
-  "id": "vision_optometry_hub",
-  "name": "Vision Precision Optometry",
-  "category": "Health & Medical",
+﻿{
+  "image": "imgs/template.webp",
   "description": "A crystal-clear template for eye clinics and boutique opticians. Focused on visual acuity, style-led eyewear selection, and advanced diagnostic technology.",
-  "tags": [
-    "Optometry",
-    "Eye Care",
-    "Eyewear",
-    "Vision",
-    "Ophthalmology"
-  ],
-  "features": [
-    "Acuity Simulator (Interactive Blur)",
-    "Virtual Frame Try-on UI",
-    "Blue-Light Exposure Checker",
-    "Prescription Renewal Portal",
-    "Advanced Retina Tech Gallery"
-  ],
-  "colors": {
-    "primary": "#06B6D4",
-    "secondary": "#8B5CF6",
-    "accent": "#F8FAFC"
-  }
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Health \u0026 Medical",
+  "tags": ["Optometry", "Eye Care", "Eyewear", "Vision", "Ophthalmology"],
+  "date": "2026-02-25",
+  "title": "Vision Precision Optometry"
 }

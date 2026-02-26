@@ -1,10 +1,19 @@
-{
+﻿{
   "image": "imgs/template.webp",
-  "title": "Atlas University - Global Research & Excellence",
   "description": "An elite and prestigious university template designed for global research institutes and higher education. Features massive academic catalogs, faculty spotlights, global research highlights, and integrated student lifecycle tools.",
-  "category": "Education",
-  "tags": ["university", "higher education", "research", "elite", "responsive", "alpine.js", "tailwind css", "prestigious"],
+  "demo": "index.html",
   "version": "1.0.0",
-  "date": "2026-02-24",
-  "github": "https://github.com/abelrgr/template-atlas_university.git"
+  "category": "Education",
+  "tags": [
+    "university",
+    "higher education",
+    "research",
+    "elite",
+    "responsive",
+    "alpine.js",
+    "tailwind css",
+    "prestigious"
+  ],
+  "date": "2026-02-25",
+  "title": "Atlas University - Global Research \u0026 Excellence"
 }

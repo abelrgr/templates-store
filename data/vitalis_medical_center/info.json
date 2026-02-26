@@ -1,8 +1,10 @@
-{
-  "title": "Vitalis Medical Center",
+﻿{
+  "image": "imgs/template.webp",
   "description": "Premium multi-specialty medical clinic template with patient portal integration and appointment booking.",
-  "category": "Health & Medical",
-  "tags": ["medical", "clinic", "healthcare", "booking", "patients"],
+  "demo": "index.html",
   "version": "1.0.0",
-  "author": "Abel Gallo Ruiz"
+  "category": "Health \u0026 Medical",
+  "tags": ["medical", "clinic", "healthcare", "booking", "patients"],
+  "date": "2026-02-25",
+  "title": "Vitalis Medical Center"
 }

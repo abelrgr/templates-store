@@ -1,10 +1,19 @@
-{
+﻿{
   "image": "imgs/template.webp",
-  "title": "Global Language Academy - Master Your World",
   "description": "A light, clean, and modern language school template designed for international learners. Features interactive language course filters, cultural experience highlights, study abroad options, and live teacher scheduling components.",
-  "category": "Education",
-  "tags": ["language academy", "linguistics", "international", "modern", "responsive", "alpine.js", "tailwind css", "minimal"],
+  "demo": "index.html",
   "version": "1.0.0",
-  "date": "2026-02-24",
-  "github": "https://github.com/abelrgr/template-global_language_academy.git"
+  "category": "Education",
+  "tags": [
+    "language academy",
+    "linguistics",
+    "international",
+    "modern",
+    "responsive",
+    "alpine.js",
+    "tailwind css",
+    "minimal"
+  ],
+  "date": "2026-02-25",
+  "title": "Global Language Academy - Master Your World"
 }

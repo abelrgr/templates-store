@@ -229,16 +229,22 @@ class HomeController
       if (!file_exists($infoFile)) {
         continue;
       }
-      $info = json_decode(file_get_contents($infoFile), true);
+      $json = file_get_contents($infoFile);
+      // Remove UTF-8 BOM if present
+      if (strpos($json, "\xEF\xBB\xBF") === 0) {
+        $json = substr($json, 3);
+      }
+      $info = json_decode($json, true);
       if (!$info) {
+        $this->logError($f3, "Invalid JSON in $infoFile: " . json_last_error_msg());
         continue;
       }
-      
+
       // Ensure basic fields exist with fallbacks
       $info['title'] = $info['title'] ?? $info['name'] ?? ucfirst(str_replace('_', ' ', $file));
       $info['description'] = $info['description'] ?? '';
       $info['image'] = isset($info['image']) ? '/data/' . $file . '/' . $info['image'] : '/data/' . $file . '/imgs/template.webp';
-      
+
       // If demo is not set or is an external URL, normalize it to local path if index.html exists
       if (!isset($info['demo']) || strpos($info['demo'], 'http') === 0) {
         $info['demo'] = '/data/' . $file . '/index.html';

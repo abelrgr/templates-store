@@ -1,18 +1,10 @@
-{
-    "id": "olympus_multisport",
-    "name": "Olympus Multisport Complex",
-    "description": "Comprehensive sports club template covering multiple disciplines like tennis, swimming, and basketball with global booking.",
-    "category": "Sports & Wellness",
-    "theme": {
-        "primary_color": "#1B365D",
-        "secondary_color": "#FF4500",
-        "accent_color": "#FFFFFF",
-        "font_family": "Montserrat, sans-serif"
-    },
-    "features": [
-        "Multi-discipline court switcher",
-        "Integrated academy registration flow",
-        "Facility peak-hours visualizer",
-        "Coach availability tracker"
-    ]
+﻿{
+  "image": "imgs/template.webp",
+  "description": "Comprehensive sports club template covering multiple disciplines like tennis, swimming, and basketball with global booking.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Sports \u0026 Wellness",
+  "tags": ["Sports", "Wellness", "Multisport", "Fitness", "Complex"],
+  "date": "2026-02-25",
+  "title": "Olympus Multisport Complex"
 }

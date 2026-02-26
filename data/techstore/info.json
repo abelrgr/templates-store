@@ -1,7 +1,8 @@
-{
+﻿{
   "image": "imgs/template.webp",
-  "title": "TechStore Template",
   "description": "A comprehensive, modern e-commerce website template for tech stores featuring a hero carousel with featured offers, an interactive product grid with search, category filters, and price sorting, a shopping cart with add-to-cart animations, dark mode toggle, mobile-responsive navigation, and smooth scrolling. Built with HTML, Tailwind CSS, Alpine.js, Anime.js, and Phosphor Icons.",
+  "demo": "index.html",
+  "version": "1.0.0",
   "category": "Retail",
   "tags": [
     "ecommerce",
@@ -12,6 +13,6 @@
     "shopping-cart",
     "dark-mode"
   ],
-  "version": "1.0.1",
-  "date": "2026-01-05"
+  "date": "2026-02-25",
+  "title": "TechStore Template"
 }

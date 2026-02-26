@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" x-data="{ 
+<!doctype html>
+<html
+  lang="en"
+  x-data="{ 
     darkMode: localStorage.getItem('darkMode') === 'true',
     mobileMenu: false,
     showToast: false,
@@ -17,295 +19,527 @@
         this.showToast = true;
         setTimeout(() => this.showToast = false, 3000);
     }
-}" 
-:class="{ 'dark': darkMode }" 
-@scroll.window="scrolled = (window.pageYOffset > 20)"
-class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+}"
+  :class="{ 'dark': darkMode }"
+  @scroll.window="scrolled = (window.pageYOffset > 20)"
+  class="scroll-smooth"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Little Heroes Pediatrics | Growing Up Healthy</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <!-- Tailwind & Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        hero: {
-                            50: '#fff1f2',
-                            100: '#ffe4e6',
-                            500: '#f43f5e',
-                            600: '#e11d48',
-                            900: '#881337',
-                        },
-                        amber: {
-                            400: '#fbbf24',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Fredoka', 'sans-serif'],
-                        display: ['Baloo 2', 'cursive'],
-                    },
-                    borderRadius: {
-                        '4xl': '2rem',
-                        '5xl': '3rem',
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              hero: {
+                50: "#fff1f2",
+                100: "#ffe4e6",
+                500: "#f43f5e",
+                600: "#e11d48",
+                900: "#881337",
+              },
+              amber: {
+                400: "#fbbf24",
+              },
+            },
+            fontFamily: {
+              sans: ["Fredoka", "sans-serif"],
+              display: ["Baloo 2", "cursive"],
+            },
+            borderRadius: {
+              "4xl": "2rem",
+              "5xl": "3rem",
+            },
+          },
+        },
+      };
     </script>
     <style>
-        [x-cloak] { display: none !important; }
-        .blob-bg { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-        .grid-dots { background-image: radial-gradient(circle, #f43f5e 1px, transparent 1px); background-size: 30px 30px; }
+      [x-cloak] {
+        display: none !important;
+      }
+      .blob-bg {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      }
+      .grid-dots {
+        background-image: radial-gradient(circle, #f43f5e 1px, transparent 1px);
+        background-size: 30px 30px;
+      }
     </style>
-</head>
-<body class="bg-hero-50 text-slate-800 dark:bg-slate-950 dark:text-gray-100 transition-colors duration-300 antialiased overflow-x-hidden">
-
+  </head>
+  <body
+    class="bg-hero-50 text-slate-800 dark:bg-slate-950 dark:text-gray-100 transition-colors duration-300 antialiased overflow-x-hidden"
+  >
     <!-- Emergency Mobile Button -->
     <div class="fixed bottom-6 right-6 z-[60] md:hidden">
-        <button @click="triggerToast('Dialing Emergency Line...')" class="w-16 h-16 bg-hero-500 text-white rounded-full shadow-2xl flex items-center justify-center animate-bounce">
-            <i class="ti ti-phone-call text-3xl"></i>
-        </button>
+      <button
+        @click="triggerToast('Dialing Emergency Line...')"
+        class="w-16 h-16 bg-hero-500 text-white rounded-full shadow-2xl flex items-center justify-center animate-bounce"
+      >
+        <i class="ti ti-phone-call text-3xl"></i>
+      </button>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300"
-         :class="scrolled ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg shadow-xl py-2' : 'bg-transparent py-4'">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-hero-500 rounded-2xl flex items-center justify-center text-white rotate-3">
-                    <i class="ti ti-pacifier text-3xl"></i>
-                </div>
-                <div class="leading-none">
-                    <span class="text-2xl font-bold font-display tracking-tight text-hero-600">LITTLE HEROES</span>
-                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-400">PEDIATRIC CARE</span>
-                </div>
-            </div>
-
-            <div class="hidden lg:flex items-center space-x-10">
-                <a href="#home" class="font-bold hover:text-hero-500 transition">Our Nest</a>
-                <a href="#care" class="font-bold hover:text-hero-500 transition">Healthy Kids</a>
-                <a href="#milestones" class="font-bold hover:text-hero-500 transition">Development</a>
-                <a href="#team" class="font-bold hover:text-hero-500 transition">The Doctors</a>
-                <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" class="p-2 text-xl hover:scale-110 transition">
-                    <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
-                </button>
-                <a href="#contact" class="bg-amber-400 text-slate-900 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-amber-500 hover:scale-105 transition transform active:scale-95">Book Check-up</a>
-            </div>
-
-            <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-3xl">
-                <i class="ti" :class="mobileMenu ? 'ti-x' : 'ti-menu-2'"></i>
-            </button>
+    <nav
+      class="fixed w-full z-50 transition-all duration-300"
+      :class="scrolled ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg shadow-xl py-2' : 'bg-transparent py-4'"
+    >
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-12 h-12 bg-hero-500 rounded-2xl flex items-center justify-center text-white rotate-3"
+          >
+            <i class="ti ti-pacifier text-3xl"></i>
+          </div>
+          <div class="leading-none">
+            <span
+              class="text-2xl font-bold font-display tracking-tight text-hero-600"
+              >LITTLE HEROES</span
+            >
+            <span
+              class="block text-[10px] font-bold uppercase tracking-widest text-slate-400"
+              >PEDIATRIC CARE</span
+            >
+          </div>
         </div>
+
+        <div class="hidden lg:flex items-center space-x-10">
+          <a href="#home" class="font-bold hover:text-hero-500 transition"
+            >Our Nest</a
+          >
+          <a href="#care" class="font-bold hover:text-hero-500 transition"
+            >Healthy Kids</a
+          >
+          <a href="#milestones" class="font-bold hover:text-hero-500 transition"
+            >Development</a
+          >
+          <a href="#team" class="font-bold hover:text-hero-500 transition"
+            >The Doctors</a
+          >
+          <button
+            @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
+            class="p-2 text-xl hover:scale-110 transition"
+          >
+            <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+          </button>
+          <a
+            href="#contact"
+            class="bg-amber-400 text-slate-900 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-amber-500 hover:scale-105 transition transform active:scale-95"
+            >Book Check-up</a
+          >
+        </div>
+
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-3xl">
+          <i class="ti" :class="mobileMenu ? 'ti-x' : 'ti-menu-2'"></i>
+        </button>
+      </div>
     </nav>
 
     <!-- Mobile Menu -->
-    <div x-show="mobileMenu" x-cloak 
-         class="fixed inset-0 z-40 bg-hero-500 flex flex-col items-center justify-center text-white space-y-8 text-3xl font-display"
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 scale-110"
-         x-transition:enter-end="opacity-100 scale-100">
-        <a @click="mobileMenu = false" href="#home">Home</a>
-        <a @click="mobileMenu = false" href="#care">Specialized Care</a>
-        <a @click="mobileMenu = false" href="#milestones">Milestones</a>
-        <a @click="mobileMenu = false" href="#contact">Contact</a>
-        <button @click="darkMode = !darkMode; mobileMenu = false" class="text-xl">
-            <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i> Toggle Mode
-        </button>
+    <div
+      x-show="mobileMenu"
+      x-cloak
+      class="fixed inset-0 z-40 bg-hero-500 flex flex-col items-center justify-center text-white space-y-8 text-3xl font-display"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-110"
+      x-transition:enter-end="opacity-100 scale-100"
+    >
+      <a @click="mobileMenu = false" href="#home">Home</a>
+      <a @click="mobileMenu = false" href="#care">Specialized Care</a>
+      <a @click="mobileMenu = false" href="#milestones">Milestones</a>
+      <a @click="mobileMenu = false" href="#contact">Contact</a>
+      <button @click="darkMode = !darkMode; mobileMenu = false" class="text-xl">
+        <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i> Toggle Mode
+      </button>
     </div>
 
     <!-- Hero -->
-    <header id="home" class="relative pt-40 pb-20 md:pt-60 md:pb-40 overflow-hidden">
-        <!-- Abstract Shapes -->
-        <div class="absolute -top-20 -left-20 w-96 h-96 bg-hero-100 dark:bg-hero-900/20 blob-bg -rotate-12"></div>
-        <div class="absolute top-1/2 -right-20 w-80 h-80 bg-amber-100 dark:bg-amber-900/10 blob-bg rotate-45"></div>
-        
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-16">
-                <div class="lg:w-1/2 text-center lg:text-left">
-                    <h1 class="text-6xl md:text-8xl font-display font-bold text-slate-900 dark:text-white mb-8 leading-tight">Every Tiny Step is a <span class="text-hero-500">Big Adventure.</span></h1>
-                    <p class="text-xl md:text-2xl text-slate-500 dark:text-gray-400 mb-12 leading-relaxed">Expert pediatric care with a lot of heart. We help your little ones grow strong, happy, and healthy.</p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <button class="px-10 py-5 bg-hero-500 text-white rounded-full font-bold text-xl shadow-2xl hover:bg-hero-600 hover:-translate-y-1 transition">Schedule a Visit</button>
-                        <button class="px-10 py-5 bg-white dark:bg-slate-800 text-hero-500 border-2 border-hero-100 dark:border-slate-700 rounded-full font-bold text-xl hover:bg-hero-50 transition">Virtual Consultation</button>
-                    </div>
-                    
-                    <div class="mt-12 flex items-center justify-center lg:justify-start gap-8 opacity-60">
-                        <div class="flex flex-col"><span class="font-bold text-3xl">20k+</span> <span class="text-xs uppercase tracking-widest">Happy Kids</span></div>
-                        <div class="w-px h-10 bg-slate-300"></div>
-                        <div class="flex flex-col"><span class="font-bold text-3xl">15+</span> <span class="text-xs uppercase tracking-widest">Specialists</span></div>
-                    </div>
-                </div>
+    <header
+      id="home"
+      class="relative pt-40 pb-20 md:pt-60 md:pb-40 overflow-hidden"
+    >
+      <!-- Abstract Shapes -->
+      <div
+        class="absolute -top-20 -left-20 w-96 h-96 bg-hero-100 dark:bg-hero-900/20 blob-bg -rotate-12"
+      ></div>
+      <div
+        class="absolute top-1/2 -right-20 w-80 h-80 bg-amber-100 dark:bg-amber-900/10 blob-bg rotate-45"
+      ></div>
 
-                <div class="lg:w-1/2 relative">
-                    <div class="relative z-10 w-full aspect-square max-w-lg mx-auto">
-                        <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800" 
-                             class="w-full h-full object-cover rounded-5xl border-[16px] border-white dark:border-slate-800 shadow-2xl">
-                    </div>
-                    <!-- Floating Badge -->
-                    <div class="absolute top-0 right-0 bg-amber-400 p-6 rounded-3xl shadow-2xl -rotate-6 z-20">
-                        <i class="ti ti-stretcher text-3xl text-white"></i>
-                        <p class="font-bold text-slate-900">Urgent Care<br>Ready</p>
-                    </div>
-                </div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+          <div class="lg:w-1/2 text-center lg:text-left">
+            <h1
+              class="text-6xl md:text-8xl font-display font-bold text-slate-900 dark:text-white mb-8 leading-tight"
+            >
+              Every Tiny Step is a
+              <span class="text-hero-500">Big Adventure.</span>
+            </h1>
+            <p
+              class="text-xl md:text-2xl text-slate-500 dark:text-gray-400 mb-12 leading-relaxed"
+            >
+              Expert pediatric care with a lot of heart. We help your little
+              ones grow strong, happy, and healthy.
+            </p>
+
+            <div
+              class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <button
+                class="px-10 py-5 bg-hero-500 text-white rounded-full font-bold text-xl shadow-2xl hover:bg-hero-600 hover:-translate-y-1 transition"
+              >
+                Schedule a Visit
+              </button>
+              <button
+                class="px-10 py-5 bg-white dark:bg-slate-800 text-hero-500 border-2 border-hero-100 dark:border-slate-700 rounded-full font-bold text-xl hover:bg-hero-50 transition"
+              >
+                Virtual Consultation
+              </button>
             </div>
+
+            <div
+              class="mt-12 flex items-center justify-center lg:justify-start gap-8 opacity-60"
+            >
+              <div class="flex flex-col">
+                <span class="font-bold text-3xl">20k+</span>
+                <span class="text-xs uppercase tracking-widest"
+                  >Happy Kids</span
+                >
+              </div>
+              <div class="w-px h-10 bg-slate-300"></div>
+              <div class="flex flex-col">
+                <span class="font-bold text-3xl">15+</span>
+                <span class="text-xs uppercase tracking-widest"
+                  >Specialists</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:w-1/2 relative">
+            <div class="relative z-10 w-full aspect-square max-w-lg mx-auto">
+              <img
+                src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800"
+                class="w-full h-full object-cover rounded-5xl border-[16px] border-white dark:border-slate-800 shadow-2xl"
+              />
+            </div>
+            <!-- Floating Badge -->
+            <div
+              class="absolute top-0 right-0 bg-amber-400 p-6 rounded-3xl shadow-2xl -rotate-6 z-20"
+            >
+              <i class="ti ti-stretcher text-3xl text-white"></i>
+              <p class="font-bold text-slate-900">Urgent Care<br />Ready</p>
+            </div>
+          </div>
         </div>
+      </div>
     </header>
 
     <!-- Care Categories -->
     <section id="care" class="py-24 bg-white dark:bg-slate-900">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="p-10 bg-blue-50 dark:bg-blue-900/20 rounded-[3rem] text-center border-t-8 border-blue-400">
-                    <i class="ti ti-baby-bottle text-4xl text-blue-500 mb-6 block"></i>
-                    <h3 class="text-xl font-bold mb-4">Newborn Care</h3>
-                    <p class="text-sm opacity-70">Gentle support for those first precious weeks.</p>
-                </div>
-                <div class="p-10 bg-amber-50 dark:bg-amber-900/20 rounded-[3rem] text-center border-t-8 border-amber-400">
-                    <i class="ti ti-vaccine text-4xl text-amber-500 mb-6 block"></i>
-                    <h3 class="text-xl font-bold mb-4">Immunization</h3>
-                    <p class="text-sm opacity-70">Keeping them protected with smart schedules.</p>
-                </div>
-                <div class="p-10 bg-hero-50 dark:bg-hero-900/20 rounded-[3rem] text-center border-t-8 border-hero-400">
-                    <i class="ti ti-apple text-4xl text-hero-500 mb-6 block"></i>
-                    <h3 class="text-xl font-bold mb-4">Nutrition</h3>
-                    <p class="text-sm opacity-70">Guiding healthy habits for growing bodies.</p>
-                </div>
-                <div class="p-10 bg-green-50 dark:bg-green-900/20 rounded-[3rem] text-center border-t-8 border-green-400">
-                    <i class="ti ti-mood-smile text-4xl text-green-500 mb-6 block"></i>
-                    <h3 class="text-xl font-bold mb-4">Mental Health</h3>
-                    <p class="text-sm opacity-70">Supporting emotions and development.</p>
-                </div>
-            </div>
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="p-10 bg-blue-50 dark:bg-blue-900/20 rounded-[3rem] text-center border-t-8 border-blue-400"
+          >
+            <i class="ti ti-baby-bottle text-4xl text-blue-500 mb-6 block"></i>
+            <h3 class="text-xl font-bold mb-4">Newborn Care</h3>
+            <p class="text-sm opacity-70">
+              Gentle support for those first precious weeks.
+            </p>
+          </div>
+          <div
+            class="p-10 bg-amber-50 dark:bg-amber-900/20 rounded-[3rem] text-center border-t-8 border-amber-400"
+          >
+            <i class="ti ti-vaccine text-4xl text-amber-500 mb-6 block"></i>
+            <h3 class="text-xl font-bold mb-4">Immunization</h3>
+            <p class="text-sm opacity-70">
+              Keeping them protected with smart schedules.
+            </p>
+          </div>
+          <div
+            class="p-10 bg-hero-50 dark:bg-hero-900/20 rounded-[3rem] text-center border-t-8 border-hero-400"
+          >
+            <i class="ti ti-apple text-4xl text-hero-500 mb-6 block"></i>
+            <h3 class="text-xl font-bold mb-4">Nutrition</h3>
+            <p class="text-sm opacity-70">
+              Guiding healthy habits for growing bodies.
+            </p>
+          </div>
+          <div
+            class="p-10 bg-green-50 dark:bg-green-900/20 rounded-[3rem] text-center border-t-8 border-green-400"
+          >
+            <i class="ti ti-mood-smile text-4xl text-green-500 mb-6 block"></i>
+            <h3 class="text-xl font-bold mb-4">Mental Health</h3>
+            <p class="text-sm opacity-70">
+              Supporting emotions and development.
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Milestones Interactive -->
-    <section id="milestones" class="py-32 bg-slate-50 dark:bg-slate-950 grid-dots">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-5xl p-8 md:p-16 shadow-2xl relative">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-display font-bold mb-4">Milestone Tracker</h2>
-                    <p class="text-slate-500">See what to expect at every magical age.</p>
-                </div>
+    <section
+      id="milestones"
+      class="py-32 bg-slate-50 dark:bg-slate-950 grid-dots"
+    >
+      <div class="container mx-auto px-6">
+        <div
+          class="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-5xl p-8 md:p-16 shadow-2xl relative"
+        >
+          <div class="text-center mb-16">
+            <h2 class="text-4xl font-display font-bold mb-4">
+              Milestone Tracker
+            </h2>
+            <p class="text-slate-500">
+              See what to expect at every magical age.
+            </p>
+          </div>
 
-                <div class="flex flex-wrap justify-center gap-4 mb-12">
-                    <button @click="activeAge = '1mo'" :class="activeAge === '1mo' ? 'bg-hero-500 text-white' : 'bg-gray-100 text-gray-400'" class="px-6 py-3 rounded-2xl font-bold transition">1 Mo</button>
-                    <button @click="activeAge = '6mo'" :class="activeAge === '6mo' ? 'bg-hero-500 text-white' : 'bg-gray-100 text-gray-400'" class="px-6 py-3 rounded-2xl font-bold transition">6 Mo</button>
-                    <button @click="activeAge = '12mo'" :class="activeAge === '12mo' ? 'bg-hero-500 text-white' : 'bg-gray-100 text-gray-400'" class="px-6 py-3 rounded-2xl font-bold transition">1 Year</button>
-                    <button @click="activeAge = '2yr'" :class="activeAge === '2yr' ? 'bg-hero-500 text-white' : 'bg-gray-100 text-gray-400'" class="px-6 py-3 rounded-2xl font-bold transition">2 Years</button>
-                </div>
+          <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <button
+              @click="activeAge = '1mo'"
+              :class="activeAge === '1mo' ? 'bg-hero-500 text-white' : 'bg-gray-100 text-gray-400'"
+              class="px-6 py-3 rounded-2xl font-bold transition"
+            >
+              1 Mo
+            </button>
+            <button
+              @click="activeAge = '6mo'"
+              :class="activeAge === '6mo' ? 'bg-hero-500 text-white' : 'bg-gray-100 text-gray-400'"
+              class="px-6 py-3 rounded-2xl font-bold transition"
+            >
+              6 Mo
+            </button>
+            <button
+              @click="activeAge = '12mo'"
+              :class="activeAge === '12mo' ? 'bg-hero-500 text-white' : 'bg-gray-100 text-gray-400'"
+              class="px-6 py-3 rounded-2xl font-bold transition"
+            >
+              1 Year
+            </button>
+            <button
+              @click="activeAge = '2yr'"
+              :class="activeAge === '2yr' ? 'bg-hero-500 text-white' : 'bg-gray-100 text-gray-400'"
+              class="px-6 py-3 rounded-2xl font-bold transition"
+            >
+              2 Years
+            </button>
+          </div>
 
-                <div class="p-10 bg-hero-50 dark:bg-hero-900/20 rounded-4xl text-center" x-transition>
-                    <i class="ti ti-star text-4xl text-amber-400 mb-6 animate-pulse"></i>
-                    <p class="text-2xl font-bold mb-4" x-text="activeAge === '1mo' ? 'The Discovery Phase' : activeAge === '6mo' ? 'The Social Butterfly' : activeAge === '12mo' ? 'The Explorer' : 'The Independent Spirit'"></p>
-                    <p class="text-xl text-slate-600 dark:text-gray-400" x-text="milestones[activeAge]"></p>
-                </div>
-                
-                <button @click="triggerToast('Full development PDF downloading!')" class="mt-12 w-full py-4 border-2 border-dashed border-hero-200 text-hero-500 font-bold rounded-2xl hover:bg-hero-50 transition">Download Full Development Guide</button>
-            </div>
+          <div
+            class="p-10 bg-hero-50 dark:bg-hero-900/20 rounded-4xl text-center"
+            x-transition
+          >
+            <i
+              class="ti ti-star text-4xl text-amber-400 mb-6 animate-pulse"
+            ></i>
+            <p
+              class="text-2xl font-bold mb-4"
+              x-text="activeAge === '1mo' ? 'The Discovery Phase' : activeAge === '6mo' ? 'The Social Butterfly' : activeAge === '12mo' ? 'The Explorer' : 'The Independent Spirit'"
+            ></p>
+            <p
+              class="text-xl text-slate-600 dark:text-gray-400"
+              x-text="milestones[activeAge]"
+            ></p>
+          </div>
+
+          <button
+            @click="triggerToast('Full development PDF downloading!')"
+            class="mt-12 w-full py-4 border-2 border-dashed border-hero-200 text-hero-500 font-bold rounded-2xl hover:bg-hero-50 transition"
+          >
+            Download Full Development Guide
+          </button>
         </div>
+      </div>
     </section>
 
     <!-- Team -->
     <section id="team" class="py-32 bg-white dark:bg-slate-900">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-display font-bold text-center mb-20 text-hero-600">The Dream Team</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="group text-center">
-                    <div class="relative inline-block mb-8">
-                        <div class="absolute inset-0 bg-hero-100 dark:bg-hero-900/30 rounded-full scale-110 -rotate-6 group-hover:rotate-6 transition duration-500"></div>
-                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=200" class="w-48 h-48 object-cover rounded-full relative z-10 grayscale group-hover:grayscale-0 transition duration-500">
-                    </div>
-                    <h4 class="text-2xl font-bold">Dr. Leo Heart</h4>
-                    <p class="text-hero-500 font-bold uppercase text-xs tracking-widest mt-2">Chief Pediatrician</p>
-                </div>
-                <div class="group text-center">
-                    <div class="relative inline-block mb-8">
-                        <div class="absolute inset-0 bg-amber-100 dark:bg-amber-900/30 rounded-full scale-110 rotate-12 group-hover:-rotate-12 transition duration-500"></div>
-                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=200" class="w-48 h-48 object-cover rounded-full relative z-10 grayscale group-hover:grayscale-0 transition duration-500">
-                    </div>
-                    <h4 class="text-2xl font-bold">Dr. Sofia Joy</h4>
-                    <p class="text-amber-500 font-bold uppercase text-xs tracking-widest mt-2">Nutrition Specialist</p>
-                </div>
-                <div class="group text-center">
-                    <div class="relative inline-block mb-8">
-                        <div class="absolute inset-0 bg-blue-100 dark:bg-blue-900/30 rounded-full scale-110 -rotate-3 group-hover:rotate-12 transition duration-500"></div>
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71f1e59816?q=80&w=200" class="w-48 h-48 object-cover rounded-full relative z-10 grayscale group-hover:grayscale-0 transition duration-500">
-                    </div>
-                    <h4 class="text-2xl font-bold">Dr. Sam Sky</h4>
-                    <p class="text-blue-500 font-bold uppercase text-xs tracking-widest mt-2">Child Therapist</p>
-                </div>
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-4xl font-display font-bold text-center mb-20 text-hero-600"
+        >
+          The Dream Team
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div class="group text-center">
+            <div class="relative inline-block mb-8">
+              <div
+                class="absolute inset-0 bg-hero-100 dark:bg-hero-900/30 rounded-full scale-110 -rotate-6 group-hover:rotate-6 transition duration-500"
+              ></div>
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=200"
+                class="w-48 h-48 object-cover rounded-full relative z-10 grayscale group-hover:grayscale-0 transition duration-500"
+              />
             </div>
+            <h4 class="text-2xl font-bold">Dr. Leo Heart</h4>
+            <p
+              class="text-hero-500 font-bold uppercase text-xs tracking-widest mt-2"
+            >
+              Chief Pediatrician
+            </p>
+          </div>
+          <div class="group text-center">
+            <div class="relative inline-block mb-8">
+              <div
+                class="absolute inset-0 bg-amber-100 dark:bg-amber-900/30 rounded-full scale-110 rotate-12 group-hover:-rotate-12 transition duration-500"
+              ></div>
+              <img
+                src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=200"
+                class="w-48 h-48 object-cover rounded-full relative z-10 grayscale group-hover:grayscale-0 transition duration-500"
+              />
+            </div>
+            <h4 class="text-2xl font-bold">Dr. Sofia Joy</h4>
+            <p
+              class="text-amber-500 font-bold uppercase text-xs tracking-widest mt-2"
+            >
+              Nutrition Specialist
+            </p>
+          </div>
+          <div class="group text-center">
+            <div class="relative inline-block mb-8">
+              <div
+                class="absolute inset-0 bg-blue-100 dark:bg-blue-900/30 rounded-full scale-110 -rotate-3 group-hover:rotate-12 transition duration-500"
+              ></div>
+              <img
+                src="https://images.unsplash.com/photo-1559839734-2b71f1e59816?q=80&w=200"
+                class="w-48 h-48 object-cover rounded-full relative z-10 grayscale group-hover:grayscale-0 transition duration-500"
+              />
+            </div>
+            <h4 class="text-2xl font-bold">Dr. Sam Sky</h4>
+            <p
+              class="text-blue-500 font-bold uppercase text-xs tracking-widest mt-2"
+            >
+              Child Therapist
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-slate-900 text-white pt-32 pb-16 relative overflow-hidden">
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
-                <div class="col-span-1">
-                    <div class="flex items-center space-x-3 mb-8">
-                        <div class="w-10 h-10 bg-hero-500 rounded-xl flex items-center justify-center text-white rotate-3">
-                            <i class="ti ti-pacifier"></i>
-                        </div>
-                        <span class="text-2xl font-bold font-display">LITTLE HEROES</span>
-                    </div>
-                    <p class="text-slate-400 mb-8 leading-relaxed">Where medical excellence meets playground fun. We're on a mission to make every visit smile-worthy.</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center hover:bg-hero-500 transition"><i class="ti ti-brand-instagram"></i></a>
-                        <a href="#" class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center hover:bg-hero-500 transition"><i class="ti ti-brand-facebook"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h5 class="font-bold mb-8 text-hero-500 uppercase tracking-widest text-xs">The Nest</h5>
-                    <ul class="space-y-4 text-slate-300">
-                        <li>123 Rainbow Lane,</li>
-                        <li>Sunnyvale, CA 94085</li>
-                        <li class="pt-4 text-xl font-bold text-white">+1 (555) HELP-KID</li>
-                    </ul>
-                </div>
+    <footer
+      id="contact"
+      class="bg-slate-900 text-white pt-32 pb-16 relative overflow-hidden"
+    >
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
+          <div class="col-span-1">
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="w-10 h-10 bg-hero-500 rounded-xl flex items-center justify-center text-white rotate-3"
+              >
+                <i class="ti ti-pacifier"></i>
+              </div>
+              <span class="text-2xl font-bold font-display">LITTLE HEROES</span>
+            </div>
+            <p class="text-slate-400 mb-8 leading-relaxed">
+              Where medical excellence meets playground fun. We're on a mission
+              to make every visit smile-worthy.
+            </p>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center hover:bg-hero-500 transition"
+                ><i class="ti ti-brand-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center hover:bg-hero-500 transition"
+                ><i class="ti ti-brand-facebook"></i
+              ></a>
+            </div>
+          </div>
 
-                <div class="bg-white/5 p-8 rounded-4xl border border-white/10">
-                    <h5 class="font-bold mb-6 text-amber-400">Join the Family News</h5>
-                    <p class="text-xs text-slate-400 mb-6 font-bold uppercase tracking-widest">Monthly health tips & local events</p>
-                    <div class="relative">
-                        <input type="email" placeholder="Parent's email" class="w-full bg-white/10 border-none rounded-2xl py-4 px-6 outline-none focus:ring-2 ring-hero-500">
-                        <button class="absolute right-2 top-2 bottom-2 bg-hero-500 px-4 rounded-xl"><i class="ti ti-heart"></i></button>
-                    </div>
-                </div>
+          <div>
+            <h5
+              class="font-bold mb-8 text-hero-500 uppercase tracking-widest text-xs"
+            >
+              The Nest
+            </h5>
+            <ul class="space-y-4 text-slate-300">
+              <li>123 Rainbow Lane,</li>
+              <li>Sunnyvale, CA 94085</li>
+              <li class="pt-4 text-xl font-bold text-white">
+                +1 (555) HELP-KID
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white/5 p-8 rounded-4xl border border-white/10">
+            <h5 class="font-bold mb-6 text-amber-400">Join the Family News</h5>
+            <p
+              class="text-xs text-slate-400 mb-6 font-bold uppercase tracking-widest"
+            >
+              Monthly health tips & local events
+            </p>
+            <div class="relative">
+              <input
+                type="email"
+                placeholder="Parent's email"
+                class="w-full bg-white/10 border-none rounded-2xl py-4 px-6 outline-none focus:ring-2 ring-hero-500"
+              />
+              <button
+                class="absolute right-2 top-2 bottom-2 bg-hero-500 px-4 rounded-xl"
+              >
+                <i class="ti ti-heart"></i>
+              </button>
             </div>
-            
-            <div class="mt-20 pt-10 border-t border-white/10 text-center text-sm text-slate-500">
-                <p>&copy; 2026 Little Heroes Pediatrics. Designed for joy by Abel Gallo Ruiz.</p>
-            </div>
+          </div>
         </div>
+
+        <div
+          class="mt-20 pt-10 border-t border-white/10 text-center text-sm text-slate-500"
+        >
+          <p>
+            &copy; 2026 Little Heroes Pediatrics. Designed for joy by Abel Gallo
+            Ruiz.
+          </p>
+        </div>
+      </div>
     </footer>
 
     <!-- Toast -->
-    <div x-show="showToast" 
-         x-cloak
-         x-transition:enter="transition duration-300 ease-out transform"
-         x-transition:enter-start="scale-50 opacity-0 translate-y-20"
-         x-transition:enter-end="scale-100 opacity-100 translate-y-0"
-         class="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none">
-        <div class="bg-slate-900 border-4 border-hero-500 text-white p-10 rounded-[3rem] shadow-5xl text-center">
-            <i class="ti ti-gift text-4xl text-amber-400 mb-4 block animate-bounce"></i>
-            <span class="text-2xl font-bold font-display" x-text="toastMsg"></span>
-        </div>
+    <div
+      x-show="showToast"
+      x-cloak
+      x-transition:enter="transition duration-300 ease-out transform"
+      x-transition:enter-start="scale-50 opacity-0 translate-y-20"
+      x-transition:enter-end="scale-100 opacity-100 translate-y-0"
+      class="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+    >
+      <div
+        class="bg-slate-900 border-4 border-hero-500 text-white p-10 rounded-[3rem] shadow-5xl text-center"
+      >
+        <i
+          class="ti ti-gift text-4xl text-amber-400 mb-4 block animate-bounce"
+        ></i>
+        <span class="text-2xl font-bold font-display" x-text="toastMsg"></span>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>

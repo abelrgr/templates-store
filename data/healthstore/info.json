@@ -1,8 +1,9 @@
-{
+﻿{
   "image": "imgs/template.webp",
-  "title": "HealthStore - Premium Wellness & Supplements Template",
   "description": "A clean, modern, and responsive e-commerce template for health and wellness stores. Features include a flying-to-cart animation, parallax backgrounds, and an interactive product gallery. Built with Tailwind CSS, Alpine.js, and Anime.js.",
-  "category": "Health & Medical",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Health \u0026 Medical",
   "tags": [
     "healthcare",
     "wellness",
@@ -13,6 +14,6 @@
     "modern",
     "clean"
   ],
-  "version": "1.0.0",
-  "date": "2026-01-05"
+  "date": "2026-02-25",
+  "title": "HealthStore - Premium Wellness \u0026 Supplements Template"
 }

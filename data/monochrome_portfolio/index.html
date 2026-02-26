@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ darkMode: false, mobileMenuOpen: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Monocromático Elegante</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        mono: {
+                            bg: '#ffffff',
+                            text: '#111111',
+                            accent: '#444444',
+                            darkBg: '#0a0a0a',
+                            darkText: '#f5f5f5',
+                            darkAccent: '#a3a3a3'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        .hover-line {
+            position: relative;
+            display: inline-block;
+        }
+        .hover-line::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        .hover-line:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .image-grayscale {
+            filter: grayscale(100%);
+            transition: filter 0.5s ease;
+        }
+        .image-grayscale:hover {
+            filter: grayscale(0%);
+        }
+    </style>
+</head>
+<body class="bg-mono-bg text-mono-text dark:bg-mono-darkBg dark:text-mono-darkText font-sans antialiased selection:bg-mono-text selection:text-mono-bg dark:selection:bg-mono-darkText dark:selection:text-mono-darkBg">
+
+    <!-- Navegación Minimalista -->
+    <nav class="fixed w-full z-50 bg-mono-bg/90 dark:bg-mono-darkBg/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-500">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="flex justify-between h-24 items-center">
+                <a href="#" class="font-serif text-2xl italic tracking-wide">Abel.</a>
+                
+                <div class="hidden md:flex space-x-10 items-center text-sm tracking-widest uppercase">
+                    <a href="#trabajo" class="hover-line">Trabajo</a>
+                    <a href="#experiencia" class="hover-line">Experiencia</a>
+                    <a href="#escritos" class="hover-line">Escritos</a>
+                    <a href="#contacto" class="hover-line">Contacto</a>
+                    
+                    <button @click="darkMode = !darkMode" class="ml-4 opacity-60 hover:opacity-100 transition">
+                        <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center gap-4">
+                    <button @click="darkMode = !darkMode" class="opacity-60">
+                        <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+                    </button>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen">
+                        <i class="ti ti-menu text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-mono-bg dark:bg-mono-darkBg border-b border-gray-200 dark:border-gray-800 text-center py-8 space-y-6 text-lg font-serif italic">
+            <a href="#trabajo" @click="mobileMenuOpen = false" class="block hover:opacity-60">Trabajo</a>
+            <a href="#experiencia" @click="mobileMenuOpen = false" class="block hover:opacity-60">Experiencia</a>
+            <a href="#escritos" @click="mobileMenuOpen = false" class="block hover:opacity-60">Escritos</a>
+            <a href="#contacto" @click="mobileMenuOpen = false" class="block hover:opacity-60">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-48 pb-32 px-6 max-w-5xl mx-auto">
+        <div class="max-w-3xl">
+            <h1 class="font-serif text-5xl md:text-7xl leading-tight mb-8">
+                Diseño <span class="italic text-mono-accent dark:text-mono-darkAccent">atemporal</span>,<br>
+                código <span class="italic text-mono-accent dark:text-mono-darkAccent">preciso</span>.
+            </h1>
+            <p class="text-lg md:text-xl font-light leading-relaxed opacity-80 mb-12 max-w-2xl">
+                Soy un desarrollador web enfocado en la tipografía, el espacio en blanco y la arquitectura de software limpia. Creo experiencias digitales que perduran.
+            </p>
+            <div class="flex items-center gap-8 text-sm tracking-widest uppercase">
+                <a href="#contacto" class="border-b border-mono-text dark:border-mono-darkText pb-1 hover:opacity-60 transition">Iniciar Proyecto</a>
+                <a href="#" class="opacity-60 hover:opacity-100 transition flex items-center gap-2">
+                    <i class="ti ti-download"></i> Currículum
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyectos (Lista Minimalista) -->
+    <section id="trabajo" class="py-24 px-6 max-w-5xl mx-auto border-t border-gray-200 dark:border-gray-800">
+        <div class="flex flex-col md:flex-row justify-between items-baseline mb-16">
+            <h2 class="font-serif text-3xl italic">Trabajo Seleccionado</h2>
+            <span class="text-sm tracking-widest uppercase opacity-60 mt-4 md:mt-0">2024 — 2026</span>
+        </div>
+
+        <div class="space-y-24">
+            <!-- Proyecto 1 -->
+            <div class="group cursor-pointer">
+                <div class="overflow-hidden mb-6 bg-gray-100 dark:bg-gray-900">
+                    <img src="https://images.unsplash.com/photo-1481481600465-36f047089665?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Editorial" class="w-full h-[60vh] object-cover image-grayscale transform group-hover:scale-105 transition duration-700">
+                </div>
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h3 class="text-2xl font-serif mb-2">Plataforma Editorial</h3>
+                        <p class="font-light opacity-70">Diseño UI/UX & Desarrollo Frontend</p>
+                    </div>
+                    <div class="flex gap-4 text-sm">
+                        <a href="#" class="hover-line">Ver Sitio</a>
+                        <a href="#" class="hover-line opacity-60">Código</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 2 -->
+            <div class="group cursor-pointer">
+                <div class="overflow-hidden mb-6 bg-gray-100 dark:bg-gray-900">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="E-commerce" class="w-full h-[60vh] object-cover image-grayscale transform group-hover:scale-105 transition duration-700">
+                </div>
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h3 class="text-2xl font-serif mb-2">Estudio de Arquitectura</h3>
+                        <p class="font-light opacity-70">Portafolio Web & CMS Custom</p>
+                    </div>
+                    <div class="flex gap-4 text-sm">
+                        <a href="#" class="hover-line">Ver Sitio</a>
+                        <a href="#" class="hover-line opacity-60">Código</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Habilidades (Texto Simple) -->
+    <section id="experiencia" class="py-24 px-6 max-w-5xl mx-auto border-t border-gray-200 dark:border-gray-800">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="md:col-span-1">
+                <h2 class="font-serif text-3xl italic mb-6">Experiencia &<br>Habilidades</h2>
+            </div>
+            <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-12 font-light">
+                <div>
+                    <h4 class="text-sm tracking-widest uppercase mb-6 opacity-60 border-b border-gray-200 dark:border-gray-800 pb-2">Frontend</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3"><i class="ti ti-brand-react opacity-50"></i> React & Next.js</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-brand-vue opacity-50"></i> Vue.js & Nuxt</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-brand-tailwind opacity-50"></i> Tailwind CSS</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-brand-javascript opacity-50"></i> TypeScript</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm tracking-widest uppercase mb-6 opacity-60 border-b border-gray-200 dark:border-gray-800 pb-2">Backend & Herramientas</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3"><i class="ti ti-brand-nodejs opacity-50"></i> Node.js & Express</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-database opacity-50"></i> PostgreSQL & Prisma</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-brand-git opacity-50"></i> Git & CI/CD</li>
+                        <li class="flex items-center gap-3"><i class="ti ti-brand-figma opacity-50"></i> Figma (UI/UX)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog -->
+    <section id="escritos" class="py-24 px-6 max-w-5xl mx-auto border-t border-gray-200 dark:border-gray-800">
+        <h2 class="font-serif text-3xl italic mb-16">Escritos</h2>
+        <div class="space-y-8">
+            <a href="#" class="group block border-b border-gray-200 dark:border-gray-800 pb-8">
+                <div class="flex flex-col md:flex-row justify-between items-baseline gap-4">
+                    <h3 class="text-xl font-medium group-hover:italic transition-all">La importancia del espacio en blanco en UI</h3>
+                    <span class="text-sm opacity-60 font-light">Octubre 2025</span>
+                </div>
+            </a>
+            <a href="#" class="group block border-b border-gray-200 dark:border-gray-800 pb-8">
+                <div class="flex flex-col md:flex-row justify-between items-baseline gap-4">
+                    <h3 class="text-xl font-medium group-hover:italic transition-all">Transiciones fluidas con CSS y Alpine.js</h3>
+                    <span class="text-sm opacity-60 font-light">Agosto 2025</span>
+                </div>
+            </a>
+            <a href="#" class="group block border-b border-gray-200 dark:border-gray-800 pb-8">
+                <div class="flex flex-col md:flex-row justify-between items-baseline gap-4">
+                    <h3 class="text-xl font-medium group-hover:italic transition-all">Por qué sigo usando HTML semántico</h3>
+                    <span class="text-sm opacity-60 font-light">Mayo 2025</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="py-32 px-6 max-w-5xl mx-auto border-t border-gray-200 dark:border-gray-800 text-center">
+        <h2 class="font-serif text-4xl md:text-6xl italic mb-8">Hablemos.</h2>
+        <p class="font-light opacity-80 mb-12 max-w-lg mx-auto">
+            Estoy disponible para proyectos freelance y oportunidades a tiempo completo.
+        </p>
+        
+        <form x-data="{ enviado: false }" @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)" class="max-w-md mx-auto space-y-8 text-left mb-16">
+            <div>
+                <input type="text" placeholder="Nombre" required class="w-full bg-transparent border-b border-gray-300 dark:border-gray-700 py-3 focus:outline-none focus:border-mono-text dark:focus:border-mono-darkText transition font-light">
+            </div>
+            <div>
+                <input type="email" placeholder="Email" required class="w-full bg-transparent border-b border-gray-300 dark:border-gray-700 py-3 focus:outline-none focus:border-mono-text dark:focus:border-mono-darkText transition font-light">
+            </div>
+            <div>
+                <textarea placeholder="Mensaje" rows="1" required class="w-full bg-transparent border-b border-gray-300 dark:border-gray-700 py-3 focus:outline-none focus:border-mono-text dark:focus:border-mono-darkText transition font-light resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full border border-mono-text dark:border-mono-darkText py-4 text-sm tracking-widest uppercase hover:bg-mono-text hover:text-mono-bg dark:hover:bg-mono-darkText dark:hover:text-mono-darkBg transition duration-300">
+                <span x-show="!enviado">Enviar Mensaje</span>
+                <span x-show="enviado" x-cloak class="italic">Gracias por escribir</span>
+            </button>
+        </form>
+
+        <div class="flex justify-center gap-8 text-sm tracking-widest uppercase">
+            <a href="#" class="hover-line">GitHub</a>
+            <a href="#" class="hover-line">LinkedIn</a>
+            <a href="#" class="hover-line">Twitter</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 text-center text-sm font-light opacity-60">
+        <p>&copy; 2026 Abel. Diseño Minimalista.</p>
+        <div class="mt-4 space-x-4">
+            <a href="#" class="hover:opacity-100 transition">Privacidad</a>
+            <a href="#" class="hover:opacity-100 transition">Términos</a>
+        </div>
+    </footer>
+
+</body>
+</html>

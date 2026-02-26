@@ -1,18 +1,10 @@
-{
-    "id": "palacio_del_chicharron",
-    "name": "El Palacio del Chicharrón",
-    "description": "Authentic Bolivian 'chicharronería' template with festive atmosphere and heritage focus.",
-    "category": "Food & Beverage",
-    "theme": {
-        "primary_color": "#F1C40F",
-        "secondary_color": "#E67E22",
-        "accent_color": "#C0392B",
-        "font_family": "Arvo, serif"
-    },
-    "features": [
-        "Interactive Paila (cauldron) animation",
-        "Traditional combo builder",
-        "Family-size portion calculator",
-        "Heritage timeline since 1970"
-    ]
+﻿{
+  "image": "imgs/template.webp",
+  "description": "Authentic Bolivian \u0027chicharronería\u0027 template with festive atmosphere and heritage focus.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Food \u0026 Beverage",
+  "tags": ["Bolivian", "Food", "Restaurant", "Heritage", "Traditional"],
+  "date": "2026-02-25",
+  "title": "El Palacio del Chicharrón"
 }

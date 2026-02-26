@@ -1,18 +1,10 @@
-{
-    "id": "golazo_soccer_center",
-    "name": "Golazo Soccer Center",
-    "description": "Dynamic football pitch rental template with real-time slot selection, tournament news, and team registration.",
-    "category": "Sports & Wellness",
-    "theme": {
-        "primary_color": "#28A745",
-        "secondary_color": "#1A1A1A",
-        "accent_color": "#FCBA03",
-        "font_family": "Bebas Neue, sans-serif"
-    },
-    "features": [
-        "Pitch size & type selector",
-        "Team name generator for tournaments",
-        "Real-time availability ticker",
-        "Group discount calculator"
-    ]
+﻿{
+  "image": "imgs/template.webp",
+  "description": "Dynamic football pitch rental template with real-time slot selection, tournament news, and team registration.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Sports \u0026 Wellness",
+  "tags": ["Soccer", "Football", "Sports", "Rental", "Wellness"],
+  "date": "2026-02-25",
+  "title": "Golazo Soccer Center"
 }

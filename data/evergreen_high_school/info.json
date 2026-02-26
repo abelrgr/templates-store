@@ -1,10 +1,18 @@
-{
+﻿{
   "image": "imgs/template.webp",
-  "title": "Evergreen High School - Empowering Future Success",
   "description": "A sophisticated and professional high school template designed for modern secondary education. Featuring academic pathways, sports achievements, club highlights, and advanced career preparation toolkit.",
-  "category": "Education",
-  "tags": ["high school", "secondary education", "academic", "responsive", "alpine.js", "tailwind css", "professional"],
+  "demo": "index.html",
   "version": "1.0.0",
-  "date": "2026-02-24",
-  "github": "https://github.com/abelrgr/template-evergreen_high_school.git"
+  "category": "Education",
+  "tags": [
+    "high school",
+    "secondary education",
+    "academic",
+    "responsive",
+    "alpine.js",
+    "tailwind css",
+    "professional"
+  ],
+  "date": "2026-02-25",
+  "title": "Evergreen High School - Empowering Future Success"
 }

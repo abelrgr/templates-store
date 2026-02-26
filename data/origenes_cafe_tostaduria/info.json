@@ -1,18 +1,10 @@
-{
-    "id": "origenes_cafe_tostaduria",
-    "name": "Orígenes Café",
-    "description": "Specialty coffee shop and roastery with a focus on Bolivian beans and brewing methods.",
-    "category": "Food & Beverage",
-    "theme": {
-        "primary_color": "#4E342E",
-        "secondary_color": "#D7CCC8",
-        "accent_color": "#8D6E63",
-        "font_family": "Crimson Pro, serif"
-    },
-    "features": [
-        "Interactive brew guide",
-        "Bean origin map",
-        "Subscription management UI",
-        "Live roasting schedule"
-    ]
+﻿{
+  "image": "imgs/template.webp",
+  "description": "Specialty coffee shop and roastery with a focus on Bolivian beans and brewing methods.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Food \u0026 Beverage",
+  "tags": ["Coffee", "Roastery", "Cafe", "Food", "Beverage"],
+  "date": "2026-02-25",
+  "title": "Orígenes Café"
 }

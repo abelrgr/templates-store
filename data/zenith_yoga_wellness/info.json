@@ -1,18 +1,10 @@
-{
-    "id": "zenith_yoga_wellness",
-    "name": "Zenith Yoga & Wellness",
-    "description": "Minimalist and serene template for yoga studios, meditation centers, and holistic health practices.",
-    "category": "Sports & Wellness",
-    "theme": {
-        "primary_color": "#E6E6FA",
-        "secondary_color": "#556B2F",
-        "accent_color": "#FFFFFF",
-        "font_family": "Quicksand, sans-serif"
-    },
-    "features": [
-        "Ambient sound player (simulated UI)",
-        "Visual class calendar",
-        "Mental wellness daily tip tracker",
-        "Instructor portfolio sliders"
-    ]
+﻿{
+  "image": "imgs/template.webp",
+  "description": "Minimalist and serene template for yoga studios, meditation centers, and holistic health practices.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Sports \u0026 Wellness",
+  "tags": ["Yoga", "Wellness", "Meditation", "Sports", "Minimalist"],
+  "date": "2026-02-25",
+  "title": "Zenith Yoga \u0026 Wellness"
 }

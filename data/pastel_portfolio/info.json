@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "title": "Portafolio | Minimalista Pastel",
+  "tags": [
+    "portfolio",
+    "tailwind",
+    "alpinejs",
+    "responsive",
+    "design",
+    "portfolio"
+  ],
+  "category": "Portfolio",
+  "description": "Modern and professional Portafolio | Minimalista Pastel template designed with Tailwind CSS and Alpine.js. This template features a minimalist design, focus on UX, and clear sections for portfolio, blog, and contact.",
+  "date": "2026-02-25",
+  "image": "imgs/template.webp",
+  "demo": "index.html"
+}

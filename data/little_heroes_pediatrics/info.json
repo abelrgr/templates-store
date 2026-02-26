@@ -1,8 +1,10 @@
-{
-  "title": "Little Heroes Pediatrics",
+﻿{
+  "image": "imgs/template.webp",
   "description": "Playful and reassuring pediatric clinic template with vaccination tracking and developmental milestone resources.",
-  "category": "Health & Medical",
-  "tags": ["pediatrics", "children-health", "vaccination", "infants"],
+  "demo": "index.html",
   "version": "1.0.0",
-  "author": "Abel Gallo Ruiz"
+  "category": "Health \u0026 Medical",
+  "tags": ["pediatrics", "children-health", "vaccination", "infants"],
+  "date": "2026-02-25",
+  "title": "Little Heroes Pediatrics"
 }

@@ -1,18 +1,16 @@
-{
-    "id": "ecofreight_solutions",
-    "name": "EcoFreight Solutions",
-    "description": "Sustainable and carbon-neutral logistics template with environmental impact calculators and zero-emission fleet features.",
-    "category": "Logistics & Moving",
-    "theme": {
-        "primary_color": "#2E8B57",
-        "secondary_color": "#F5F5DC",
-        "accent_color": "#8B4513",
-        "font_family": "Montserrat, sans-serif"
-    },
-    "features": [
-        "Carbon footprint savings calculator",
-        "Zero-waste packaging configuration",
-        "Electric vehicle fleet tracking station",
-        "Eco-certification badge showcase"
-    ]
+﻿{
+  "image": "imgs/template.webp",
+  "description": "Sustainable and carbon-neutral logistics template with environmental impact calculators and zero-emission fleet features.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Logistics \u0026 Moving",
+  "tags": [
+    "Logistics",
+    "Shipping",
+    "Eco-friendly",
+    "Sustainability",
+    "Carbon-neutral"
+  ],
+  "date": "2026-02-25",
+  "title": "EcoFreight Solutions"
 }

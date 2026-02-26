@@ -1,0 +1,485 @@
+<!doctype html>
+<html
+  lang="es"
+  x-data="{ darkMode: true, mobileMenuOpen: false }"
+  :class="{ 'dark': darkMode }"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portafolio | Terminal / Hacker Style</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              mono: ["Fira Code", "JetBrains Mono", "monospace"],
+            },
+            colors: {
+              term: {
+                bg: "#0d1117",
+                text: "#58a6ff", // Azul GitHub
+                accent: "#3fb950", // Verde éxito
+                error: "#ff7b72",
+                comment: "#8b949e",
+                lightBg: "#f6f8fa",
+                lightText: "#24292f",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Alpine.js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- Tabler Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-image: radial-gradient(
+          rgba(88, 166, 255, 0.05) 1px,
+          transparent 1px
+        );
+        background-size: 20px 20px;
+      }
+      .dark body {
+        background-image: radial-gradient(
+          rgba(88, 166, 255, 0.1) 1px,
+          transparent 1px
+        );
+      }
+      .cursor-blink {
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .scanline {
+        width: 100%;
+        height: 100px;
+        z-index: 9999;
+        position: fixed;
+        pointer-events: none;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(88, 166, 255, 0.1) 50%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        opacity: 0.1;
+        animation: scanline 10s linear infinite;
+      }
+      @keyframes scanline {
+        0% {
+          top: -100px;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-term-lightBg text-term-lightText dark:bg-term-bg dark:text-term-text font-mono antialiased min-h-screen flex flex-col transition-colors duration-300"
+  >
+    <div class="scanline hidden dark:block"></div>
+
+    <!-- Navegación tipo Barra de Estado -->
+    <nav
+      class="fixed top-0 w-full z-50 bg-gray-200 dark:bg-[#010409] border-b border-gray-300 dark:border-gray-800 text-sm"
+    >
+      <div
+        class="max-w-6xl mx-auto px-4 flex justify-between items-center h-10"
+      >
+        <div class="flex items-center gap-4">
+          <span class="font-bold text-term-accent">abel@dev:~$</span>
+          <div class="hidden md:flex space-x-4 text-term-comment">
+            <a
+              href="#inicio"
+              class="hover:text-term-text dark:hover:text-white transition"
+              >./inicio</a
+            >
+            <a
+              href="#proyectos"
+              class="hover:text-term-text dark:hover:text-white transition"
+              >./proyectos</a
+            >
+            <a
+              href="#skills"
+              class="hover:text-term-text dark:hover:text-white transition"
+              >./skills</a
+            >
+            <a
+              href="#blog"
+              class="hover:text-term-text dark:hover:text-white transition"
+              >./blog</a
+            >
+            <a
+              href="#contacto"
+              class="hover:text-term-text dark:hover:text-white transition"
+              >./contacto</a
+            >
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <span
+            class="hidden sm:inline text-term-comment text-xs"
+            x-data="{ time: new Date().toLocaleTimeString() }"
+            x-init="setInterval(() => time = new Date().toLocaleTimeString(), 1000)"
+            x-text="time"
+          ></span>
+          <button
+            @click="darkMode = !darkMode"
+            class="hover:text-term-accent transition"
+          >
+            <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+          </button>
+          <button
+            @click="mobileMenuOpen = !mobileMenuOpen"
+            class="md:hidden hover:text-term-accent transition"
+          >
+            <i class="ti ti-menu-2"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Menú Móvil -->
+      <div
+        x-show="mobileMenuOpen"
+        class="md:hidden bg-gray-100 dark:bg-[#0d1117] border-b border-gray-300 dark:border-gray-800 p-4 space-y-2"
+      >
+        <a
+          href="#inicio"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-term-accent"
+          >> cd /inicio</a
+        >
+        <a
+          href="#proyectos"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-term-accent"
+          >> cd /proyectos</a
+        >
+        <a
+          href="#skills"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-term-accent"
+          >> cd /skills</a
+        >
+        <a
+          href="#blog"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-term-accent"
+          >> cd /blog</a
+        >
+        <a
+          href="#contacto"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-term-accent"
+          >> cd /contacto</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-grow pt-20 pb-12 px-4 max-w-4xl mx-auto w-full">
+      <!-- Hero -->
+      <section id="inicio" class="mb-20">
+        <div class="mb-6">
+          <span class="text-term-comment"># Perfil del Sistema</span><br />
+          <span class="text-term-accent">abel@dev</span
+          ><span class="dark:text-white">:</span
+          ><span class="text-blue-500">~</span>$ whoami
+        </div>
+        <div
+          class="border border-gray-300 dark:border-gray-800 bg-white dark:bg-[#010409] p-6 rounded-md shadow-sm"
+        >
+          <div class="flex flex-col sm:flex-row gap-6 items-start">
+            <img
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+              alt="Avatar"
+              class="w-24 h-24 rounded-md border border-gray-300 dark:border-gray-700 grayscale hover:grayscale-0 transition"
+            />
+            <div>
+              <h1 class="text-2xl font-bold mb-2 dark:text-white">
+                Fred Developer
+              </h1>
+              <p class="text-term-comment mb-4">
+                {"role": "Full Stack Engineer", "status": "Available for hire"}
+              </p>
+              <p class="mb-4 text-sm leading-relaxed">
+                > Desarrollador de software especializado en construir
+                aplicaciones web robustas y seguras.<br />
+                > Apasionado por el código limpio, la automatización y el open
+                source.
+              </p>
+              <div class="flex gap-4 text-sm">
+                <a href="#contacto" class="text-term-accent hover:underline"
+                  >[Contactar]</a
+                >
+                <a href="#" class="text-term-text hover:underline"
+                  >[Descargar_CV.pdf]</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills" class="mb-20">
+        <div class="mb-6">
+          <span class="text-term-accent">abel@dev</span
+          ><span class="dark:text-white">:</span
+          ><span class="text-blue-500">~</span>$ cat skills.json
+        </div>
+        <div
+          class="border border-gray-300 dark:border-gray-800 bg-white dark:bg-[#010409] p-6 rounded-md shadow-sm text-sm overflow-x-auto"
+        >
+          <pre class="dark:text-gray-300">
+{
+  <span class="text-blue-500">"frontend"</span>: [
+    <span class="text-term-accent">"HTML5"</span>, <span class="text-term-accent">"CSS3"</span>, <span class="text-term-accent">"JavaScript"</span>,
+    <span class="text-term-accent">"React"</span>, <span class="text-term-accent">"Tailwind CSS"</span>, <span class="text-term-accent">"Alpine.js"</span>
+  ],
+  <span class="text-blue-500">"backend"</span>: [
+    <span class="text-term-accent">"Node.js"</span>, <span class="text-term-accent">"Python"</span>, <span class="text-term-accent">"PostgreSQL"</span>,
+    <span class="text-term-accent">"REST APIs"</span>, <span class="text-term-accent">"Docker"</span>
+  ],
+  <span class="text-blue-500">"tools"</span>: [
+    <span class="text-term-accent">"Git"</span>, <span class="text-term-accent">"Linux"</span>, <span class="text-term-accent">"VS Code"</span>, <span class="text-term-accent">"Terminal"</span>
+  ]
+}
+</pre>
+        </div>
+      </section>
+
+      <!-- Proyectos -->
+      <section id="proyectos" class="mb-20">
+        <div class="mb-6">
+          <span class="text-term-accent">abel@dev</span
+          ><span class="dark:text-white">:</span
+          ><span class="text-blue-500">~</span>$ ls -la ./proyectos
+        </div>
+        <div class="space-y-4">
+          <!-- Proyecto 1 -->
+          <div
+            class="border border-gray-300 dark:border-gray-800 bg-white dark:bg-[#010409] p-4 rounded-md hover:border-term-text transition group"
+          >
+            <div class="flex justify-between items-start mb-2">
+              <h3
+                class="font-bold text-lg dark:text-white group-hover:text-term-text transition"
+              >
+                drwxr-xr-x api-gateway
+              </h3>
+              <span class="text-xs text-term-comment">2025-10-12</span>
+            </div>
+            <p class="text-sm text-term-comment mb-4">
+              Microservicio para enrutamiento de peticiones con rate limiting y
+              autenticación JWT.
+            </p>
+            <div class="flex justify-between items-center text-xs">
+              <div class="flex gap-2">
+                <span class="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded"
+                  >Node.js</span
+                >
+                <span class="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded"
+                  >Redis</span
+                >
+              </div>
+              <div class="flex gap-3">
+                <a href="#" class="hover:text-term-accent"
+                  ><i class="ti ti-brand-github"></i> src</a
+                >
+                <a href="#" class="hover:text-term-accent"
+                  ><i class="ti ti-external-link"></i> run</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Proyecto 2 -->
+          <div
+            class="border border-gray-300 dark:border-gray-800 bg-white dark:bg-[#010409] p-4 rounded-md hover:border-term-text transition group"
+          >
+            <div class="flex justify-between items-start mb-2">
+              <h3
+                class="font-bold text-lg dark:text-white group-hover:text-term-text transition"
+              >
+                drwxr-xr-x crypto-tracker-ui
+              </h3>
+              <span class="text-xs text-term-comment">2025-08-05</span>
+            </div>
+            <p class="text-sm text-term-comment mb-4">
+              Dashboard en tiempo real consumiendo WebSockets para mostrar
+              precios de criptomonedas.
+            </p>
+            <div class="flex justify-between items-center text-xs">
+              <div class="flex gap-2">
+                <span class="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded"
+                  >React</span
+                >
+                <span class="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded"
+                  >Chart.js</span
+                >
+              </div>
+              <div class="flex gap-3">
+                <a href="#" class="hover:text-term-accent"
+                  ><i class="ti ti-brand-github"></i> src</a
+                >
+                <a href="#" class="hover:text-term-accent"
+                  ><i class="ti ti-external-link"></i> run</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog -->
+      <section id="blog" class="mb-20">
+        <div class="mb-6">
+          <span class="text-term-accent">abel@dev</span
+          ><span class="dark:text-white">:</span
+          ><span class="text-blue-500">~</span>$ tail -n 2 ./blog/logs.txt
+        </div>
+        <div class="border-l-2 border-term-text pl-4 space-y-6">
+          <div>
+            <span class="text-xs text-term-comment"
+              >[2026-01-15 14:30:00] INFO:</span
+            >
+            <a
+              href="#"
+              class="block text-lg font-bold dark:text-white hover:text-term-text transition mt-1"
+              >Optimizando consultas SQL en PostgreSQL</a
+            >
+            <p class="text-sm text-term-comment mt-1">
+              Análisis de índices y planes de ejecución para reducir tiempos de
+              respuesta en un 40%.
+            </p>
+          </div>
+          <div>
+            <span class="text-xs text-term-comment"
+              >[2025-11-20 09:15:22] WARN:</span
+            >
+            <a
+              href="#"
+              class="block text-lg font-bold dark:text-white hover:text-term-text transition mt-1"
+              >Migrando de Webpack a Vite</a
+            >
+            <p class="text-sm text-term-comment mt-1">
+              Lecciones aprendidas y configuraciones necesarias para un entorno
+              de desarrollo más rápido.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contacto -->
+      <section id="contacto" class="mb-10">
+        <div class="mb-6">
+          <span class="text-term-accent">abel@dev</span
+          ><span class="dark:text-white">:</span
+          ><span class="text-blue-500">~</span>$ ./send_message.sh
+        </div>
+        <div
+          class="border border-gray-300 dark:border-gray-800 bg-white dark:bg-[#010409] p-6 rounded-md shadow-sm"
+        >
+          <form
+            x-data="{ enviado: false }"
+            @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)"
+            class="space-y-4 text-sm"
+          >
+            <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
+              <label class="w-24 text-term-comment">User:</label>
+              <input
+                type="text"
+                required
+                class="flex-1 bg-gray-100 dark:bg-[#0d1117] border border-gray-300 dark:border-gray-700 px-3 py-2 focus:outline-none focus:border-term-text transition font-mono"
+              />
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
+              <label class="w-24 text-term-comment">Email:</label>
+              <input
+                type="email"
+                required
+                class="flex-1 bg-gray-100 dark:bg-[#0d1117] border border-gray-300 dark:border-gray-700 px-3 py-2 focus:outline-none focus:border-term-text transition font-mono"
+              />
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 items-start">
+              <label class="w-24 text-term-comment mt-2">Payload:</label>
+              <textarea
+                rows="3"
+                required
+                class="flex-1 bg-gray-100 dark:bg-[#0d1117] border border-gray-300 dark:border-gray-700 px-3 py-2 focus:outline-none focus:border-term-text transition font-mono resize-none"
+              ></textarea>
+            </div>
+            <div class="flex justify-end">
+              <button
+                type="submit"
+                class="bg-gray-200 dark:bg-gray-800 hover:bg-term-text hover:text-white dark:hover:bg-term-text px-6 py-2 border border-gray-300 dark:border-gray-700 transition"
+              >
+                <span x-show="!enviado">Execute</span>
+                <span x-show="enviado" x-cloak class="text-term-accent"
+                  >Success [OK]</span
+                >
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Prompt final -->
+      <div class="mt-12 text-sm">
+        <span class="text-term-accent">abel@dev</span
+        ><span class="dark:text-white">:</span
+        ><span class="text-blue-500">~</span>$
+        <span class="cursor-blink">_</span>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="border-t border-gray-300 dark:border-gray-800 py-4 text-center text-xs text-term-comment mt-auto"
+    >
+      <div
+        class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2"
+      >
+        <p>EOF. (c) 2026 Abel.</p>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-term-text transition">github</a>
+          <a href="#" class="hover:text-term-text transition">linkedin</a>
+          <a href="#" class="hover:text-term-text transition">privacy_policy</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

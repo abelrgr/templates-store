@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ darkMode: false, mobileMenuOpen: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Minimalista Pastel</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            bg: '#fdfbf7',
+                            card: '#ffffff',
+                            primary: '#e8b4b8', // Rosa pastel
+                            secondary: '#a4c3b2', // Verde menta pastel
+                            text: '#4a4a4a',
+                            darkBg: '#2d2d2d',
+                            darkCard: '#383838',
+                            darkText: '#f4f4f4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js para interactividad -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { transition: background-color 0.3s, color 0.3s; }
+    </style>
+</head>
+<body class="bg-pastel-bg text-pastel-text dark:bg-pastel-darkBg dark:text-pastel-darkText font-sans antialiased selection:bg-pastel-primary selection:text-white">
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 bg-pastel-bg/80 dark:bg-pastel-darkBg/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="#" class="text-xl font-bold tracking-wider">Dev<span class="text-pastel-primary">.</span></a>
+                
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#inicio" class="hover:text-pastel-primary transition">Inicio</a>
+                    <a href="#proyectos" class="hover:text-pastel-primary transition">Proyectos</a>
+                    <a href="#habilidades" class="hover:text-pastel-primary transition">Habilidades</a>
+                    <a href="#blog" class="hover:text-pastel-primary transition">Blog</a>
+                    <a href="#contacto" class="hover:text-pastel-primary transition">Contacto</a>
+                    
+                    <!-- Botón Dark Mode -->
+                    <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+                    </button>
+                </div>
+
+                <!-- Botón Menú Móvil -->
+                <div class="md:hidden flex items-center">
+                    <button @click="darkMode = !darkMode" class="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+                    </button>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2">
+                        <i class="ti ti-menu-2 text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-pastel-bg dark:bg-pastel-darkBg border-b border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#inicio" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md hover:bg-pastel-primary/20">Inicio</a>
+                <a href="#proyectos" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md hover:bg-pastel-primary/20">Proyectos</a>
+                <a href="#habilidades" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md hover:bg-pastel-primary/20">Habilidades</a>
+                <a href="#blog" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md hover:bg-pastel-primary/20">Blog</a>
+                <a href="#contacto" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md hover:bg-pastel-primary/20">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Inicio -->
+    <section id="inicio" class="pt-32 pb-20 px-4 max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
+        <div class="flex-1 text-center md:text-left">
+            <span class="text-pastel-secondary font-medium tracking-wider uppercase text-sm">Hola, mi nombre es</span>
+            <h1 class="text-5xl md:text-6xl font-bold mt-2 mb-4">Alex Developer</h1>
+            <p class="text-lg opacity-80 mb-8 max-w-lg mx-auto md:mx-0">
+                Desarrollador Web especializado en crear experiencias digitales limpias, accesibles y eficientes. Transformo ideas complejas en interfaces simples y hermosas.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a href="#contacto" class="bg-pastel-primary text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition shadow-lg shadow-pastel-primary/30">Contáctame</a>
+                <!-- Botón Descargar CV -->
+                <a href="#" class="border-2 border-pastel-secondary text-pastel-secondary dark:text-pastel-secondary px-8 py-3 rounded-full font-medium hover:bg-pastel-secondary hover:text-white transition flex items-center justify-center gap-2">
+                    <i class="ti ti-download"></i> Descargar CV
+                </a>
+            </div>
+        </div>
+        <div class="flex-1 flex justify-center">
+            <!-- Foto de perfil (Unsplash) -->
+            <div class="relative w-64 h-64 md:w-80 md:h-80">
+                <div class="absolute inset-0 bg-pastel-primary rounded-full translate-x-4 translate-y-4 opacity-50"></div>
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Foto de Alex" class="relative z-10 w-full h-full object-cover rounded-full border-4 border-white dark:border-pastel-darkBg shadow-xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Proyectos -->
+    <section id="proyectos" class="py-20 bg-white dark:bg-pastel-darkCard transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Proyectos Destacados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Proyecto 1 -->
+                <div class="bg-pastel-bg dark:bg-pastel-darkBg rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Proyecto 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">E-commerce Minimalista</h3>
+                        <p class="opacity-75 mb-4 text-sm">Plataforma de ventas con diseño limpio, carrito de compras y pasarela de pagos integrada.</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="text-xs bg-pastel-secondary/20 text-pastel-secondary px-2 py-1 rounded-full">React</span>
+                            <span class="text-xs bg-pastel-secondary/20 text-pastel-secondary px-2 py-1 rounded-full">Tailwind</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-pastel-primary hover:underline flex items-center gap-1 text-sm"><i class="ti ti-external-link"></i> Ver Demo</a>
+                            <a href="#" class="opacity-70 hover:opacity-100 flex items-center gap-1 text-sm"><i class="ti ti-brand-github"></i> Código</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 2 -->
+                <div class="bg-pastel-bg dark:bg-pastel-darkBg rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Proyecto 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Dashboard Analítico</h3>
+                        <p class="opacity-75 mb-4 text-sm">Panel de control para visualización de datos en tiempo real con gráficos interactivos.</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="text-xs bg-pastel-secondary/20 text-pastel-secondary px-2 py-1 rounded-full">Vue.js</span>
+                            <span class="text-xs bg-pastel-secondary/20 text-pastel-secondary px-2 py-1 rounded-full">Chart.js</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-pastel-primary hover:underline flex items-center gap-1 text-sm"><i class="ti ti-external-link"></i> Ver Demo</a>
+                            <a href="#" class="opacity-70 hover:opacity-100 flex items-center gap-1 text-sm"><i class="ti ti-brand-github"></i> Código</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 3 -->
+                <div class="bg-pastel-bg dark:bg-pastel-darkBg rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Proyecto 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">App de Tareas</h3>
+                        <p class="opacity-75 mb-4 text-sm">Aplicación de productividad con sistema de arrastrar y soltar, y modo oscuro nativo.</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="text-xs bg-pastel-secondary/20 text-pastel-secondary px-2 py-1 rounded-full">HTML/CSS</span>
+                            <span class="text-xs bg-pastel-secondary/20 text-pastel-secondary px-2 py-1 rounded-full">Alpine.js</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-pastel-primary hover:underline flex items-center gap-1 text-sm"><i class="ti ti-external-link"></i> Ver Demo</a>
+                            <a href="#" class="opacity-70 hover:opacity-100 flex items-center gap-1 text-sm"><i class="ti ti-brand-github"></i> Código</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Habilidades -->
+    <section id="habilidades" class="py-20 px-4 max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 text-center">Habilidades Técnicas</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <!-- Habilidad -->
+            <div class="p-6 bg-white dark:bg-pastel-darkCard rounded-2xl shadow-sm hover:-translate-y-1 transition duration-300">
+                <i class="ti ti-brand-html5 text-4xl text-orange-400 mb-3"></i>
+                <h4 class="font-medium">HTML5</h4>
+            </div>
+            <div class="p-6 bg-white dark:bg-pastel-darkCard rounded-2xl shadow-sm hover:-translate-y-1 transition duration-300">
+                <i class="ti ti-brand-css3 text-4xl text-blue-400 mb-3"></i>
+                <h4 class="font-medium">CSS3</h4>
+            </div>
+            <div class="p-6 bg-white dark:bg-pastel-darkCard rounded-2xl shadow-sm hover:-translate-y-1 transition duration-300">
+                <i class="ti ti-brand-javascript text-4xl text-yellow-400 mb-3"></i>
+                <h4 class="font-medium">JavaScript</h4>
+            </div>
+            <div class="p-6 bg-white dark:bg-pastel-darkCard rounded-2xl shadow-sm hover:-translate-y-1 transition duration-300">
+                <i class="ti ti-brand-tailwind text-4xl text-teal-400 mb-3"></i>
+                <h4 class="font-medium">Tailwind CSS</h4>
+            </div>
+            <div class="p-6 bg-white dark:bg-pastel-darkCard rounded-2xl shadow-sm hover:-translate-y-1 transition duration-300">
+                <i class="ti ti-brand-react text-4xl text-cyan-400 mb-3"></i>
+                <h4 class="font-medium">React</h4>
+            </div>
+            <div class="p-6 bg-white dark:bg-pastel-darkCard rounded-2xl shadow-sm hover:-translate-y-1 transition duration-300">
+                <i class="ti ti-brand-git text-4xl text-red-400 mb-3"></i>
+                <h4 class="font-medium">Git</h4>
+            </div>
+            <div class="p-6 bg-white dark:bg-pastel-darkCard rounded-2xl shadow-sm hover:-translate-y-1 transition duration-300">
+                <i class="ti ti-database text-4xl text-gray-400 mb-3"></i>
+                <h4 class="font-medium">SQL / NoSQL</h4>
+            </div>
+            <div class="p-6 bg-white dark:bg-pastel-darkCard rounded-2xl shadow-sm hover:-translate-y-1 transition duration-300">
+                <i class="ti ti-api text-4xl text-pastel-primary mb-3"></i>
+                <h4 class="font-medium">REST APIs</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Blog -->
+    <section id="blog" class="py-20 bg-white dark:bg-pastel-darkCard transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Últimos Artículos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Artículo 1 -->
+                <article class="flex flex-col sm:flex-row gap-6 items-center bg-pastel-bg dark:bg-pastel-darkBg p-4 rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Blog 1" class="w-full sm:w-40 h-40 object-cover rounded-2xl">
+                    <div>
+                        <span class="text-xs text-pastel-secondary font-bold uppercase tracking-wider">Desarrollo Web</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2"><a href="#" class="hover:text-pastel-primary transition">El futuro de CSS con Tailwind</a></h3>
+                        <p class="opacity-75 text-sm mb-3">Descubre cómo las utilidades de CSS están cambiando la forma en que construimos interfaces...</p>
+                        <a href="#" class="text-sm font-medium text-pastel-primary hover:underline">Leer más →</a>
+                    </div>
+                </article>
+                <!-- Artículo 2 -->
+                <article class="flex flex-col sm:flex-row gap-6 items-center bg-pastel-bg dark:bg-pastel-darkBg p-4 rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Blog 2" class="w-full sm:w-40 h-40 object-cover rounded-2xl">
+                    <div>
+                        <span class="text-xs text-pastel-secondary font-bold uppercase tracking-wider">Productividad</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2"><a href="#" class="hover:text-pastel-primary transition">Mejores extensiones de VS Code</a></h3>
+                        <p class="opacity-75 text-sm mb-3">Una lista curada de las extensiones que todo desarrollador web debería tener instaladas...</p>
+                        <a href="#" class="text-sm font-medium text-pastel-primary hover:underline">Leer más →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="py-20 px-4 max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">¿Trabajamos juntos?</h2>
+        <p class="opacity-80 mb-10">Actualmente estoy disponible para nuevos proyectos. Si tienes una idea en mente o simplemente quieres saludar, ¡escríbeme!</p>
+        
+        <!-- Formulario manejado con Alpine.js para simular envío -->
+        <form x-data="{ enviado: false }" @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)" class="space-y-4 text-left bg-white dark:bg-pastel-darkCard p-8 rounded-3xl shadow-sm">
+            <div>
+                <label class="block text-sm font-medium mb-1">Nombre</label>
+                <input type="text" required class="w-full px-4 py-3 rounded-xl bg-pastel-bg dark:bg-pastel-darkBg border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-pastel-primary transition">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Correo Electrónico</label>
+                <input type="email" required class="w-full px-4 py-3 rounded-xl bg-pastel-bg dark:bg-pastel-darkBg border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-pastel-primary transition">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Mensaje</label>
+                <textarea rows="4" required class="w-full px-4 py-3 rounded-xl bg-pastel-bg dark:bg-pastel-darkBg border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-pastel-primary transition"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-pastel-primary text-white font-medium py-3 rounded-xl hover:opacity-90 transition">
+                <span x-show="!enviado">Enviar Mensaje</span>
+                <span x-show="enviado" x-cloak><i class="ti ti-check"></i> ¡Enviado con éxito!</span>
+            </button>
+        </form>
+
+        <div class="mt-12 flex justify-center gap-6">
+            <a href="#" class="p-3 bg-white dark:bg-pastel-darkCard rounded-full hover:text-pastel-primary hover:-translate-y-1 transition shadow-sm"><i class="ti ti-brand-github text-2xl"></i></a>
+            <a href="#" class="p-3 bg-white dark:bg-pastel-darkCard rounded-full hover:text-pastel-primary hover:-translate-y-1 transition shadow-sm"><i class="ti ti-brand-linkedin text-2xl"></i></a>
+            <a href="#" class="p-3 bg-white dark:bg-pastel-darkCard rounded-full hover:text-pastel-primary hover:-translate-y-1 transition shadow-sm"><i class="ti ti-brand-twitter text-2xl"></i></a>
+            <!-- Copiar email -->
+            <button x-data="{ copiado: false }" @click="navigator.clipboard.writeText('hola@alexdev.com'); copiado = true; setTimeout(() => copiado = false, 2000)" class="p-3 bg-white dark:bg-pastel-darkCard rounded-full hover:text-pastel-primary hover:-translate-y-1 transition shadow-sm relative group">
+                <i class="ti ti-mail text-2xl"></i>
+                <span x-show="copiado" x-cloak class="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded">¡Copiado!</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm opacity-70">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Alex Developer. Todos los derechos reservados.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-pastel-primary transition">Política de Privacidad</a>
+                <a href="#" class="hover:text-pastel-primary transition">Términos de Uso</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

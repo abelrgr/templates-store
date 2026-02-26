@@ -1,8 +1,10 @@
-{
-    "title": "Pure Smile Dentistry",
-    "description": "Elegant dental clinic template with focus on cosmetic dentistry, orthodontics, and patient education.",
-    "category": "Health & Medical",
-    "tags": ["dentist", "oral-health", "orthodontics", "cosmetic-dentistry"],
-    "version": "1.0.0",
-    "author": "Abel Gallo Ruiz"
+﻿{
+  "image": "imgs/template.webp",
+  "description": "Elegant dental clinic template with focus on cosmetic dentistry, orthodontics, and patient education.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Health \u0026 Medical",
+  "tags": ["dentist", "oral-health", "orthodontics", "cosmetic-dentistry"],
+  "date": "2026-02-25",
+  "title": "Pure Smile Dentistry"
 }

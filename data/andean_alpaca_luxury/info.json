@@ -1,19 +1,10 @@
-{
-    "id": "andean_alpaca_luxury",
-    "name": "Alpaca Heritage Luxury",
-    "category": "Retail",
-    "description": "A sophisticated and elegant template for high-end Alpaca wool clothing. Features soft earthy palettes, focus on texture and artisanal story, and high-conversion luxury layout.",
-    "tags": ["Luxury", "Ethical Fashion", "Alpaca Wool", "Andean", "Knitwear"],
-    "features": [
-        "Interactive 'Softness' Texture Viewer",
-        "Artisan Storytelling Sections",
-        "Sustainability Timeline",
-        "Luxury Gift Packaging UI",
-        "Concierge Service Integration"
-    ],
-    "colors": {
-        "primary": "#4A3728",
-        "secondary": "#E8DED1",
-        "accent": "#967969"
-    }
+﻿{
+  "image": "imgs/template.webp",
+  "description": "A sophisticated and elegant template for high-end Alpaca wool clothing. Features soft earthy palettes, focus on texture and artisanal story, and high-conversion luxury layout.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Retail",
+  "tags": ["Luxury", "Ethical Fashion", "Alpaca Wool", "Andean", "Knitwear"],
+  "date": "2026-02-25",
+  "title": "Alpaca Heritage Luxury"
 }

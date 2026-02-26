@@ -1,25 +1,10 @@
-{
-  "id": "serenity_mental_health",
-  "name": "Serenity Mental Health & Wellness",
-  "category": "Health & Medical",
+﻿{
+  "image": "imgs/template.webp",
   "description": "A calming and compassionate template for therapy, counseling, and mental health practices. Features soft color palettes, mood journals, and counselor profiles.",
-  "tags": [
-    "Mental Health",
-    "Therapy",
-    "Psychology",
-    "Wellness",
-    "Counseling"
-  ],
-  "features": [
-    "Interactive Mood Check-in",
-    "Provider Matching Flow",
-    "Meditation Resource Hub",
-    "Discrete 'Emergency Exit' button",
-    "Appointment Scheduling"
-  ],
-  "colors": {
-    "primary": "#6B8E23",
-    "secondary": "#E6E6FA",
-    "accent": "#F5F5DC"
-  }
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Health \u0026 Medical",
+  "tags": ["Mental Health", "Therapy", "Psychology", "Wellness", "Counseling"],
+  "date": "2026-02-25",
+  "title": "Serenity Mental Health \u0026 Wellness"
 }

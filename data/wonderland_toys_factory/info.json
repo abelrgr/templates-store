@@ -1,19 +1,10 @@
-{
-    "id": "wonderland_toys_factory",
-    "name": "Wonderland Toy Factory",
-    "category": "Retail",
-    "description": "A vibrant and joyful toy store template featuring bouncy animations, age-range filtering, and magical product showcases. Designed to delight children and parents alike.",
-    "tags": ["Toys", "Kids", "Hobby", "Educational", "Play"],
-    "features": [
-        "Age-Range Visual Filter",
-        "Interactive Toy 'Unboxing' UI",
-        "Wishlist with Bouncy Animations",
-        "Holiday Special Banners",
-        "Safe-Check for Parents Section"
-    ],
-    "colors": {
-        "primary": "#F43F5E",
-        "secondary": "#FBBF24",
-        "accent": "#10B981"
-    }
+﻿{
+  "image": "imgs/template.webp",
+  "description": "A vibrant and joyful toy store template featuring bouncy animations, age-range filtering, and magical product showcases. Designed to delight children and parents alike.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Retail",
+  "tags": ["Toys", "Kids", "Hobby", "Educational", "Play"],
+  "date": "2026-02-25",
+  "title": "Wonderland Toy Factory"
 }

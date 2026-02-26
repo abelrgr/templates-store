@@ -1,8 +1,10 @@
 {
-    "title": "Nexus Cardiology Group",
-    "description": "High-tech cardiology specialty template with heart health monitoring stats, diagnostic overviews, and specialist referrals.",
-    "category": "Health & Medical",
-    "tags": ["cardiology", "heart-health", "specialized-clinic", "diagnostics"],
-    "version": "1.0.0",
-    "author": "Abel Gallo Ruiz"
+  "image": "imgs/template.webp",
+  "description": "High-tech cardiology specialty template with heart health monitoring stats, diagnostic overviews, and specialist referrals.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Health \u0026 Medical",
+  "tags": ["cardiology", "heart-health", "specialized-clinic", "diagnostics"],
+  "date": "2026-02-25",
+  "title": "Nexus Cardiology Group"
 }
