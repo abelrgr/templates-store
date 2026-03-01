@@ -57,7 +57,7 @@
           type="text"
           x-model="search"
           placeholder="Search for templates..."
-          class="w-full pl-12 pr-4 py-5 rounded-2xl bg-white dark:bg-slate-800 border-none shadow-xl focus:ring-0 text-slate-900 dark:text-white placeholder-slate-400 text-lg transition-all"
+          class="w-full pl-12 pr-12 py-5 rounded-2xl bg-white dark:bg-slate-800 border-none shadow-xl focus:ring-0 text-slate-900 dark:text-white placeholder-slate-400 text-lg transition-all"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -73,6 +73,28 @@
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
+        <!-- Clear Search Button -->
+        <button
+          x-show="search.length > 0"
+          @click="search = ''"
+          class="absolute right-4 top-5 text-slate-400 hover:text-indigo-500 transition-colors cursor-pointer"
+          title="Clear search"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   </div>

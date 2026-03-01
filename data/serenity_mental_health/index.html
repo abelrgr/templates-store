@@ -1,252 +1,400 @@
-<!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: false, mood: 'Neutral', affirmation: 'You are enough just as you are.' }" :class="{ 'dark': darkMode }">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html
+  lang="en"
+  x-data="{ darkMode: false, mood: 'Neutral', affirmation: 'You are enough just as you are.' }"
+  :class="{ 'dark': darkMode }"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Serenity Mental Health | Finding Your Calm</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        sage: {
-                            50: '#f4f7f2',
-                            100: '#e7ede2',
-                            500: '#6B8E23',
-                            600: '#54701B',
-                            900: '#1a2409',
-                        },
-                        lavender: {
-                            100: '#f3f0ff',
-                            200: '#e6e0ff',
-                            500: '#9b89ff',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Quicksand', 'sans-serif'],
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              sage: {
+                50: "#f4f7f2",
+                100: "#e7ede2",
+                500: "#6B8E23",
+                600: "#54701B",
+                900: "#1a2409",
+              },
+              lavender: {
+                100: "#f3f0ff",
+                200: "#e6e0ff",
+                500: "#9b89ff",
+              },
+            },
+            fontFamily: {
+              sans: ["Quicksand", "sans-serif"],
+            },
+          },
+        },
+      };
     </script>
     <style>
-        [x-cloak] { display: none !important; }
-        .bg-pattern {
-            background-image: radial-gradient(#6B8E23 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-        }
+      [x-cloak] {
+        display: none !important;
+      }
+      .bg-pattern {
+        background-image: radial-gradient(#6b8e23 0.5px, transparent 0.5px);
+        background-size: 20px 20px;
+      }
     </style>
-</head>
-<body class="bg-sage-50 dark:bg-sage-900 text-slate-800 dark:text-sage-100 transition-colors duration-300">
-
+  </head>
+  <body
+    class="bg-sage-50 dark:bg-sage-900 text-slate-800 dark:text-sage-100 transition-colors duration-300"
+  >
     <!-- Top Urgent Help Bar -->
-    <div class="bg-rose-500 text-white py-2 px-4 text-center text-sm font-medium">
-        In crisis? Help is always available. <a href="#" class="underline font-bold">Call 988 (National Suicide Prevention)</a>
-        <button @click="window.location.href='https://google.com'" class="ml-4 bg-white/20 hover:bg-white/30 px-2 py-0.5 rounded text-xs transition">Quick Exit (Esc)</button>
+    <div
+      class="bg-rose-500 text-white py-2 px-4 text-center text-sm font-medium"
+    >
+      In crisis? Help is always available.
+      <a href="#" class="underline font-bold"
+        >Call 988 (National Suicide Prevention)</a
+      >
+      <button
+        @click="window.location.href='https://google.com'"
+        class="ml-4 bg-white/20 hover:bg-white/30 px-2 py-0.5 rounded text-xs transition"
+      >
+        Quick Exit (Esc)
+      </button>
     </div>
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-sage-900/80 backdrop-blur-md border-b border-sage-100 dark:border-sage-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2">
-                    <div class="w-10 h-10 bg-sage-500 rounded-full flex items-center justify-center text-white">
-                        <i class="ti ti-leaf text-2xl"></i>
-                    </div>
-                    <span class="text-xl font-bold tracking-tight text-sage-600 dark:text-sage-500">Serenity</span>
-                </div>
-                
-                <div class="hidden md:flex space-x-8">
-                    <a href="#services" class="hover:text-sage-500 font-medium">Services</a>
-                    <a href="#therapists" class="hover:text-sage-500 font-medium">Our Team</a>
-                    <a href="#resources" class="hover:text-sage-500 font-medium">Resources</a>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <button @click="darkMode = !darkMode" class="p-2 rounded-full bg-sage-100 dark:bg-sage-800 text-sage-600">
-                        <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
-                    </button>
-                    <a href="#booking" class="bg-sage-500 hover:bg-sage-600 text-white px-5 py-2 rounded-full font-semibold transition shadow-lg shadow-sage-500/20">
-                        Start Your Journey
-                    </a>
-                </div>
+    <nav
+      class="sticky top-0 z-50 bg-white/80 dark:bg-sage-900/80 backdrop-blur-md border-b border-sage-100 dark:border-sage-800"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <div class="flex items-center gap-2">
+            <div
+              class="w-10 h-10 bg-sage-500 rounded-full flex items-center justify-center text-white"
+            >
+              <i class="ti ti-leaf text-2xl"></i>
             </div>
+            <span
+              class="text-xl font-bold tracking-tight text-sage-600 dark:text-sage-500"
+              >Serenity</span
+            >
+          </div>
+
+          <div class="hidden md:flex space-x-8">
+            <a href="#services" class="hover:text-sage-500 font-medium"
+              >Services</a
+            >
+            <a href="#therapists" class="hover:text-sage-500 font-medium"
+              >Our Team</a
+            >
+            <a href="#resources" class="hover:text-sage-500 font-medium"
+              >Resources</a
+            >
+          </div>
+
+          <div class="flex items-center gap-4">
+            <button
+              @click="darkMode = !darkMode"
+              class="p-2 rounded-full bg-sage-100 dark:bg-sage-800 text-sage-600"
+            >
+              <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+            </button>
+            <a
+              href="#booking"
+              class="bg-sage-500 hover:bg-sage-600 text-white px-5 py-2 rounded-full font-semibold transition shadow-lg shadow-sage-500/20"
+            >
+              Start Your Journey
+            </a>
+          </div>
         </div>
+      </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="relative py-20 overflow-hidden">
-        <div class="bg-pattern absolute inset-0 opacity-10"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                        Find your peace <br>
-                        <span class="text-sage-500 italic">one step at a time</span>
-                    </h1>
-                    <p class="text-xl text-slate-600 dark:text-sage-200 mb-8 max-w-lg">
-                        We provide a safe, non-judgmental space for you to explore your thoughts and find balance. Compassionate care for the modern mind.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <button class="bg-sage-500 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 group">
-                            Book Session <i class="ti ti-arrow-right group-hover:translate-x-1 transition"></i>
-                        </button>
-                        <button class="bg-white dark:bg-sage-800 border-2 border-sage-500/20 px-8 py-4 rounded-2xl font-bold">
-                            View Resources
-                        </button>
-                    </div>
-                    
-                    <!-- Daily Affirmation Widget -->
-                    <div class="mt-12 p-6 bg-lavender-100 dark:bg-sage-800/50 rounded-3xl border border-lavender-200 dark:border-sage-700 max-w-md">
-                        <div class="flex items-center gap-3 mb-2">
-                            <i class="ti ti-sparkles text-lavender-500"></i>
-                            <span class="text-xs uppercase tracking-widest font-bold opacity-60">Daily Gentle Reminder</span>
-                        </div>
-                        <p class="text-lg italic font-medium" x-text="affirmation"></p>
-                    </div>
-                </div>
-                
-                <div class="relative">
-                    <div class="absolute -top-10 -right-10 w-64 h-64 bg-lavender-500/10 rounded-full blur-3xl animate-pulse"></div>
-                    <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-sage-500/10 rounded-full blur-3xl"></div>
-                    <img src="https://images.unsplash.com/photo-1544126592-807daa2b225c?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-2xl relative z-10 border-8 border-white dark:border-sage-800" alt="Meditation">
-                </div>
+      <div class="bg-pattern absolute inset-0 opacity-10"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+              Find your peace <br />
+              <span class="text-sage-500 italic">one step at a time</span>
+            </h1>
+            <p class="text-xl text-slate-600 dark:text-sage-200 mb-8 max-w-lg">
+              We provide a safe, non-judgmental space for you to explore your
+              thoughts and find balance. Compassionate care for the modern mind.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <button
+                class="bg-sage-500 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 group"
+              >
+                Book Session
+                <i
+                  class="ti ti-arrow-right group-hover:translate-x-1 transition"
+                ></i>
+              </button>
+              <button
+                class="bg-white dark:bg-sage-800 border-2 border-sage-500/20 px-8 py-4 rounded-2xl font-bold"
+              >
+                View Resources
+              </button>
             </div>
+
+            <!-- Daily Affirmation Widget -->
+            <div
+              class="mt-12 p-6 bg-lavender-100 dark:bg-sage-800/50 rounded-3xl border border-lavender-200 dark:border-sage-700 max-w-md"
+            >
+              <div class="flex items-center gap-3 mb-2">
+                <i class="ti ti-sparkles text-lavender-500"></i>
+                <span
+                  class="text-xs uppercase tracking-widest font-bold opacity-60"
+                  >Daily Gentle Reminder</span
+                >
+              </div>
+              <p class="text-lg italic font-medium" x-text="affirmation"></p>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div
+              class="absolute -top-10 -right-10 w-64 h-64 bg-lavender-500/10 rounded-full blur-3xl animate-pulse"
+            ></div>
+            <div
+              class="absolute -bottom-10 -left-10 w-64 h-64 bg-sage-500/10 rounded-full blur-3xl"
+            ></div>
+            <img
+              src="https://images.unsplash.com/photo-1559595500-e15296bdbb48?auto=format&fit=crop&q=80&w=800"
+              class="rounded-[3rem] shadow-2xl relative z-10 border-8 border-white dark:border-sage-800"
+              alt="Meditation"
+            />
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Interactive Mood Tracker Section -->
     <section class="py-16 bg-white dark:bg-sage-800/30">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-4">How are you feeling today?</h2>
-            <p class="mb-8 opacity-75">Check in with yourself. It's the first step to healing.</p>
-            
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <template x-for="(emoji, index) in ['😌 Calm', '😔 Low', '😰 Anxious', '😡 Angry', '🙂 Good']">
-                    <button @click="mood = emoji" 
-                            :class="mood === emoji ? 'bg-sage-500 text-white scale-105' : 'bg-sage-50 dark:bg-sage-800 hover:bg-sage-100 dark:hover:bg-sage-700'"
-                            class="p-6 rounded-2xl transition-all duration-300 font-bold border border-sage-500/10 shadow-sm">
-                        <span x-text="emoji"></span>
-                    </button>
-                </template>
-            </div>
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">How are you feeling today?</h2>
+        <p class="mb-8 opacity-75">
+          Check in with yourself. It's the first step to healing.
+        </p>
 
-            <div x-show="mood !== 'Neutral'" x-transition class="mt-8 p-6 rounded-2xl bg-sage-500/5 border border-sage-500/20">
-                <p class="text-lg">
-                    You're feeling <span class="font-bold text-sage-500" x-text="mood"></span>. 
-                    <span x-show="mood.includes('Anxious')">Try our 5-minute <span class="underline cursor-pointer">breathing exercise</span> right now?</span>
-                    <span x-show="mood.includes('Low')">It's okay to feel this way. Small steps today are enough.</span>
-                    <span x-show="mood.includes('Calm')">We are glad you're in a peaceful state. Enjoy this moment.</span>
-                </p>
-            </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <template
+            x-for="(emoji, index) in ['😌 Calm', '😔 Low', '😰 Anxious', '😡 Angry', '🙂 Good']"
+          >
+            <button
+              @click="mood = emoji"
+              :class="mood === emoji ? 'bg-sage-500 text-white scale-105' : 'bg-sage-50 dark:bg-sage-800 hover:bg-sage-100 dark:hover:bg-sage-700'"
+              class="p-6 rounded-2xl transition-all duration-300 font-bold border border-sage-500/10 shadow-sm"
+            >
+              <span x-text="emoji"></span>
+            </button>
+          </template>
         </div>
+
+        <div
+          x-show="mood !== 'Neutral'"
+          x-transition
+          class="mt-8 p-6 rounded-2xl bg-sage-500/5 border border-sage-500/20"
+        >
+          <p class="text-lg">
+            You're feeling
+            <span class="font-bold text-sage-500" x-text="mood"></span>.
+            <span x-show="mood.includes('Anxious')"
+              >Try our 5-minute
+              <span class="underline cursor-pointer">breathing exercise</span>
+              right now?</span
+            >
+            <span x-show="mood.includes('Low')"
+              >It's okay to feel this way. Small steps today are enough.</span
+            >
+            <span x-show="mood.includes('Calm')"
+              >We are glad you're in a peaceful state. Enjoy this moment.</span
+            >
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- Services Section -->
     <section id="services" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
-            <div>
-                <span class="text-sage-500 font-bold tracking-widest uppercase text-sm">Our Support</span>
-                <h2 class="text-4xl font-extrabold mt-2">Specialized Care for You</h2>
-            </div>
-            <a href="#" class="text-sage-500 font-bold flex items-center gap-2 hover:translate-x-2 transition">
-                Browse all categories <i class="ti ti-chevron-right"></i>
-            </a>
+      <div
+        class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4"
+      >
+        <div>
+          <span
+            class="text-sage-500 font-bold tracking-widest uppercase text-sm"
+            >Our Support</span
+          >
+          <h2 class="text-4xl font-extrabold mt-2">Specialized Care for You</h2>
+        </div>
+        <a
+          href="#"
+          class="text-sage-500 font-bold flex items-center gap-2 hover:translate-x-2 transition"
+        >
+          Browse all categories <i class="ti ti-chevron-right"></i>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Service Card 1 -->
+        <div
+          class="bg-white dark:bg-sage-800 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-sage-500/10 group"
+        >
+          <div
+            class="w-16 h-16 bg-lavender-100 dark:bg-sage-700 rounded-2xl flex items-center justify-center text-lavender-500 mb-6 group-hover:scale-110 transition"
+          >
+            <i class="ti ti-heart-handshake text-3xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Anxiety & Depression</h3>
+          <p class="opacity-70 mb-6 leading-relaxed">
+            Evidence-based CBT and mindfulness strategies tailored to help you
+            navigate life's toughest emotional challenges.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> Individual Therapy
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> Cognitive Behavioral
+              Tools
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> Group Support Sessions
+            </li>
+          </ul>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Service Card 1 -->
-            <div class="bg-white dark:bg-sage-800 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-sage-500/10 group">
-                <div class="w-16 h-16 bg-lavender-100 dark:bg-sage-700 rounded-2xl flex items-center justify-center text-lavender-500 mb-6 group-hover:scale-110 transition">
-                    <i class="ti ti-heart-handshake text-3xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">Anxiety & Depression</h3>
-                <p class="opacity-70 mb-6 leading-relaxed">Evidence-based CBT and mindfulness strategies tailored to help you navigate life's toughest emotional challenges.</p>
-                <ul class="space-y-3 mb-8">
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> Individual Therapy</li>
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> Cognitive Behavioral Tools</li>
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> Group Support Sessions</li>
-                </ul>
-            </div>
-
-            <!-- Service Card 2 -->
-            <div class="bg-white dark:bg-sage-800 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-sage-500/10 group">
-                <div class="w-16 h-16 bg-sage-500/10 dark:bg-sage-700 rounded-2xl flex items-center justify-center text-sage-500 mb-6 group-hover:scale-110 transition">
-                    <i class="ti ti-users-group text-3xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">Couples & Family</h3>
-                <p class="opacity-70 mb-6 leading-relaxed">Strengthen connections and improve communication with guided mediation and systemic family therapy sessions.</p>
-                <ul class="space-y-3 mb-8">
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> Relationship Building</li>
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> Conflict Resolution</li>
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> Pre-marital Counseling</li>
-                </ul>
-            </div>
-
-            <!-- Service Card 3 -->
-            <div class="bg-white dark:bg-sage-800 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-sage-500/10 group">
-                <div class="w-16 h-16 bg-orange-100 dark:bg-sage-700 rounded-2xl flex items-center justify-center text-orange-500 mb-6 group-hover:scale-110 transition">
-                    <i class="ti ti-brain text-3xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">Trauma Recovery</h3>
-                <p class="opacity-70 mb-6 leading-relaxed">Healing at your own pace with EMDR and trauma-informed practitioners who prioritize your safety and autonomy.</p>
-                <ul class="space-y-3 mb-8">
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> EMDR Therapy</li>
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> Somatic Experiencing</li>
-                    <li class="flex items-center gap-2 text-sm"><i class="ti ti-check text-sage-500"></i> Safe Environment</li>
-                </ul>
-            </div>
+        <!-- Service Card 2 -->
+        <div
+          class="bg-white dark:bg-sage-800 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-sage-500/10 group"
+        >
+          <div
+            class="w-16 h-16 bg-sage-500/10 dark:bg-sage-700 rounded-2xl flex items-center justify-center text-sage-500 mb-6 group-hover:scale-110 transition"
+          >
+            <i class="ti ti-users-group text-3xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Couples & Family</h3>
+          <p class="opacity-70 mb-6 leading-relaxed">
+            Strengthen connections and improve communication with guided
+            mediation and systemic family therapy sessions.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> Relationship Building
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> Conflict Resolution
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> Pre-marital Counseling
+            </li>
+          </ul>
         </div>
+
+        <!-- Service Card 3 -->
+        <div
+          class="bg-white dark:bg-sage-800 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-sage-500/10 group"
+        >
+          <div
+            class="w-16 h-16 bg-orange-100 dark:bg-sage-700 rounded-2xl flex items-center justify-center text-orange-500 mb-6 group-hover:scale-110 transition"
+          >
+            <i class="ti ti-brain text-3xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Trauma Recovery</h3>
+          <p class="opacity-70 mb-6 leading-relaxed">
+            Healing at your own pace with EMDR and trauma-informed practitioners
+            who prioritize your safety and autonomy.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> EMDR Therapy
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> Somatic Experiencing
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i class="ti ti-check text-sage-500"></i> Safe Environment
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- Appointment Footer CTA -->
     <section id="booking" class="bg-sage-900 text-white py-20 rounded-t-[4rem]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="bg-sage-500/10 inline-block p-4 rounded-full mb-6">
-                <i class="ti ti-calendar-event text-4xl text-sage-500 font-thin"></i>
-            </div>
-            <h2 class="text-4xl font-extrabold mb-6">Ready to prioritize yourself?</h2>
-            <p class="text-lg opacity-60 mb-10 max-w-2xl mx-auto">
-                Take the first step today. We offer in-person and tele-therapy options to fit your lifestyle.
-            </p>
-            <div class="flex flex-wrap justify-center gap-6">
-                <button class="bg-white text-sage-900 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-sage-100 transition">
-                    Book New Patient Intro
-                </button>
-                <button class="bg-sage-800 text-white px-10 py-4 rounded-2xl font-bold text-lg border border-sage-700">
-                    Client Portal Login
-                </button>
-            </div>
-            
-            <div class="mt-20 border-t border-white/10 pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-sage-500 rounded-full flex items-center justify-center">
-                        <i class="ti ti-leaf text-white"></i>
-                    </div>
-                    <span class="text-xl font-bold">Serenity</span>
-                </div>
-                <p class="text-sm opacity-40">© 2024 Serenity Wellness Center. All rights reserved.</p>
-                <div class="flex gap-6 text-2xl opacity-60">
-                    <i class="ti ti-brand-instagram cursor-pointer hover:text-white"></i>
-                    <i class="ti ti-brand-linkedin cursor-pointer hover:text-white"></i>
-                    <i class="ti ti-brand-youtube cursor-pointer hover:text-white"></i>
-                </div>
-            </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="bg-sage-500/10 inline-block p-4 rounded-full mb-6">
+          <i class="ti ti-calendar-event text-4xl text-sage-500 font-thin"></i>
         </div>
+        <h2 class="text-4xl font-extrabold mb-6">
+          Ready to prioritize yourself?
+        </h2>
+        <p class="text-lg opacity-60 mb-10 max-w-2xl mx-auto">
+          Take the first step today. We offer in-person and tele-therapy options
+          to fit your lifestyle.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6">
+          <button
+            class="bg-white text-sage-900 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-sage-100 transition"
+          >
+            Book New Patient Intro
+          </button>
+          <button
+            class="bg-sage-800 text-white px-10 py-4 rounded-2xl font-bold text-lg border border-sage-700"
+          >
+            Client Portal Login
+          </button>
+        </div>
+
+        <div
+          class="mt-20 border-t border-white/10 pt-12 flex flex-col md:flex-row justify-between items-center gap-8"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="w-8 h-8 bg-sage-500 rounded-full flex items-center justify-center"
+            >
+              <i class="ti ti-leaf text-white"></i>
+            </div>
+            <span class="text-xl font-bold">Serenity</span>
+          </div>
+          <p class="text-sm opacity-40">
+            © 2024 Serenity Wellness Center. All rights reserved.
+          </p>
+          <div class="flex gap-6 text-2xl opacity-60">
+            <i
+              class="ti ti-brand-instagram cursor-pointer hover:text-white"
+            ></i>
+            <i class="ti ti-brand-linkedin cursor-pointer hover:text-white"></i>
+            <i class="ti ti-brand-youtube cursor-pointer hover:text-white"></i>
+          </div>
+        </div>
+      </div>
     </section>
 
     <script>
-        // ESC key logic for Quick Exit
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                window.location.href = 'https://google.com';
-            }
-        });
+      // ESC key logic for Quick Exit
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          window.location.href = "https://google.com";
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

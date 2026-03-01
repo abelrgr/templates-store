@@ -39,6 +39,20 @@ composer install
 php -S localhost:8080
 ```
 
+### Manually Compile Tailwind CSS
+
+If you edit style files or add new Tailwind classes, you can manually recompile with:
+
+```bash
+bunx tailwindcss -i ./assets/input.css -o ./assets/styles.css
+```
+
+For live development, use watch mode to automatically recompile on changes:
+
+```bash
+bunx tailwindcss -i ./assets/input.css -o ./assets/styles.css --watch
+```
+
 ## Project Structure
 
 ```

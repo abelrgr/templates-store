@@ -16,7 +16,7 @@
       >
         All
       </button>
-      <template x-for="cat in getCategories()" :key="cat">
+      <template x-for="(cat, catIndex) in getCategories()" :key="catIndex">
         <button
           @click="category = cat; filterTag = ''"
           :class="category === cat ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700'"
@@ -38,7 +38,7 @@
     >
       Popular Tags:
     </span>
-    <template x-for="tag in getTopTags(6)" :key="tag">
+    <template x-for="(tag, topTagIndex) in getTopTags(6)" :key="topTagIndex">
       <button
         @click="setFilterTag(tag)"
         :class="filterTag === tag ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400'"
@@ -59,7 +59,8 @@
       <span class="font-semibold" x-text="filterTag"></span>
       <button
         @click="filterTag = ''"
-        class="hover:text-indigo-900 dark:hover:text-indigo-100 transition-colors"
+        class="hover:text-indigo-900 dark:hover:text-indigo-100 transition-colors cursor-pointer"
+        title="Clear Filter"
       >
         <svg
           class="w-4 h-4"
@@ -132,8 +133,6 @@
         x-data="{ isVisible: false, isLoaded: false }"
         x-intersect.once="isVisible = true"
         class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg shadow-slate-200/50 dark:shadow-none overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300 group border border-slate-100 dark:border-slate-700 flex flex-col h-full"
-        :data-aos="'fade-up'"
-        :data-aos-delay="index * 100"
       >
         <div
           class="relative overflow-hidden h-56 bg-slate-100 dark:bg-slate-700"
@@ -178,7 +177,7 @@
           >
             <button
               @click="openQuickview(template)"
-              class="bg-white/90 backdrop-blur-sm text-slate-900 px-4 py-2 rounded-full text-sm font-semibold hover:bg-white transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300"
+              class="bg-white/90 backdrop-blur-sm text-slate-900 px-4 py-2 rounded-full text-sm font-semibold hover:bg-white transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300 cursor-pointer"
             >
               Quick View
             </button>
@@ -250,7 +249,10 @@
           ></p>
 
           <div class="flex flex-wrap gap-2 mb-6">
-            <template x-for="tag in template.tags" :key="tag">
+            <template
+              x-for="(tag, tagIndex) in (template.tags || [])"
+              :key="tagIndex"
+            >
               <button
                 @click.stop="setFilterTag(tag)"
                 class="px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider bg-slate-100 dark:bg-slate-700/50 rounded-md text-slate-500 dark:text-slate-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 transition-colors cursor-pointer"

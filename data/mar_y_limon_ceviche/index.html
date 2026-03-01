@@ -1,337 +1,628 @@
-<!DOCTYPE html>
-<html lang="es" x-data="{ scrolled: false, activeCategory: 'ceviches', reservationOpen: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html
+  lang="es"
+  x-data="{ scrolled: false, activeCategory: 'ceviches', reservationOpen: false }"
+  @scroll.window="scrolled = (window.pageYOffset > 50)"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mar & Limón | Cevichería & Seafood Bar</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        ocean: {
-                            light: '#EBF5FB',
-                            blue: '#2980B9',
-                            dark: '#1B4F72',
-                            teal: '#16A085',
-                            lime: '#27AE60',
-                            lemon: '#F1C40F'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ocean: {
+                light: "#EBF5FB",
+                blue: "#2980B9",
+                dark: "#1B4F72",
+                teal: "#16A085",
+                lime: "#27AE60",
+                lemon: "#F1C40F",
+              },
+            },
+            fontFamily: {
+              sans: ["Plus Jakarta Sans", "sans-serif"],
+            },
+          },
+        },
+      };
     </script>
     <style>
-        [x-cloak] { display: none !important; }
-        .wave-text {
-            background: linear-gradient(90deg, #2980B9, #27AE60, #2980B9);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: wave 4s linear infinite;
+      [x-cloak] {
+        display: none !important;
+      }
+      .wave-text {
+        background: linear-gradient(90deg, #2980b9, #27ae60, #2980b9);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: wave 4s linear infinite;
+      }
+      @keyframes wave {
+        to {
+          background-position: 200% center;
         }
-        @keyframes wave { to { background-position: 200% center; } }
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+      }
     </style>
-</head>
-<body class="bg-ocean-light text-ocean-dark font-sans selection:bg-ocean-lime selection:text-white">
-
+  </head>
+  <body
+    class="bg-ocean-light text-ocean-dark font-sans selection:bg-ocean-lime selection:text-white"
+  >
     <!-- Fresh Ticker -->
-    <div class="bg-ocean-dark text-white py-2 overflow-hidden whitespace-nowrap">
-        <div class="inline-block animate-[marquee_30s_linear_infinite] text-[10px] font-bold uppercase tracking-[0.3em]">
-            Pesca del día: Corvina del Pacífico • Pulpo al Olivo • Camarón Tigre • Ostras Frescas • Ceviche Carretillero • Chilcano de Cortesía • 
-            Pesca del día: Corvina del Pacífico • Pulpo al Olivo • Camarón Tigre • Ostras Frescas • Ceviche Carretillero • Chilcano de Cortesía • 
-        </div>
+    <div
+      class="bg-ocean-dark text-white py-2 overflow-hidden whitespace-nowrap"
+    >
+      <div
+        class="inline-block animate-[marquee_30s_linear_infinite] text-[10px] font-bold uppercase tracking-[0.3em]"
+      >
+        Pesca del día: Corvina del Pacífico • Pulpo al Olivo • Camarón Tigre •
+        Ostras Frescas • Ceviche Carretillero • Chilcano de Cortesía • Pesca del
+        día: Corvina del Pacífico • Pulpo al Olivo • Camarón Tigre • Ostras
+        Frescas • Ceviche Carretillero • Chilcano de Cortesía •
+      </div>
     </div>
-    <style> @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } } </style>
+    <style>
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+    </style>
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 transition-all duration-500" :class="scrolled ? 'bg-white shadow-lg py-4' : 'py-8'">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-ocean-blue to-ocean-lime rounded-full flex items-center justify-center text-white shadow-lg">
-                    <i class="ti ti-fish text-2xl"></i>
-                </div>
-                <span class="text-2xl font-extrabold tracking-tighter uppercase italic">Mar<span class="text-ocean-lime">&</span>Limón</span>
-            </a>
+    <nav
+      class="sticky top-0 z-50 transition-all duration-500"
+      :class="scrolled ? 'bg-white shadow-lg py-4' : 'py-8'"
+    >
+      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <a href="#" class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-ocean-blue to-ocean-lime rounded-full flex items-center justify-center text-white shadow-lg"
+          >
+            <i class="ti ti-fish text-2xl"></i>
+          </div>
+          <span
+            class="text-2xl font-extrabold tracking-tighter uppercase italic"
+            >Mar<span class="text-ocean-lime">&</span>Limón</span
+          >
+        </a>
 
-            <div class="hidden lg:flex gap-10 text-xs font-bold uppercase tracking-widest">
-                <a href="#carta" class="hover:text-ocean-lime transition">La Carta</a>
-                <a href="#experiencia" class="hover:text-ocean-lime transition">Experiencia</a>
-                <a href="#eventos" class="hover:text-ocean-lime transition">Eventos</a>
-                <button @click="reservationOpen = true" class="bg-ocean-blue text-white px-8 py-3 rounded-full hover:bg-ocean-dark transition shadow-md">Reservar Mesa</button>
-            </div>
-
-            <div class="lg:hidden flex items-center gap-4">
-                <i class="ti ti-menu-2 text-2xl"></i>
-            </div>
+        <div
+          class="hidden lg:flex gap-10 text-xs font-bold uppercase tracking-widest"
+        >
+          <a href="#carta" class="hover:text-ocean-lime transition">La Carta</a>
+          <a href="#experiencia" class="hover:text-ocean-lime transition"
+            >Experiencia</a
+          >
+          <a href="#eventos" class="hover:text-ocean-lime transition"
+            >Eventos</a
+          >
+          <button
+            @click="reservationOpen = true"
+            class="bg-ocean-blue text-white px-8 py-3 rounded-full hover:bg-ocean-dark transition shadow-md"
+          >
+            Reservar Mesa
+          </button>
         </div>
+
+        <div class="lg:hidden flex items-center gap-4">
+          <i class="ti ti-menu-2 text-2xl"></i>
+        </div>
+      </div>
     </nav>
 
     <!-- Hero: Vibrant Coastal -->
     <header class="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&q=80&w=1600" class="w-full h-full object-cover scale-110" alt="Ceviche close up">
-            <div class="absolute inset-0 bg-gradient-to-r from-ocean-light via-ocean-light/80 to-transparent"></div>
-        </div>
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&q=80&w=1600"
+          class="w-full h-full object-cover scale-110"
+          alt="Ceviche close up"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-ocean-light via-ocean-light/80 to-transparent"
+        ></div>
+      </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6">
-            <div class="max-w-xl">
-                <span class="inline-flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-ocean-blue mb-8 border border-ocean-blue/10">
-                    <span class="w-2 h-2 rounded-full bg-ocean-lime animate-pulse"></span>
-                    Pesca Llegada 5:00 AM
-                </span>
-                <h1 class="text-6xl lg:text-8xl font-extrabold tracking-tighter mb-8 leading-[0.9]">
-                    Fresco.<br>
-                    <span class="wave-text">Vibrante.</span><br>
-                    Cítrico.
-                </h1>
-                <p class="text-lg font-medium opacity-80 mb-12 leading-relaxed">Redescubre el mar en cada bocado. Nuestra cocina fusiona la tradición costera con toques contemporáneos y el limón más fresco de la región.</p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#carta" class="bg-ocean-dark text-white px-10 py-5 rounded-2xl font-bold hover:scale-105 transition shadow-2xl flex items-center gap-3">
-                        Explorar Carta <i class="ti ti-arrow-right"></i>
-                    </a>
-                    <a href="#" class="bg-white text-ocean-dark px-10 py-5 rounded-2xl font-bold border border-ocean-dark/10 hover:bg-ocean-light transition">Ver Promociones</a>
-                </div>
-            </div>
+      <div class="relative z-10 max-w-7xl mx-auto px-6">
+        <div class="max-w-xl">
+          <span
+            class="inline-flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-ocean-blue mb-8 border border-ocean-blue/10"
+          >
+            <span
+              class="w-2 h-2 rounded-full bg-ocean-lime animate-pulse"
+            ></span>
+            Pesca Llegada 5:00 AM
+          </span>
+          <h1
+            class="text-6xl lg:text-8xl font-extrabold tracking-tighter mb-8 leading-[0.9]"
+          >
+            Fresco.<br />
+            <span class="wave-text">Vibrante.</span><br />
+            Cítrico.
+          </h1>
+          <p class="text-lg font-medium opacity-80 mb-12 leading-relaxed">
+            Redescubre el mar en cada bocado. Nuestra cocina fusiona la
+            tradición costera con toques contemporáneos y el limón más fresco de
+            la región.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a
+              href="#carta"
+              class="bg-ocean-dark text-white px-10 py-5 rounded-2xl font-bold hover:scale-105 transition shadow-2xl flex items-center gap-3"
+            >
+              Explorar Carta <i class="ti ti-arrow-right"></i>
+            </a>
+            <a
+              href="#"
+              class="bg-white text-ocean-dark px-10 py-5 rounded-2xl font-bold border border-ocean-dark/10 hover:bg-ocean-light transition"
+              >Ver Promociones</a
+            >
+          </div>
         </div>
+      </div>
 
-        <!-- Float Elements -->
-        <div class="absolute bottom-10 right-10 hidden xl:flex flex-col gap-4">
-            <div class="bg-white p-6 rounded-3xl shadow-2xl border border-ocean-blue/5">
-                <div class="text-[10px] font-bold opacity-40 uppercase mb-2">Plato Estrella</div>
-                <div class="flex items-center gap-4">
-                    <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=100" class="w-12 h-12 rounded-full object-cover" alt="Ceviche">
-                    <div>
-                        <div class="font-bold">Ceviche de Maracuyá</div>
-                        <div class="text-[10px] text-ocean-lime font-bold">RECOMENDADO</div>
-                    </div>
-                </div>
+      <!-- Float Elements -->
+      <div class="absolute bottom-10 right-10 hidden xl:flex flex-col gap-4">
+        <div
+          class="bg-white p-6 rounded-3xl shadow-2xl border border-ocean-blue/5"
+        >
+          <div class="text-[10px] font-bold opacity-40 uppercase mb-2">
+            Plato Estrella
+          </div>
+          <div class="flex items-center gap-4">
+            <img
+              src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=100"
+              class="w-12 h-12 rounded-full object-cover"
+              alt="Ceviche"
+            />
+            <div>
+              <div class="font-bold">Ceviche de Maracuyá</div>
+              <div class="text-[10px] text-ocean-lime font-bold">
+                RECOMENDADO
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </header>
 
     <!-- Experience: The Freshness Guarantee -->
     <section id="experiencia" class="py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-24 items-center">
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-4">
-                        <img src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?auto=format&fit=crop&q=80&w=400" class="rounded-3xl h-64 w-full object-cover" alt="Fresh sea">
-                        <div class="bg-ocean-lime p-8 rounded-3xl text-white">
-                            <i class="ti ti-lemon text-4xl mb-4"></i>
-                            <h4 class="font-bold mb-2">Ácido Perfecto</h4>
-                            <p class="text-xs opacity-80">Limón de exportación exprimido al momento.</p>
-                        </div>
-                    </div>
-                    <div class="space-y-4 pt-12">
-                        <div class="bg-ocean-blue p-8 rounded-3xl text-white">
-                            <i class="ti ti-anchor text-4xl mb-4"></i>
-                            <h4 class="font-bold mb-2">Pesca Ética</h4>
-                            <p class="text-xs opacity-80">Apoyamos a comunidades locales de pescadores.</p>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1534080397700-d9d3908a230d?auto=format&fit=crop&q=80&w=400" class="rounded-3xl h-64 w-full object-cover" alt="Kitchen">
-                    </div>
-                </div>
-
-                <div class="space-y-8">
-                    <h2 class="text-5xl font-extrabold tracking-tighter leading-tight">Del Océano <span class="bg-ocean-lime/20 px-4 rounded-xl">a tu Mesa</span> en tiempo récord.</h2>
-                    <p class="text-lg opacity-70 leading-relaxed font-medium">En Mar & Limón creemos que el secreto de un gran ceviche no es la receta, sino el respeto por el producto. Por eso, nuestra logística garantiza que el pescado que comes hoy, estaba nadando hace menos de 12 horas.</p>
-                    
-                    <ul class="space-y-6">
-                        <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-full bg-ocean-light flex items-center justify-center text-ocean-blue shrink-0"><i class="ti ti-check font-bold"></i></div>
-                            <div>
-                                <h5 class="font-bold">Temperatura Controlada</h5>
-                                <p class="text-sm opacity-60">Cadena de frío certificada desde el puerto hasta la cocina.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-full bg-ocean-light flex items-center justify-center text-ocean-blue shrink-0"><i class="ti ti-check font-bold"></i></div>
-                            <div>
-                                <h5 class="font-bold">Sazón Artesanal</h5>
-                                <p class="text-sm opacity-60">Leche de tigre preparada por lotes pequeños cada hora.</p>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <button class="border-b-4 border-ocean-blue pb-2 text-sm font-bold uppercase tracking-widest hover:text-ocean-blue transition">Conoce a nuestros proveedores</button>
-                </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-24 items-center">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <img
+                src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?auto=format&fit=crop&q=80&w=400"
+                class="rounded-3xl h-64 w-full object-cover"
+                alt="Fresh sea"
+              />
+              <div class="bg-ocean-lime p-8 rounded-3xl text-white">
+                <i class="ti ti-lemon text-4xl mb-4"></i>
+                <h4 class="font-bold mb-2">Ácido Perfecto</h4>
+                <p class="text-xs opacity-80">
+                  Limón de exportación exprimido al momento.
+                </p>
+              </div>
             </div>
+            <div class="space-y-4 pt-12">
+              <div class="bg-ocean-blue p-8 rounded-3xl text-white">
+                <i class="ti ti-anchor text-4xl mb-4"></i>
+                <h4 class="font-bold mb-2">Pesca Ética</h4>
+                <p class="text-xs opacity-80">
+                  Apoyamos a comunidades locales de pescadores.
+                </p>
+              </div>
+              <img
+                src="https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?auto=format&fit=crop&q=80&w=400"
+                class="rounded-3xl h-64 w-full object-cover"
+                alt="Kitchen"
+              />
+            </div>
+          </div>
+
+          <div class="space-y-8">
+            <h2 class="text-5xl font-extrabold tracking-tighter leading-tight">
+              Del Océano
+              <span class="bg-ocean-lime/20 px-4 rounded-xl">a tu Mesa</span> en
+              tiempo récord.
+            </h2>
+            <p class="text-lg opacity-70 leading-relaxed font-medium">
+              En Mar & Limón creemos que el secreto de un gran ceviche no es la
+              receta, sino el respeto por el producto. Por eso, nuestra
+              logística garantiza que el pescado que comes hoy, estaba nadando
+              hace menos de 12 horas.
+            </p>
+
+            <ul class="space-y-6">
+              <li class="flex items-start gap-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-ocean-light flex items-center justify-center text-ocean-blue shrink-0"
+                >
+                  <i class="ti ti-check font-bold"></i>
+                </div>
+                <div>
+                  <h5 class="font-bold">Temperatura Controlada</h5>
+                  <p class="text-sm opacity-60">
+                    Cadena de frío certificada desde el puerto hasta la cocina.
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-ocean-light flex items-center justify-center text-ocean-blue shrink-0"
+                >
+                  <i class="ti ti-check font-bold"></i>
+                </div>
+                <div>
+                  <h5 class="font-bold">Sazón Artesanal</h5>
+                  <p class="text-sm opacity-60">
+                    Leche de tigre preparada por lotes pequeños cada hora.
+                  </p>
+                </div>
+              </li>
+            </ul>
+
+            <button
+              class="border-b-4 border-ocean-blue pb-2 text-sm font-bold uppercase tracking-widest hover:text-ocean-blue transition"
+            >
+              Conoce a nuestros proveedores
+            </button>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Menu Section -->
     <section id="carta" class="py-32 bg-ocean-light">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                <div>
-                    <h2 class="text-4xl font-extrabold tracking-tighter mb-4">Festival del Mar</h2>
-                    <div class="flex gap-4">
-                        <button @click="activeCategory = 'ceviches'" :class="activeCategory === 'ceviches' ? 'bg-ocean-dark text-white' : 'bg-white text-ocean-dark'" class="px-6 py-2 rounded-full text-xs font-bold transition shadow-sm">Ceviches</button>
-                        <button @click="activeCategory = 'tiraditos'" :class="activeCategory === 'tiraditos' ? 'bg-ocean-dark text-white' : 'bg-white text-ocean-dark'" class="px-6 py-2 rounded-full text-xs font-bold transition shadow-sm">Tiraditos</button>
-                        <button @click="activeCategory = 'calientes'" :class="activeCategory === 'calientes' ? 'bg-ocean-dark text-white' : 'bg-white text-ocean-dark'" class="px-6 py-2 rounded-full text-xs font-bold transition shadow-sm">Cocina Caliente</button>
-                    </div>
-                </div>
-                <div class="flex gap-2 text-xs font-bold text-ocean-lime">
-                    <i class="ti ti-flame animate-pulse"></i> ¡Nuevas Incorporaciones!
-                </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
+        >
+          <div>
+            <h2 class="text-4xl font-extrabold tracking-tighter mb-4">
+              Festival del Mar
+            </h2>
+            <div class="flex gap-4">
+              <button
+                @click="activeCategory = 'ceviches'"
+                :class="activeCategory === 'ceviches' ? 'bg-ocean-dark text-white' : 'bg-white text-ocean-dark'"
+                class="px-6 py-2 rounded-full text-xs font-bold transition shadow-sm"
+              >
+                Ceviches
+              </button>
+              <button
+                @click="activeCategory = 'tiraditos'"
+                :class="activeCategory === 'tiraditos' ? 'bg-ocean-dark text-white' : 'bg-white text-ocean-dark'"
+                class="px-6 py-2 rounded-full text-xs font-bold transition shadow-sm"
+              >
+                Tiraditos
+              </button>
+              <button
+                @click="activeCategory = 'calientes'"
+                :class="activeCategory === 'calientes' ? 'bg-ocean-dark text-white' : 'bg-white text-ocean-dark'"
+                class="px-6 py-2 rounded-full text-xs font-bold transition shadow-sm"
+              >
+                Cocina Caliente
+              </button>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Product 1 -->
-                <div x-show="activeCategory === 'ceviches'" class="bg-white p-6 rounded-[40px] shadow-xl hover:shadow-2xl transition group relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-ocean-lemon/20 rounded-full blur-2xl group-hover:bg-ocean-lime/20 transition"></div>
-                    <img src="https://images.unsplash.com/photo-1534080564607-c92751f896ed?auto=format&fit=crop&q=80&w=600" class="w-full h-48 object-cover rounded-[30px] mb-8 group-hover:scale-105 transition duration-500" alt="Ceviche">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-extrabold">Ceviche Mixto</h3>
-                        <span class="bg-ocean-light px-3 py-1 rounded-full text-[10px] font-bold text-ocean-blue">Bs 65</span>
-                    </div>
-                    <p class="text-sm opacity-60 mb-6">Pescado del día, pulpo, calamar y langostinos en leche de tigre al cilantro.</p>
-                    <div class="flex items-center gap-2 mb-8">
-                        <span class="text-[9px] font-bold uppercase opacity-40">Acidez:</span>
-                        <div class="flex gap-1 text-ocean-lemon">
-                            <i class="ti ti-lemon-2"></i><i class="ti ti-lemon-2"></i><i class="ti ti-lemon-2"></i>
-                        </div>
-                    </div>
-                    <button class="w-full bg-ocean-light text-ocean-blue py-3 rounded-2xl font-bold hover:bg-ocean-blue hover:text-white transition">Añadir al Pedido</button>
-                </div>
-
-                <!-- Product 2 -->
-                <div x-show="activeCategory === 'ceviches'" class="bg-white p-6 rounded-[40px] shadow-xl hover:shadow-2xl transition group">
-                    <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=600" class="w-full h-48 object-cover rounded-[30px] mb-8" alt="Ceviche">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-extrabold">Ceviche Apaltado</h3>
-                        <span class="bg-ocean-light px-3 py-1 rounded-full text-[10px] font-bold text-ocean-blue">Bs 72</span>
-                    </div>
-                    <p class="text-sm opacity-60 mb-6">Ceviche clásico con láminas de palta y un toque de crema de ají amarillo.</p>
-                    <div class="flex items-center gap-2 mb-8">
-                        <span class="text-[9px] font-bold uppercase opacity-40">Acidez:</span>
-                        <div class="flex gap-1 text-ocean-lemon">
-                            <i class="ti ti-lemon-2"></i><i class="ti ti-lemon-2"></i>
-                        </div>
-                    </div>
-                    <button class="w-full bg-ocean-light text-ocean-blue py-3 rounded-2xl font-bold hover:bg-ocean-blue hover:text-white transition">Añadir al Pedido</button>
-                </div>
-
-                <!-- Product 3 (Caliente) -->
-                <div x-show="activeCategory === 'calientes'" class="bg-white p-6 rounded-[40px] shadow-xl hover:shadow-2xl transition group">
-                    <img src="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03?auto=format&fit=crop&q=80&w=600" class="w-full h-48 object-cover rounded-[30px] mb-8" alt="Fish">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-extrabold">Arroz con Mariscos</h3>
-                        <span class="bg-ocean-light px-3 py-1 rounded-full text-[10px] font-bold text-ocean-blue">Bs 85</span>
-                    </div>
-                    <p class="text-sm opacity-60 mb-6">Arroz meloso con frutos del mar, zarza criolla y un toque de pisco.</p>
-                    <button class="w-full bg-ocean-light text-ocean-blue py-3 rounded-2xl font-bold hover:bg-ocean-blue hover:text-white transition">Añadir al Pedido</button>
-                </div>
-            </div>
+          </div>
+          <div class="flex gap-2 text-xs font-bold text-ocean-lime">
+            <i class="ti ti-flame animate-pulse"></i> ¡Nuevas Incorporaciones!
+          </div>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Product 1 -->
+          <div
+            x-show="activeCategory === 'ceviches'"
+            class="bg-white p-6 rounded-[40px] shadow-xl hover:shadow-2xl transition group relative overflow-hidden"
+          >
+            <div
+              class="absolute -top-10 -right-10 w-32 h-32 bg-ocean-lemon/20 rounded-full blur-2xl group-hover:bg-ocean-lime/20 transition"
+            ></div>
+            <img
+              src="https://images.unsplash.com/photo-1626663011519-b42e5ee10056?auto=format&fit=crop&q=80&w=600"
+              class="w-full h-48 object-cover rounded-[30px] mb-8 group-hover:scale-105 transition duration-500"
+              alt="Ceviche"
+            />
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-xl font-extrabold">Ceviche Mixto</h3>
+              <span
+                class="bg-ocean-light px-3 py-1 rounded-full text-[10px] font-bold text-ocean-blue"
+                >Bs 65</span
+              >
+            </div>
+            <p class="text-sm opacity-60 mb-6">
+              Pescado del día, pulpo, calamar y langostinos en leche de tigre al
+              cilantro.
+            </p>
+            <div class="flex items-center gap-2 mb-8">
+              <span class="text-[9px] font-bold uppercase opacity-40"
+                >Acidez:</span
+              >
+              <div class="flex gap-1 text-ocean-lemon">
+                <i class="ti ti-lemon-2"></i><i class="ti ti-lemon-2"></i
+                ><i class="ti ti-lemon-2"></i>
+              </div>
+            </div>
+            <button
+              class="w-full bg-ocean-light text-ocean-blue py-3 rounded-2xl font-bold hover:bg-ocean-blue hover:text-white transition"
+            >
+              Añadir al Pedido
+            </button>
+          </div>
+
+          <!-- Product 2 -->
+          <div
+            x-show="activeCategory === 'ceviches'"
+            class="bg-white p-6 rounded-[40px] shadow-xl hover:shadow-2xl transition group"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=600"
+              class="w-full h-48 object-cover rounded-[30px] mb-8"
+              alt="Ceviche"
+            />
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-xl font-extrabold">Ceviche Apaltado</h3>
+              <span
+                class="bg-ocean-light px-3 py-1 rounded-full text-[10px] font-bold text-ocean-blue"
+                >Bs 72</span
+              >
+            </div>
+            <p class="text-sm opacity-60 mb-6">
+              Ceviche clásico con láminas de palta y un toque de crema de ají
+              amarillo.
+            </p>
+            <div class="flex items-center gap-2 mb-8">
+              <span class="text-[9px] font-bold uppercase opacity-40"
+                >Acidez:</span
+              >
+              <div class="flex gap-1 text-ocean-lemon">
+                <i class="ti ti-lemon-2"></i><i class="ti ti-lemon-2"></i>
+              </div>
+            </div>
+            <button
+              class="w-full bg-ocean-light text-ocean-blue py-3 rounded-2xl font-bold hover:bg-ocean-blue hover:text-white transition"
+            >
+              Añadir al Pedido
+            </button>
+          </div>
+
+          <!-- Product 3 (Caliente) -->
+          <div
+            x-show="activeCategory === 'calientes'"
+            class="bg-white p-6 rounded-[40px] shadow-xl hover:shadow-2xl transition group"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03?auto=format&fit=crop&q=80&w=600"
+              class="w-full h-48 object-cover rounded-[30px] mb-8"
+              alt="Fish"
+            />
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-xl font-extrabold">Arroz con Mariscos</h3>
+              <span
+                class="bg-ocean-light px-3 py-1 rounded-full text-[10px] font-bold text-ocean-blue"
+                >Bs 85</span
+              >
+            </div>
+            <p class="text-sm opacity-60 mb-6">
+              Arroz meloso con frutos del mar, zarza criolla y un toque de
+              pisco.
+            </p>
+            <button
+              class="w-full bg-ocean-light text-ocean-blue py-3 rounded-2xl font-bold hover:bg-ocean-blue hover:text-white transition"
+            >
+              Añadir al Pedido
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Map & Location -->
     <section id="eventos" class="py-32 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row bg-ocean-dark rounded-[50px] overflow-hidden shadow-[0_50px_100px_rgba(27,79,114,0.3)]">
-            <div class="lg:w-1/2 p-16 text-white">
-                <h2 class="text-5xl font-extrabold tracking-tighter mb-8 leading-tight">¿Buscas algo <span class="text-ocean-lemon underline decoration-wavy">exclusivo</span>?</h2>
-                <p class="text-lg opacity-70 mb-12">Organizamos eventos privados, barras cevicheras para bodas y talleres de cocina marina para grupos pequeños.</p>
-                <div class="space-y-6 mb-12">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-ocean-lime"><i class="ti ti-users-group text-2xl"></i></div>
-                        <div>
-                            <p class="font-bold">Eventos Corporativos</p>
-                            <p class="text-xs opacity-50">Menús por pasos personalizados.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-ocean-lime"><i class="ti ti-chef-hat text-2xl"></i></div>
-                        <div>
-                            <p class="font-bold">Barra Show en Vivo</p>
-                            <p class="text-xs opacity-50">Tus invitados ven la magia de cerca.</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="bg-ocean-lime text-white px-10 py-4 rounded-2xl font-extrabold hover:bg-white hover:text-ocean-dark transition">Solicitar Cotización</button>
+      <div
+        class="max-w-7xl mx-auto flex flex-col lg:flex-row bg-ocean-dark rounded-[50px] overflow-hidden shadow-[0_50px_100px_rgba(27,79,114,0.3)]"
+      >
+        <div class="lg:w-1/2 p-16 text-white">
+          <h2
+            class="text-5xl font-extrabold tracking-tighter mb-8 leading-tight"
+          >
+            ¿Buscas algo
+            <span class="text-ocean-lemon underline decoration-wavy"
+              >exclusivo</span
+            >?
+          </h2>
+          <p class="text-lg opacity-70 mb-12">
+            Organizamos eventos privados, barras cevicheras para bodas y
+            talleres de cocina marina para grupos pequeños.
+          </p>
+          <div class="space-y-6 mb-12">
+            <div class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-ocean-lime"
+              >
+                <i class="ti ti-users-group text-2xl"></i>
+              </div>
+              <div>
+                <p class="font-bold">Eventos Corporativos</p>
+                <p class="text-xs opacity-50">
+                  Menús por pasos personalizados.
+                </p>
+              </div>
             </div>
-            
-            <div class="lg:w-1/2 relative min-h-[400px]">
-                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover" alt="Event">
-                <div class="absolute inset-0 bg-ocean-blue/20"></div>
+            <div class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-ocean-lime"
+              >
+                <i class="ti ti-chef-hat text-2xl"></i>
+              </div>
+              <div>
+                <p class="font-bold">Barra Show en Vivo</p>
+                <p class="text-xs opacity-50">
+                  Tus invitados ven la magia de cerca.
+                </p>
+              </div>
             </div>
+          </div>
+          <button
+            class="bg-ocean-lime text-white px-10 py-4 rounded-2xl font-extrabold hover:bg-white hover:text-ocean-dark transition"
+          >
+            Solicitar Cotización
+          </button>
         </div>
+
+        <div class="lg:w-1/2 relative min-h-[400px]">
+          <img
+            src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800"
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="Event"
+          />
+          <div class="absolute inset-0 bg-ocean-blue/20"></div>
+        </div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-white py-24 px-6 border-t border-ocean-blue/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-                <div class="md:col-span-2">
-                    <a href="#" class="flex items-center gap-3 mb-8">
-                        <span class="text-3xl font-extrabold tracking-tighter uppercase italic">Mar<span class="text-ocean-lime">&</span>Limón</span>
-                    </a>
-                    <p class="text-sm opacity-60 max-w-sm mb-8 font-medium">Llevando la frescura del océano a tu paladar con compromiso, pasión y el mejor producto local.</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 bg-ocean-light text-ocean-blue rounded-full flex items-center justify-center hover:bg-ocean-blue hover:text-white transition"><i class="ti ti-brand-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 bg-ocean-light text-ocean-blue rounded-full flex items-center justify-center hover:bg-ocean-blue hover:text-white transition"><i class="ti ti-brand-facebook"></i></a>
-                        <a href="#" class="w-10 h-10 bg-ocean-light text-ocean-blue rounded-full flex items-center justify-center hover:bg-ocean-blue hover:text-white transition"><i class="ti ti-brand-youtube"></i></a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-extrabold text-[10px] uppercase tracking-widest mb-8 text-ocean-blue">Sucursales</h4>
-                    <ul class="text-xs space-y-4 font-bold opacity-60">
-                        <li>La Paz: San Miguel, Av. Montenegro</li>
-                        <li>Santa Cruz: Equipetrol, Calle 9</li>
-                        <li>Oruro: Centro, Av. 6 de Octubre</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-extrabold text-[10px] uppercase tracking-widest mb-8 text-ocean-blue">Contacto</h4>
-                    <ul class="text-xs space-y-4 font-bold opacity-60">
-                        <li>ventas@marylimon.bo</li>
-                        <li>+591 2 279-XXXX</li>
-                        <li>@marylimonceviche</li>
-                    </ul>
-                </div>
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+          <div class="md:col-span-2">
+            <a href="#" class="flex items-center gap-3 mb-8">
+              <span
+                class="text-3xl font-extrabold tracking-tighter uppercase italic"
+                >Mar<span class="text-ocean-lime">&</span>Limón</span
+              >
+            </a>
+            <p class="text-sm opacity-60 max-w-sm mb-8 font-medium">
+              Llevando la frescura del océano a tu paladar con compromiso,
+              pasión y el mejor producto local.
+            </p>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-ocean-light text-ocean-blue rounded-full flex items-center justify-center hover:bg-ocean-blue hover:text-white transition"
+                ><i class="ti ti-brand-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-ocean-light text-ocean-blue rounded-full flex items-center justify-center hover:bg-ocean-blue hover:text-white transition"
+                ><i class="ti ti-brand-facebook"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-ocean-light text-ocean-blue rounded-full flex items-center justify-center hover:bg-ocean-blue hover:text-white transition"
+                ><i class="ti ti-brand-youtube"></i
+              ></a>
             </div>
-            
-            <div class="pt-8 border-t border-ocean-blue/5 flex flex-col md:flex-row justify-between text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">
-                <p>&copy; 2024 Mar & Limón Cevichería. Hecho con sabor.</p>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#">Privacidad</a>
-                    <a href="#">Términos</a>
-                </div>
-            </div>
+          </div>
+
+          <div>
+            <h4
+              class="font-extrabold text-[10px] uppercase tracking-widest mb-8 text-ocean-blue"
+            >
+              Sucursales
+            </h4>
+            <ul class="text-xs space-y-4 font-bold opacity-60">
+              <li>La Paz: San Miguel, Av. Montenegro</li>
+              <li>Santa Cruz: Equipetrol, Calle 9</li>
+              <li>Oruro: Centro, Av. 6 de Octubre</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4
+              class="font-extrabold text-[10px] uppercase tracking-widest mb-8 text-ocean-blue"
+            >
+              Contacto
+            </h4>
+            <ul class="text-xs space-y-4 font-bold opacity-60">
+              <li>ventas@marylimon.bo</li>
+              <li>+591 2 279-XXXX</li>
+              <li>@marylimonceviche</li>
+            </ul>
+          </div>
         </div>
+
+        <div
+          class="pt-8 border-t border-ocean-blue/5 flex flex-col md:flex-row justify-between text-[10px] font-bold uppercase tracking-[0.2em] opacity-40"
+        >
+          <p>&copy; 2024 Mar & Limón Cevichería. Hecho con sabor.</p>
+          <div class="flex gap-8 mt-4 md:mt-0">
+            <a href="#">Privacidad</a>
+            <a href="#">Términos</a>
+          </div>
+        </div>
+      </div>
     </footer>
 
     <!-- Reservation Modal (Simplified) -->
-    <div x-show="reservationOpen" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-ocean-dark/80 backdrop-blur-sm shadow-inner">
-        <div class="bg-white w-full max-w-2xl rounded-[40px] overflow-hidden relative shadow-2xl" @click.away="reservationOpen = false">
-            <button @click="reservationOpen = false" class="absolute top-6 right-6 text-2xl hover:text-ocean-lime transition"><i class="ti ti-x"></i></button>
-            <div class="flex flex-col md:flex-row h-[500px]">
-                <div class="md:w-1/3 bg-ocean-blue p-10 text-white">
-                    <h3 class="text-2xl font-extrabold tracking-tighter mb-4">Tu Mesa te Espera</h3>
-                    <p class="text-sm opacity-70">Asegura tu lugar y disfruta de la mejor vista del salón con nuestra reserva preferencial.</p>
-                </div>
-                <div class="md:w-2/3 p-10 flex flex-col justify-center items-center text-center">
-                    <i class="ti ti-calendar-event text-6xl text-ocean-lime mb-6"></i>
-                    <p class="text-sm opacity-60 mb-8">El sistema de reservas online está temporalmente en mantenimiento. Por favor, llámanos directamente.</p>
-                    <a href="tel:+5912279XXXX" class="bg-ocean-dark text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2">
-                        <i class="ti ti-phone"></i> LLAMAR AHORA
-                    </a>
-                </div>
-            </div>
+    <div
+      x-show="reservationOpen"
+      x-cloak
+      class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-ocean-dark/80 backdrop-blur-sm shadow-inner"
+    >
+      <div
+        class="bg-white w-full max-w-2xl rounded-[40px] overflow-hidden relative shadow-2xl"
+        @click.away="reservationOpen = false"
+      >
+        <button
+          @click="reservationOpen = false"
+          class="absolute top-6 right-6 text-2xl hover:text-ocean-lime transition"
+        >
+          <i class="ti ti-x"></i>
+        </button>
+        <div class="flex flex-col md:flex-row h-[500px]">
+          <div class="md:w-1/3 bg-ocean-blue p-10 text-white">
+            <h3 class="text-2xl font-extrabold tracking-tighter mb-4">
+              Tu Mesa te Espera
+            </h3>
+            <p class="text-sm opacity-70">
+              Asegura tu lugar y disfruta de la mejor vista del salón con
+              nuestra reserva preferencial.
+            </p>
+          </div>
+          <div
+            class="md:w-2/3 p-10 flex flex-col justify-center items-center text-center"
+          >
+            <i class="ti ti-calendar-event text-6xl text-ocean-lime mb-6"></i>
+            <p class="text-sm opacity-60 mb-8">
+              El sistema de reservas online está temporalmente en mantenimiento.
+              Por favor, llámanos directamente.
+            </p>
+            <a
+              href="tel:+5912279XXXX"
+              class="bg-ocean-dark text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2"
+            >
+              <i class="ti ti-phone"></i> LLAMAR AHORA
+            </a>
+          </div>
         </div>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>

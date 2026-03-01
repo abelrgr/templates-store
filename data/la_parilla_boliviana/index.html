@@ -1,106 +1,202 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>La Parrilla Boliviana | Maestros del Fuego</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        [x-cloak] { display: none !important; }
-        body { font-family: 'Montserrat', sans-serif; background-color: #0c0c0c; color: #f5f5f5; }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        
-        @keyframes ember-glow {
-            0%, 100% { filter: brightness(1) drop-shadow(0 0 10px #c0392b); }
-            50% { filter: brightness(1.5) drop-shadow(0 0 30px #f39c12); }
-        }
-        .ember-active { animation: ember-glow 3s infinite; }
+      [x-cloak] {
+        display: none !important;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #0c0c0c;
+        color: #f5f5f5;
+      }
+      .font-serif {
+        font-family: "Playfair Display", serif;
+      }
 
-        .fire-bg {
-            background: radial-gradient(circle at bottom, #2c0e0e 0%, #0c0c0c 70%);
+      @keyframes ember-glow {
+        0%,
+        100% {
+          filter: brightness(1) drop-shadow(0 0 10px #c0392b);
         }
+        50% {
+          filter: brightness(1.5) drop-shadow(0 0 30px #f39c12);
+        }
+      }
+      .ember-active {
+        animation: ember-glow 3s infinite;
+      }
 
-        .meat-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%);
-            z-index: 1;
-        }
+      .fire-bg {
+        background: radial-gradient(circle at bottom, #2c0e0e 0%, #0c0c0c 70%);
+      }
+
+      .meat-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.9) 0%,
+          rgba(0, 0, 0, 0) 50%
+        );
+        z-index: 1;
+      }
     </style>
-</head>
-<body x-data="{ cart: 0, showCart: false, meatDoneness: 2 }">
-
+  </head>
+  <body x-data="{ cart: 0, showCart: false, meatDoneness: 2 }">
     <!-- Fire Ember Overlay -->
-    <div class="fixed inset-0 pointer-events-none opacity-20 z-0 overflow-hidden">
-        <div class="absolute -bottom-20 left-1/4 w-96 h-96 bg-red-600 rounded-full blur-[120px] animate-pulse"></div>
-        <div class="absolute -bottom-20 right-1/4 w-96 h-96 bg-orange-600 rounded-full blur-[120px] animate-pulse" style="animation-delay: 1.5s"></div>
+    <div
+      class="fixed inset-0 pointer-events-none opacity-20 z-0 overflow-hidden"
+    >
+      <div
+        class="absolute -bottom-20 left-1/4 w-96 h-96 bg-red-600 rounded-full blur-[120px] animate-pulse"
+      ></div>
+      <div
+        class="absolute -bottom-20 right-1/4 w-96 h-96 bg-orange-600 rounded-full blur-[120px] animate-pulse"
+        style="animation-delay: 1.5s"
+      ></div>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-red-700 rounded-lg flex items-center justify-center text-white rotate-3">
-                    <i class="ti ti-flame text-2xl"></i>
-                </div>
-                <span class="text-xl font-black uppercase tracking-tighter">La Parrilla <span class="text-red-500">Boliviana</span></span>
-            </div>
-            <div class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-widest">
-                <a href="#menu" class="hover:text-red-500 transition">El Menú</a>
-                <a href="#experiencia" class="hover:text-red-500 transition">La Experiencia</a>
-                <a href="#vinos" class="hover:text-red-500 transition">Cava</a>
-                <a href="#reservar" class="bg-red-700 px-4 py-2 rounded text-xs hover:bg-red-600 transition">Reservar Mesa</a>
-            </div>
-            <button @click="showCart = true" class="relative p-2 hover:bg-white/10 rounded-full">
-                <i class="ti ti-shopping-bag text-2xl"></i>
-                <span x-show="cart > 0" x-text="cart" class="absolute -top-1 -right-1 bg-red-600 text-[10px] w-5 h-5 rounded-full flex items-center justify-center"></span>
-            </button>
+    <nav
+      class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 bg-red-700 rounded-lg flex items-center justify-center text-white rotate-3"
+          >
+            <i class="ti ti-flame text-2xl"></i>
+          </div>
+          <span class="text-xl font-black uppercase tracking-tighter"
+            >La Parrilla <span class="text-red-500">Boliviana</span></span
+          >
         </div>
+        <div
+          class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-widest"
+        >
+          <a href="#menu" class="hover:text-red-500 transition">El Menú</a>
+          <a href="#experiencia" class="hover:text-red-500 transition"
+            >La Experiencia</a
+          >
+          <a href="#vinos" class="hover:text-red-500 transition">Cava</a>
+          <a
+            href="#reservar"
+            class="bg-red-700 px-4 py-2 rounded text-xs hover:bg-red-600 transition"
+            >Reservar Mesa</a
+          >
+        </div>
+        <button
+          @click="showCart = true"
+          class="relative p-2 hover:bg-white/10 rounded-full"
+        >
+          <i class="ti ti-shopping-bag text-2xl"></i>
+          <span
+            x-show="cart > 0"
+            x-text="cart"
+            class="absolute -top-1 -right-1 bg-red-600 text-[10px] w-5 h-5 rounded-full flex items-center justify-center"
+          ></span>
+        </button>
+      </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden fire-bg">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center z-10">
-            <div>
-                <span class="inline-block px-3 py-1 bg-red-900/50 text-red-400 text-xs font-bold rounded-full border border-red-500/30 mb-6 tracking-widest uppercase">Tradición Brasa & Leña</span>
-                <h1 class="text-6xl md:text-8xl font-black mb-6 leading-tight uppercase">Donde el <span class="italic font-serif text-red-600">fuego</span> se vuelve arte.</h1>
-                <p class="text-gray-400 text-lg mb-8 max-w-md">Seleccionamos los mejores cortes del país, madurados a la perfección y sellados en leña de quebracho para un sabor inigualable.</p>
-                <div class="flex gap-4">
-                    <a href="#menu" class="px-8 py-4 bg-red-700 hover:bg-red-600 font-bold uppercase text-sm tracking-widest transition transform hover:scale-105">Ver Cortes Premium</a>
-                    <a href="#" class="px-8 py-4 border border-white/20 hover:border-white/40 font-bold uppercase text-sm tracking-widest transition">Nuestra Historia</a>
-                </div>
-            </div>
-            <div class="relative">
-                <div class="absolute inset-0 bg-red-600/20 blur-[100px] rounded-full"></div>
-                <!-- Meat Slice Representation -->
-                <div class="relative z-10 p-8 border border-white/10 bg-white/5 backdrop-blur-sm rounded-3xl transform rotate-3">
-                    <div class="aspect-square bg-[url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800')] bg-cover bg-center rounded-2xl shadow-2xl relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                        <div class="absolute bottom-6 left-6">
-                            <h3 class="text-2xl font-black">PICAÑA PREMIUM</h3>
-                            <p class="text-sm text-red-400 font-bold tracking-widest">Corte Signature 800g</p>
-                        </div>
-                        <div class="absolute top-6 right-6 ember-active">
-                            <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-                                <i class="ti ti-flame text-white animate-bounce"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section
+      class="relative min-h-screen flex items-center pt-20 overflow-hidden fire-bg"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center z-10"
+      >
+        <div>
+          <span
+            class="inline-block px-3 py-1 bg-red-900/50 text-red-400 text-xs font-bold rounded-full border border-red-500/30 mb-6 tracking-widest uppercase"
+            >Tradición Brasa & Leña</span
+          >
+          <h1
+            class="text-6xl md:text-8xl font-black mb-6 leading-tight uppercase"
+          >
+            Donde el
+            <span class="italic font-serif text-red-600">fuego</span> se vuelve
+            arte.
+          </h1>
+          <p class="text-gray-400 text-lg mb-8 max-w-md">
+            Seleccionamos los mejores cortes del país, madurados a la perfección
+            y sellados en leña de quebracho para un sabor inigualable.
+          </p>
+          <div class="flex gap-4">
+            <a
+              href="#menu"
+              class="px-8 py-4 bg-red-700 hover:bg-red-600 font-bold uppercase text-sm tracking-widest transition transform hover:scale-105"
+              >Ver Cortes Premium</a
+            >
+            <a
+              href="#"
+              class="px-8 py-4 border border-white/20 hover:border-white/40 font-bold uppercase text-sm tracking-widest transition"
+              >Nuestra Historia</a
+            >
+          </div>
         </div>
+        <div class="relative">
+          <div
+            class="absolute inset-0 bg-red-600/20 blur-[100px] rounded-full"
+          ></div>
+          <!-- Meat Slice Representation -->
+          <div
+            class="relative z-10 p-8 border border-white/10 bg-white/5 backdrop-blur-sm rounded-3xl transform rotate-3"
+          >
+            <div
+              class="aspect-square bg-[url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800')] bg-cover bg-center rounded-2xl shadow-2xl relative overflow-hidden group"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"
+              ></div>
+              <div class="absolute bottom-6 left-6">
+                <h3 class="text-2xl font-black">PICAÑA PREMIUM</h3>
+                <p class="text-sm text-red-400 font-bold tracking-widest">
+                  Corte Signature 800g
+                </p>
+              </div>
+              <div class="absolute top-6 right-6 ember-active">
+                <div
+                  class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center"
+                >
+                  <i class="ti ti-flame text-white animate-bounce"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Doneness Tool -->
     <section class="py-24 bg-[#0a0a0a]">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-black mb-12 uppercase tracking-tight">Personaliza tu <span class="text-red-600">Punto de Cocción</span></h2>
-            
-            <div x-data="{ 
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl font-black mb-12 uppercase tracking-tight">
+          Personaliza tu <span class="text-red-600">Punto de Cocción</span>
+        </h2>
+
+        <div
+          x-data="{ 
                 labels: ['Bleu (Vuelta y Vuelta)', 'Jugoso (Término Medio)', 'Al Punto (Punto)', 'Tres Cuartos', 'Bien Cocido'],
                 descriptions: [
                     'Centro rojo muy frío, sellado rápido.',
@@ -109,210 +205,389 @@
                     'Centro ligeramente rosado, firme.',
                     'Totalmente cocido, textura firme.'
                 ] 
-            }" class="space-y-12">
-                
-                <div class="flex justify-between items-end h-32 gap-2">
-                    <template x-for="(label, index) in labels">
-                        <div class="flex-1 flex flex-col items-center">
-                            <div :class="meatDoneness >= index ? 'bg-red-600' : 'bg-white/10'" 
-                                 class="w-full rounded-t-lg transition-all duration-500"
-                                 :style="'height: ' + (20 + (index * 20)) + 'px; opacity: ' + (meatDoneness == index ? '1' : '0.4')">
-                            </div>
-                        </div>
-                    </template>
-                </div>
+            }"
+          class="space-y-12"
+        >
+          <div class="flex justify-between items-end h-32 gap-2">
+            <template x-for="(label, index) in labels">
+              <div class="flex-1 flex flex-col items-center">
+                <div
+                  :class="meatDoneness >= index ? 'bg-red-600' : 'bg-white/10'"
+                  class="w-full rounded-t-lg transition-all duration-500"
+                  :style="'height: ' + (20 + (index * 20)) + 'px; opacity: ' + (meatDoneness == index ? '1' : '0.4')"
+                ></div>
+              </div>
+            </template>
+          </div>
 
-                <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
-                    <input type="range" x-model="meatDoneness" min="0" max="4" step="1" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-red-600 mb-6">
-                    <h3 class="text-2xl font-black text-red-500 uppercase" x-text="labels[meatDoneness]"></h3>
-                    <p class="text-gray-400 mt-2" x-text="descriptions[meatDoneness]"></p>
-                </div>
-            </div>
+          <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
+            <input
+              type="range"
+              x-model="meatDoneness"
+              min="0"
+              max="4"
+              step="1"
+              class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-red-600 mb-6"
+            />
+            <h3
+              class="text-2xl font-black text-red-500 uppercase"
+              x-text="labels[meatDoneness]"
+            ></h3>
+            <p
+              class="text-gray-400 mt-2"
+              x-text="descriptions[meatDoneness]"
+            ></p>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Menu Cards -->
     <section id="menu" class="py-24 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-16">
-                <div>
-                    <h2 class="text-5xl font-black uppercase tracking-tighter italic font-serif">Nuestra Selección</h2>
-                    <p class="text-gray-500 mt-2">Cortes certificados, maduración controlada.</p>
-                </div>
-                <div class="flex gap-4">
-                    <button class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition"><i class="ti ti-chevron-left"></i></button>
-                    <button class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition"><i class="ti ti-chevron-right"></i></button>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Bife de Chorizo -->
-                <div class="meat-card group relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 hover:border-red-500/50 transition">
-                    <div class="aspect-[4/5] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1558039719-79cb7b60d279?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    </div>
-                    <div class="absolute bottom-0 p-8 z-10 w-full">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="text-2xl font-black uppercase">Bife de Chorizo</h4>
-                                <span class="text-xs text-red-400 font-bold uppercase tracking-widest">Rib Eye Style</span>
-                            </div>
-                            <span class="text-2xl font-black text-red-500">Bs. 145</span>
-                        </div>
-                        <div class="flex gap-2 mb-6">
-                            <span class="text-[10px] bg-white/10 px-2 py-1 rounded">500g</span>
-                            <span class="text-[10px] bg-red-900/40 text-red-400 px-2 py-1 rounded">HOT GRILL</span>
-                        </div>
-                        <button @click="cart++" class="w-full py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-red-600 hover:text-white transition">Agregar al Pedido</button>
-                    </div>
-                </div>
-
-                <!-- Ojo de Bife -->
-                <div class="meat-card group relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 hover:border-red-500/50 transition transform md:-translate-y-8">
-                    <div class="aspect-[4/5] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    </div>
-                    <div class="absolute bottom-0 p-8 z-10 w-full">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="text-2xl font-black uppercase">Ojo de Bife</h4>
-                                <span class="text-xs text-red-400 font-bold uppercase tracking-widest">Marmoleo Intenso</span>
-                            </div>
-                            <span class="text-2xl font-black text-red-500">Bs. 160</span>
-                        </div>
-                        <div class="flex gap-2 mb-6">
-                            <span class="text-[10px] bg-white/10 px-2 py-1 rounded">450g</span>
-                            <span class="text-[10px] bg-red-900/40 text-red-400 px-2 py-1 rounded">TOP CHOICE</span>
-                        </div>
-                        <button @click="cart++" class="w-full py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-red-600 hover:text-white transition">Agregar al Pedido</button>
-                    </div>
-                </div>
-
-                <!-- Costillar 12 Horas -->
-                <div class="meat-card group relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 hover:border-red-500/50 transition">
-                    <div class="aspect-[4/5] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    </div>
-                    <div class="absolute bottom-0 p-8 z-10 w-full">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="text-2xl font-black uppercase">Costillar Criollo</h4>
-                                <span class="text-xs text-red-400 font-bold uppercase tracking-widest">12 Horas de Fuego</span>
-                            </div>
-                            <span class="text-2xl font-black text-red-500">Bs. 210</span>
-                        </div>
-                        <div class="flex gap-2 mb-6">
-                            <span class="text-[10px] bg-white/10 px-2 py-1 rounded">Individual</span>
-                            <span class="text-[10px] bg-red-900/40 text-red-400 px-2 py-1 rounded">THE MASTERPIECE</span>
-                        </div>
-                        <button @click="cart++" class="w-full py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-red-600 hover:text-white transition">Agregar al Pedido</button>
-                    </div>
-                </div>
-            </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-end mb-16">
+          <div>
+            <h2
+              class="text-5xl font-black uppercase tracking-tighter italic font-serif"
+            >
+              Nuestra Selección
+            </h2>
+            <p class="text-gray-500 mt-2">
+              Cortes certificados, maduración controlada.
+            </p>
+          </div>
+          <div class="flex gap-4">
+            <button
+              class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition"
+            >
+              <i class="ti ti-chevron-left"></i>
+            </button>
+            <button
+              class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition"
+            >
+              <i class="ti ti-chevron-right"></i>
+            </button>
+          </div>
         </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Bife de Chorizo -->
+          <div
+            class="meat-card group relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 hover:border-red-500/50 transition"
+          >
+            <div class="aspect-[4/5] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&q=80&w=800"
+                class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+              />
+            </div>
+            <div class="absolute bottom-0 p-8 z-10 w-full">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h4 class="text-2xl font-black uppercase">Bife de Chorizo</h4>
+                  <span
+                    class="text-xs text-red-400 font-bold uppercase tracking-widest"
+                    >Rib Eye Style</span
+                  >
+                </div>
+                <span class="text-2xl font-black text-red-500">Bs. 145</span>
+              </div>
+              <div class="flex gap-2 mb-6">
+                <span class="text-[10px] bg-white/10 px-2 py-1 rounded"
+                  >500g</span
+                >
+                <span
+                  class="text-[10px] bg-red-900/40 text-red-400 px-2 py-1 rounded"
+                  >HOT GRILL</span
+                >
+              </div>
+              <button
+                @click="cart++"
+                class="w-full py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-red-600 hover:text-white transition"
+              >
+                Agregar al Pedido
+              </button>
+            </div>
+          </div>
+
+          <!-- Ojo de Bife -->
+          <div
+            class="meat-card group relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 hover:border-red-500/50 transition transform md:-translate-y-8"
+          >
+            <div class="aspect-[4/5] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&q=80&w=800"
+                class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+              />
+            </div>
+            <div class="absolute bottom-0 p-8 z-10 w-full">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h4 class="text-2xl font-black uppercase">Ojo de Bife</h4>
+                  <span
+                    class="text-xs text-red-400 font-bold uppercase tracking-widest"
+                    >Marmoleo Intenso</span
+                  >
+                </div>
+                <span class="text-2xl font-black text-red-500">Bs. 160</span>
+              </div>
+              <div class="flex gap-2 mb-6">
+                <span class="text-[10px] bg-white/10 px-2 py-1 rounded"
+                  >450g</span
+                >
+                <span
+                  class="text-[10px] bg-red-900/40 text-red-400 px-2 py-1 rounded"
+                  >TOP CHOICE</span
+                >
+              </div>
+              <button
+                @click="cart++"
+                class="w-full py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-red-600 hover:text-white transition"
+              >
+                Agregar al Pedido
+              </button>
+            </div>
+          </div>
+
+          <!-- Costillar 12 Horas -->
+          <div
+            class="meat-card group relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 hover:border-red-500/50 transition"
+          >
+            <div class="aspect-[4/5] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800"
+                class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+              />
+            </div>
+            <div class="absolute bottom-0 p-8 z-10 w-full">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h4 class="text-2xl font-black uppercase">
+                    Costillar Criollo
+                  </h4>
+                  <span
+                    class="text-xs text-red-400 font-bold uppercase tracking-widest"
+                    >12 Horas de Fuego</span
+                  >
+                </div>
+                <span class="text-2xl font-black text-red-500">Bs. 210</span>
+              </div>
+              <div class="flex gap-2 mb-6">
+                <span class="text-[10px] bg-white/10 px-2 py-1 rounded"
+                  >Individual</span
+                >
+                <span
+                  class="text-[10px] bg-red-900/40 text-red-400 px-2 py-1 rounded"
+                  >THE MASTERPIECE</span
+                >
+              </div>
+              <button
+                @click="cart++"
+                class="w-full py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-red-600 hover:text-white transition"
+              >
+                Agregar al Pedido
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Wine Cava / Maridaje -->
     <section id="vinos" class="py-24 bg-[#111]">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1">
-                <div class="grid grid-cols-2 gap-4">
-                    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=400" class="rounded-2xl grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://images.unsplash.com/photo-1553120894-3a5264b3834a?auto=format&fit=crop&q=80&w=400" class="rounded-2xl mt-12 grayscale hover:grayscale-0 transition-all duration-500">
-                </div>
-            </div>
-            <div class="order-1 md:order-2">
-                <span class="text-red-500 font-bold uppercase tracking-[0.3em] text-xs">Cava Seleccionada</span>
-                <h2 class="text-6xl font-black uppercase my-6">El Maridaje <span class="italic font-serif">Perfecto</span></h2>
-                <p class="text-gray-400 text-lg mb-8">Nuestra cava cuenta con más de 120 etiquetas de los mejores valles de Bolivia y el mundo. Desde Tannats intensos del Valle de Cinti hasta Malbecs de altura.</p>
-                
-                <div class="space-y-6">
-                    <div class="p-6 bg-white/5 border-l-4 border-red-600 flex justify-between items-center group cursor-pointer hover:bg-white/10 transition">
-                        <div>
-                            <p class="text-red-500 text-xs font-bold uppercase mb-1">Recomendación Sommelier</p>
-                            <h5 class="text-xl font-bold">Tannat Gran Reserva</h5>
-                        </div>
-                        <i class="ti ti-arrow-right text-2xl transform group-hover:translate-x-2 transition"></i>
-                    </div>
-                </div>
-            </div>
+      <div
+        class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center"
+      >
+        <div class="order-2 md:order-1">
+          <div class="grid grid-cols-2 gap-4">
+            <img
+              src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=400"
+              class="rounded-2xl grayscale hover:grayscale-0 transition-all duration-500"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&q=80&w=400"
+              class="rounded-2xl mt-12 grayscale hover:grayscale-0 transition-all duration-500"
+            />
+          </div>
         </div>
+        <div class="order-1 md:order-2">
+          <span
+            class="text-red-500 font-bold uppercase tracking-[0.3em] text-xs"
+            >Cava Seleccionada</span
+          >
+          <h2 class="text-6xl font-black uppercase my-6">
+            El Maridaje <span class="italic font-serif">Perfecto</span>
+          </h2>
+          <p class="text-gray-400 text-lg mb-8">
+            Nuestra cava cuenta con más de 120 etiquetas de los mejores valles
+            de Bolivia y el mundo. Desde Tannats intensos del Valle de Cinti
+            hasta Malbecs de altura.
+          </p>
+
+          <div class="space-y-6">
+            <div
+              class="p-6 bg-white/5 border-l-4 border-red-600 flex justify-between items-center group cursor-pointer hover:bg-white/10 transition"
+            >
+              <div>
+                <p class="text-red-500 text-xs font-bold uppercase mb-1">
+                  Recomendación Sommelier
+                </p>
+                <h5 class="text-xl font-bold">Tannat Gran Reserva</h5>
+              </div>
+              <i
+                class="ti ti-arrow-right text-2xl transform group-hover:translate-x-2 transition"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- CTA & Footer -->
-    <footer id="reservar" class="bg-black pt-24 pb-12 border-t border-white/5 relative overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-7xl md:text-9xl font-black uppercase opacity-10 absolute left-0 right-0 -top-10 pointer-events-none">RESERVACIONES</h2>
-            <div class="relative z-10 mb-20 text-center">
-                <h3 class="text-4xl font-black uppercase mb-8">¿Listo para sentir el fuego?</h3>
-                <div class="flex justify-center gap-4">
-                    <a href="#" class="px-12 py-5 bg-red-700 hover:bg-red-600 font-bold uppercase text-sm tracking-widest transition">Reservar Ahora</a>
-                    <a href="tel:+5911234567" class="px-12 py-5 border border-white/20 hover:border-red-500 font-bold uppercase text-sm tracking-widest transition flex items-center gap-2">
-                        <i class="ti ti-phone"></i> LLAMAR
-                    </a>
-                </div>
-            </div>
+    <footer
+      id="reservar"
+      class="bg-black pt-24 pb-12 border-t border-white/5 relative overflow-hidden"
+    >
+      <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-red-600 to-transparent"
+      ></div>
 
-            <div class="grid md:grid-cols-4 gap-12 text-left pt-12 border-t border-white/10">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center gap-3 mb-6">
-                        <i class="ti ti-flame text-3xl text-red-600"></i>
-                        <span class="text-2xl font-black uppercase">La Parrilla <span class="text-red-600">Boliviana</span></span>
-                    </div>
-                    <p class="text-gray-500 max-w-sm">La experiencia carnívora definitiva en Bolivia. Carne, leña y pasión desde el corazón de la tierra.</p>
-                </div>
-                <div>
-                    <h5 class="font-bold uppercase mb-6 text-sm tracking-widest">Visítanos</h5>
-                    <ul class="text-gray-500 space-y-4 text-sm">
-                        <li>Av. San Martin #123</li>
-                        <li>Equipetrol, Santa Cruz</li>
-                        <li>Lun-Dom: 12:00 - 23:30</li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold uppercase mb-6 text-sm tracking-widest">Síguenos</h5>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:text-white transition"><i class="ti ti-brand-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:text-white transition"><i class="ti ti-brand-facebook"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:text-white transition"><i class="ti ti-brand-whatsapp"></i></a>
-                    </div>
-                </div>
-            </div>
-            <p class="mt-20 text-[10px] text-gray-700 uppercase tracking-widest">© 2024 La Parrilla Boliviana - Todos los derechos reservados.</p>
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2
+          class="text-7xl md:text-9xl font-black uppercase opacity-10 absolute left-0 right-0 -top-10 pointer-events-none"
+        >
+          RESERVACIONES
+        </h2>
+        <div class="relative z-10 mb-20 text-center">
+          <h3 class="text-4xl font-black uppercase mb-8">
+            ¿Listo para sentir el fuego?
+          </h3>
+          <div class="flex justify-center gap-4">
+            <a
+              href="#"
+              class="px-12 py-5 bg-red-700 hover:bg-red-600 font-bold uppercase text-sm tracking-widest transition"
+              >Reservar Ahora</a
+            >
+            <a
+              href="tel:+5911234567"
+              class="px-12 py-5 border border-white/20 hover:border-red-500 font-bold uppercase text-sm tracking-widest transition flex items-center gap-2"
+            >
+              <i class="ti ti-phone"></i> LLAMAR
+            </a>
+          </div>
         </div>
+
+        <div
+          class="grid md:grid-cols-4 gap-12 text-left pt-12 border-t border-white/10"
+        >
+          <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+              <i class="ti ti-flame text-3xl text-red-600"></i>
+              <span class="text-2xl font-black uppercase"
+                >La Parrilla <span class="text-red-600">Boliviana</span></span
+              >
+            </div>
+            <p class="text-gray-500 max-w-sm">
+              La experiencia carnívora definitiva en Bolivia. Carne, leña y
+              pasión desde el corazón de la tierra.
+            </p>
+          </div>
+          <div>
+            <h5 class="font-bold uppercase mb-6 text-sm tracking-widest">
+              Visítanos
+            </h5>
+            <ul class="text-gray-500 space-y-4 text-sm">
+              <li>Av. San Martin #123</li>
+              <li>Equipetrol, Santa Cruz</li>
+              <li>Lun-Dom: 12:00 - 23:30</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-bold uppercase mb-6 text-sm tracking-widest">
+              Síguenos
+            </h5>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:text-white transition"
+                ><i class="ti ti-brand-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:text-white transition"
+                ><i class="ti ti-brand-facebook"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 hover:text-white transition"
+                ><i class="ti ti-brand-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <p class="mt-20 text-[10px] text-gray-700 uppercase tracking-widest">
+          © 2024 La Parrilla Boliviana - Todos los derechos reservados.
+        </p>
+      </div>
     </footer>
 
     <!-- Cart Sidebar Overlay -->
-    <div x-show="showCart" x-cloak class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm" @click.self="showCart = false">
-        <div class="absolute right-0 top-0 h-full w-full max-w-sm bg-[#0c0c0c] p-8 border-l border-white/10 shadow-2xl" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0">
-            <div class="flex justify-between items-center mb-12">
-                <h4 class="text-2xl font-black uppercase">Tu Comanda</h4>
-                <button @click="showCart = false" class="text-gray-500 hover:text-white"><i class="ti ti-x text-3xl"></i></button>
-            </div>
-            
-            <template x-if="cart === 0">
-                <div class="text-center py-20 opacity-30">
-                    <i class="ti ti-fridge text-6xl mb-4"></i>
-                    <p class="font-bold uppercase text-xs">Parrilla Vacía</p>
-                </div>
-            </template>
-
-            <template x-if="cart > 0">
-                <div class="space-y-6">
-                    <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10">
-                        <div>
-                            <p class="font-bold uppercase">Cortes Seleccionados</p>
-                            <p class="text-sm text-red-500" x-text="cart + ' cortes en camino'"></p>
-                        </div>
-                    </div>
-                    <button class="w-full py-4 bg-red-700 text-white font-black uppercase tracking-widest text-sm">Confirmar Reserva y Pedido</button>
-                    <button @click="cart = 0" class="w-full text-gray-600 hover:text-red-500 text-[10px] font-bold uppercase transition">Limpiar Pedido</button>
-                </div>
-            </template>
+    <div
+      x-show="showCart"
+      x-cloak
+      class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm"
+      @click.self="showCart = false"
+    >
+      <div
+        class="absolute right-0 top-0 h-full w-full max-w-sm bg-[#0c0c0c] p-8 border-l border-white/10 shadow-2xl"
+        x-transition:enter="transition ease-out duration-300 transform"
+        x-transition:enter-start="translate-x-full"
+        x-transition:enter-end="translate-x-0"
+      >
+        <div class="flex justify-between items-center mb-12">
+          <h4 class="text-2xl font-black uppercase">Tu Comanda</h4>
+          <button
+            @click="showCart = false"
+            class="text-gray-500 hover:text-white"
+          >
+            <i class="ti ti-x text-3xl"></i>
+          </button>
         </div>
-    </div>
 
-</body>
+        <template x-if="cart === 0">
+          <div class="text-center py-20 opacity-30">
+            <i class="ti ti-fridge text-6xl mb-4"></i>
+            <p class="font-bold uppercase text-xs">Parrilla Vacía</p>
+          </div>
+        </template>
+
+        <template x-if="cart > 0">
+          <div class="space-y-6">
+            <div
+              class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10"
+            >
+              <div>
+                <p class="font-bold uppercase">Cortes Seleccionados</p>
+                <p
+                  class="text-sm text-red-500"
+                  x-text="cart + ' cortes en camino'"
+                ></p>
+              </div>
+            </div>
+            <button
+              class="w-full py-4 bg-red-700 text-white font-black uppercase tracking-widest text-sm"
+            >
+              Confirmar Reserva y Pedido
+            </button>
+            <button
+              @click="cart = 0"
+              class="w-full text-gray-600 hover:text-red-500 text-[10px] font-bold uppercase transition"
+            >
+              Limpiar Pedido
+            </button>
+          </div>
+        </template>
+      </div>
+    </div>
+  </body>
 </html>

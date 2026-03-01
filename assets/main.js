@@ -1,5 +1,5 @@
-function appData() {
-  return {
+document.addEventListener("alpine:init", () => {
+  Alpine.data("appData", () => ({
     templates: [],
     modalOpen: false,
     selectedTemplate: { stats: {} },
@@ -428,5 +428,6 @@ function appData() {
       // Actualizar cada segundo
       setInterval(updateCountdown, 1000);
     },
-  };
-}
+  }));
+});
+

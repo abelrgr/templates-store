@@ -31,3 +31,11 @@ composer.lock
 # docs
 prompt.md
 reqs.md
+scripts/
+
+# packages
+node_modules/
+dist/
+package-lock.json
+bun.lock
+yarn.lock

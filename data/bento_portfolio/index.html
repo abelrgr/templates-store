@@ -1,275 +1,503 @@
-<!DOCTYPE html>
-<html lang="es" x-data="{ darkMode: true, mobileMenuOpen: false }" :class="{ 'dark': darkMode }">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html
+  lang="es"
+  x-data="{ darkMode: true, mobileMenuOpen: false }"
+  :class="{ 'dark': darkMode }"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portafolio | Bento Grid & Glassmorphism</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        bento: {
-                            bg: '#f4f4f5',
-                            darkBg: '#09090b',
-                            card: 'rgba(255, 255, 255, 0.7)',
-                            darkCard: 'rgba(39, 39, 42, 0.5)',
-                            accent: '#6366f1' // Indigo
-                        }
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              bento: {
+                bg: "#f4f4f5",
+                darkBg: "#09090b",
+                card: "rgba(255, 255, 255, 0.7)",
+                darkCard: "rgba(39, 39, 42, 0.5)",
+                accent: "#6366f1", // Indigo
+              },
+            },
+          },
+        },
+      };
     </script>
 
     <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
     <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
 
     <style>
-        html { scroll-behavior: smooth; }
-        body {
-            background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
-            background-attachment: fixed;
-        }
-        .dark body {
-            background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
-        }
-        /* Efecto Glassmorphism para las tarjetas Bento */
-        .bento-card {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .dark .bento-card {
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .bento-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
-        }
-        .dark .bento-card:hover {
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-        }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-image: radial-gradient(
+          circle at 50% 0%,
+          rgba(99, 102, 241, 0.1) 0%,
+          transparent 50%
+        );
+        background-attachment: fixed;
+      }
+      .dark body {
+        background-image: radial-gradient(
+          circle at 50% 0%,
+          rgba(99, 102, 241, 0.15) 0%,
+          transparent 50%
+        );
+      }
+      /* Efecto Glassmorphism para las tarjetas Bento */
+      .bento-card {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .dark .bento-card {
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .bento-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+      }
+      .dark .bento-card:hover {
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      }
     </style>
-</head>
-<body class="bg-bento-bg text-zinc-800 dark:bg-bento-darkBg dark:text-zinc-200 font-sans antialiased min-h-screen flex flex-col transition-colors duration-300">
-
+  </head>
+  <body
+    class="bg-bento-bg text-zinc-800 dark:bg-bento-darkBg dark:text-zinc-200 font-sans antialiased min-h-screen flex flex-col transition-colors duration-300"
+  >
     <!-- Navegación Flotante -->
-    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl bento-card bg-white/50 dark:bg-zinc-900/50 rounded-full px-6 py-3 flex justify-between items-center shadow-lg">
-        <a href="#" class="font-bold text-xl flex items-center gap-2">
-            <i class="ti ti-code text-bento-accent"></i> AR.
-        </a>
-        
-        <div class="hidden md:flex space-x-6 text-sm font-medium">
-            <a href="#inicio" class="hover:text-bento-accent transition">Inicio</a>
-            <a href="#proyectos" class="hover:text-bento-accent transition">Proyectos</a>
-            <a href="#blog" class="hover:text-bento-accent transition">Blog</a>
-            <a href="#contacto" class="hover:text-bento-accent transition">Contacto</a>
-        </div>
+    <nav
+      class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl bento-card bg-white/50 dark:bg-zinc-900/50 rounded-full px-6 py-3 flex justify-between items-center shadow-lg"
+    >
+      <a href="#" class="font-bold text-xl flex items-center gap-2">
+        <i class="ti ti-code text-bento-accent"></i> AR.
+      </a>
 
-        <div class="flex items-center gap-3">
-            <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
-                <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
-            </button>
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
-                <i class="ti ti-menu-2"></i>
-            </button>
-        </div>
+      <div class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="#inicio" class="hover:text-bento-accent transition">Inicio</a>
+        <a href="#proyectos" class="hover:text-bento-accent transition"
+          >Proyectos</a
+        >
+        <a href="#blog" class="hover:text-bento-accent transition">Blog</a>
+        <a href="#contacto" class="hover:text-bento-accent transition"
+          >Contacto</a
+        >
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button
+          @click="darkMode = !darkMode"
+          class="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
+        >
+          <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+        </button>
+        <button
+          @click="mobileMenuOpen = !mobileMenuOpen"
+          class="md:hidden p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
+        >
+          <i class="ti ti-menu-2"></i>
+        </button>
+      </div>
     </nav>
 
     <!-- Menú Móvil -->
-    <div x-show="mobileMenuOpen" x-transition class="fixed inset-0 z-40 bg-bento-bg/95 dark:bg-bento-darkBg/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8 text-2xl font-bold md:hidden">
-        <button @click="mobileMenuOpen = false" class="absolute top-6 right-6 p-2"><i class="ti ti-x text-3xl"></i></button>
-        <a href="#inicio" @click="mobileMenuOpen = false" class="hover:text-bento-accent">Inicio</a>
-        <a href="#proyectos" @click="mobileMenuOpen = false" class="hover:text-bento-accent">Proyectos</a>
-        <a href="#blog" @click="mobileMenuOpen = false" class="hover:text-bento-accent">Blog</a>
-        <a href="#contacto" @click="mobileMenuOpen = false" class="hover:text-bento-accent">Contacto</a>
+    <div
+      x-show="mobileMenuOpen"
+      x-transition
+      class="fixed inset-0 z-40 bg-bento-bg/95 dark:bg-bento-darkBg/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8 text-2xl font-bold md:hidden"
+    >
+      <button
+        @click="mobileMenuOpen = false"
+        class="absolute top-6 right-6 p-2"
+      >
+        <i class="ti ti-x text-3xl"></i>
+      </button>
+      <a
+        href="#inicio"
+        @click="mobileMenuOpen = false"
+        class="hover:text-bento-accent"
+        >Inicio</a
+      >
+      <a
+        href="#proyectos"
+        @click="mobileMenuOpen = false"
+        class="hover:text-bento-accent"
+        >Proyectos</a
+      >
+      <a
+        href="#blog"
+        @click="mobileMenuOpen = false"
+        class="hover:text-bento-accent"
+        >Blog</a
+      >
+      <a
+        href="#contacto"
+        @click="mobileMenuOpen = false"
+        class="hover:text-bento-accent"
+        >Contacto</a
+      >
     </div>
 
     <!-- Contenido Principal (Bento Grid) -->
     <main class="flex-grow pt-28 pb-12 px-4 max-w-6xl mx-auto w-full">
-        
-        <!-- Sección Inicio & Habilidades (Bento Layout) -->
-        <section id="inicio" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
-            
-            <!-- Hero Block (Ocupa 2 columnas) -->
-            <div class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-8 md:col-span-2 lg:col-span-2 flex flex-col justify-center relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-bento-accent/20 rounded-full blur-3xl -mr-10 -mt-10"></div>
-                <span class="text-sm font-semibold text-bento-accent mb-2 tracking-wider uppercase">Desarrollador Full Stack</span>
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">Hola, soy Abel. <br>Creo productos digitales.</h1>
-                <p class="opacity-80 mb-6 max-w-md">Especializado en ecosistemas JavaScript, diseño de interfaces limpias y arquitecturas escalables.</p>
-                <div class="flex gap-3 mt-auto">
-                    <a href="#contacto" class="bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-6 py-2.5 rounded-full font-medium hover:scale-105 transition text-sm">Contactar</a>
-                    <a href="#" class="bg-zinc-200 dark:bg-zinc-800 px-6 py-2.5 rounded-full font-medium hover:scale-105 transition text-sm flex items-center gap-2">
-                        <i class="ti ti-download"></i> CV
-                    </a>
+      <!-- Sección Inicio & Habilidades (Bento Layout) -->
+      <section
+        id="inicio"
+        class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4"
+      >
+        <!-- Hero Block (Ocupa 2 columnas) -->
+        <div
+          class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-8 md:col-span-2 lg:col-span-2 flex flex-col justify-center relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 w-32 h-32 bg-bento-accent/20 rounded-full blur-3xl -mr-10 -mt-10"
+          ></div>
+          <span
+            class="text-sm font-semibold text-bento-accent mb-2 tracking-wider uppercase"
+            >Desarrollador Full Stack</span
+          >
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            Hola, soy Jhon. <br />Creo productos digitales.
+          </h1>
+          <p class="opacity-80 mb-6 max-w-md">
+            Especializado en ecosistemas JavaScript, diseño de interfaces
+            limpias y arquitecturas escalables.
+          </p>
+          <div class="flex gap-3 mt-auto">
+            <a
+              href="#contacto"
+              class="bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-6 py-2.5 rounded-full font-medium hover:scale-105 transition text-sm"
+              >Contactar</a
+            >
+            <a
+              href="#"
+              class="bg-zinc-200 dark:bg-zinc-800 px-6 py-2.5 rounded-full font-medium hover:scale-105 transition text-sm flex items-center gap-2"
+            >
+              <i class="ti ti-download"></i> CV
+            </a>
+          </div>
+        </div>
+
+        <!-- Foto Block -->
+        <div
+          class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-2 md:col-span-1 lg:col-span-1 aspect-square md:aspect-auto"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="Abel"
+            class="w-full h-full object-cover rounded-[1.25rem]"
+          />
+        </div>
+
+        <!-- Skills Block (Bento Mini Grid) -->
+        <div
+          class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-6 md:col-span-3 lg:col-span-1 flex flex-col"
+        >
+          <h3 class="font-bold mb-4 flex items-center gap-2">
+            <i class="ti ti-cpu text-bento-accent"></i> Stack Principal
+          </h3>
+          <div class="grid grid-cols-3 gap-3 flex-grow">
+            <div
+              class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition"
+            >
+              <i class="ti ti-brand-react text-2xl text-cyan-500"></i>
+              <span class="text-[10px] mt-1 font-medium">React</span>
+            </div>
+            <div
+              class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition"
+            >
+              <i class="ti ti-brand-typescript text-2xl text-blue-500"></i>
+              <span class="text-[10px] mt-1 font-medium">TS</span>
+            </div>
+            <div
+              class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition"
+            >
+              <i class="ti ti-brand-tailwind text-2xl text-teal-400"></i>
+              <span class="text-[10px] mt-1 font-medium">Tailwind</span>
+            </div>
+            <div
+              class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition"
+            >
+              <i class="ti ti-brand-nodejs text-2xl text-green-500"></i>
+              <span class="text-[10px] mt-1 font-medium">Node</span>
+            </div>
+            <div
+              class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition"
+            >
+              <i class="ti ti-database text-2xl text-purple-500"></i>
+              <span class="text-[10px] mt-1 font-medium">SQL</span>
+            </div>
+            <div
+              class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition"
+            >
+              <i class="ti ti-brand-git text-2xl text-orange-500"></i>
+              <span class="text-[10px] mt-1 font-medium">Git</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección Proyectos (Grilla Tradicional dentro del ecosistema Bento) -->
+      <section id="proyectos" class="mb-4">
+        <div
+          class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-8"
+        >
+          <div class="flex justify-between items-end mb-8">
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+              <i class="ti ti-apps text-bento-accent"></i> Proyectos Destacados
+            </h2>
+            <a href="#" class="text-sm text-bento-accent hover:underline"
+              >Ver todos</a
+            >
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Proyecto 1 -->
+            <div
+              class="group relative rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Proyecto"
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-500"
+              />
+              <div class="p-5">
+                <h3 class="font-bold text-lg mb-1">Fintech Dashboard</h3>
+                <p class="text-sm opacity-70 mb-4 line-clamp-2">
+                  Panel administrativo para gestión de criptomonedas con
+                  gráficos en tiempo real.
+                </p>
+                <div class="flex justify-between items-center">
+                  <div class="flex gap-2">
+                    <span
+                      class="text-[10px] px-2 py-1 bg-white dark:bg-zinc-700 rounded-md font-medium"
+                      >Next.js</span
+                    >
+                    <span
+                      class="text-[10px] px-2 py-1 bg-white dark:bg-zinc-700 rounded-md font-medium"
+                      >Prisma</span
+                    >
+                  </div>
+                  <div class="flex gap-2">
+                    <a
+                      href="#"
+                      class="p-1.5 bg-white dark:bg-zinc-700 rounded-md hover:text-bento-accent transition"
+                      ><i class="ti ti-brand-github"></i
+                    ></a>
+                    <a
+                      href="#"
+                      class="p-1.5 bg-white dark:bg-zinc-700 rounded-md hover:text-bento-accent transition"
+                      ><i class="ti ti-external-link"></i
+                    ></a>
+                  </div>
                 </div>
+              </div>
             </div>
 
-            <!-- Foto Block -->
-            <div class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-2 md:col-span-1 lg:col-span-1 aspect-square md:aspect-auto">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Abel" class="w-full h-full object-cover rounded-[1.25rem]">
-            </div>
-
-            <!-- Skills Block (Bento Mini Grid) -->
-            <div class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-6 md:col-span-3 lg:col-span-1 flex flex-col">
-                <h3 class="font-bold mb-4 flex items-center gap-2"><i class="ti ti-cpu text-bento-accent"></i> Stack Principal</h3>
-                <div class="grid grid-cols-3 gap-3 flex-grow">
-                    <div class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition">
-                        <i class="ti ti-brand-react text-2xl text-cyan-500"></i>
-                        <span class="text-[10px] mt-1 font-medium">React</span>
-                    </div>
-                    <div class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition">
-                        <i class="ti ti-brand-typescript text-2xl text-blue-500"></i>
-                        <span class="text-[10px] mt-1 font-medium">TS</span>
-                    </div>
-                    <div class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition">
-                        <i class="ti ti-brand-tailwind text-2xl text-teal-400"></i>
-                        <span class="text-[10px] mt-1 font-medium">Tailwind</span>
-                    </div>
-                    <div class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition">
-                        <i class="ti ti-brand-nodejs text-2xl text-green-500"></i>
-                        <span class="text-[10px] mt-1 font-medium">Node</span>
-                    </div>
-                    <div class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition">
-                        <i class="ti ti-database text-2xl text-purple-500"></i>
-                        <span class="text-[10px] mt-1 font-medium">SQL</span>
-                    </div>
-                    <div class="flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-800/50 rounded-2xl p-2 hover:bg-bento-accent/10 transition">
-                        <i class="ti ti-brand-git text-2xl text-orange-500"></i>
-                        <span class="text-[10px] mt-1 font-medium">Git</span>
-                    </div>
+            <!-- Proyecto 2 -->
+            <div
+              class="group relative rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Proyecto"
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-500"
+              />
+              <div class="p-5">
+                <h3 class="font-bold text-lg mb-1">AI Content Generator</h3>
+                <p class="text-sm opacity-70 mb-4 line-clamp-2">
+                  Aplicación SaaS que utiliza la API de OpenAI para generar
+                  artículos optimizados para SEO.
+                </p>
+                <div class="flex justify-between items-center">
+                  <div class="flex gap-2">
+                    <span
+                      class="text-[10px] px-2 py-1 bg-white dark:bg-zinc-700 rounded-md font-medium"
+                      >Vue 3</span
+                    >
+                    <span
+                      class="text-[10px] px-2 py-1 bg-white dark:bg-zinc-700 rounded-md font-medium"
+                      >Tailwind</span
+                    >
+                  </div>
+                  <div class="flex gap-2">
+                    <a
+                      href="#"
+                      class="p-1.5 bg-white dark:bg-zinc-700 rounded-md hover:text-bento-accent transition"
+                      ><i class="ti ti-brand-github"></i
+                    ></a>
+                    <a
+                      href="#"
+                      class="p-1.5 bg-white dark:bg-zinc-700 rounded-md hover:text-bento-accent transition"
+                      ><i class="ti ti-external-link"></i
+                    ></a>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- Sección Proyectos (Grilla Tradicional dentro del ecosistema Bento) -->
-        <section id="proyectos" class="mb-4">
-            <div class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-8">
-                <div class="flex justify-between items-end mb-8">
-                    <h2 class="text-2xl font-bold flex items-center gap-2"><i class="ti ti-apps text-bento-accent"></i> Proyectos Destacados</h2>
-                    <a href="#" class="text-sm text-bento-accent hover:underline">Ver todos</a>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Proyecto 1 -->
-                    <div class="group relative rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50">
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Proyecto" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
-                        <div class="p-5">
-                            <h3 class="font-bold text-lg mb-1">Fintech Dashboard</h3>
-                            <p class="text-sm opacity-70 mb-4 line-clamp-2">Panel administrativo para gestión de criptomonedas con gráficos en tiempo real.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex gap-2">
-                                    <span class="text-[10px] px-2 py-1 bg-white dark:bg-zinc-700 rounded-md font-medium">Next.js</span>
-                                    <span class="text-[10px] px-2 py-1 bg-white dark:bg-zinc-700 rounded-md font-medium">Prisma</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <a href="#" class="p-1.5 bg-white dark:bg-zinc-700 rounded-md hover:text-bento-accent transition"><i class="ti ti-brand-github"></i></a>
-                                    <a href="#" class="p-1.5 bg-white dark:bg-zinc-700 rounded-md hover:text-bento-accent transition"><i class="ti ti-external-link"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <!-- Sección Inferior (Blog & Contacto en Bento) -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Blog Block -->
+        <div
+          id="blog"
+          class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-6 md:col-span-2"
+        >
+          <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+            <i class="ti ti-article text-bento-accent"></i> Notas Recientes
+          </h2>
+          <div class="space-y-4">
+            <a
+              href="#"
+              class="group flex items-center gap-4 p-3 rounded-2xl hover:bg-white/50 dark:hover:bg-zinc-800/50 transition"
+            >
+              <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                <img
+                  src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                  class="w-full h-full object-cover group-hover:scale-110 transition"
+                />
+              </div>
+              <div>
+                <h4
+                  class="font-bold text-sm group-hover:text-bento-accent transition"
+                >
+                  Arquitectura limpia en Frontend
+                </h4>
+                <p class="text-xs opacity-60 mt-1">
+                  Cómo organizar tus proyectos React para escalar sin dolor.
+                </p>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="group flex items-center gap-4 p-3 rounded-2xl hover:bg-white/50 dark:hover:bg-zinc-800/50 transition"
+            >
+              <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                <img
+                  src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                  class="w-full h-full object-cover group-hover:scale-110 transition"
+                />
+              </div>
+              <div>
+                <h4
+                  class="font-bold text-sm group-hover:text-bento-accent transition"
+                >
+                  Optimizando Web Vitals
+                </h4>
+                <p class="text-xs opacity-60 mt-1">
+                  Guía práctica para alcanzar el 100 en Lighthouse.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
 
-                    <!-- Proyecto 2 -->
-                    <div class="group relative rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Proyecto" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
-                        <div class="p-5">
-                            <h3 class="font-bold text-lg mb-1">AI Content Generator</h3>
-                            <p class="text-sm opacity-70 mb-4 line-clamp-2">Aplicación SaaS que utiliza la API de OpenAI para generar artículos optimizados para SEO.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex gap-2">
-                                    <span class="text-[10px] px-2 py-1 bg-white dark:bg-zinc-700 rounded-md font-medium">Vue 3</span>
-                                    <span class="text-[10px] px-2 py-1 bg-white dark:bg-zinc-700 rounded-md font-medium">Tailwind</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <a href="#" class="p-1.5 bg-white dark:bg-zinc-700 rounded-md hover:text-bento-accent transition"><i class="ti ti-brand-github"></i></a>
-                                    <a href="#" class="p-1.5 bg-white dark:bg-zinc-700 rounded-md hover:text-bento-accent transition"><i class="ti ti-external-link"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Contacto & Social Block -->
+        <div
+          id="contacto"
+          class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-6 flex flex-col"
+        >
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <i class="ti ti-mail text-bento-accent"></i> Contacto
+          </h2>
+          <p class="text-sm opacity-80 mb-6">
+            ¿Tienes un proyecto en mente? Envíame un mensaje directo.
+          </p>
+
+          <form
+            x-data="{ enviado: false }"
+            @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)"
+            class="space-y-3 mb-6"
+          >
+            <input
+              type="email"
+              placeholder="Tu correo"
+              required
+              class="w-full text-sm px-4 py-2.5 rounded-xl bg-white/50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:outline-none focus:border-bento-accent transition"
+            />
+            <textarea
+              placeholder="Mensaje"
+              rows="2"
+              required
+              class="w-full text-sm px-4 py-2.5 rounded-xl bg-white/50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:outline-none focus:border-bento-accent transition resize-none"
+            ></textarea>
+            <button
+              type="submit"
+              class="w-full bg-bento-accent text-white text-sm font-medium py-2.5 rounded-xl hover:opacity-90 transition"
+            >
+              <span x-show="!enviado">Enviar</span>
+              <span x-show="enviado" x-cloak
+                ><i class="ti ti-check"></i> Enviado</span
+              >
+            </button>
+          </form>
+
+          <div
+            class="mt-auto flex justify-between items-center pt-4 border-t border-zinc-200 dark:border-zinc-800"
+          >
+            <div class="flex gap-2">
+              <a
+                href="#"
+                class="p-2 bg-white/50 dark:bg-zinc-800/50 rounded-lg hover:text-bento-accent transition"
+                ><i class="ti ti-brand-github"></i
+              ></a>
+              <a
+                href="#"
+                class="p-2 bg-white/50 dark:bg-zinc-800/50 rounded-lg hover:text-bento-accent transition"
+                ><i class="ti ti-brand-linkedin"></i
+              ></a>
             </div>
-        </section>
-
-        <!-- Sección Inferior (Blog & Contacto en Bento) -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            <!-- Blog Block -->
-            <div id="blog" class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-6 md:col-span-2">
-                <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i class="ti ti-article text-bento-accent"></i> Notas Recientes</h2>
-                <div class="space-y-4">
-                    <a href="#" class="group flex items-center gap-4 p-3 rounded-2xl hover:bg-white/50 dark:hover:bg-zinc-800/50 transition">
-                        <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover group-hover:scale-110 transition">
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm group-hover:text-bento-accent transition">Arquitectura limpia en Frontend</h4>
-                            <p class="text-xs opacity-60 mt-1">Cómo organizar tus proyectos React para escalar sin dolor.</p>
-                        </div>
-                    </a>
-                    <a href="#" class="group flex items-center gap-4 p-3 rounded-2xl hover:bg-white/50 dark:hover:bg-zinc-800/50 transition">
-                        <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                            <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover group-hover:scale-110 transition">
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm group-hover:text-bento-accent transition">Optimizando Web Vitals</h4>
-                            <p class="text-xs opacity-60 mt-1">Guía práctica para alcanzar el 100 en Lighthouse.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Contacto & Social Block -->
-            <div id="contacto" class="bento-card bg-bento-card dark:bg-bento-darkCard rounded-3xl p-6 flex flex-col">
-                <h2 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="ti ti-mail text-bento-accent"></i> Contacto</h2>
-                <p class="text-sm opacity-80 mb-6">¿Tienes un proyecto en mente? Envíame un mensaje directo.</p>
-                
-                <form x-data="{ enviado: false }" @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)" class="space-y-3 mb-6">
-                    <input type="email" placeholder="Tu correo" required class="w-full text-sm px-4 py-2.5 rounded-xl bg-white/50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:outline-none focus:border-bento-accent transition">
-                    <textarea placeholder="Mensaje" rows="2" required class="w-full text-sm px-4 py-2.5 rounded-xl bg-white/50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:outline-none focus:border-bento-accent transition resize-none"></textarea>
-                    <button type="submit" class="w-full bg-bento-accent text-white text-sm font-medium py-2.5 rounded-xl hover:opacity-90 transition">
-                        <span x-show="!enviado">Enviar</span>
-                        <span x-show="enviado" x-cloak><i class="ti ti-check"></i> Enviado</span>
-                    </button>
-                </form>
-
-                <div class="mt-auto flex justify-between items-center pt-4 border-t border-zinc-200 dark:border-zinc-800">
-                    <div class="flex gap-2">
-                        <a href="#" class="p-2 bg-white/50 dark:bg-zinc-800/50 rounded-lg hover:text-bento-accent transition"><i class="ti ti-brand-github"></i></a>
-                        <a href="#" class="p-2 bg-white/50 dark:bg-zinc-800/50 rounded-lg hover:text-bento-accent transition"><i class="ti ti-brand-linkedin"></i></a>
-                    </div>
-                    <!-- Copiar Email -->
-                    <button x-data="{ copiado: false }" @click="navigator.clipboard.writeText('hello@abel.dev'); copiado = true; setTimeout(() => copiado = false, 2000)" class="text-xs font-medium flex items-center gap-1 hover:text-bento-accent transition">
-                        <span x-show="!copiado">Copiar Email</span>
-                        <span x-show="copiado" x-cloak class="text-green-500">¡Copiado!</span>
-                        <i class="ti ti-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-        </section>
+            <!-- Copiar Email -->
+            <button
+              x-data="{ copiado: false }"
+              @click="navigator.clipboard.writeText('hello@abel.dev'); copiado = true; setTimeout(() => copiado = false, 2000)"
+              class="text-xs font-medium flex items-center gap-1 hover:text-bento-accent transition"
+            >
+              <span x-show="!copiado">Copiar Email</span>
+              <span x-show="copiado" x-cloak class="text-green-500"
+                >¡Copiado!</span
+              >
+              <i class="ti ti-copy"></i>
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Footer -->
     <footer class="py-6 text-center text-xs opacity-60 mt-auto">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-            <p>&copy; 2026 Abel. Construido con HTML, Tailwind & Alpine.js.</p>
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-bento-accent transition">Privacidad</a>
-                <a href="#" class="hover:text-bento-accent transition">Términos</a>
-            </div>
+      <div
+        class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2"
+      >
+        <p>&copy; 2026 Abel. Construido con HTML, Tailwind & Alpine.js.</p>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-bento-accent transition">Privacidad</a>
+          <a href="#" class="hover:text-bento-accent transition">Términos</a>
         </div>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>

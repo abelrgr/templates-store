@@ -1,310 +1,555 @@
-<!DOCTYPE html>
-<html lang="en" x-data="{ year: '', make: '', model: '', searchMode: 'vehicle', activeTab: 'engine' }">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html
+  lang="en"
+  x-data="{ year: '', make: '', model: '', searchMode: 'vehicle', activeTab: 'engine' }"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Titan Auto Parts | Performance & OEM Spares</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Orbitron:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        titan: {
-                            black: '#121213',
-                            gray: '#1A1A1B',
-                            light: '#2D2D2E',
-                            blue: '#007BFF',
-                            accent: '#F39C12',
-                            danger: '#E74C3C',
-                            steel: '#AAB7B8'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Roboto Condensed', 'sans-serif'],
-                        tech: ['Orbitron', 'sans-serif'],
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              titan: {
+                black: "#121213",
+                gray: "#1A1A1B",
+                light: "#2D2D2E",
+                blue: "#007BFF",
+                accent: "#F39C12",
+                danger: "#E74C3C",
+                steel: "#AAB7B8",
+              },
+            },
+            fontFamily: {
+              sans: ["Roboto Condensed", "sans-serif"],
+              tech: ["Orbitron", "sans-serif"],
+            },
+          },
+        },
+      };
     </script>
     <style>
-        [x-cloak] { display: none !important; }
-        .grid-pattern {
-            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 0);
-            background-size: 24px 24px;
-        }
-        .skew-btn {
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-        }
+      [x-cloak] {
+        display: none !important;
+      }
+      .grid-pattern {
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.05) 1px,
+          transparent 0
+        );
+        background-size: 24px 24px;
+      }
+      .skew-btn {
+        clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+      }
     </style>
-</head>
-<body class="bg-titan-black text-white font-sans selection:bg-titan-blue selection:text-white">
-
+  </head>
+  <body
+    class="bg-titan-black text-white font-sans selection:bg-titan-blue selection:text-white"
+  >
     <!-- Top Utility Bar -->
-    <div class="bg-titan-blue py-2 px-6 flex justify-between items-center text-[10px] font-bold uppercase tracking-wider">
-        <div class="flex gap-6">
-            <span>Free Store Pickup in 2 Hours</span>
-            <span>24/7 Tech Support: 1-800-TITAN-X</span>
-        </div>
-        <div class="flex gap-4">
-            <a href="#" class="hover:text-black transition">Track Order</a>
-            <a href="#" class="hover:text-black transition">Find a Location</a>
-        </div>
+    <div
+      class="bg-titan-blue py-2 px-6 flex justify-between items-center text-[10px] font-bold uppercase tracking-wider"
+    >
+      <div class="flex gap-6">
+        <span>Free Store Pickup in 2 Hours</span>
+        <span>24/7 Tech Support: 1-800-TITAN-X</span>
+      </div>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-black transition">Track Order</a>
+        <a href="#" class="hover:text-black transition">Find a Location</a>
+      </div>
     </div>
 
     <!-- Main Navigation -->
     <nav class="bg-titan-gray border-b border-white/5 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-10">
-                <a href="#" class="flex items-center gap-2">
-                    <div class="bg-white p-1 rounded-sm">
-                        <i class="ti ti-settings-automation text-titan-black text-2xl"></i>
-                    </div>
-                    <span class="font-tech text-2xl tracking-tighter">TITAN<span class="text-titan-blue">AUTO</span></span>
-                </a>
-                
-                <div class="hidden lg:flex gap-6 uppercase text-sm font-bold opacity-70">
-                    <a href="#" class="hover:text-titan-blue transition">Performance</a>
-                    <a href="#" class="hover:text-titan-blue transition">Engine</a>
-                    <a href="#" class="hover:text-titan-blue transition">Exterior</a>
-                    <a href="#" class="hover:text-titan-blue transition">Interior</a>
-                    <a href="#" class="hover:text-titan-blue transition">Tools</a>
-                </div>
+      <div
+        class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-10">
+          <a href="#" class="flex items-center gap-2">
+            <div class="bg-white p-1 rounded-sm">
+              <i
+                class="ti ti-settings-automation text-titan-black text-2xl"
+              ></i>
             </div>
+            <span class="font-tech text-2xl tracking-tighter"
+              >TITAN<span class="text-titan-blue">AUTO</span></span
+            >
+          </a>
 
-            <div class="flex items-center gap-6">
-                <div class="relative hidden md:block">
-                    <input type="text" placeholder="Search by SKU or OE Part #..." class="bg-titan-light border-none rounded-sm px-4 py-2 w-64 text-sm focus:ring-2 focus:ring-titan-blue">
-                    <i class="ti ti-search absolute right-3 top-2.5 opacity-40"></i>
-                </div>
-                <div class="flex gap-5 text-xl">
-                    <div class="relative cursor-pointer group">
-                        <i class="ti ti-user-circle"></i>
-                        <span class="absolute top-full right-0 mt-2 bg-titan-gray border border-white/10 p-4 text-xs w-48 hidden group-hover:block shadow-2xl">
-                            Log in to see your <span class="text-titan-blue">Titan Garage</span>
-                        </span>
-                    </div>
-                    <div class="relative cursor-pointer">
-                        <i class="ti ti-shopping-cart"></i>
-                        <span class="absolute -top-2 -right-2 bg-titan-danger text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold">0</span>
-                    </div>
-                </div>
-            </div>
+          <div
+            class="hidden lg:flex gap-6 uppercase text-sm font-bold opacity-70"
+          >
+            <a href="#" class="hover:text-titan-blue transition">Performance</a>
+            <a href="#" class="hover:text-titan-blue transition">Engine</a>
+            <a href="#" class="hover:text-titan-blue transition">Exterior</a>
+            <a href="#" class="hover:text-titan-blue transition">Interior</a>
+            <a href="#" class="hover:text-titan-blue transition">Tools</a>
+          </div>
         </div>
+
+        <div class="flex items-center gap-6">
+          <div class="relative hidden md:block">
+            <input
+              type="text"
+              placeholder="Search by SKU or OE Part #..."
+              class="bg-titan-light border-none rounded-sm px-4 py-2 w-64 text-sm focus:ring-2 focus:ring-titan-blue"
+            />
+            <i class="ti ti-search absolute right-3 top-2.5 opacity-40"></i>
+          </div>
+          <div class="flex gap-5 text-xl">
+            <div class="relative cursor-pointer group">
+              <i class="ti ti-user-circle"></i>
+              <span
+                class="absolute top-full right-0 mt-2 bg-titan-gray border border-white/10 p-4 text-xs w-48 hidden group-hover:block shadow-2xl"
+              >
+                Log in to see your
+                <span class="text-titan-blue">Titan Garage</span>
+              </span>
+            </div>
+            <div class="relative cursor-pointer">
+              <i class="ti ti-shopping-cart"></i>
+              <span
+                class="absolute -top-2 -right-2 bg-titan-danger text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold"
+                >0</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
 
     <!-- Search/Filter Hero -->
-    <section class="relative py-20 overflow-hidden bg-titan-gray grid-pattern border-b border-titan-blue/20">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-                <h1 class="text-5xl lg:text-7xl font-tech uppercase italic leading-tight mb-8">
-                    Engineered for <br>
-                    <span class="text-titan-blue">Peak Performance.</span>
-                </h1>
-                
-                <div class="bg-titan-light border border-white/10 p-1 rounded-sm inline-flex mb-8">
-                    <button @click="searchMode = 'vehicle'" :class="searchMode === 'vehicle' ? 'bg-titan-blue' : ''" class="px-6 py-2 text-xs font-bold uppercase transition">My Vehicle</button>
-                    <button @click="searchMode = 'part'" :class="searchMode === 'part' ? 'bg-titan-blue' : ''" class="px-6 py-2 text-xs font-bold uppercase transition">Part Number</button>
-                    <button @click="searchMode = 'vin'" :class="searchMode === 'vin' ? 'bg-titan-blue' : ''" class="px-6 py-2 text-xs font-bold uppercase transition">VIN Search</button>
-                </div>
+    <section
+      class="relative py-20 overflow-hidden bg-titan-gray grid-pattern border-b border-titan-blue/20"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center"
+      >
+        <div>
+          <h1
+            class="text-5xl lg:text-7xl font-tech uppercase italic leading-tight mb-8"
+          >
+            Engineered for <br />
+            <span class="text-titan-blue">Peak Performance.</span>
+          </h1>
 
-                <!-- Vehicle Selector -->
-                <div x-show="searchMode === 'vehicle'" class="grid grid-cols-3 gap-3 mb-8">
-                    <select x-model="year" class="bg-titan-black border border-white/20 p-4 text-sm font-bold focus:border-titan-blue outline-none">
-                        <option value="">Year</option>
-                        <option>2024</option><option>2023</option><option>2022</option>
-                    </select>
-                    <select x-model="make" class="bg-titan-black border border-white/20 p-4 text-sm font-bold focus:border-titan-blue outline-none">
-                        <option value="">Make</option>
-                        <option>Toyota</option><option>Ford</option><option>BMW</option>
-                    </select>
-                    <select x-model="model" class="bg-titan-black border border-white/20 p-4 text-sm font-bold focus:border-titan-blue outline-none">
-                        <option value="">Model</option>
-                        <option>RAV4</option><option>F-150</option><option>M3</option>
-                    </select>
-                </div>
+          <div
+            class="bg-titan-light border border-white/10 p-1 rounded-sm inline-flex mb-8"
+          >
+            <button
+              @click="searchMode = 'vehicle'"
+              :class="searchMode === 'vehicle' ? 'bg-titan-blue' : ''"
+              class="px-6 py-2 text-xs font-bold uppercase transition"
+            >
+              My Vehicle
+            </button>
+            <button
+              @click="searchMode = 'part'"
+              :class="searchMode === 'part' ? 'bg-titan-blue' : ''"
+              class="px-6 py-2 text-xs font-bold uppercase transition"
+            >
+              Part Number
+            </button>
+            <button
+              @click="searchMode = 'vin'"
+              :class="searchMode === 'vin' ? 'bg-titan-blue' : ''"
+              class="px-6 py-2 text-xs font-bold uppercase transition"
+            >
+              VIN Search
+            </button>
+          </div>
 
-                <div x-show="searchMode === 'part'" class="mb-8">
-                    <input type="text" placeholder="Enter Part, SKU, or Keyword..." class="w-full bg-titan-black border border-white/20 p-4 text-sm font-bold focus:border-titan-blue outline-none">
-                </div>
+          <!-- Vehicle Selector -->
+          <div
+            x-show="searchMode === 'vehicle'"
+            class="grid grid-cols-3 gap-3 mb-8"
+          >
+            <select
+              x-model="year"
+              class="bg-titan-black border border-white/20 p-4 text-sm font-bold focus:border-titan-blue outline-none"
+            >
+              <option value="">Year</option>
+              <option>2024</option>
+              <option>2023</option>
+              <option>2022</option>
+            </select>
+            <select
+              x-model="make"
+              class="bg-titan-black border border-white/20 p-4 text-sm font-bold focus:border-titan-blue outline-none"
+            >
+              <option value="">Make</option>
+              <option>Toyota</option>
+              <option>Ford</option>
+              <option>BMW</option>
+            </select>
+            <select
+              x-model="model"
+              class="bg-titan-black border border-white/20 p-4 text-sm font-bold focus:border-titan-blue outline-none"
+            >
+              <option value="">Model</option>
+              <option>RAV4</option>
+              <option>F-150</option>
+              <option>M3</option>
+            </select>
+          </div>
 
-                <button class="w-full bg-titan-blue py-5 text-sm font-tech uppercase skew-x-[-15deg] hover:bg-white hover:text-titan-blue transition duration-300">
-                    <span class="skew-x-[15deg] inline-block">Find Matching Parts</span>
-                </button>
-            </div>
+          <div x-show="searchMode === 'part'" class="mb-8">
+            <input
+              type="text"
+              placeholder="Enter Part, SKU, or Keyword..."
+              class="w-full bg-titan-black border border-white/20 p-4 text-sm font-bold focus:border-titan-blue outline-none"
+            />
+          </div>
 
-            <div class="relative hidden lg:block">
-                <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80&w=800" class="rounded-sm opacity-60 grayscale hover:grayscale-0 transition duration-1000" alt="Brake parts">
-                <div class="absolute -top-4 -left-4 bg-titan-blue px-6 py-3 font-tech text-xs italic">OFFICIAL EQUIPMENT PARTNER</div>
-                <div class="absolute bottom-4 right-4 bg-titan-danger px-8 py-4 font-tech text-xl italic uppercase">30% OFF BREMBO</div>
-            </div>
+          <button
+            class="w-full bg-titan-blue py-5 text-sm font-tech uppercase skew-x-[-15deg] hover:bg-white hover:text-titan-blue transition duration-300"
+          >
+            <span class="skew-x-[15deg] inline-block">Find Matching Parts</span>
+          </button>
         </div>
+
+        <div class="relative hidden lg:block">
+          <img
+            src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80&w=800"
+            class="rounded-sm opacity-60 grayscale hover:grayscale-0 transition duration-1000"
+            alt="Brake parts"
+          />
+          <div
+            class="absolute -top-4 -left-4 bg-titan-blue px-6 py-3 font-tech text-xs italic"
+          >
+            OFFICIAL EQUIPMENT PARTNER
+          </div>
+          <div
+            class="absolute bottom-4 right-4 bg-titan-danger px-8 py-4 font-tech text-xl italic uppercase"
+          >
+            30% OFF BREMBO
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Categories Grid -->
     <section class="py-20 max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-12">
-            <h2 class="text-2xl font-tech uppercase">Shop by System</h2>
-            <a href="#" class="text-xs font-bold text-titan-blue uppercase tracking-widest hover:underline">View All Systems</a>
-        </div>
+      <div class="flex items-center justify-between mb-12">
+        <h2 class="text-2xl font-tech uppercase">Shop by System</h2>
+        <a
+          href="#"
+          class="text-xs font-bold text-titan-blue uppercase tracking-widest hover:underline"
+          >View All Systems</a
+        >
+      </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <!-- Category Box -->
-            <template x-for="cat in ['Brakes', 'Suspension', 'Ignition', 'Drive Train', 'Sensors', 'Turbo']">
-                <div class="bg-titan-gray border border-white/5 p-8 flex flex-col items-center gap-4 hover:border-titan-blue group cursor-pointer transition">
-                    <div class="w-16 h-16 bg-titan-light rounded-full flex items-center justify-center text-3xl opacity-60 group-hover:opacity-100 group-hover:text-titan-blue transition">
-                        <i class="ti ti-components"></i>
-                    </div>
-                    <span class="text-xs font-bold uppercase tracking-widest text-center" x-text="cat"></span>
-                </div>
-            </template>
-        </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <!-- Category Box -->
+        <template
+          x-for="cat in ['Brakes', 'Suspension', 'Ignition', 'Drive Train', 'Sensors', 'Turbo']"
+        >
+          <div
+            class="bg-titan-gray border border-white/5 p-8 flex flex-col items-center gap-4 hover:border-titan-blue group cursor-pointer transition"
+          >
+            <div
+              class="w-16 h-16 bg-titan-light rounded-full flex items-center justify-center text-3xl opacity-60 group-hover:opacity-100 group-hover:text-titan-blue transition"
+            >
+              <i class="ti ti-components"></i>
+            </div>
+            <span
+              class="text-xs font-bold uppercase tracking-widest text-center"
+              x-text="cat"
+            ></span>
+          </div>
+        </template>
+      </div>
     </section>
 
     <!-- Featured Products -->
     <section class="py-20 bg-titan-gray border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex gap-8 border-b border-white/5 mb-12 overflow-x-auto no-scrollbar">
-                <button @click="activeTab = 'engine'" :class="activeTab === 'engine' ? 'border-b-2 border-titan-blue text-titan-blue' : 'opacity-40'" class="pb-4 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Engine Performance</button>
-                <button @click="activeTab = 'tools'" :class="activeTab === 'tools' ? 'border-b-2 border-titan-blue text-titan-blue' : 'opacity-40'" class="pb-4 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Professional Tools</button>
-                <button @click="activeTab = 'fluids'" :class="activeTab === 'fluids' ? 'border-b-2 border-titan-blue text-titan-blue' : 'opacity-40'" class="pb-4 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Fluids & Filtration</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Product 1 -->
-                <div class="bg-titan-black border border-white/5 p-6 rounded-sm group relative">
-                    <div class="absolute top-4 right-4 bg-titan-accent text-black text-[10px] font-bold px-2 py-1 uppercase">Limited Stock</div>
-                    <img src="https://images.unsplash.com/photo-1620831633513-fa6c8d76d654?auto=format&fit=crop&q=80&w=600" class="w-full h-48 object-contain mb-6 opacity-80 group-hover:opacity-100 transition" alt="Turbo">
-                    <div class="space-y-2">
-                        <p class="text-[10px] font-bold text-titan-blue uppercase">Garrett Performance</p>
-                        <h3 class="font-bold text-sm leading-tight h-10 group-hover:text-titan-blue transition">GTX3071R Gen II Ball Bearing Turbocharger</h3>
-                        <div class="flex items-center gap-2 text-xs opacity-60">
-                            <i class="ti ti-check text-green-500"></i> Guaranteed to fit 2.0L Turbo
-                        </div>
-                        <div class="flex justify-between items-end pt-4">
-                            <div class="text-xl font-tech">$1,850.00</div>
-                            <button class="bg-titan-blue p-2 rounded-sm hover:bg-white hover:text-titan-blue transition"><i class="ti ti-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="bg-titan-black border border-white/5 p-6 rounded-sm group relative">
-                    <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=600" class="w-full h-48 object-contain mb-6 opacity-80" alt="Brakes">
-                    <div class="space-y-2">
-                        <p class="text-[10px] font-bold text-titan-blue uppercase">Akebono Brakes</p>
-                        <h3 class="font-bold text-sm leading-tight h-10">ProACT Ultra-Premium Ceramic Brake Pad Set</h3>
-                        <div class="flex items-center gap-2 text-xs opacity-60">
-                            <i class="ti ti-check text-green-500"></i> Low Dust Formula
-                        </div>
-                        <div class="flex justify-between items-end pt-4">
-                            <div class="text-xl font-tech">$89.95</div>
-                            <button class="bg-titan-blue p-2 rounded-sm"><i class="ti ti-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="bg-titan-black border border-white/5 p-6 rounded-sm group relative">
-                    <img src="https://images.unsplash.com/photo-1597893110543-a60d0322c36a?auto=format&fit=crop&q=80&w=600" class="w-full h-48 object-contain mb-6 opacity-80" alt="Oil">
-                    <div class="space-y-2">
-                        <p class="text-[10px] font-bold text-titan-blue uppercase">Castrol High Mileage</p>
-                        <h3 class="font-bold text-sm leading-tight h-10">GTX High Mileage 5W-30 Full Synthetic - 5qt</h3>
-                        <div class="flex items-center gap-2 text-xs opacity-60">
-                            <i class="ti ti-circle-x text-titan-danger"></i> Not for Current Vehicle
-                        </div>
-                        <div class="flex justify-between items-end pt-4">
-                            <div class="text-xl font-tech">$34.50</div>
-                            <button class="bg-titan-blue p-2 rounded-sm"><i class="ti ti-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="bg-titan-black border border-white/5 p-6 rounded-sm group relative">
-                    <div class="absolute inset-0 bg-titan-blue/10 border-2 border-titan-blue flex flex-col items-center justify-center p-8 text-center backdrop-blur-sm">
-                        <i class="ti ti-garage text-5xl mb-4"></i>
-                        <h4 class="font-tech text-lg uppercase mb-2">Build Your Garage</h4>
-                        <p class="text-xs opacity-70 mb-6">Add your vehicles to see only the parts that fit.</p>
-                        <button class="bg-white text-titan-blue px-6 py-3 text-xs font-bold uppercase rounded-sm">Add Vehicle</button>
-                    </div>
-                </div>
-            </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div
+          class="flex gap-8 border-b border-white/5 mb-12 overflow-x-auto no-scrollbar"
+        >
+          <button
+            @click="activeTab = 'engine'"
+            :class="activeTab === 'engine' ? 'border-b-2 border-titan-blue text-titan-blue' : 'opacity-40'"
+            class="pb-4 text-xs font-bold uppercase tracking-widest whitespace-nowrap"
+          >
+            Engine Performance
+          </button>
+          <button
+            @click="activeTab = 'tools'"
+            :class="activeTab === 'tools' ? 'border-b-2 border-titan-blue text-titan-blue' : 'opacity-40'"
+            class="pb-4 text-xs font-bold uppercase tracking-widest whitespace-nowrap"
+          >
+            Professional Tools
+          </button>
+          <button
+            @click="activeTab = 'fluids'"
+            :class="activeTab === 'fluids' ? 'border-b-2 border-titan-blue text-titan-blue' : 'opacity-40'"
+            class="pb-4 text-xs font-bold uppercase tracking-widest whitespace-nowrap"
+          >
+            Fluids & Filtration
+          </button>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Product 1 -->
+          <div
+            class="bg-titan-black border border-white/5 p-6 rounded-sm group relative"
+          >
+            <div
+              class="absolute top-4 right-4 bg-titan-accent text-black text-[10px] font-bold px-2 py-1 uppercase"
+            >
+              Limited Stock
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1619022975927-b37c4982cc49?auto=format&fit=crop&q=80&w=600"
+              class="w-full h-48 object-contain mb-6 opacity-80 group-hover:opacity-100 transition"
+              alt="Turbo"
+            />
+            <div class="space-y-2">
+              <p class="text-[10px] font-bold text-titan-blue uppercase">
+                Garrett Performance
+              </p>
+              <h3
+                class="font-bold text-sm leading-tight h-10 group-hover:text-titan-blue transition"
+              >
+                GTX3071R Gen II Ball Bearing Turbocharger
+              </h3>
+              <div class="flex items-center gap-2 text-xs opacity-60">
+                <i class="ti ti-check text-green-500"></i> Guaranteed to fit
+                2.0L Turbo
+              </div>
+              <div class="flex justify-between items-end pt-4">
+                <div class="text-xl font-tech">$1,850.00</div>
+                <button
+                  class="bg-titan-blue p-2 rounded-sm hover:bg-white hover:text-titan-blue transition"
+                >
+                  <i class="ti ti-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div
+            class="bg-titan-black border border-white/5 p-6 rounded-sm group relative"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=600"
+              class="w-full h-48 object-contain mb-6 opacity-80"
+              alt="Brakes"
+            />
+            <div class="space-y-2">
+              <p class="text-[10px] font-bold text-titan-blue uppercase">
+                Akebono Brakes
+              </p>
+              <h3 class="font-bold text-sm leading-tight h-10">
+                ProACT Ultra-Premium Ceramic Brake Pad Set
+              </h3>
+              <div class="flex items-center gap-2 text-xs opacity-60">
+                <i class="ti ti-check text-green-500"></i> Low Dust Formula
+              </div>
+              <div class="flex justify-between items-end pt-4">
+                <div class="text-xl font-tech">$89.95</div>
+                <button class="bg-titan-blue p-2 rounded-sm">
+                  <i class="ti ti-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div
+            class="bg-titan-black border border-white/5 p-6 rounded-sm group relative"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1590227763209-821c686b932f?auto=format&fit=crop&q=80&w=600"
+              class="w-full h-48 object-contain mb-6 opacity-80"
+              alt="Oil"
+            />
+            <div class="space-y-2">
+              <p class="text-[10px] font-bold text-titan-blue uppercase">
+                Castrol High Mileage
+              </p>
+              <h3 class="font-bold text-sm leading-tight h-10">
+                GTX High Mileage 5W-30 Full Synthetic - 5qt
+              </h3>
+              <div class="flex items-center gap-2 text-xs opacity-60">
+                <i class="ti ti-circle-x text-titan-danger"></i> Not for Current
+                Vehicle
+              </div>
+              <div class="flex justify-between items-end pt-4">
+                <div class="text-xl font-tech">$34.50</div>
+                <button class="bg-titan-blue p-2 rounded-sm">
+                  <i class="ti ti-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div
+            class="bg-titan-black border border-white/5 p-6 rounded-sm group relative"
+          >
+            <div
+              class="absolute inset-0 bg-titan-blue/10 border-2 border-titan-blue flex flex-col items-center justify-center p-8 text-center backdrop-blur-sm"
+            >
+              <i class="ti ti-garage text-5xl mb-4"></i>
+              <h4 class="font-tech text-lg uppercase mb-2">
+                Build Your Garage
+              </h4>
+              <p class="text-xs opacity-70 mb-6">
+                Add your vehicles to see only the parts that fit.
+              </p>
+              <button
+                class="bg-white text-titan-blue px-6 py-3 text-xs font-bold uppercase rounded-sm"
+              >
+                Add Vehicle
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Brands Carousel Section -->
     <div class="py-12 bg-titan-black border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 overflow-hidden relative">
-            <div class="flex gap-20 items-center justify-between opacity-30 grayscale saturate-0 overflow-x-auto no-scrollbar">
-                <span class="text-2xl font-tech">BREMBO</span>
-                <span class="text-2xl font-tech">DENSO</span>
-                <span class="text-2xl font-tech">BOSCH</span>
-                <span class="text-2xl font-tech">CASTROL</span>
-                <span class="text-2xl font-tech">K&N</span>
-                <span class="text-2xl font-tech">MOBIL 1</span>
-            </div>
+      <div class="max-w-7xl mx-auto px-6 overflow-hidden relative">
+        <div
+          class="flex gap-20 items-center justify-between opacity-30 grayscale saturate-0 overflow-x-auto no-scrollbar"
+        >
+          <span class="text-2xl font-tech">BREMBO</span>
+          <span class="text-2xl font-tech">DENSO</span>
+          <span class="text-2xl font-tech">BOSCH</span>
+          <span class="text-2xl font-tech">CASTROL</span>
+          <span class="text-2xl font-tech">K&N</span>
+          <span class="text-2xl font-tech">MOBIL 1</span>
         </div>
+      </div>
     </div>
 
     <!-- Footer -->
     <footer class="bg-titan-gray py-24 px-6">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
-            <div>
-                <a href="#" class="flex items-center gap-2 mb-8">
-                    <span class="font-tech text-2xl tracking-tighter">TITAN<span class="text-titan-blue">AUTO</span></span>
-                </a>
-                <p class="text-sm text-titan-steel leading-relaxed mb-8">Professional automotive intelligence for performance seekers and daily commuters alike.</p>
-                <div class="flex gap-4">
-                    <i class="ti ti-brand-youtube text-2xl hover:text-titan-blue cursor-pointer"></i>
-                    <i class="ti ti-brand-instagram text-2xl hover:text-titan-blue cursor-pointer"></i>
-                    <i class="ti ti-brand-x text-2xl hover:text-titan-blue cursor-pointer"></i>
-                </div>
-            </div>
-
-            <div>
-                <h4 class="font-tech text-xs uppercase mb-8 text-titan-blue">Service Hub</h4>
-                <ul class="space-y-4 text-xs font-bold uppercase tracking-wider text-titan-steel">
-                    <li><a href="#" class="hover:text-white transition">Schedule Service</a></li>
-                    <li><a href="#" class="hover:text-white transition">Find parts for VIN</a></li>
-                    <li><a href="#" class="hover:text-white transition">Rebate Center</a></li>
-                    <li><a href="#" class="hover:text-white transition">Returns Policy</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="font-tech text-xs uppercase mb-8 text-titan-blue">Titan Garage</h4>
-                <ul class="space-y-4 text-xs font-bold uppercase tracking-wider text-titan-steel">
-                    <li><a href="#" class="hover:text-white transition">My Vehicles</a></li>
-                    <li><a href="#" class="hover:text-white transition">Wish List</a></li>
-                    <li><a href="#" class="hover:text-white transition">My Rewards</a></li>
-                    <li><a href="#" class="hover:text-white transition">Order History</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="font-tech text-xs uppercase mb-8 text-titan-blue">VIP Program</h4>
-                <p class="text-xs text-titan-steel mb-6">Get 10% off your first order plus early access to holiday sales.</p>
-                <form class="flex gap-2">
-                    <input type="email" placeholder="Email" class="bg-titan-black border border-white/10 px-4 py-2 text-xs flex-1">
-                    <button class="bg-titan-blue px-4 py-2 text-xs font-bold uppercase">Join</button>
-                </form>
-            </div>
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16"
+      >
+        <div>
+          <a href="#" class="flex items-center gap-2 mb-8">
+            <span class="font-tech text-2xl tracking-tighter"
+              >TITAN<span class="text-titan-blue">AUTO</span></span
+            >
+          </a>
+          <p class="text-sm text-titan-steel leading-relaxed mb-8">
+            Professional automotive intelligence for performance seekers and
+            daily commuters alike.
+          </p>
+          <div class="flex gap-4">
+            <i
+              class="ti ti-brand-youtube text-2xl hover:text-titan-blue cursor-pointer"
+            ></i>
+            <i
+              class="ti ti-brand-instagram text-2xl hover:text-titan-blue cursor-pointer"
+            ></i>
+            <i
+              class="ti ti-brand-x text-2xl hover:text-titan-blue cursor-pointer"
+            ></i>
+          </div>
         </div>
 
-        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] font-bold text-titan-steel uppercase tracking-widest">
-            <p>&copy; 2024 Titan Auto Parts - All rights reserved.</p>
-            <div class="flex gap-8 mt-4 md:mt-0">
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Sitemap</a>
-            </div>
+        <div>
+          <h4 class="font-tech text-xs uppercase mb-8 text-titan-blue">
+            Service Hub
+          </h4>
+          <ul
+            class="space-y-4 text-xs font-bold uppercase tracking-wider text-titan-steel"
+          >
+            <li>
+              <a href="#" class="hover:text-white transition"
+                >Schedule Service</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition"
+                >Find parts for VIN</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Rebate Center</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Returns Policy</a>
+            </li>
+          </ul>
         </div>
+
+        <div>
+          <h4 class="font-tech text-xs uppercase mb-8 text-titan-blue">
+            Titan Garage
+          </h4>
+          <ul
+            class="space-y-4 text-xs font-bold uppercase tracking-wider text-titan-steel"
+          >
+            <li>
+              <a href="#" class="hover:text-white transition">My Vehicles</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Wish List</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">My Rewards</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Order History</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-tech text-xs uppercase mb-8 text-titan-blue">
+            VIP Program
+          </h4>
+          <p class="text-xs text-titan-steel mb-6">
+            Get 10% off your first order plus early access to holiday sales.
+          </p>
+          <form class="flex gap-2">
+            <input
+              type="email"
+              placeholder="Email"
+              class="bg-titan-black border border-white/10 px-4 py-2 text-xs flex-1"
+            />
+            <button class="bg-titan-blue px-4 py-2 text-xs font-bold uppercase">
+              Join
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] font-bold text-titan-steel uppercase tracking-widest"
+      >
+        <p>&copy; 2024 Titan Auto Parts - All rights reserved.</p>
+        <div class="flex gap-8 mt-4 md:mt-0">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>

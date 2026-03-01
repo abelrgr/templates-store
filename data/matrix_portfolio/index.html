@@ -1,224 +1,357 @@
-<!DOCTYPE html>
-<html lang="es" x-data="{ darkMode: true, mobileMenuOpen: false }" :class="{ 'dark': darkMode }">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html
+  lang="es"
+  x-data="{ darkMode: true, mobileMenuOpen: false }"
+  :class="{ 'dark': darkMode }"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portafolio | Matrix / Green Phosphor</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        mono: ['Courier Prime', 'monospace'],
-                    },
-                    colors: {
-                        matrix: {
-                            bg: '#000000',
-                            green: '#00ff41',
-                            darkGreen: '#008f11',
-                            lightGreen: '#b3ffb3'
-                        }
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              mono: ["Courier Prime", "monospace"],
+            },
+            colors: {
+              matrix: {
+                bg: "#000000",
+                green: "#00ff41",
+                darkGreen: "#008f11",
+                lightGreen: "#b3ffb3",
+              },
+            },
+          },
+        },
+      };
     </script>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
 
     <style>
-        html { scroll-behavior: smooth; }
-        body {
-            background-color: #000000;
-            text-shadow: 0 0 5px #00ff41;
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-color: #000000;
+        text-shadow: 0 0 5px #00ff41;
+      }
+      /* Efecto lluvia Matrix de fondo (CSS puro simplificado) */
+      .matrix-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        background: repeating-linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 255, 65, 0.03) 50%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        background-size: 100% 4px;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .matrix-border {
+        border: 1px solid #00ff41;
+        box-shadow:
+          0 0 10px rgba(0, 255, 65, 0.2),
+          inset 0 0 10px rgba(0, 255, 65, 0.2);
+      }
+      .typewriter {
+        overflow: hidden;
+        border-right: 0.15em solid #00ff41;
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: 0.15em;
+        animation:
+          typing 3.5s steps(40, end),
+          blink-caret 0.75s step-end infinite;
+      }
+      @keyframes typing {
+        from {
+          width: 0;
         }
-        /* Efecto lluvia Matrix de fondo (CSS puro simplificado) */
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            background: repeating-linear-gradient(
-                180deg,
-                rgba(0, 0, 0, 0) 0,
-                rgba(0, 255, 65, 0.03) 50%,
-                rgba(0, 0, 0, 0) 100%
-            );
-            background-size: 100% 4px;
-            opacity: 0.5;
-            pointer-events: none;
+        to {
+          width: 100%;
         }
-        .matrix-border {
-            border: 1px solid #00ff41;
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2), inset 0 0 10px rgba(0, 255, 65, 0.2);
+      }
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
         }
-        .typewriter {
-            overflow: hidden;
-            border-right: .15em solid #00ff41;
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: .15em;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        50% {
+          border-color: #00ff41;
         }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #00ff41; } }
-        ::selection { background: #00ff41; color: #000; }
+      }
+      ::selection {
+        background: #00ff41;
+        color: #000;
+      }
     </style>
-</head>
-<body class="text-matrix-green font-mono antialiased min-h-screen flex flex-col">
-
+  </head>
+  <body
+    class="text-matrix-green font-mono antialiased min-h-screen flex flex-col"
+  >
     <div class="matrix-bg"></div>
 
     <!-- Nav -->
-    <nav class="fixed top-0 w-full z-50 bg-black/80 border-b border-matrix-darkGreen backdrop-blur-sm">
-        <div class="max-w-5xl mx-auto px-4 flex justify-between items-center h-16">
-            <a href="#" class="text-xl font-bold tracking-widest">Wake_Up_Neo...</a>
-            
-            <div class="hidden md:flex space-x-8">
-                <a href="#inicio" class="hover:text-white hover:bg-matrix-darkGreen px-2 transition">/root</a>
-                <a href="#proyectos" class="hover:text-white hover:bg-matrix-darkGreen px-2 transition">/constructs</a>
-                <a href="#skills" class="hover:text-white hover:bg-matrix-darkGreen px-2 transition">/abilities</a>
-                <a href="#contacto" class="hover:text-white hover:bg-matrix-darkGreen px-2 transition">/jack_in</a>
-            </div>
+    <nav
+      class="fixed top-0 w-full z-50 bg-black/80 border-b border-matrix-darkGreen backdrop-blur-sm"
+    >
+      <div
+        class="max-w-5xl mx-auto px-4 flex justify-between items-center h-16"
+      >
+        <a href="#" class="text-xl font-bold tracking-widest">Wake_Up_Neo...</a>
 
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden">
-                [MENU]
-            </button>
+        <div class="hidden md:flex space-x-8">
+          <a
+            href="#inicio"
+            class="hover:text-white hover:bg-matrix-darkGreen px-2 transition"
+            >/root</a
+          >
+          <a
+            href="#proyectos"
+            class="hover:text-white hover:bg-matrix-darkGreen px-2 transition"
+            >/constructs</a
+          >
+          <a
+            href="#skills"
+            class="hover:text-white hover:bg-matrix-darkGreen px-2 transition"
+            >/abilities</a
+          >
+          <a
+            href="#contacto"
+            class="hover:text-white hover:bg-matrix-darkGreen px-2 transition"
+            >/jack_in</a
+          >
         </div>
-        
-        <!-- Mobile Menu -->
-        <div x-show="mobileMenuOpen" class="md:hidden bg-black border-b border-matrix-darkGreen p-4 space-y-4 text-center">
-            <a href="#inicio" @click="mobileMenuOpen = false" class="block hover:text-white hover:bg-matrix-darkGreen">/root</a>
-            <a href="#proyectos" @click="mobileMenuOpen = false" class="block hover:text-white hover:bg-matrix-darkGreen">/constructs</a>
-            <a href="#skills" @click="mobileMenuOpen = false" class="block hover:text-white hover:bg-matrix-darkGreen">/abilities</a>
-            <a href="#contacto" @click="mobileMenuOpen = false" class="block hover:text-white hover:bg-matrix-darkGreen">/jack_in</a>
-        </div>
+
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden">
+          [MENU]
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        x-show="mobileMenuOpen"
+        class="md:hidden bg-black border-b border-matrix-darkGreen p-4 space-y-4 text-center"
+      >
+        <a
+          href="#inicio"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-white hover:bg-matrix-darkGreen"
+          >/root</a
+        >
+        <a
+          href="#proyectos"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-white hover:bg-matrix-darkGreen"
+          >/constructs</a
+        >
+        <a
+          href="#skills"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-white hover:bg-matrix-darkGreen"
+          >/abilities</a
+        >
+        <a
+          href="#contacto"
+          @click="mobileMenuOpen = false"
+          class="block hover:text-white hover:bg-matrix-darkGreen"
+          >/jack_in</a
+        >
+      </div>
     </nav>
 
-    <main class="flex-grow pt-24 pb-12 px-4 max-w-4xl mx-auto w-full space-y-20">
-        
-        <!-- Hero -->
-        <section id="inicio" class="mt-10">
-            <div class="inline-block mb-6">
-                <h1 class="text-3xl md:text-5xl font-bold typewriter">Follow the white rabbit.</h1>
+    <main
+      class="flex-grow pt-24 pb-12 px-4 max-w-4xl mx-auto w-full space-y-20"
+    >
+      <!-- Hero -->
+      <section id="inicio" class="mt-10">
+        <div class="inline-block mb-6">
+          <h1 class="text-3xl md:text-5xl font-bold typewriter">
+            Follow the white rabbit.
+          </h1>
+        </div>
+        <div class="matrix-border p-6 bg-black/50">
+          <p class="mb-4">> SYSTEM IDENTIFICATION: Jhon</p>
+          <p class="mb-4">> DESIGNATION: FULL STACK OPERATOR</p>
+          <p class="mb-6 text-matrix-lightGreen">
+            I can only show you the door. You're the one that has to walk
+            through it. Specializing in escaping the simulation through clean
+            code, robust backends, and seamless user interfaces.
+          </p>
+          <div class="flex gap-4">
+            <a
+              href="#contacto"
+              class="border border-matrix-green px-4 py-2 hover:bg-matrix-green hover:text-black transition font-bold"
+            >
+              [ TAKE RED PILL ]
+            </a>
+            <a
+              href="#"
+              class="border border-matrix-darkGreen text-matrix-darkGreen px-4 py-2 hover:bg-matrix-darkGreen hover:text-black transition"
+            >
+              [ DOWNLOAD_CV ]
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills">
+        <h2 class="text-2xl mb-6 border-b border-matrix-darkGreen pb-2">
+          >> LOAD_PROGRAMS
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="matrix-border p-4 bg-black/50">
+            <h3 class="font-bold mb-4 text-matrix-lightGreen">
+              --- FRONTEND_MATRIX ---
+            </h3>
+            <ul class="space-y-2">
+              <li>> HTML/CSS [Mastered]</li>
+              <li>> JavaScript [Mastered]</li>
+              <li>> React.js [Advanced]</li>
+              <li>> Tailwind [Advanced]</li>
+            </ul>
+          </div>
+          <div class="matrix-border p-4 bg-black/50">
+            <h3 class="font-bold mb-4 text-matrix-lightGreen">
+              --- BACKEND_CORE ---
+            </h3>
+            <ul class="space-y-2">
+              <li>> Node.js [Advanced]</li>
+              <li>> Python [Intermediate]</li>
+              <li>> SQL/NoSQL [Advanced]</li>
+              <li>> APIs/REST [Mastered]</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Proyectos -->
+      <section id="proyectos">
+        <h2 class="text-2xl mb-6 border-b border-matrix-darkGreen pb-2">
+          >> ACCESS_CONSTRUCTS
+        </h2>
+        <div class="space-y-6">
+          <div
+            class="matrix-border p-4 bg-black/50 hover:bg-matrix-darkGreen/20 transition group"
+          >
+            <div class="flex justify-between items-start mb-2">
+              <h3
+                class="text-xl font-bold text-matrix-lightGreen group-hover:text-white"
+              >
+                ZION_MAINFRAME_UI
+              </h3>
+              <span class="text-sm">v2.0</span>
             </div>
-            <div class="matrix-border p-6 bg-black/50">
-                <p class="mb-4">> SYSTEM IDENTIFICATION: ABEL</p>
-                <p class="mb-4">> DESIGNATION: FULL STACK OPERATOR</p>
-                <p class="mb-6 text-matrix-lightGreen">
-                    I can only show you the door. You're the one that has to walk through it. 
-                    Specializing in escaping the simulation through clean code, robust backends, and seamless user interfaces.
-                </p>
-                <div class="flex gap-4">
-                    <a href="#contacto" class="border border-matrix-green px-4 py-2 hover:bg-matrix-green hover:text-black transition font-bold">
-                        [ TAKE RED PILL ]
-                    </a>
-                    <a href="#" class="border border-matrix-darkGreen text-matrix-darkGreen px-4 py-2 hover:bg-matrix-darkGreen hover:text-black transition">
-                        [ DOWNLOAD_CV ]
-                    </a>
-                </div>
+            <p class="mb-4">
+              Dashboard for monitoring hovercraft fleet status in real-time.
+            </p>
+            <p class="text-sm text-matrix-darkGreen mb-4">
+              TECH: VUE.JS, WEBSOCKETS, D3.JS
+            </p>
+            <div class="flex gap-4">
+              <a href="#" class="hover:text-white hover:underline">> EXECUTE</a>
+              <a href="#" class="hover:text-white hover:underline">> SOURCE</a>
             </div>
-        </section>
+          </div>
 
-        <!-- Skills -->
-        <section id="skills">
-            <h2 class="text-2xl mb-6 border-b border-matrix-darkGreen pb-2">>> LOAD_PROGRAMS</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="matrix-border p-4 bg-black/50">
-                    <h3 class="font-bold mb-4 text-matrix-lightGreen">--- FRONTEND_MATRIX ---</h3>
-                    <ul class="space-y-2">
-                        <li>> HTML/CSS [Mastered]</li>
-                        <li>> JavaScript [Mastered]</li>
-                        <li>> React.js [Advanced]</li>
-                        <li>> Tailwind [Advanced]</li>
-                    </ul>
-                </div>
-                <div class="matrix-border p-4 bg-black/50">
-                    <h3 class="font-bold mb-4 text-matrix-lightGreen">--- BACKEND_CORE ---</h3>
-                    <ul class="space-y-2">
-                        <li>> Node.js [Advanced]</li>
-                        <li>> Python [Intermediate]</li>
-                        <li>> SQL/NoSQL [Advanced]</li>
-                        <li>> APIs/REST [Mastered]</li>
-                    </ul>
-                </div>
+          <div
+            class="matrix-border p-4 bg-black/50 hover:bg-matrix-darkGreen/20 transition group"
+          >
+            <div class="flex justify-between items-start mb-2">
+              <h3
+                class="text-xl font-bold text-matrix-lightGreen group-hover:text-white"
+              >
+                AGENT_EVASION_API
+              </h3>
+              <span class="text-sm">v1.5</span>
             </div>
-        </section>
-
-        <!-- Proyectos -->
-        <section id="proyectos">
-            <h2 class="text-2xl mb-6 border-b border-matrix-darkGreen pb-2">>> ACCESS_CONSTRUCTS</h2>
-            <div class="space-y-6">
-                
-                <div class="matrix-border p-4 bg-black/50 hover:bg-matrix-darkGreen/20 transition group">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-matrix-lightGreen group-hover:text-white">ZION_MAINFRAME_UI</h3>
-                        <span class="text-sm">v2.0</span>
-                    </div>
-                    <p class="mb-4">Dashboard for monitoring hovercraft fleet status in real-time.</p>
-                    <p class="text-sm text-matrix-darkGreen mb-4">TECH: VUE.JS, WEBSOCKETS, D3.JS</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="hover:text-white hover:underline">> EXECUTE</a>
-                        <a href="#" class="hover:text-white hover:underline">> SOURCE</a>
-                    </div>
-                </div>
-
-                <div class="matrix-border p-4 bg-black/50 hover:bg-matrix-darkGreen/20 transition group">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-matrix-lightGreen group-hover:text-white">AGENT_EVASION_API</h3>
-                        <span class="text-sm">v1.5</span>
-                    </div>
-                    <p class="mb-4">Encrypted routing service to bypass standard network protocols.</p>
-                    <p class="text-sm text-matrix-darkGreen mb-4">TECH: NODE.JS, REDIS, CRYPTO</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="hover:text-white hover:underline">> EXECUTE</a>
-                        <a href="#" class="hover:text-white hover:underline">> SOURCE</a>
-                    </div>
-                </div>
-
+            <p class="mb-4">
+              Encrypted routing service to bypass standard network protocols.
+            </p>
+            <p class="text-sm text-matrix-darkGreen mb-4">
+              TECH: NODE.JS, REDIS, CRYPTO
+            </p>
+            <div class="flex gap-4">
+              <a href="#" class="hover:text-white hover:underline">> EXECUTE</a>
+              <a href="#" class="hover:text-white hover:underline">> SOURCE</a>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- Contacto -->
-        <section id="contacto">
-            <h2 class="text-2xl mb-6 border-b border-matrix-darkGreen pb-2">>> INITIATE_CONTACT</h2>
-            <div class="matrix-border p-6 bg-black/50">
-                <form x-data="{ enviado: false }" @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)" class="space-y-6">
-                    <div>
-                        <label class="block mb-2">> ENTER_ALIAS:</label>
-                        <input type="text" required class="w-full bg-transparent border-b border-matrix-green focus:outline-none focus:border-white text-matrix-lightGreen py-1">
-                    </div>
-                    <div>
-                        <label class="block mb-2">> ENTER_SIGNAL (EMAIL):</label>
-                        <input type="email" required class="w-full bg-transparent border-b border-matrix-green focus:outline-none focus:border-white text-matrix-lightGreen py-1">
-                    </div>
-                    <div>
-                        <label class="block mb-2">> MESSAGE_DATA:</label>
-                        <textarea rows="3" required class="w-full bg-transparent border border-matrix-green focus:outline-none focus:border-white text-matrix-lightGreen p-2 resize-none"></textarea>
-                    </div>
-                    <button type="submit" class="w-full border border-matrix-green py-2 hover:bg-matrix-green hover:text-black transition font-bold">
-                        <span x-show="!enviado">[ TRANSMIT ]</span>
-                        <span x-show="enviado" x-cloak>[ SIGNAL RECEIVED ]</span>
-                    </button>
-                </form>
+      <!-- Contacto -->
+      <section id="contacto">
+        <h2 class="text-2xl mb-6 border-b border-matrix-darkGreen pb-2">
+          >> INITIATE_CONTACT
+        </h2>
+        <div class="matrix-border p-6 bg-black/50">
+          <form
+            x-data="{ enviado: false }"
+            @submit.prevent="enviado = true; setTimeout(() => enviado = false, 3000)"
+            class="space-y-6"
+          >
+            <div>
+              <label class="block mb-2">> ENTER_ALIAS:</label>
+              <input
+                type="text"
+                required
+                class="w-full bg-transparent border-b border-matrix-green focus:outline-none focus:border-white text-matrix-lightGreen py-1"
+              />
             </div>
-        </section>
-
+            <div>
+              <label class="block mb-2">> ENTER_SIGNAL (EMAIL):</label>
+              <input
+                type="email"
+                required
+                class="w-full bg-transparent border-b border-matrix-green focus:outline-none focus:border-white text-matrix-lightGreen py-1"
+              />
+            </div>
+            <div>
+              <label class="block mb-2">> MESSAGE_DATA:</label>
+              <textarea
+                rows="3"
+                required
+                class="w-full bg-transparent border border-matrix-green focus:outline-none focus:border-white text-matrix-lightGreen p-2 resize-none"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="w-full border border-matrix-green py-2 hover:bg-matrix-green hover:text-black transition font-bold"
+            >
+              <span x-show="!enviado">[ TRANSMIT ]</span>
+              <span x-show="enviado" x-cloak>[ SIGNAL RECEIVED ]</span>
+            </button>
+          </form>
+        </div>
+      </section>
     </main>
 
     <footer class="border-t border-matrix-darkGreen py-4 text-center text-sm">
-        <p>There is no spoon. (c) 2026 Abel.</p>
+      <p>There is no spoon. (c) 2026 Abel.</p>
     </footer>
-
-</body>
+  </body>
 </html>

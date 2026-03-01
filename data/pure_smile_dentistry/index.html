@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" x-data="{ 
+<!doctype html>
+<html
+  lang="en"
+  x-data="{ 
     darkMode: localStorage.getItem('darkMode') === 'true',
     mobileMenu: false,
     showToast: false,
@@ -13,313 +15,545 @@
         this.showToast = true;
         setTimeout(() => this.showToast = false, 3000);
     }
-}" 
-:class="{ 'dark': darkMode }" 
-@scroll.window="scrolled = (window.pageYOffset > 20)"
-class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+}"
+  :class="{ 'dark': darkMode }"
+  @scroll.window="scrolled = (window.pageYOffset > 20)"
+  class="scroll-smooth"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pure Smile Dentistry | Brighten Your World</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <!-- Tailwind & Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Bitter:wght@700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Bitter:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        dentist: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Quicksand', 'sans-serif'],
-                        serif: ['Bitter', 'serif'],
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              dentist: {
+                50: "#f0f9ff",
+                100: "#e0f2fe",
+                500: "#0ea5e9",
+                600: "#0284c7",
+                700: "#0369a1",
+              },
+            },
+            fontFamily: {
+              sans: ["Quicksand", "sans-serif"],
+              serif: ["Bitter", "serif"],
+            },
+          },
+        },
+      };
     </script>
     <style>
-        [x-cloak] { display: none !important; }
-        .smile-curve { border-radius: 0 0 100% 100% / 0 0 50% 50%; }
+      [x-cloak] {
+        display: none !important;
+      }
+      .smile-curve {
+        border-radius: 0 0 100% 100% / 0 0 50% 50%;
+      }
     </style>
-</head>
-<body class="bg-blue-50/30 text-slate-800 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300">
-
+  </head>
+  <body
+    class="bg-blue-50/30 text-slate-800 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300"
+  >
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300"
-         :class="scrolled ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg py-2' : 'bg-transparent py-6 text-white md:text-slate-800 dark:text-white'">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="ti ti-tooth text-3xl text-dentist-500"></i>
-                <span class="text-2xl font-bold tracking-tight">PURE<span class="text-dentist-500">SMILE</span></span>
-            </div>
-
-            <div class="hidden md:flex items-center space-x-10">
-                <a href="#home" class="font-bold hover:text-dentist-500 transition">Start</a>
-                <a href="#services" class="font-bold hover:text-dentist-500 transition">Treatments</a>
-                <a href="#about" class="font-bold hover:text-dentist-500 transition">Our Team</a>
-                <a href="#faq" class="font-bold hover:text-dentist-500 transition">FAQs</a>
-                <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" 
-                        class="p-2 rounded-xl bg-dentist-50 dark:bg-slate-800 hover:scale-110 transition">
-                    <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
-                </button>
-                <a href="#booking" class="bg-dentist-500 text-white px-8 py-3 rounded-2xl font-bold hover:bg-dentist-600 transition shadow-xl shadow-dentist-500/30">Free Scans</a>
-            </div>
-
-            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-3xl">
-                <i class="ti" :class="mobileMenu ? 'ti-x' : 'ti-menu-2'"></i>
-            </button>
+    <nav
+      class="fixed w-full z-50 transition-all duration-300"
+      :class="scrolled ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg py-2' : 'bg-transparent py-6 text-white md:text-slate-800 dark:text-white'"
+    >
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <i class="ti ti-tooth text-3xl text-dentist-500"></i>
+          <span class="text-2xl font-bold tracking-tight"
+            >PURE<span class="text-dentist-500">SMILE</span></span
+          >
         </div>
+
+        <div class="hidden md:flex items-center space-x-10">
+          <a href="#home" class="font-bold hover:text-dentist-500 transition"
+            >Start</a
+          >
+          <a
+            href="#services"
+            class="font-bold hover:text-dentist-500 transition"
+            >Treatments</a
+          >
+          <a href="#about" class="font-bold hover:text-dentist-500 transition"
+            >Our Team</a
+          >
+          <a href="#faq" class="font-bold hover:text-dentist-500 transition"
+            >FAQs</a
+          >
+          <button
+            @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
+            class="p-2 rounded-xl bg-dentist-50 dark:bg-slate-800 hover:scale-110 transition"
+          >
+            <i class="ti" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+          </button>
+          <a
+            href="#booking"
+            class="bg-dentist-500 text-white px-8 py-3 rounded-2xl font-bold hover:bg-dentist-600 transition shadow-xl shadow-dentist-500/30"
+            >Free Scans</a
+          >
+        </div>
+
+        <button @click="mobileMenu = !mobileMenu" class="md:hidden text-3xl">
+          <i class="ti" :class="mobileMenu ? 'ti-x' : 'ti-menu-2'"></i>
+        </button>
+      </div>
     </nav>
 
     <!-- Hero -->
-    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2000" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-dentist-50/90 via-dentist-50/40 to-transparent dark:from-slate-950/90 dark:via-slate-950/40"></div>
-        </div>
+    <section
+      id="home"
+      class="relative min-h-screen flex items-center pt-20 overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2000"
+          class="w-full h-full object-cover"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-dentist-50/90 via-dentist-50/40 to-transparent dark:from-slate-950/90 dark:via-slate-950/40"
+        ></div>
+      </div>
 
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-2xl">
-                <h1 class="text-6xl md:text-8xl font-serif text-slate-900 dark:text-white mb-8 leading-[1.1]">The Smile of Your <span class="text-dentist-500 italic">Dreams</span> Starts Here.</h1>
-                <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-12 font-medium">Gentle care meets high-tech dentistry. Experience a new standard of oral health in our relaxing, modern studio.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-5">
-                    <a href="#booking" class="px-10 py-5 bg-dentist-500 text-white rounded-[2rem] font-bold text-center text-lg shadow-2xl hover:bg-dentist-600 transition transform hover:-translate-y-2">Book Video Visit</a>
-                    <a href="#services" class="px-10 py-5 bg-white/80 dark:bg-slate-800 backdrop-blur rounded-[2rem] font-bold text-center text-lg border-2 border-dentist-100 dark:border-slate-700 hover:bg-white transition">See All Treatments</a>
-                </div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-2xl">
+          <h1
+            class="text-6xl md:text-8xl font-serif text-slate-900 dark:text-white mb-8 leading-[1.1]"
+          >
+            The Smile of Your
+            <span class="text-dentist-500 italic">Dreams</span> Starts Here.
+          </h1>
+          <p
+            class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-12 font-medium"
+          >
+            Gentle care meets high-tech dentistry. Experience a new standard of
+            oral health in our relaxing, modern studio.
+          </p>
 
-                <div class="mt-16 flex items-center gap-6">
-                    <div class="bg-white/40 dark:bg-slate-800/40 backdrop-blur p-4 rounded-2xl border border-white/40 flex items-center gap-4">
-                        <i class="ti ti-shield-check text-4xl text-dentist-500"></i>
-                        <div>
-                            <div class="font-bold">Safe & Sterile</div>
-                            <p class="text-xs opacity-70 uppercase tracking-tighter">Hospital Grade Protocols</p>
-                        </div>
-                    </div>
-                </div>
+          <div class="flex flex-col sm:flex-row gap-5">
+            <a
+              href="#booking"
+              class="px-10 py-5 bg-dentist-500 text-white rounded-[2rem] font-bold text-center text-lg shadow-2xl hover:bg-dentist-600 transition transform hover:-translate-y-2"
+              >Book Video Visit</a
+            >
+            <a
+              href="#services"
+              class="px-10 py-5 bg-white/80 dark:bg-slate-800 backdrop-blur rounded-[2rem] font-bold text-center text-lg border-2 border-dentist-100 dark:border-slate-700 hover:bg-white transition"
+              >See All Treatments</a
+            >
+          </div>
+
+          <div class="mt-16 flex items-center gap-6">
+            <div
+              class="bg-white/40 dark:bg-slate-800/40 backdrop-blur p-4 rounded-2xl border border-white/40 flex items-center gap-4"
+            >
+              <i class="ti ti-shield-check text-4xl text-dentist-500"></i>
+              <div>
+                <div class="font-bold">Safe & Sterile</div>
+                <p class="text-xs opacity-70 uppercase tracking-tighter">
+                  Hospital Grade Protocols
+                </p>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Treatments -->
     <section id="services" class="py-32 bg-white dark:bg-slate-950 px-6">
-        <div class="container mx-auto">
-            <div class="text-center mb-24">
-                <span class="inline-block px-4 py-1.5 bg-dentist-50 dark:bg-dentist-900/30 text-dentist-600 rounded-full text-xs font-bold uppercase tracking-widest mb-4">What we do</span>
-                <h2 class="text-4xl md:text-5xl font-serif font-bold">Comprehensive Care</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <!-- Service 1 -->
-                <div class="group bg-dentist-50 dark:bg-slate-900 p-10 rounded-[3rem] hover:bg-dentist-500 hover:text-white transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-4">
-                    <div class="w-20 h-20 bg-white dark:bg-slate-800 rounded-3xl flex items-center justify-center text-dentist-500 text-4xl mb-8 group-hover:bg-white/20 group-hover:text-white transition-colors duration-500">
-                        <i class="ti ti-brightness"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 font-serif">Teeth Whitening</h3>
-                    <p class="opacity-70 leading-relaxed mb-8">Professional grade bleaching that lightens teeth up to 8 shades in just one safe visit.</p>
-                    <button class="text-sm font-bold border-b-2 border-dentist-200 group-hover:border-white transition pb-1">Starting from $199</button>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="group bg-slate-50 dark:bg-slate-900 p-10 rounded-[3rem] hover:bg-dentist-500 hover:text-white transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-4">
-                    <div class="w-20 h-20 bg-white dark:bg-slate-800 rounded-3xl flex items-center justify-center text-dentist-500 text-4xl mb-8 group-hover:bg-white/20 group-hover:text-white transition-colors duration-500">
-                        <i class="ti ti-frame-off"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 font-serif">Invisalign®</h3>
-                    <p class="opacity-70 leading-relaxed mb-8">Straighten your teeth discreetly with custom-made, clear, removable aligners.</p>
-                    <button class="text-sm font-bold border-b-2 border-dentist-200 group-hover:border-white transition pb-1">Payment Plans Available</button>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="group bg-slate-50 dark:bg-slate-900 p-10 rounded-[3rem] hover:bg-dentist-500 hover:text-white transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-4">
-                    <div class="w-20 h-20 bg-white dark:bg-slate-800 rounded-3xl flex items-center justify-center text-dentist-500 text-4xl mb-8 group-hover:bg-white/20 group-hover:text-white transition-colors duration-500">
-                        <i class="ti ti-microscope"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 font-serif">Dental Implants</h3>
-                    <p class="opacity-70 leading-relaxed mb-8">Restore your natural bite with permanent, surgical-grade titanium roots and crowns.</p>
-                    <button class="text-sm font-bold border-b-2 border-dentist-200 group-hover:border-white transition pb-1">Lifetime Warranty</button>
-                </div>
-            </div>
+      <div class="container mx-auto">
+        <div class="text-center mb-24">
+          <span
+            class="inline-block px-4 py-1.5 bg-dentist-50 dark:bg-dentist-900/30 text-dentist-600 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+            >What we do</span
+          >
+          <h2 class="text-4xl md:text-5xl font-serif font-bold">
+            Comprehensive Care
+          </h2>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Service 1 -->
+          <div
+            class="group bg-dentist-50 dark:bg-slate-900 p-10 rounded-[3rem] hover:bg-dentist-500 hover:text-white transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-4"
+          >
+            <div
+              class="w-20 h-20 bg-white dark:bg-slate-800 rounded-3xl flex items-center justify-center text-dentist-500 text-4xl mb-8 group-hover:bg-white/20 group-hover:text-white transition-colors duration-500"
+            >
+              <i class="ti ti-brightness"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 font-serif">Teeth Whitening</h3>
+            <p class="opacity-70 leading-relaxed mb-8">
+              Professional grade bleaching that lightens teeth up to 8 shades in
+              just one safe visit.
+            </p>
+            <button
+              class="text-sm font-bold border-b-2 border-dentist-200 group-hover:border-white transition pb-1"
+            >
+              Starting from $199
+            </button>
+          </div>
+
+          <!-- Service 2 -->
+          <div
+            class="group bg-slate-50 dark:bg-slate-900 p-10 rounded-[3rem] hover:bg-dentist-500 hover:text-white transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-4"
+          >
+            <div
+              class="w-20 h-20 bg-white dark:bg-slate-800 rounded-3xl flex items-center justify-center text-dentist-500 text-4xl mb-8 group-hover:bg-white/20 group-hover:text-white transition-colors duration-500"
+            >
+              <i class="ti ti-frame-off"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 font-serif">Invisalign®</h3>
+            <p class="opacity-70 leading-relaxed mb-8">
+              Straighten your teeth discreetly with custom-made, clear,
+              removable aligners.
+            </p>
+            <button
+              class="text-sm font-bold border-b-2 border-dentist-200 group-hover:border-white transition pb-1"
+            >
+              Payment Plans Available
+            </button>
+          </div>
+
+          <!-- Service 3 -->
+          <div
+            class="group bg-slate-50 dark:bg-slate-900 p-10 rounded-[3rem] hover:bg-dentist-500 hover:text-white transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-4"
+          >
+            <div
+              class="w-20 h-20 bg-white dark:bg-slate-800 rounded-3xl flex items-center justify-center text-dentist-500 text-4xl mb-8 group-hover:bg-white/20 group-hover:text-white transition-colors duration-500"
+            >
+              <i class="ti ti-microscope"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 font-serif">Dental Implants</h3>
+            <p class="opacity-70 leading-relaxed mb-8">
+              Restore your natural bite with permanent, surgical-grade titanium
+              roots and crowns.
+            </p>
+            <button
+              class="text-sm font-bold border-b-2 border-dentist-200 group-hover:border-white transition pb-1"
+            >
+              Lifetime Warranty
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Experience Section (About) -->
     <section id="about" class="py-32 bg-blue-50/50 dark:bg-slate-900">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row items-center gap-20">
-                <div class="lg:w-1/2">
-                    <div class="relative inline-block">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71f1e59816?q=80&w=800" class="rounded-[4rem] shadow-2xl">
-                        <div class="absolute -bottom-8 -left-8 bg-dentist-500 text-white p-10 rounded-3xl shadow-2xl hidden md:block">
-                            <div class="text-5xl font-bold mb-1">15+</div>
-                            <div class="font-bold opacity-80 uppercase tracking-tighter text-sm italic">Years of Trust</div>
-                        </div>
-                    </div>
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row items-center gap-20">
+          <div class="lg:w-1/2">
+            <div class="relative inline-block">
+              <img
+                src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=800"
+                class="rounded-[4rem] shadow-2xl"
+              />
+              <div
+                class="absolute -bottom-8 -left-8 bg-dentist-500 text-white p-10 rounded-3xl shadow-2xl hidden md:block"
+              >
+                <div class="text-5xl font-bold mb-1">15+</div>
+                <div
+                  class="font-bold opacity-80 uppercase tracking-tighter text-sm italic"
+                >
+                  Years of Trust
                 </div>
-                <div class="lg:w-1/2">
-                    <h2 class="text-4xl md:text-6xl font-serif font-bold mb-8">Gentle Care, Modern Science.</h2>
-                    <p class="text-lg text-slate-600 dark:text-gray-400 mb-10 leading-relaxed">Our clinic was founded on the principle that dental visits should be something to look forward to, not fear. We combine state-of-the-art diagnostic technology with a spa-like atmosphere.</p>
-                    
-                    <ul class="space-y-6">
-                        <li class="flex items-center gap-5">
-                            <div class="p-3 bg-dentist-100 text-dentist-600 rounded-2xl"><i class="ti ti-video text-xl"></i></div>
-                            <div><span class="font-bold text-lg">Intraoral Cameras</span> <p class="text-xs text-slate-500 uppercase">See what we see in real-time</p></div>
-                        </li>
-                        <li class="flex items-center gap-5">
-                            <div class="p-3 bg-dentist-100 text-dentist-600 rounded-2xl"><i class="ti ti-music text-xl"></i></div>
-                            <div><span class="font-bold text-lg">Noise-Canceling Pods</span> <p class="text-xs text-slate-500 uppercase">Relax with your favorite playlist</p></div>
-                        </li>
-                        <li class="flex items-center gap-5">
-                            <div class="p-3 bg-dentist-100 text-dentist-600 rounded-2xl"><i class="ti ti-confetti text-xl"></i></div>
-                            <div><span class="font-bold text-lg">Sedation Options</span> <p class="text-xs text-slate-500 uppercase">Anxiety-free treatments</p></div>
-                        </li>
-                    </ul>
-                </div>
+              </div>
             </div>
+          </div>
+          <div class="lg:w-1/2">
+            <h2 class="text-4xl md:text-6xl font-serif font-bold mb-8">
+              Gentle Care, Modern Science.
+            </h2>
+            <p
+              class="text-lg text-slate-600 dark:text-gray-400 mb-10 leading-relaxed"
+            >
+              Our clinic was founded on the principle that dental visits should
+              be something to look forward to, not fear. We combine
+              state-of-the-art diagnostic technology with a spa-like atmosphere.
+            </p>
+
+            <ul class="space-y-6">
+              <li class="flex items-center gap-5">
+                <div class="p-3 bg-dentist-100 text-dentist-600 rounded-2xl">
+                  <i class="ti ti-video text-xl"></i>
+                </div>
+                <div>
+                  <span class="font-bold text-lg">Intraoral Cameras</span>
+                  <p class="text-xs text-slate-500 uppercase">
+                    See what we see in real-time
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-center gap-5">
+                <div class="p-3 bg-dentist-100 text-dentist-600 rounded-2xl">
+                  <i class="ti ti-music text-xl"></i>
+                </div>
+                <div>
+                  <span class="font-bold text-lg">Noise-Canceling Pods</span>
+                  <p class="text-xs text-slate-500 uppercase">
+                    Relax with your favorite playlist
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-center gap-5">
+                <div class="p-3 bg-dentist-100 text-dentist-600 rounded-2xl">
+                  <i class="ti ti-confetti text-xl"></i>
+                </div>
+                <div>
+                  <span class="font-bold text-lg">Sedation Options</span>
+                  <p class="text-xs text-slate-500 uppercase">
+                    Anxiety-free treatments
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="py-32 bg-white dark:bg-slate-950">
-        <div class="container mx-auto px-6 max-w-3xl">
-            <h2 class="text-3xl font-serif font-bold mb-16 text-center">Your Questions, Answered.</h2>
-            <div class="space-y-4">
-                <template x-for="(f, i) in [
+      <div class="container mx-auto px-6 max-w-3xl">
+        <h2 class="text-3xl font-serif font-bold mb-16 text-center">
+          Your Questions, Answered.
+        </h2>
+        <div class="space-y-4">
+          <template
+            x-for="(f, i) in [
                     { q: 'Do you accept international insurance?', a: 'Yes, we work with Cigna, Aetna, and Bupa Global. We handle all paperwork for your reimbursement.' },
                     { q: 'How long does whitening last?', a: 'Typically 12-24 months depending on your diet and habits. We provide a home touch-up kit with every office treatment.' },
                     { q: 'Is Invisalign painful?', a: 'Most patients feel slight pressure for 1-2 days after changing to a new set of aligners, but it is much more comfortable than traditional braces.' }
-                ]" :key="i">
-                    <div class="bg-gray-50 dark:bg-slate-900 rounded-3xl overflow-hidden active:scale-[0.99] transition">
-                        <button @click="activeFaq = activeFaq === i ? null : i" class="w-full flex items-center justify-between p-8 text-left">
-                            <span class="font-bold text-lg" x-text="f.q"></span>
-                            <i class="ti text-2xl" :class="activeFaq === i ? 'ti-minus' : 'ti-plus'"></i>
-                        </button>
-                        <div x-show="activeFaq === i" x-cloak class="px-8 pb-8 text-slate-500 dark:text-slate-400 leading-relaxed" x-transition>
-                            <p x-text="f.a"></p>
-                        </div>
-                    </div>
-                </template>
+                ]"
+            :key="i"
+          >
+            <div
+              class="bg-gray-50 dark:bg-slate-900 rounded-3xl overflow-hidden active:scale-[0.99] transition"
+            >
+              <button
+                @click="activeFaq = activeFaq === i ? null : i"
+                class="w-full flex items-center justify-between p-8 text-left"
+              >
+                <span class="font-bold text-lg" x-text="f.q"></span>
+                <i
+                  class="ti text-2xl"
+                  :class="activeFaq === i ? 'ti-minus' : 'ti-plus'"
+                ></i>
+              </button>
+              <div
+                x-show="activeFaq === i"
+                x-cloak
+                class="px-8 pb-8 text-slate-500 dark:text-slate-400 leading-relaxed"
+                x-transition
+              >
+                <p x-text="f.a"></p>
+              </div>
             </div>
+          </template>
         </div>
+      </div>
     </section>
 
     <!-- Booking Multi-step -->
     <section id="booking" class="py-32 bg-dentist-500 text-white">
-        <div class="container mx-auto px-6 text-center">
-            <div class="max-w-xl mx-auto">
-                <h2 class="text-4xl font-serif font-bold mb-8">Ready for a transformation?</h2>
-                <div class="bg-white dark:bg-slate-900 rounded-[3rem] p-10 text-slate-900 text-left shadow-2xl overflow-hidden relative">
-                    <!-- Progress Bar -->
-                    <div class="absolute top-0 left-0 h-2 bg-dentist-100 w-full">
-                        <div class="h-full bg-dentist-500 transition-all duration-500" :style="'width: ' + (step * 33.3) + '%'"></div>
-                    </div>
-
-                    <div x-show="step === 1" x-transition>
-                        <h4 class="text-2xl font-bold mb-6 mt-4 dark:text-white">What's your primary goal?</h4>
-                        <div class="grid grid-cols-2 gap-4 mb-8">
-                            <button @click="form.service = 'Whitening'; step++" class="p-6 border-2 border-slate-100 dark:border-slate-800 rounded-3xl hover:border-dentist-500 hover:bg-dentist-50/50 dark:hover:bg-dentist-900/10 transition text-center group">
-                                <i class="ti ti-sparkles text-3xl mb-3 text-slate-300 group-hover:text-dentist-500"></i>
-                                <div class="font-bold dark:text-slate-200">Whiter Teeth</div>
-                            </button>
-                            <button @click="form.service = 'Correction'; step++" class="p-6 border-2 border-slate-100 dark:border-slate-800 rounded-3xl hover:border-dentist-500 hover:bg-dentist-50/50 dark:hover:bg-dentist-900/10 transition text-center group">
-                                <i class="ti ti-ruler-2 text-3xl mb-3 text-slate-300 group-hover:text-dentist-500"></i>
-                                <div class="font-bold dark:text-slate-200">Aligning</div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div x-show="step === 2" x-transition x-cloak>
-                        <h4 class="text-2xl font-bold mb-6 mt-4 dark:text-white">When can you visit?</h4>
-                        <input type="date" x-model="form.date" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl p-5 mb-8 text-lg outline-none focus:ring-2 ring-dentist-500 dark:text-white">
-                        <div class="flex gap-4">
-                            <button @click="step--" class="w-1/3 py-4 text-slate-400 font-bold">Back</button>
-                            <button @click="step++" class="w-2/3 py-4 bg-dentist-500 text-white rounded-2xl font-bold shadow-lg shadow-dentist-500/20">Next Step</button>
-                        </div>
-                    </div>
-
-                    <div x-show="step === 3" x-transition x-cloak>
-                        <h4 class="text-2xl font-bold mb-6 mt-4 dark:text-white">Confirm & Send</h4>
-                        <div class="p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl mb-8">
-                            <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Service Selected</p>
-                            <p class="font-bold dark:text-slate-200" x-text="form.service"></p>
-                        </div>
-                        <input type="text" x-model="form.name" placeholder="Contact name or phone" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl p-5 mb-8 text-lg focus:ring-2 ring-dentist-500 dark:text-white">
-                        <button @click="step = 1; triggerToast('Success! A coordinator will call you.')" class="w-full py-5 bg-dentist-600 text-white rounded-2xl font-bold text-xl shadow-xl transform active:scale-95 transition">Request Appointment</button>
-                    </div>
-                </div>
+      <div class="container mx-auto px-6 text-center">
+        <div class="max-w-xl mx-auto">
+          <h2 class="text-4xl font-serif font-bold mb-8">
+            Ready for a transformation?
+          </h2>
+          <div
+            class="bg-white dark:bg-slate-900 rounded-[3rem] p-10 text-slate-900 text-left shadow-2xl overflow-hidden relative"
+          >
+            <!-- Progress Bar -->
+            <div class="absolute top-0 left-0 h-2 bg-dentist-100 w-full">
+              <div
+                class="h-full bg-dentist-500 transition-all duration-500"
+                :style="'width: ' + (step * 33.3) + '%'"
+              ></div>
             </div>
+
+            <div x-show="step === 1" x-transition>
+              <h4 class="text-2xl font-bold mb-6 mt-4 dark:text-white">
+                What's your primary goal?
+              </h4>
+              <div class="grid grid-cols-2 gap-4 mb-8">
+                <button
+                  @click="form.service = 'Whitening'; step++"
+                  class="p-6 border-2 border-slate-100 dark:border-slate-800 rounded-3xl hover:border-dentist-500 hover:bg-dentist-50/50 dark:hover:bg-dentist-900/10 transition text-center group"
+                >
+                  <i
+                    class="ti ti-sparkles text-3xl mb-3 text-slate-300 group-hover:text-dentist-500"
+                  ></i>
+                  <div class="font-bold dark:text-slate-200">Whiter Teeth</div>
+                </button>
+                <button
+                  @click="form.service = 'Correction'; step++"
+                  class="p-6 border-2 border-slate-100 dark:border-slate-800 rounded-3xl hover:border-dentist-500 hover:bg-dentist-50/50 dark:hover:bg-dentist-900/10 transition text-center group"
+                >
+                  <i
+                    class="ti ti-ruler-2 text-3xl mb-3 text-slate-300 group-hover:text-dentist-500"
+                  ></i>
+                  <div class="font-bold dark:text-slate-200">Aligning</div>
+                </button>
+              </div>
+            </div>
+
+            <div x-show="step === 2" x-transition x-cloak>
+              <h4 class="text-2xl font-bold mb-6 mt-4 dark:text-white">
+                When can you visit?
+              </h4>
+              <input
+                type="date"
+                x-model="form.date"
+                class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl p-5 mb-8 text-lg outline-none focus:ring-2 ring-dentist-500 dark:text-white"
+              />
+              <div class="flex gap-4">
+                <button
+                  @click="step--"
+                  class="w-1/3 py-4 text-slate-400 font-bold"
+                >
+                  Back
+                </button>
+                <button
+                  @click="step++"
+                  class="w-2/3 py-4 bg-dentist-500 text-white rounded-2xl font-bold shadow-lg shadow-dentist-500/20"
+                >
+                  Next Step
+                </button>
+              </div>
+            </div>
+
+            <div x-show="step === 3" x-transition x-cloak>
+              <h4 class="text-2xl font-bold mb-6 mt-4 dark:text-white">
+                Confirm & Send
+              </h4>
+              <div class="p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl mb-8">
+                <p
+                  class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1"
+                >
+                  Service Selected
+                </p>
+                <p
+                  class="font-bold dark:text-slate-200"
+                  x-text="form.service"
+                ></p>
+              </div>
+              <input
+                type="text"
+                x-model="form.name"
+                placeholder="Contact name or phone"
+                class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl p-5 mb-8 text-lg focus:ring-2 ring-dentist-500 dark:text-white"
+              />
+              <button
+                @click="step = 1; triggerToast('Success! A coordinator will call you.')"
+                class="w-full py-5 bg-dentist-600 text-white rounded-2xl font-bold text-xl shadow-xl transform active:scale-95 transition"
+              >
+                Request Appointment
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-white dark:bg-slate-950 pt-32 pb-12 px-6">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-16 mb-24">
-                <div class="max-w-xs">
-                    <div class="flex items-center space-x-2 mb-8">
-                        <i class="ti ti-tooth text-3xl text-dentist-500"></i>
-                        <span class="text-2xl font-bold tracking-tight">PURE<span class="text-dentist-500">SMILE</span></span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed font-medium">Boutique dentistry for those who care about details. Est. 2011.</p>
-                </div>
-                
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-16 flex-1">
-                    <div>
-                        <h5 class="font-bold mb-8 opacity-40 uppercase text-xs tracking-widest">Office</h5>
-                        <ul class="space-y-4 font-bold">
-                            <li>45 Dental Walk</li>
-                            <li>Chelsea, London</li>
-                            <li>020 7946 0843</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5 class="font-bold mb-8 opacity-40 uppercase text-xs tracking-widest">Hours</h5>
-                        <ul class="space-y-4 font-bold">
-                            <li>Mon-Fri: 9am - 7pm</li>
-                            <li>Sat: 10am - 4pm</li>
-                            <li>Sun: Emergency Only</li>
-                        </ul>
-                    </div>
-                </div>
+      <div class="container mx-auto">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start gap-16 mb-24"
+        >
+          <div class="max-w-xs">
+            <div class="flex items-center space-x-2 mb-8">
+              <i class="ti ti-tooth text-3xl text-dentist-500"></i>
+              <span class="text-2xl font-bold tracking-tight"
+                >PURE<span class="text-dentist-500">SMILE</span></span
+              >
             </div>
-            
-            <div class="border-t dark:border-slate-800 pt-10 flex flex-col md:flex-row justify-between items-center text-sm font-bold">
-                <p>&copy; 2026 Pure Smile Dentistry. Designed by Abel Gallo Ruiz.</p>
-                <div class="flex gap-8 mt-6 md:mt-0 opacity-40">
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                    <a href="#">Accessibility</a>
-                </div>
+            <p class="text-slate-400 leading-relaxed font-medium">
+              Boutique dentistry for those who care about details. Est. 2011.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-16 flex-1">
+            <div>
+              <h5
+                class="font-bold mb-8 opacity-40 uppercase text-xs tracking-widest"
+              >
+                Office
+              </h5>
+              <ul class="space-y-4 font-bold">
+                <li>45 Dental Walk</li>
+                <li>Chelsea, London</li>
+                <li>020 7946 0843</li>
+              </ul>
             </div>
+            <div>
+              <h5
+                class="font-bold mb-8 opacity-40 uppercase text-xs tracking-widest"
+              >
+                Hours
+              </h5>
+              <ul class="space-y-4 font-bold">
+                <li>Mon-Fri: 9am - 7pm</li>
+                <li>Sat: 10am - 4pm</li>
+                <li>Sun: Emergency Only</li>
+              </ul>
+            </div>
+          </div>
         </div>
+
+        <div
+          class="border-t dark:border-slate-800 pt-10 flex flex-col md:flex-row justify-between items-center text-sm font-bold"
+        >
+          <p>&copy; 2026 Pure Smile Dentistry. Designed by Abel Gallo Ruiz.</p>
+          <div class="flex gap-8 mt-6 md:mt-0 opacity-40">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Accessibility</a>
+          </div>
+        </div>
+      </div>
     </footer>
 
     <!-- Toast Notification -->
-    <div x-show="showToast" 
-         x-cloak
-         x-transition:enter="transition duration-300 transform"
-         x-transition:enter-start="translate-y-20 opacity-0"
-         x-transition:enter-end="translate-y-0 opacity-100"
-         class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]">
-        <div class="bg-dentist-500 text-white px-8 py-4 rounded-3xl shadow-2xl font-bold flex items-center gap-3">
-            <i class="ti ti-circle-check-filled text-2xl"></i>
-            <span x-text="toastMsg"></span>
-        </div>
+    <div
+      x-show="showToast"
+      x-cloak
+      x-transition:enter="transition duration-300 transform"
+      x-transition:enter-start="translate-y-20 opacity-0"
+      x-transition:enter-end="translate-y-0 opacity-100"
+      class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]"
+    >
+      <div
+        class="bg-dentist-500 text-white px-8 py-4 rounded-3xl shadow-2xl font-bold flex items-center gap-3"
+      >
+        <i class="ti ti-circle-check-filled text-2xl"></i>
+        <span x-text="toastMsg"></span>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>

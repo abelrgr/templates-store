@@ -3,7 +3,15 @@
   x-show="quickviewOpen"
   class="fixed inset-0 z-50 overflow-y-auto"
   x-cloak
-  @keydown.escape.window="closeQuickview"
+  @keydown.escape.window="closeQuickview()"
+  x-data="{ 
+    iframeWidth: '100%', 
+    iframeHeight: '100%',
+    resetIframe() {
+      this.iframeWidth = '100%';
+      this.iframeHeight = '100%';
+    }
+  }"
 >
   <div
     class="flex items-center justify-center min-h-[90vh] px-4 pt-4 pb-20 text-center sm:block sm:p-0"
@@ -37,7 +45,8 @@
       <div class="relative w-full h-full flex flex-col">
         <button
           @click="closeQuickview"
-          class="absolute top-4 right-4 text-white bg-black bg-opacity-50 hover:bg-opacity-70 p-2 rounded-full transition-all z-10"
+          class="absolute top-4 right-4 text-white bg-black bg-opacity-50 hover:bg-opacity-70 p-2 rounded-full transition-all z-10 cursor-pointer"
+          title="Close Quickview"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,16 +63,165 @@
             />
           </svg>
         </button>
-        <div class="p-4 flex-1 flex flex-col">
+        <div class="p-4 flex-1 flex flex-col items-center overflow-hidden">
           <h2
-            class="text-2xl font-bold dark:text-white mb-4"
+            class="text-2xl font-bold dark:text-white mb-4 self-start"
             x-text="selectedQuickview.title"
           ></h2>
-          <iframe
-            :src="selectedQuickview.demo"
-            class="w-full h-full border rounded-lg"
-            title="Template Preview"
-          ></iframe>
+
+          <div
+            class="flex-1 w-full flex items-center justify-center overflow-auto pb-20"
+          >
+            <iframe
+              :src="selectedQuickview.demo"
+              class="border rounded-lg transition-all duration-300 shadow-lg bg-white"
+              :style="{ width: iframeWidth, height: iframeHeight }"
+              title="Template Preview"
+            ></iframe>
+          </div>
+
+          <!-- Device Controls Container -->
+          <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-50">
+            <div
+              class="flex items-center gap-2 p-3 bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 transition-all hover:bg-white dark:hover:bg-gray-700"
+            >
+              <!-- Mobile -->
+              <button
+                @click="iframeWidth = '375px'; iframeHeight = '667px'"
+                class="flex items-center gap-1.5 px-3 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/50 dark:hover:shadow-blue-600/40 cursor-pointer"
+                title="View in 375x667"
+              >
+                <i class="ti ti-mobile"></i>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14z"
+                  />
+                  <path d="M11 4l2 0" />
+                  <path d="M12 17l.01 0" />
+                </svg>
+                <span>375x667 Mobile</span>
+              </button>
+
+              <!-- Tablet -->
+              <button
+                @click="iframeWidth = '768px'; iframeHeight = '1024px'"
+                class="flex items-center gap-1.5 px-3 py-2 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-green-500/50 dark:hover:shadow-green-600/40 cursor-pointer"
+                title="View in 768x1024"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M5 4a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v16a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1v-16z"
+                  />
+                  <path d="M11 17a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                </svg>
+                <span>768x1024 Tablet</span>
+              </button>
+
+              <!-- Laptop -->
+              <button
+                @click="iframeWidth = '1366px'; iframeHeight = '768px'"
+                class="flex items-center gap-1.5 px-3 py-2 bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-amber-500/50 dark:hover:shadow-amber-600/40 cursor-pointer"
+                title="View in 1366x768"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M3 19l18 0" />
+                  <path
+                    d="M5 6m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z"
+                  />
+                </svg>
+                <span>1366x768 Laptop</span>
+              </button>
+
+              <!-- Desktop -->
+              <button
+                @click="iframeWidth = '1920px'; iframeHeight = '1080px'"
+                class="flex items-center gap-1.5 px-3 py-2 bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-indigo-500/50 dark:hover:shadow-indigo-600/40 cursor-pointer"
+                title="View in 1920x1080"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"
+                  />
+                  <path d="M7 20h10" />
+                  <path d="M9 16v4" />
+                  <path d="M15 16v4" />
+                </svg>
+                <span>1920x1080 Desktop</span>
+              </button>
+
+              <!-- Divider -->
+              <div class="w-px h-8 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+
+              <!-- Full Desktop (Reset) -->
+              <button
+                @click="resetIframe()"
+                class="flex items-center gap-1.5 px-3 py-2 bg-violet-500 hover:bg-violet-600 dark:bg-violet-600 dark:hover:bg-violet-700 text-white text-xs font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-violet-500/50 dark:hover:shadow-violet-600/40 cursor-pointer"
+                title="Reset to full size (100%)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"
+                  />
+                  <path d="M7 20h10" />
+                  <path d="M9 16v4" />
+                  <path d="M15 16v4" />
+                  <path d="M9 9l-2 2l2 2" />
+                  <path d="M15 9l2 2l-2 2" />
+                </svg>
+                <span>Full Desktop</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
