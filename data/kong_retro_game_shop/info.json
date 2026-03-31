@@ -1,0 +1,10 @@
+{
+  "image": "imgs/template.webp",
+  "title": "Kong Retro Shop - Tienda de Consolas de Segunda Mano",
+  "description": "Plantilla de tienda de consolas retro de segunda mano inspirada en la paleta de colores y atmósfera de Donkey Kong Country (SNES). Diseño oscuro con verdes selva, dorados banana y marrones de barril, tipografía pixel (Press Start 2P), catálogo filtrable por categoría, carrito de compras interactivo, formulario de contacto validado con Alpine.js y sección para vender consolas usadas.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "retail",
+  "tags": ["ecommerce", "retro", "gaming", "second-hand", "tailwindcss", "alpinejs", "dark-mode", "pixel-art", "shopping-cart", "snes"],
+  "date": "2026-03-26"
+}

@@ -1,0 +1,20 @@
+{
+  "image": "imgs/template.webp",
+  "description": "A futuristic video game store template featuring a neon-themed design with dark mode support. Includes a hero section with featured games, interactive product grid with search and category filters, shopping cart functionality with real-time updates, elegant animations, and comprehensive footer. Built with HTML, Tailwind CSS, Alpine.js, and Tabler Icons.",
+  "demo": "index.html",
+  "version": "1.0.0",
+  "category": "Retail",
+  "tags": [
+    "ecommerce",
+    "gaming",
+    "videostore",
+    "tailwindcss",
+    "alpinejs",
+    "responsive",
+    "dark-mode",
+    "neon",
+    "futuristic"
+  ],
+  "date": "2026-03-26",
+  "title": "Nexus Gaming Hub - Video Game Store Template"
+}

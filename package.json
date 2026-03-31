@@ -3,5 +3,8 @@
     "@tailwindcss/cli": "^4.2.1",
     "playwright": "^1.58.2",
     "tailwindcss": "^4.2.1"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
   }
 }
