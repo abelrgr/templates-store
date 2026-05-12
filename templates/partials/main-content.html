@@ -2,50 +2,171 @@
 <main class="container mx-auto px-4 py-8" id="templates">
   <!-- Filters -->
   <div
-    class="mb-12 flex justify-center"
+    class="mb-10 flex justify-center"
     data-aos="fade-up"
     data-aos-delay="400"
+    x-data="{
+      canScrollLeft: false,
+      canScrollRight: true,
+      checkScroll() {
+        this.$nextTick(() => {
+          const el = this.$refs?.filterScroll;
+          if (!el) return;
+          this.canScrollLeft = el.scrollLeft > 4;
+          this.canScrollRight = el.scrollLeft < el.scrollWidth - el.clientWidth - 4;
+        });
+      },
+      scrollLeft() {
+        this.$refs.filterScroll.scrollBy({ left: -200, behavior: 'smooth' });
+      },
+      scrollRight() {
+        this.$refs.filterScroll.scrollBy({ left: 200, behavior: 'smooth' });
+      }
+    }"
+    x-init="$nextTick(() => checkScroll())"
   >
-    <div
-      class="flex gap-2 overflow-x-auto pb-4 p-2 w-full md:w-auto justify-start md:justify-center no-scrollbar"
-    >
-      <button
-        @click="category = 'all'; filterTag = ''"
-        :class="category === 'all' && !filterTag ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700'"
-        class="px-6 py-2.5 rounded-full font-medium transition-all duration-300 whitespace-nowrap cursor-pointer"
+    <div class="relative w-full max-w-3xl">
+      <!-- Left fade + arrow -->
+      <div
+        x-show="canScrollLeft"
+        class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent dark:from-slate-900 dark:via-slate-900/80 z-10 pointer-events-none flex items-center justify-start pl-1"
       >
-        All
-      </button>
-      <template x-for="(cat, catIndex) in getCategories()" :key="catIndex">
         <button
-          @click="category = cat; filterTag = ''"
-          :class="category === cat ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700'"
-          class="px-6 py-2.5 rounded-full font-medium capitalize transition-all duration-300 whitespace-nowrap cursor-pointer"
-          x-text="cat"
-        ></button>
-      </template>
+          @click="scrollLeft"
+          class="pointer-events-auto p-2 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all hover:scale-110"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Scrollable container -->
+      <div
+        x-ref="filterScroll"
+        x-dragscroll
+        @scroll="checkScroll"
+        class="flex gap-2 overflow-x-auto py-2 px-4 no-scrollbar scroll-smooth"
+      >
+        <button
+          @click="category = 'all'; filterTag = ''"
+          :class="category === 'all' && !filterTag
+            ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 ring-2 ring-indigo-300 dark:ring-indigo-700'
+            : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 hover:ring-1 hover:ring-indigo-200 dark:hover:ring-indigo-800'"
+          class="relative px-5 py-2.5 rounded-full font-medium transition-all duration-300 whitespace-nowrap cursor-pointer flex-shrink-0"
+        >
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+            All
+          </span>
+        </button>
+        <template x-for="(cat, catIndex) in getCategories()" :key="catIndex">
+          <button
+            @click="category = cat; filterTag = ''"
+            :class="category === cat
+              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 ring-2 ring-indigo-300 dark:ring-indigo-700'
+              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 hover:ring-1 hover:ring-indigo-200 dark:hover:ring-indigo-800'"
+            class="relative px-5 py-2.5 rounded-full font-medium capitalize transition-all duration-300 whitespace-nowrap cursor-pointer flex-shrink-0 group"
+            x-text="cat"
+          ></button>
+        </template>
+      </div>
+
+      <!-- Right fade + arrow -->
+      <div
+        x-show="canScrollRight"
+        class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent dark:from-slate-900 dark:via-slate-900/80 z-10 pointer-events-none flex items-center justify-end pr-1"
+      >
+        <button
+          @click="scrollRight"
+          class="pointer-events-auto p-2 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all hover:scale-110"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Popular Tags -->
   <div
-    class="mb-12 flex flex-wrap justify-center gap-2"
+    class="mb-12 flex items-center justify-center gap-3"
     data-aos="fade-up"
     data-aos-delay="450"
+    x-data="{
+      canScrollTagsLeft: false,
+      canScrollTagsRight: true,
+      checkTagsScroll() {
+        this.$nextTick(() => {
+          const el = this.$refs?.tagsScroll;
+          if (!el) return;
+          this.canScrollTagsLeft = el.scrollLeft > 4;
+          this.canScrollTagsRight = el.scrollLeft < el.scrollWidth - el.clientWidth - 4;
+        });
+      },
+      scrollTagsLeft() { this.$refs.tagsScroll.scrollBy({ left: -150, behavior: 'smooth' }); },
+      scrollTagsRight() { this.$refs.tagsScroll.scrollBy({ left: 150, behavior: 'smooth' }); }
+    }"
+    x-init="$nextTick(() => checkTagsScroll())"
   >
-    <span
-      class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center mr-2"
-    >
-      Popular Tags:
-    </span>
-    <template x-for="(tag, topTagIndex) in getTopTags(6)" :key="topTagIndex">
-      <button
-        @click="setFilterTag(tag)"
-        :class="filterTag === tag ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400'"
-        class="text-xs font-medium px-2 py-1 rounded transition-colors cursor-pointer"
-        x-text="'#' + tag"
-      ></button>
-    </template>
+    <div class="relative w-full max-w-2xl">
+      <!-- Left arrow -->
+      <div
+        x-show="canScrollTagsLeft"
+        class="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent dark:from-slate-900 dark:via-slate-900/80 z-10 pointer-events-none flex items-center"
+      >
+        <button
+          @click="scrollTagsLeft"
+          class="pointer-events-auto p-1.5 rounded-full bg-white dark:bg-slate-800 shadow border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-indigo-500 transition-all"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        x-ref="tagsScroll"
+        x-dragscroll
+        @scroll="checkTagsScroll"
+        class="flex items-center gap-2 overflow-x-auto py-1 px-3 no-scrollbar scroll-smooth"
+      >
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1 flex-shrink-0">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+          </svg>
+          Tags
+        </span>
+        <template x-for="(tag, topTagIndex) in getTopTags(12)" :key="topTagIndex">
+          <button
+            @click="setFilterTag(tag)"
+            :class="filterTag === tag
+              ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300 ring-1 ring-indigo-300 dark:ring-indigo-700'
+              : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400'"
+            class="text-[11px] font-semibold px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer flex-shrink-0 whitespace-nowrap"
+            x-text="'#' + tag"
+          ></button>
+        </template>
+      </div>
+
+      <!-- Right arrow -->
+      <div
+        x-show="canScrollTagsRight"
+        class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent dark:from-slate-900 dark:via-slate-900/80 z-10 pointer-events-none flex items-center justify-end"
+      >
+        <button
+          @click="scrollTagsRight"
+          class="pointer-events-auto p-1.5 rounded-full bg-white dark:bg-slate-800 shadow border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-indigo-500 transition-all"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Active Tag Filter Indicator -->
@@ -80,22 +201,29 @@
   </div>
 
   <!-- Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" x-cloak>
     <div
       x-show="filteredTemplates.length === 0"
-      class="col-span-full py-20 text-center"
+      class="col-span-full py-20 text-center page-enter"
       data-aos="fade-up"
     >
       <div
-        class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 mb-6"
+        class="inline-flex items-center justify-center w-32 h-32 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 mb-6"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-12 w-12"
+          class="h-16 w-16"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          stroke-width="1"
         >
+          <defs>
+            <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="8s" repeatCount="indefinite" />
+          </defs>
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.3">
+            <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="20s" repeatCount="indefinite" />
+          </circle>
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -107,22 +235,51 @@
             stroke-linejoin="round"
             stroke-width="1"
             d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
-          />
+            opacity="0.6"
+          >
+            <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite" />
+          </path>
         </svg>
       </div>
       <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">
-        No templates found
+        <span x-text="search ? `No results for &quot;${search}&quot;` : 'No templates found'"></span>
       </h3>
-      <p class="text-slate-600 dark:text-slate-400 mb-8 max-w-md mx-auto">
-        We couldn't find any templates matching your search criteria. Please try
-        different keywords or adjust your filters.
+      <p class="text-slate-600 dark:text-slate-400 mb-6 max-w-md mx-auto">
+        <span x-show="search && category === 'all' && !filterTag">
+          Try different keywords or browse popular categories below.
+        </span>
+        <span x-show="!search">
+          We couldn't find any templates matching your filters.
+        </span>
       </p>
-      <button
-        @click="search = ''; category = 'all'; filterTag = ''"
-        class="inline-flex items-center px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/25"
-      >
-        Clear all filters
-      </button>
+
+      <!-- Suggestions -->
+      <div x-show="search" class="flex flex-wrap justify-center gap-2 mb-6">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center mr-1">Try:</span>
+        <template x-for="tag in getTopTags(4)" :key="tag">
+          <button
+            @click="search = tag; saveSearch()"
+            class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-xs font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900/40 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
+            x-text="tag"
+          ></button>
+        </template>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        <button
+          @click="search = ''; category = 'all'; filterTag = ''"
+          class="inline-flex items-center px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/25 cursor-pointer"
+        >
+          Clear all filters
+        </button>
+        <button
+          x-show="category !== 'all'"
+          @click="category = 'all'"
+          class="inline-flex items-center px-6 py-3 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors shadow-lg cursor-pointer"
+        >
+          Browse all categories
+        </button>
+      </div>
     </div>
 
     <template
@@ -132,36 +289,21 @@
       <div
         x-data="{ isVisible: false, isLoaded: false }"
         x-intersect.once="isVisible = true"
-        class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg shadow-slate-200/50 dark:shadow-none overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300 group border border-slate-100 dark:border-slate-700 flex flex-col h-full"
+        class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg shadow-slate-200/50 dark:shadow-none dark:ring-1 dark:ring-white/5 overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300 group border border-slate-100 dark:border-slate-700/50 flex flex-col h-full"
       >
         <div
           class="relative overflow-hidden h-56 bg-slate-100 dark:bg-slate-700"
         >
-          <!-- Loading Spinner -->
+          <!-- Shimmer Skeleton -->
           <div
             x-show="!isLoaded"
-            class="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-700"
+            class="absolute inset-0 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-700"
           >
-            <svg
-              class="animate-spin h-8 w-8 text-indigo-500"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
+            <div class="skeleton-shimmer w-full h-full absolute inset-0"></div>
+            <div class="relative z-10 flex flex-col items-center gap-3">
+              <div class="skeleton-shimmer w-20 h-4 rounded-full"></div>
+              <div class="skeleton-shimmer w-40 h-4 rounded"></div>
+            </div>
           </div>
 
           <img
@@ -181,11 +323,20 @@
             >
               Quick View
             </button>
+            <button
+              @click.stop="handleDownload(template.folder)"
+              class="bg-indigo-600/90 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-indigo-600 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300 cursor-pointer flex items-center gap-1.5 floating-download"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download
+            </button>
           </div>
 
           <div class="absolute top-4 left-4 flex gap-2">
             <span
-              class="px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-lg text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 shadow-sm"
+              class="px-3 py-1 bg-black/60 backdrop-blur-sm rounded-lg text-xs font-bold uppercase tracking-wider text-white shadow-sm"
               x-text="template.category"
             ></span>
             <span
@@ -197,7 +348,7 @@
 
           <!-- Like Button -->
           <button
-            @click.stop="toggleFavorite(template.folder)"
+            @click.stop="toggleFavorite(template.folder, $el)"
             class="absolute top-4 right-4 p-2.5 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur shadow-sm hover:scale-110 transition-transform"
             :class="isFavorite(template.folder) ? 'text-red-500' : 'text-slate-400 dark:text-slate-500'"
           >
@@ -222,7 +373,7 @@
           <div class="flex justify-between items-start mb-3">
             <h2
               class="text-xl font-bold text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
-              x-text="template.title"
+              x-html="highlightText(template.title)"
             ></h2>
             <div
               class="flex items-center bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded-md"
@@ -245,7 +396,7 @@
 
           <p
             class="text-slate-600 dark:text-slate-400 text-sm mb-5 line-clamp-2 leading-relaxed"
-            x-text="template.description"
+            x-html="highlightText(template.description)"
           ></p>
 
           <div class="flex flex-wrap gap-2 mb-6">
@@ -255,7 +406,7 @@
             >
               <button
                 @click.stop="setFilterTag(tag)"
-                class="px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider bg-slate-100 dark:bg-slate-700/50 rounded-md text-slate-500 dark:text-slate-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 transition-colors cursor-pointer"
+                class="px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider bg-slate-100 dark:bg-slate-700 dark:text-slate-300 rounded-md text-slate-500 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
                 x-text="tag"
               ></button>
             </template>

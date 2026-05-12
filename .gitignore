@@ -32,6 +32,7 @@ composer.lock
 prompt.md
 reqs.md
 scripts/
+.opencode/skills/html-template-generator/SKILL.md
 
 # packages
 node_modules/

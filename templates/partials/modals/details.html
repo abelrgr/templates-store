@@ -17,7 +17,7 @@
       x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
       @click="closeModal"
-      class="fixed inset-0 transition-opacity bg-slate-900/50 dark:bg-slate-900/90 z-40"
+      class="fixed inset-0 transition-opacity bg-slate-900/50 dark:bg-slate-900/90 backdrop-blur-sm z-40"
     ></div>
 
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
@@ -97,12 +97,12 @@
             <div class="flex gap-1" title="Rate this template">
               <template x-for="i in 5" :key="i">
                 <button
-                  @click="rateTemplate(selectedTemplate.folder, i)"
+                  @click="rateTemplate(selectedTemplate.folder, i, $el)"
                   class="focus:outline-none hover:scale-110 transition-transform"
                   :title="userRatings[selectedTemplate.folder] === i ? 'Click to change rating' : `Rate ${i} star${i !== 1 ? 's' : ''}`"
                 >
                   <svg
-                    class="h-6 w-6 transition-colors"
+                    class="h-6 w-6 transition-all duration-200"
                     :class="i <= selectedTemplate.rating ? 'text-yellow-400 fill-current' : 'text-gray-300 dark:text-gray-600'"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
