@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" x-data="appState()" :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Heritage Carpentry Restoration - Expert restoration and refinishing of fine antique and wooden furniture." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Heritage Carpentry Restoration" />
+  <meta property="og:description" content="Expert restoration and refinishing of fine antique and wooden furniture." />
+  <meta property="og:type" content="website" />
+
+  <title>Heritage Carpentry Restoration</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Alpine.js CDN (Collapse plugin first, then core) -->
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Tabler Icons CDN -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Custom Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f9f5f3',
+              100: '#f2e8e1',
+              200: '#e5d1c4',
+              300: '#d5b3a1',
+              400: '#c58e74',
+              500: '#b95c35', // Primary Terracotta
+              600: '#9d4726',
+              700: '#833921',
+              800: '#69301e',
+              900: '#552a1b',
+            },
+            cream: {
+              DEFAULT: '#fcfaf8',
+              dark: '#1c1917',
+            }
+          },
+          fontFamily: {
+            heading: ['"DM Serif Display"', 'serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    body {
+      background-color: theme('colors.cream.DEFAULT');
+      color: theme('colors.stone.800');
+    }
+    .dark body {
+      background-color: theme('colors.cream.dark');
+      color: theme('colors.stone.200');
+    }
+    .glass-header {
+      background: rgba(252, 250, 248, 0.85);
+      backdrop-filter: blur(8px);
+    }
+    .dark .glass-header {
+      background: rgba(28, 25, 23, 0.85);
+    }
+  </style>
+</head>
+<body class="font-body antialiased transition-colors duration-300">
+
+  <!-- Top Bar -->
+  <div class="bg-brand-900 text-brand-50 text-xs sm:text-sm py-2 px-4 flex justify-between items-center z-50 relative">
+    <div class="flex items-center space-x-4 max-w-7xl mx-auto w-full">
+      <div class="flex items-center space-x-1">
+        <i class="ti ti-map-pin"></i>
+        <span class="hidden sm:inline">124 Timber Lane, Portland, OR</span>
+      </div>
+      <div class="flex items-center space-x-1 ml-auto">
+        <i class="ti ti-clock"></i>
+        <span>Mon-Fri: 9am - 5pm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="glass-header sticky top-0 z-40 border-b border-brand-200 dark:border-stone-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <a href="#" @click.prevent="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex items-center space-x-2">
+          <div class="bg-brand-500 text-white p-2 rounded-lg">
+            <i class="ti ti-tools-kitchen-2 text-2xl"></i> <!-- Reusing tools icon as placeholder for tools -->
+          </div>
+          <div>
+            <span class="font-heading text-2xl tracking-wide font-bold text-brand-900 dark:text-brand-100 block leading-none">Heritage</span>
+            <span class="text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-medium">Restoration</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center space-x-8">
+          <a href="#services" class="text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Services</a>
+          <a href="#gallery" class="text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Our Work</a>
+          <a href="#testimonials" class="text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Reviews</a>
+          <a href="#contact" class="px-5 py-2.5 rounded-none border border-brand-500 text-brand-500 hover:bg-brand-500 hover:text-white dark:text-brand-400 dark:border-brand-400 dark:hover:bg-brand-400 dark:hover:text-stone-900 font-medium transition-all text-sm">
+            Get an Estimate
+          </a>
+          
+          <!-- Dark Mode Toggle -->
+          <button @click="toggleDark()" aria-label="Toggle dark mode"
+                  class="p-2 rounded-full text-stone-500 hover:bg-brand-50 dark:hover:bg-stone-800 transition-colors">
+            <i class="ti text-xl" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+          </button>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="flex items-center md:hidden space-x-2">
+          <button @click="toggleDark()" aria-label="Toggle dark mode"
+                  class="p-2 rounded-full text-stone-500 hover:bg-brand-50 dark:hover:bg-stone-800 transition-colors">
+            <i class="ti text-xl" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+          </button>
+          <button @click="toggleMenu()" class="p-2 text-stone-600 dark:text-stone-300" aria-label="Open menu">
+            <i class="ti text-2xl" :class="mobileMenuOpen ? 'ti-x' : 'ti-menu-2'"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div x-show="mobileMenuOpen" x-transition x-cloak
+         class="md:hidden absolute top-full left-0 w-full bg-cream dark:bg-cream-dark border-b border-brand-200 dark:border-stone-800 shadow-xl py-4 px-6 space-y-4">
+      <a href="#services" @click="mobileMenuOpen = false" class="block text-base font-medium text-stone-600 dark:text-stone-300">Services</a>
+      <a href="#gallery" @click="mobileMenuOpen = false" class="block text-base font-medium text-stone-600 dark:text-stone-300">Our Work</a>
+      <a href="#testimonials" @click="mobileMenuOpen = false" class="block text-base font-medium text-stone-600 dark:text-stone-300">Reviews</a>
+      <a href="#contact" @click="mobileMenuOpen = false" class="block text-base font-medium text-brand-600 dark:text-brand-400">Get an Estimate</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative bg-stone-900 text-white py-32 lg:py-48 overflow-hidden">
+      <!-- Background Image with Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=1200&q=80" alt="Woodworking space" loading="lazy" class="w-full h-full object-cover object-center opacity-40" />
+        <div class="absolute inset-0 bg-gradient-to-r from-stone-900 via-stone-900/80 to-transparent"></div>
+      </div>
+      
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <span class="text-brand-400 font-medium tracking-widest uppercase text-sm mb-4 block">Preserving History</span>
+          <h1 class="font-heading text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight">Breathing New Life Into Fine Woodwork.</h1>
+          <p class="text-lg md:text-xl text-stone-300 mb-10 font-light leading-relaxed">
+            We specialize in the delicate art of carpentry restoration. From cherished family heirlooms to antique finds, we restore beauty and structural integrity using traditional techniques.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#contact" class="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white rounded-none font-medium text-center transition-colors">
+              Request a Consultation
+            </a>
+            <a href="#gallery" class="px-8 py-4 border border-white hover:bg-white hover:text-stone-900 text-white rounded-none font-medium text-center transition-colors">
+              View Our Work
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-cream dark:bg-cream-dark transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="font-heading text-4xl text-brand-900 dark:text-brand-100 mb-4">Our Restoration Services</h2>
+          <div class="w-24 h-1 bg-brand-500 mx-auto mb-6"></div>
+          <p class="text-stone-600 dark:text-stone-400 text-lg">
+            Every piece has a story. We offer a comprehensive range of services to ensure your wooden treasures are preserved for generations to come.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Service 1 -->
+          <div class="group border border-stone-200 dark:border-stone-800 p-1 hover:border-brand-500 dark:hover:border-brand-500 transition-colors duration-300 bg-white dark:bg-stone-900">
+            <div class="overflow-hidden aspect-w-4 aspect-h-3">
+              <img src="https://images.unsplash.com/photo-1601598851547-4302969d0614?w=600&q=80" alt="Antique Restoration" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div class="p-8 text-center">
+              <div class="w-12 h-12 bg-brand-50 text-brand-600 dark:bg-stone-800 dark:text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="ti ti-building-arch text-2xl"></i>
+              </div>
+              <h3 class="font-heading text-2xl text-brand-900 dark:text-brand-100 mb-3">Antique Refinishing</h3>
+              <p class="text-stone-600 dark:text-stone-400 mb-6 text-sm">
+                Careful removal of old finishes and expert application of historically accurate stains and varnishes to restore original luster.
+              </p>
+              <a href="#" @click.prevent="notify('Learn more about Antique Refinishing coming soon.')" class="text-brand-600 dark:text-brand-400 font-medium inline-flex items-center group-hover:text-brand-700">
+                Learn More <i class="ti ti-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="group border border-stone-200 dark:border-stone-800 p-1 hover:border-brand-500 dark:hover:border-brand-500 transition-colors duration-300 bg-white dark:bg-stone-900">
+            <div class="overflow-hidden aspect-w-4 aspect-h-3">
+              <img src="https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?w=600&q=80" alt="Structural Repair" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div class="p-8 text-center">
+              <div class="w-12 h-12 bg-brand-50 text-brand-600 dark:bg-stone-800 dark:text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="ti ti-hammer text-2xl"></i>
+              </div>
+              <h3 class="font-heading text-2xl text-brand-900 dark:text-brand-100 mb-3">Structural Repair</h3>
+              <p class="text-stone-600 dark:text-stone-400 mb-6 text-sm">
+                Fixing loose joints, replacing broken veneers, and rebuilding damaged structural elements using traditional joinery methods.
+              </p>
+              <a href="#" @click.prevent="notify('Learn more about Structural Repair coming soon.')" class="text-brand-600 dark:text-brand-400 font-medium inline-flex items-center group-hover:text-brand-700">
+                Learn More <i class="ti ti-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="group border border-stone-200 dark:border-stone-800 p-1 hover:border-brand-500 dark:hover:border-brand-500 transition-colors duration-300 bg-white dark:bg-stone-900">
+            <div class="overflow-hidden aspect-w-4 aspect-h-3">
+              <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80" alt="Custom Finishes" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div class="p-8 text-center">
+              <div class="w-12 h-12 bg-brand-50 text-brand-600 dark:bg-stone-800 dark:text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="ti ti-brush text-2xl"></i>
+              </div>
+              <h3 class="font-heading text-2xl text-brand-900 dark:text-brand-100 mb-3">Custom Finishes</h3>
+              <p class="text-stone-600 dark:text-stone-400 mb-6 text-sm">
+                From modern lacquers to traditional French polishing, we offer custom finishing services to match your exact aesthetic preferences.
+              </p>
+              <a href="#" @click.prevent="notify('Learn more about Custom Finishes coming soon.')" class="text-brand-600 dark:text-brand-400 font-medium inline-flex items-center group-hover:text-brand-700">
+                Learn More <i class="ti ti-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery / Our Work -->
+    <section id="gallery" class="py-24 bg-brand-50 dark:bg-stone-900 border-y border-brand-100 dark:border-stone-800 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+          <div class="max-w-2xl">
+            <h2 class="font-heading text-4xl text-brand-900 dark:text-brand-100 mb-4">Featured Restorations</h2>
+            <div class="w-24 h-1 bg-brand-500 mb-4"></div>
+            <p class="text-stone-600 dark:text-stone-400">A glimpse into our workshop and the pieces we've brought back to life.</p>
+          </div>
+          <div class="mt-6 md:mt-0">
+            <a href="#" @click.prevent="notify('Full gallery feature coming soon.')" class="text-brand-600 dark:text-brand-400 font-medium hover:underline inline-flex items-center">
+              View All Projects <i class="ti ti-arrow-right ml-1 text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Gallery Item 1 -->
+          <div class="relative group overflow-hidden cursor-pointer h-80" @click="notify('Opening gallery image 1')">
+            <img src="https://images.unsplash.com/photo-1622372738946-62e02505feb3?w=600&q=80" alt="Restored dining chair" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <div class="text-center p-4">
+                <span class="text-brand-300 text-sm tracking-widest uppercase mb-1 block">Mid-Century</span>
+                <h4 class="text-white font-heading text-2xl">Dining Chair Set</h4>
+              </div>
+            </div>
+          </div>
+          <!-- Gallery Item 2 -->
+          <div class="relative group overflow-hidden cursor-pointer h-80" @click="notify('Opening gallery image 2')">
+            <img src="https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=600&q=80" alt="Workshop tools" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <div class="text-center p-4">
+                <span class="text-brand-300 text-sm tracking-widest uppercase mb-1 block">Victorian Era</span>
+                <h4 class="text-white font-heading text-2xl">Carved Mahogany Desk</h4>
+              </div>
+            </div>
+          </div>
+          <!-- Gallery Item 3 -->
+          <div class="relative group overflow-hidden cursor-pointer h-80 sm:col-span-2 lg:col-span-1" @click="notify('Opening gallery image 3')">
+            <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600&q=80" alt="Detail work" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <div class="text-center p-4">
+                <span class="text-brand-300 text-sm tracking-widest uppercase mb-1 block">Craftsmanship</span>
+                <h4 class="text-white font-heading text-2xl">Custom Veneer Repair</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process / CTA -->
+    <section class="py-24 bg-brand-900 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-brand-800 rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand-700 rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform -translate-x-1/2 translate-y-1/2"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <h2 class="font-heading text-4xl md:text-5xl mb-6">Ready to Restore Your Heirloom?</h2>
+        <p class="text-brand-100 text-lg max-w-2xl mx-auto mb-10">
+          Our process is simple. Send us photos of your piece, and we'll provide a preliminary assessment and estimate.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#contact" class="px-8 py-4 bg-white text-brand-900 hover:bg-brand-50 rounded-none font-medium transition-colors">
+            Start Your Estimate
+          </a>
+          <a href="tel:+15551234567" class="px-8 py-4 border border-brand-400 text-white hover:bg-brand-800 rounded-none font-medium transition-colors flex items-center justify-center">
+            <i class="ti ti-phone mr-2"></i> (555) 123-4567
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Carousel -->
+    <section id="testimonials" class="py-24 bg-cream dark:bg-cream-dark transition-colors duration-300">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <i class="ti ti-quote text-5xl text-brand-300 dark:text-brand-700 mb-6 inline-block"></i>
+        
+        <div x-data="{ 
+            active: 0, 
+            items: [
+              { quote: 'They completely transformed my grandmother\'s dining table. The attention to detail and respect for the original craftsmanship was truly remarkable.', name: 'Eleanor Vance', role: 'Antique Collector' },
+              { quote: 'I thought my water-damaged credenza was beyond repair. The team at Heritage not only fixed the structural damage but matched the finish perfectly.', name: 'Marcus Sterling', role: 'Homeowner' },
+              { quote: 'Professional, communicative, and true artisans. They breathed new life into a mid-century chair that I found at a flea market.', name: 'Sarah Jenkins', role: 'Interior Designer' }
+            ] 
+          }" 
+          class="relative overflow-hidden">
+          
+          <template x-for="(t, i) in items" :key="i">
+            <div x-show="active === i" 
+                 x-transition:enter="transition ease-out duration-500"
+                 x-transition:enter-start="opacity-0 transform translate-x-8"
+                 x-transition:enter-end="opacity-100 transform translate-x-0"
+                 class="px-4">
+              <p class="text-2xl md:text-3xl font-heading text-brand-900 dark:text-brand-100 mb-8 leading-relaxed" x-text="`&quot;${t.quote}&quot;`"></p>
+              <div>
+                <p class="font-bold text-stone-800 dark:text-stone-200" x-text="t.name"></p>
+                <p class="text-brand-600 dark:text-brand-400 text-sm uppercase tracking-wider mt-1" x-text="t.role"></p>
+              </div>
+            </div>
+          </template>
+          
+          <div class="flex justify-center mt-12 space-x-4">
+            <button @click="active = (active - 1 + items.length) % items.length" class="w-10 h-10 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-500 hover:text-brand-600 hover:border-brand-600 dark:hover:text-brand-400 dark:hover:border-brand-400 transition-colors" aria-label="Previous testimonial">
+              <i class="ti ti-arrow-left"></i>
+            </button>
+            <button @click="active = (active + 1) % items.length" class="w-10 h-10 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-500 hover:text-brand-600 hover:border-brand-600 dark:hover:text-brand-400 dark:hover:border-brand-400 transition-colors" aria-label="Next testimonial">
+              <i class="ti ti-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-brand-50 dark:bg-stone-900 border-t border-brand-100 dark:border-stone-800 transition-colors duration-300">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="font-heading text-4xl text-brand-900 dark:text-brand-100 mb-4">Frequently Asked Questions</h2>
+          <div class="w-24 h-1 bg-brand-500 mx-auto"></div>
+        </div>
+
+        <div x-data="{ 
+            active: null,
+            faqs: [
+              { q: 'How do I get an estimate for restoration?', a: 'You can use our contact form to send us details and photos of your piece. We will review the images and provide a preliminary estimate. For a final quote, we usually need to inspect the piece in person.' },
+              { q: 'Do you offer pickup and delivery services?', a: 'Yes, we offer white-glove pickup and delivery services within a 50-mile radius of our workshop for an additional fee depending on the size of the item.' },
+              { q: 'How long does a typical restoration take?', a: 'Turnaround time varies greatly depending on the extent of the damage and the curing times for specific finishes. Minor repairs might take 1-2 weeks, while full restorations can take 4-8 weeks.' },
+              { q: 'Will restoring my antique decrease its value?', a: 'Proper, historically sensitive restoration typically preserves or enhances an item\'s value by stabilizing it and protecting it from further deterioration. We do not use destructive techniques like heavy sanding on valuable antiques.' }
+            ]
+          }" class="space-y-4">
+          
+          <template x-for="(item, i) in faqs" :key="i">
+            <div class="border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800">
+              <button @click="active === i ? active = null : active = i" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+                <span class="font-medium text-stone-800 dark:text-stone-200 text-lg" x-text="item.q"></span>
+                <i class="ti text-brand-500 transition-transform duration-300" :class="active === i ? 'ti-minus' : 'ti-plus'"></i>
+              </button>
+              <div x-show="active === i" x-collapse x-cloak>
+                <div class="px-6 pb-4 text-stone-600 dark:text-stone-400">
+                  <p x-text="item.a"></p>
+                </div>
+              </div>
+            </div>
+          </template>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-cream dark:bg-cream-dark transition-colors duration-300 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          <!-- Contact Info -->
+          <div>
+            <h2 class="font-heading text-4xl text-brand-900 dark:text-brand-100 mb-4">Let's Discuss Your Project</h2>
+            <div class="w-16 h-1 bg-brand-500 mb-8"></div>
+            <p class="text-stone-600 dark:text-stone-400 mb-10 text-lg">
+              Whether it's a minor touch-up or a complete structural rebuild, we're here to help. Reach out to schedule an assessment.
+            </p>
+            
+            <div class="space-y-6">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-brand-100 dark:bg-stone-800 text-brand-600 dark:text-brand-400 rounded-none flex items-center justify-center shrink-0">
+                  <i class="ti ti-map-pin text-2xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-stone-900 dark:text-white mb-1">Workshop Address</h4>
+                  <p class="text-stone-600 dark:text-stone-400">124 Timber Lane<br>Portland, OR 97204</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-brand-100 dark:bg-stone-800 text-brand-600 dark:text-brand-400 rounded-none flex items-center justify-center shrink-0">
+                  <i class="ti ti-phone text-2xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-stone-900 dark:text-white mb-1">Phone</h4>
+                  <p class="text-stone-600 dark:text-stone-400">(555) 123-4567</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-brand-100 dark:bg-stone-800 text-brand-600 dark:text-brand-400 rounded-none flex items-center justify-center shrink-0">
+                  <i class="ti ti-mail text-2xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-stone-900 dark:text-white mb-1">Email</h4>
+                  <p class="text-stone-600 dark:text-stone-400">workshop@heritagerestoration.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="bg-white dark:bg-stone-900 p-8 border border-stone-200 dark:border-stone-800 shadow-sm">
+            <form @submit.prevent="submitForm()" x-data="{
+              form: { name: '', email: '', message: '' },
+              errors: {},
+              success: false,
+              submitForm() {
+                this.errors = {};
+                if (!this.form.name.trim()) this.errors.name = 'Name is required.';
+                if (!this.form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+                  this.errors.email = 'A valid email is required.';
+                if (!this.form.message.trim()) this.errors.message = 'Please describe your item and needs.';
+                if (Object.keys(this.errors).length === 0) {
+                  this.success = true;
+                  Alpine.store('app').notify('Message sent successfully! We will contact you soon.');
+                  this.form = { name: '', email: '', message: '' };
+                  setTimeout(() => this.success = false, 5000);
+                }
+              }
+            }">
+              
+              <div x-show="success" x-cloak class="mb-6 p-4 bg-green-50 text-green-800 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800">
+                Thank you for reaching out. We will get back to you within 48 hours.
+              </div>
+
+              <div class="space-y-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Full Name</label>
+                  <input type="text" id="name" x-model="form.name" 
+                         class="w-full px-4 py-3 border border-stone-300 dark:border-stone-700 bg-transparent dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors"
+                         :class="errors.name ? 'border-red-500' : ''">
+                  <p x-show="errors.name" x-text="errors.name" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+
+                <div>
+                  <label for="email" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Email Address</label>
+                  <input type="email" id="email" x-model="form.email" 
+                         class="w-full px-4 py-3 border border-stone-300 dark:border-stone-700 bg-transparent dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors"
+                         :class="errors.email ? 'border-red-500' : ''">
+                  <p x-show="errors.email" x-text="errors.email" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+
+                <div>
+                  <label for="message" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Project Details</label>
+                  <textarea id="message" x-model="form.message" rows="4" 
+                            class="w-full px-4 py-3 border border-stone-300 dark:border-stone-700 bg-transparent dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors resize-none"
+                            :class="errors.message ? 'border-red-500' : ''"
+                            placeholder="Please describe the piece and the restoration needed..."></textarea>
+                  <p x-show="errors.message" x-text="errors.message" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-medium py-4 px-6 transition-colors flex items-center justify-center space-x-2">
+                  <span>Send Message</span>
+                  <i class="ti ti-send"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="col-span-1 md:col-span-1">
+          <div class="flex items-center space-x-2 mb-4">
+             <i class="ti ti-tools-kitchen-2 text-2xl text-brand-500"></i>
+             <span class="font-heading text-xl text-white">Heritage</span>
+          </div>
+          <p class="text-sm mb-4">Dedicated to the preservation and restoration of fine wooden furniture through traditional craftsmanship.</p>
+          <div class="flex space-x-4">
+            <a href="#" @click.prevent="notify('Social link clicked')" aria-label="Facebook" class="text-stone-500 hover:text-white transition-colors"><i class="ti ti-brand-facebook text-xl"></i></a>
+            <a href="#" @click.prevent="notify('Social link clicked')" aria-label="Instagram" class="text-stone-500 hover:text-white transition-colors"><i class="ti ti-brand-instagram text-xl"></i></a>
+            <a href="#" @click.prevent="notify('Social link clicked')" aria-label="Pinterest" class="text-stone-500 hover:text-white transition-colors"><i class="ti ti-brand-pinterest text-xl"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Services</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" @click.prevent="notify('Link clicked')" class="hover:text-brand-400 transition-colors">Antique Refinishing</a></li>
+            <li><a href="#" @click.prevent="notify('Link clicked')" class="hover:text-brand-400 transition-colors">Structural Repair</a></li>
+            <li><a href="#" @click.prevent="notify('Link clicked')" class="hover:text-brand-400 transition-colors">Custom Finishes</a></li>
+            <li><a href="#" @click.prevent="notify('Link clicked')" class="hover:text-brand-400 transition-colors">Veneer Repair</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Company</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#gallery" class="hover:text-brand-400 transition-colors">Our Work</a></li>
+            <li><a href="#" @click.prevent="notify('Link clicked')" class="hover:text-brand-400 transition-colors">About Us</a></li>
+            <li><a href="#testimonials" class="hover:text-brand-400 transition-colors">Testimonials</a></li>
+            <li><a href="#contact" class="hover:text-brand-400 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Newsletter</h4>
+          <p class="text-sm mb-4">Subscribe to receive tips on caring for your wooden furniture.</p>
+          <form @submit.prevent="notify('Subscribed to newsletter!')" class="flex">
+            <input type="email" placeholder="Email address" required class="w-full px-3 py-2 bg-stone-800 border border-stone-700 text-white focus:outline-none focus:border-brand-500 text-sm">
+            <button type="submit" class="bg-brand-600 hover:bg-brand-500 text-white px-3 py-2 transition-colors">
+              <i class="ti ti-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+      
+      <div class="pt-8 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center text-xs">
+        <p>&copy; 2026 Heritage Carpentry Restoration. All rights reserved.</p>
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          <a href="#" @click.prevent="notify('Link clicked')" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" @click.prevent="notify('Link clicked')" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div x-show="toast.show" x-transition x-cloak
+       class="fixed bottom-6 right-6 z-50 bg-stone-900 dark:bg-white text-white dark:text-stone-900 px-5 py-3 rounded-none shadow-2xl text-sm font-medium border-l-4 border-brand-500">
+    <span x-text="toast.message"></span>
+  </div>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('appState', () => ({
+        darkMode: false,
+        mobileMenuOpen: false,
+        toast: { show: false, message: '' },
+
+        init() {
+          // Check system preference
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            this.darkMode = true;
+          }
+          // Register to global store to be accessed from inner components easily
+          Alpine.store('app', this);
+        },
+
+        toggleDark() { 
+          this.darkMode = !this.darkMode; 
+        },
+        toggleMenu() { 
+          this.mobileMenuOpen = !this.mobileMenuOpen; 
+        },
+
+        notify(msg) {
+          this.toast.message = msg;
+          this.toast.show = true;
+          setTimeout(() => { this.toast.show = false; }, 3000);
+        }
+      }));
+    });
+  </script>
+</body>
+</html>

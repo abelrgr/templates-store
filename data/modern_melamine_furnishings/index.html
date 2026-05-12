@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" x-data="appState()" :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Modern Melamine Furnishings - Sleek, durable, and customizable melamine furniture for home and office." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Modern Melamine Furnishings" />
+  <meta property="og:description" content="Sleek, durable, and customizable melamine furniture for home and office." />
+  <meta property="og:type" content="website" />
+
+  <title>Modern Melamine Furnishings</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Alpine.js CDN (Collapse first, then core) -->
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Tabler Icons CDN -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Custom Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              300: '#67e8f9',
+              400: '#22d3ee',
+              500: '#06b6d4', // Primary Cyan
+              600: '#0891b2',
+              700: '#0e7490',
+              800: '#155e75',
+              900: '#164e63',
+            },
+            slate: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              800: '#1e293b',
+              900: '#0f172a',
+            }
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    body {
+      background-color: theme('colors.white');
+      color: theme('colors.slate.800');
+    }
+    .dark body {
+      background-color: theme('colors.slate.900');
+      color: theme('colors.slate.100');
+    }
+  </style>
+</head>
+<body class="font-body antialiased transition-colors duration-300">
+
+  <!-- Promo Bar -->
+  <div class="bg-slate-900 dark:bg-black text-white text-xs py-2 px-4 flex justify-center items-center z-50 relative">
+    <p class="font-medium tracking-wide">FREE SHIPPING ON ALL ORDERS OVER $500 <a href="#" @click.prevent="notify('Promo details coming soon.')" class="underline ml-2 text-brand-400">Shop Now</a></p>
+  </div>
+
+  <!-- Navigation -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <a href="#" @click.prevent="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex items-center space-x-2">
+          <i class="ti ti-box text-3xl text-brand-500"></i>
+          <span class="font-heading text-xl font-bold tracking-tight text-slate-900 dark:text-white uppercase">Mod<span class="text-brand-500">Melamine</span></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center space-x-8">
+          <a href="#collections" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Collections</a>
+          <a href="#custom" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Custom Build</a>
+          <a href="#about" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Why Melamine?</a>
+          <a href="#contact" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Contact</a>
+        </nav>
+
+        <!-- Right Icons -->
+        <div class="flex items-center space-x-4">
+          <!-- Dark Mode Toggle -->
+          <button @click="toggleDark()" aria-label="Toggle dark mode"
+                  class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            <i class="ti text-xl" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+          </button>
+          
+          <button @click="notify('Cart functionality coming soon.')" aria-label="Cart" class="relative p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            <i class="ti ti-shopping-cart text-xl"></i>
+            <span class="absolute top-0 right-0 bg-brand-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+          </button>
+
+          <!-- Mobile Menu Button -->
+          <button @click="toggleMenu()" class="md:hidden p-2 text-slate-600 dark:text-slate-300" aria-label="Open menu">
+            <i class="ti text-2xl" :class="mobileMenuOpen ? 'ti-x' : 'ti-menu-2'"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div x-show="mobileMenuOpen" x-transition x-cloak
+         class="md:hidden absolute top-full left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-xl py-4 px-6 space-y-4">
+      <a href="#collections" @click="mobileMenuOpen = false" class="block text-base font-medium text-slate-600 dark:text-slate-300">Collections</a>
+      <a href="#custom" @click="mobileMenuOpen = false" class="block text-base font-medium text-slate-600 dark:text-slate-300">Custom Build</a>
+      <a href="#about" @click="mobileMenuOpen = false" class="block text-base font-medium text-slate-600 dark:text-slate-300">Why Melamine?</a>
+      <a href="#contact" @click="mobileMenuOpen = false" class="block text-base font-medium text-slate-600 dark:text-slate-300">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative bg-slate-50 dark:bg-slate-800 pt-16 pb-24 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="relative z-10">
+            <div class="inline-flex items-center space-x-2 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 px-3 py-1 rounded-full text-xs font-semibold mb-6">
+              <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+              <span>New Spring Collection</span>
+            </div>
+            <h1 class="font-heading text-5xl lg:text-7xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
+              Design your space with <span class="text-brand-500 relative inline-block">modern precision.<svg class="absolute w-full h-3 -bottom-1 left-0 text-brand-200 dark:text-brand-900/50" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" fill="none"/></svg></span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-lg">
+              High-quality melamine furniture that combines sleek aesthetics, incredible durability, and accessible pricing for the modern home.
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <a href="#collections" class="px-8 py-4 bg-slate-900 dark:bg-brand-500 hover:bg-brand-500 dark:hover:bg-brand-400 text-white rounded-lg font-medium text-center transition-colors">
+                Shop Collections
+              </a>
+              <a href="#custom" class="px-8 py-4 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-500 text-slate-900 dark:text-white rounded-lg font-medium text-center transition-colors">
+                Custom Quote
+              </a>
+            </div>
+          </div>
+          
+          <div class="relative">
+            <div class="absolute inset-0 bg-brand-200 dark:bg-brand-900/40 rounded-3xl transform rotate-3 scale-105"></div>
+            <img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?w=1200&q=80" alt="Minimalist living room" loading="lazy" class="relative rounded-3xl shadow-2xl object-cover w-full h-[500px]" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Melamine Section -->
+    <section id="about" class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Why Choose Melamine?</h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-16">The smart choice for contemporary living. Melamine offers unmatched versatility without compromising on strength or style.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="p-8 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:-translate-y-2 transition-transform duration-300">
+            <div class="w-14 h-14 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <i class="ti ti-shield-check text-2xl"></i>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Ultra Durable</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">Scratch, stain, and heat resistant. Built to withstand the rigors of daily life in busy households.</p>
+          </div>
+          
+          <div class="p-8 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:-translate-y-2 transition-transform duration-300">
+            <div class="w-14 h-14 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <i class="ti ti-palette text-2xl"></i>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Endless Finishes</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">From perfect solid mattes to incredibly realistic wood grains, match any interior design style seamlessly.</p>
+          </div>
+          
+          <div class="p-8 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:-translate-y-2 transition-transform duration-300">
+            <div class="w-14 h-14 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <i class="ti ti-leaf text-2xl"></i>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Eco-Friendly</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">Manufactured using recycled wood particles, minimizing waste while maximizing structural integrity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products / Collections -->
+    <section id="collections" class="py-24 bg-slate-50 dark:bg-slate-800 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+          <div>
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Featured Collections</h2>
+            <p class="text-slate-600 dark:text-slate-400">Discover our meticulously designed modular systems.</p>
+          </div>
+          <div class="mt-4 md:mt-0">
+            <a href="#" @click.prevent="notify('Viewing all products.')" class="text-brand-600 dark:text-brand-400 font-semibold hover:text-brand-700 flex items-center">
+              View Entire Catalog <i class="ti ti-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Product 1 -->
+          <div class="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 dark:border-slate-700">
+            <div class="relative overflow-hidden aspect-w-1 aspect-h-1 bg-slate-200 dark:bg-slate-800">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Living Room Console" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-4 left-4 bg-white text-slate-900 text-xs font-bold px-2 py-1 rounded">NEW</div>
+              <!-- Quick Add Button -->
+              <div class="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <button @click="notify('Added to cart')" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-medium py-2 rounded-lg shadow-lg">
+                  Quick Add
+                </button>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Aero TV Console</h3>
+                <span class="font-bold text-slate-900 dark:text-white">$349</span>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Matte Black / Oak Trim</p>
+              <div class="flex items-center space-x-1">
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <span class="text-xs text-slate-500 ml-1">(24)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 dark:border-slate-700">
+            <div class="relative overflow-hidden aspect-w-1 aspect-h-1 bg-slate-200 dark:bg-slate-800">
+              <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600&q=80" alt="Bedroom Wardrobe" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+              <!-- Quick Add Button -->
+              <div class="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <button @click="notify('Added to cart')" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-medium py-2 rounded-lg shadow-lg">
+                  Quick Add
+                </button>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Lumina Wardrobe</h3>
+                <span class="font-bold text-slate-900 dark:text-white">$699</span>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Gloss White</p>
+              <div class="flex items-center space-x-1">
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-half-filled text-yellow-400 text-sm"></i>
+                <span class="text-xs text-slate-500 ml-1">(12)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 dark:border-slate-700">
+            <div class="relative overflow-hidden aspect-w-1 aspect-h-1 bg-slate-200 dark:bg-slate-800">
+              <img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=600&q=80" alt="Kitchen Cabinet" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-4 left-4 bg-brand-500 text-white text-xs font-bold px-2 py-1 rounded">SALE</div>
+              <!-- Quick Add Button -->
+              <div class="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <button @click="notify('Added to cart')" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-medium py-2 rounded-lg shadow-lg">
+                  Quick Add
+                </button>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Modular Kitchen Box</h3>
+                <div class="text-right">
+                  <span class="font-bold text-red-500 block">$189</span>
+                  <span class="text-xs text-slate-400 line-through">$229</span>
+                </div>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Charcoal / Silver Pull</p>
+              <div class="flex items-center space-x-1">
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <span class="text-xs text-slate-500 ml-1">(41)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 dark:border-slate-700">
+            <div class="relative overflow-hidden aspect-w-1 aspect-h-1 bg-slate-200 dark:bg-slate-800">
+              <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=80" alt="Home Office Desk" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+              <!-- Quick Add Button -->
+              <div class="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <button @click="notify('Added to cart')" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-medium py-2 rounded-lg shadow-lg">
+                  Quick Add
+                </button>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Ergo Workstation</h3>
+                <span class="font-bold text-slate-900 dark:text-white">$279</span>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Walnut Grain / White</p>
+              <div class="flex items-center space-x-1">
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star-filled text-yellow-400 text-sm"></i>
+                <i class="ti ti-star text-yellow-400 text-sm"></i>
+                <span class="text-xs text-slate-500 ml-1">(8)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom Quote CTA -->
+    <section id="custom" class="py-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-brand-600 dark:bg-brand-900 z-0"></div>
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30 z-0"></div>
+      
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-6">Need something specific?</h2>
+        <p class="text-brand-100 text-lg mb-10 max-w-2xl mx-auto">
+          We offer full custom design services. Whether it's a walk-in closet, a full kitchen remodel, or a unique office setup, our experts will build it to your exact specifications.
+        </p>
+        <a href="#contact" class="inline-flex items-center px-8 py-4 bg-white text-brand-600 hover:bg-slate-50 rounded-lg font-bold transition-colors shadow-xl">
+          Get a Custom Quote <i class="ti ti-arrow-right ml-2 text-xl"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          <div>
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Contact Us</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-8">
+              Have questions about our products or want to start a custom project? Fill out the form, and our design team will get back to you shortly.
+            </p>
+            
+            <div class="space-y-6">
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full flex items-center justify-center shrink-0">
+                  <i class="ti ti-map-pin text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 dark:text-white">Showroom</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm">88 Design Ave, Suite 100, NY 10012</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full flex items-center justify-center shrink-0">
+                  <i class="ti ti-phone text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 dark:text-white">Phone</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm">1-800-MOD-MELA</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full flex items-center justify-center shrink-0">
+                  <i class="ti ti-mail text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 dark:text-white">Email</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm">hello@modmelamine.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-slate-800 p-8 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <form @submit.prevent="submitForm()" x-data="{
+              form: { name: '', email: '', subject: 'General Inquiry', message: '' },
+              errors: {},
+              success: false,
+              submitForm() {
+                this.errors = {};
+                if (!this.form.name.trim()) this.errors.name = 'Name is required.';
+                if (!this.form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+                  this.errors.email = 'A valid email is required.';
+                if (!this.form.message.trim()) this.errors.message = 'Message cannot be empty.';
+                if (Object.keys(this.errors).length === 0) {
+                  this.success = true;
+                  Alpine.store('app').notify('Your message has been sent!');
+                  this.form = { name: '', email: '', subject: 'General Inquiry', message: '' };
+                  setTimeout(() => this.success = false, 5000);
+                }
+              }
+            }">
+              
+              <div x-show="success" x-cloak class="mb-6 p-4 bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400 rounded-lg">
+                Thanks for reaching out! We'll be in touch soon.
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Name</label>
+                  <input type="text" id="name" x-model="form.name" 
+                         class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors"
+                         :class="errors.name ? 'border-red-500' : ''">
+                  <p x-show="errors.name" x-text="errors.name" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
+                    <input type="email" id="email" x-model="form.email" 
+                           class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors"
+                           :class="errors.email ? 'border-red-500' : ''">
+                    <p x-show="errors.email" x-text="errors.email" class="text-red-500 text-xs mt-1" x-cloak></p>
+                  </div>
+                  <div>
+                    <label for="subject" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Subject</label>
+                    <select id="subject" x-model="form.subject" class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors">
+                      <option>General Inquiry</option>
+                      <option>Custom Quote</option>
+                      <option>Order Status</option>
+                      <option>Partnership</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Message</label>
+                  <textarea id="message" x-model="form.message" rows="4" 
+                            class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors resize-none"
+                            :class="errors.message ? 'border-red-500' : ''"></textarea>
+                  <p x-show="errors.message" x-text="errors.message" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+
+                <button type="submit" class="w-full bg-slate-900 dark:bg-brand-500 hover:bg-slate-800 dark:hover:bg-brand-600 text-white font-medium py-3 rounded-lg transition-colors">
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="col-span-1 md:col-span-1">
+          <div class="flex items-center space-x-2 mb-4">
+             <i class="ti ti-box text-2xl text-brand-500"></i>
+             <span class="font-heading font-bold text-white uppercase">Mod<span class="text-brand-500">Melamine</span></span>
+          </div>
+          <p class="text-sm mb-4">Precision crafted melamine furniture for modern living spaces.</p>
+          <div class="flex space-x-4">
+            <a href="#" @click.prevent="notify('Social link')" class="text-slate-500 hover:text-white transition-colors"><i class="ti ti-brand-instagram text-xl"></i></a>
+            <a href="#" @click.prevent="notify('Social link')" class="text-slate-500 hover:text-white transition-colors"><i class="ti ti-brand-pinterest text-xl"></i></a>
+            <a href="#" @click.prevent="notify('Social link')" class="text-slate-500 hover:text-white transition-colors"><i class="ti ti-brand-twitter text-xl"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Shop</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-400 transition-colors">Living Room</a></li>
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-400 transition-colors">Bedroom</a></li>
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-400 transition-colors">Kitchen</a></li>
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-400 transition-colors">Office</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Support</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-400 transition-colors">Assembly Guides</a></li>
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-400 transition-colors">Shipping & Returns</a></li>
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-400 transition-colors">Material Specs</a></li>
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-400 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Join Our List</h4>
+          <p class="text-sm mb-4">Get 10% off your first order and exclusive design tips.</p>
+          <form @submit.prevent="notify('Subscribed!')" class="flex">
+            <input type="email" placeholder="Email address" required class="w-full px-3 py-2 rounded-l-lg bg-slate-800 border-none text-white focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+            <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-r-lg transition-colors font-medium text-sm">
+              Subscribe
+            </button>
+          </form>
+        </div>
+
+      </div>
+      
+      <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-xs">
+        <p>&copy; 2026 ModMelamine. All rights reserved.</p>
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          <a href="#" @click.prevent="notify('Link')" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" @click.prevent="notify('Link')" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div x-show="toast.show" x-transition x-cloak
+       class="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-3 rounded-lg shadow-2xl text-sm font-medium flex items-center space-x-2">
+    <i class="ti ti-info-circle"></i>
+    <span x-text="toast.message"></span>
+  </div>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('appState', () => ({
+        darkMode: false,
+        mobileMenuOpen: false,
+        toast: { show: false, message: '' },
+
+        init() {
+          // Check system preference
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            this.darkMode = true;
+          }
+          Alpine.store('app', this);
+        },
+
+        toggleDark() { 
+          this.darkMode = !this.darkMode; 
+        },
+        toggleMenu() { 
+          this.mobileMenuOpen = !this.mobileMenuOpen; 
+        },
+
+        notify(msg) {
+          this.toast.message = msg;
+          this.toast.show = true;
+          setTimeout(() => { this.toast.show = false; }, 3000);
+        }
+      }));
+    });
+  </script>
+</body>
+</html>

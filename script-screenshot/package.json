@@ -1,0 +1,21 @@
+{
+  "name": "template-screenshot-capture",
+  "version": "1.0.0",
+  "description": "Generate screenshots for templates in /data directory using Playwright",
+  "main": "capture.js",
+  "type": "module",
+  "scripts": {
+    "capture": "node capture.js",
+    "install-browsers": "playwright install"
+  },
+  "keywords": [
+    "playwright",
+    "screenshot",
+    "templates"
+  ],
+  "author": "Abel Gallo Ruiz",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en" x-data="appState()" :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vintage Furniture Restoration - We buy, restore, and sell vintage furniture. Watch forgotten pieces become fabulous again." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Vintage Furniture Restoration" />
+  <meta property="og:description" content="We buy, restore, and sell vintage furniture. Watch forgotten pieces become fabulous again." />
+  <meta property="og:type" content="website" />
+
+  <title>Vintage Furniture Restoration</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Alpine.js CDN (Collapse first, then core) -->
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Tabler Icons CDN -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Custom Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: {
+                50: '#f0f4f8',
+                100: '#d9e2ec',
+                200: '#bcccdc',
+                300: '#9fb3c8',
+                400: '#829ab1',
+                500: '#627d98',
+                600: '#486581',
+                700: '#334e68',
+                800: '#243b53',
+                900: '#102a43', // Primary Navy
+              },
+              gold: {
+                50: '#fefce8',
+                100: '#fef9c3',
+                200: '#fef08a',
+                300: '#fde047',
+                400: '#facc15',
+                500: '#eab308',
+                600: '#ca8a04',
+                700: '#a16207',
+                800: '#854d0e',
+                900: '#713f12',
+              },
+              cream: {
+                DEFAULT: '#faf9f7',
+                dark: '#0f172a',
+              }
+            }
+          },
+          fontFamily: {
+            heading: ['"Playfair Display"', 'serif'],
+            body: ['"Lato"', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.6s ease-out forwards',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            fadeIn: {
+              'from': { opacity: '0' },
+              'to': { opacity: '1' },
+            },
+            slideUp: {
+              'from': { opacity: '0', transform: 'translateY(20px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    body {
+      background-color: theme('colors.brand.cream.DEFAULT');
+      color: theme('colors.brand.navy.800');
+    }
+    .dark body {
+      background-color: theme('colors.brand.cream.dark');
+      color: theme('colors.brand.navy.100');
+    }
+    .before-after-slider {
+      cursor: col-resize;
+    }
+  </style>
+</head>
+<body class="font-body antialiased transition-colors duration-300">
+
+  <!-- Top Bar -->
+  <div class="bg-brand-navy-900 text-brand-gold-300 text-xs sm:text-sm py-2 px-4 flex justify-center items-center z-50 relative">
+    <span class="font-medium">✨ Free Pickup for Large Items | 12 Years of Craftsmanship</span>
+  </div>
+
+  <!-- Navigation -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-brand-navy-900/95 backdrop-blur-md border-b border-brand-navy-100 dark:border-brand-navy-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <a href="#" @click.prevent="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex items-center space-x-2">
+          <div class="bg-brand-gold-500 text-white p-2 rounded-lg">
+            <i class="ti ti-chair text-2xl"></i>
+          </div>
+          <div>
+            <span class="font-heading text-2xl font-bold text-brand-navy-900 dark:text-white block leading-none">Vintage</span>
+            <span class="text-xs uppercase tracking-widest text-brand-gold-600 dark:text-brand-gold-400 font-medium">Restoration Co.</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center space-x-8">
+          <a href="#process" class="text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 hover:text-brand-gold-500 dark:hover:text-brand-gold-400 transition-colors">Our Process</a>
+          <a href="#transformations" class="text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 hover:text-brand-gold-500 dark:hover:text-brand-gold-400 transition-colors">Transformations</a>
+          <a href="#inventory" class="text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 hover:text-brand-gold-500 dark:hover:text-brand-gold-400 transition-colors">Shop</a>
+          <a href="#sell" class="text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 hover:text-brand-gold-500 dark:hover:text-brand-gold-400 transition-colors">Sell</a>
+          <a href="#contact" class="px-5 py-2.5 rounded-full bg-brand-navy-900 text-white hover:bg-brand-navy-800 dark:bg-brand-gold-500 dark:text-brand-navy-900 dark:hover:bg-brand-gold-400 font-medium transition-all text-sm">
+            Contact Us
+          </a>
+          
+          <!-- Dark Mode Toggle -->
+          <button @click="toggleDark()" aria-label="Toggle dark mode"
+                  class="p-2 rounded-full text-brand-navy-500 hover:bg-brand-navy-50 dark:hover:bg-brand-navy-800 transition-colors">
+            <i class="ti text-xl" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+          </button>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="flex items-center md:hidden space-x-2">
+          <button @click="toggleDark()" aria-label="Toggle dark mode"
+                  class="p-2 rounded-full text-brand-navy-500 hover:bg-brand-navy-50 dark:hover:bg-brand-navy-800 transition-colors">
+            <i class="ti text-xl" :class="darkMode ? 'ti-sun' : 'ti-moon'"></i>
+          </button>
+          <button @click="toggleMenu()" class="p-2 text-brand-navy-600 dark:text-brand-navy-300" aria-label="Open menu">
+            <i class="ti text-2xl" :class="mobileMenuOpen ? 'ti-x' : 'ti-menu-2'"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div x-show="mobileMenuOpen" x-transition x-cloak
+         class="md:hidden absolute top-full left-0 w-full bg-white dark:bg-brand-navy-900 border-b border-brand-navy-100 dark:border-brand-navy-800 shadow-xl py-4 px-6 space-y-4">
+      <a href="#process" @click="mobileMenuOpen = false" class="block text-base font-medium text-brand-navy-600 dark:text-brand-navy-300">Our Process</a>
+      <a href="#transformations" @click="mobileMenuOpen = false" class="block text-base font-medium text-brand-navy-600 dark:text-brand-navy-300">Transformations</a>
+      <a href="#inventory" @click="mobileMenuOpen = false" class="block text-base font-medium text-brand-navy-600 dark:text-brand-navy-300">Shop</a>
+      <a href="#sell" @click="mobileMenuOpen = false" class="block text-base font-medium text-brand-navy-600 dark:text-brand-navy-300">Sell</a>
+      <a href="#contact" @click="mobileMenuOpen = false" class="block text-base font-medium text-brand-gold-600 dark:text-brand-gold-400">Contact Us</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative bg-brand-navy-900 text-white py-24 lg:py-32 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=1200&q=80" alt="Workshop" loading="lazy" class="w-full h-full object-cover object-center opacity-30" />
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-navy-900 via-brand-navy-900/90 to-transparent"></div>
+      </div>
+      
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="animate-slide-up">
+            <span class="text-brand-gold-400 font-medium tracking-widest uppercase text-sm mb-4 block">Est. 2014</span>
+            <h1 class="font-heading text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight">From Forgotten to <span class="text-brand-gold-400">Fabulous</span></h1>
+            <p class="text-lg md:text-xl text-brand-navy-200 mb-8 font-light leading-relaxed max-w-lg">
+              We rescue vintage furniture from estate sales and auctions, restore them with expert craftsmanship, and give them a second life in loving homes.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="#inventory" class="px-8 py-4 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-navy-900 rounded-full font-bold text-center transition-colors">
+                Shop Restored Pieces
+              </a>
+              <a href="#sell" class="px-8 py-4 border border-brand-gold-400 text-brand-gold-400 hover:bg-brand-gold-400 hover:text-brand-navy-900 rounded-full font-bold text-center transition-colors">
+                Sell Your Furniture
+              </a>
+            </div>
+          </div>
+          
+          <!-- Stats Counter -->
+          <div class="hidden lg:grid grid-cols-2 gap-6" x-data="counterAnimation()">
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center animate-float" style="animation-delay: 0s;">
+              <div class="text-4xl font-bold text-brand-gold-400 mb-2" x-text="formatNumber(itemsRestored)"></div>
+              <div class="text-brand-navy-200 text-sm">Items Restored</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center animate-float" style="animation-delay: 0.5s;">
+              <div class="text-4xl font-bold text-brand-gold-400 mb-2" x-text="satisfactionRate + '%'"></div>
+              <div class="text-brand-navy-200 text-sm">Customer Satisfaction</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center animate-float" style="animation-delay: 1s;">
+              <div class="text-4xl font-bold text-brand-gold-400 mb-2" x-text="yearsInBusiness"></div>
+              <div class="text-brand-navy-200 text-sm">Years Experience</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center animate-float" style="animation-delay: 1.5s;">
+              <div class="text-4xl font-bold text-brand-gold-400 mb-2" x-text="piecesSold"></div>
+              <div class="text-brand-navy-200 text-sm">Pieces Sold</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Timeline (Vertical) -->
+    <section id="process" class="py-24 bg-brand-cream dark:bg-brand-navy-900 transition-colors duration-300">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="font-heading text-4xl text-brand-navy-900 dark:text-white mb-4">Our Restoration Process</h2>
+          <div class="w-24 h-1 bg-brand-gold-500 mx-auto mb-4"></div>
+          <p class="text-brand-navy-600 dark:text-brand-navy-300 text-lg">From discovery to delivery, here's how we bring furniture back to life</p>
+        </div>
+
+        <div class="relative" x-data="timelineAnimation()">
+          <!-- Steps Container -->
+          <div class="relative space-y-8">
+            <!-- Continuous vertical line behind all steps -->
+            <div class="absolute left-6 top-6 bottom-6 w-0.5 bg-brand-gold-500 -translate-x-1/2"></div>
+
+            <!-- Step 1 -->
+            <div class="relative flex items-start" x-ref="step1">
+              <!-- Icon Circle -->
+              <div class="flex-shrink-0 w-12 h-12 bg-brand-gold-500 rounded-full flex items-center justify-center z-10 shadow-lg">
+                <i class="ti ti-search text-white text-xl"></i>
+              </div>
+              <!-- Content Card -->
+              <div class="ml-8 bg-white dark:bg-brand-navy-800 rounded-2xl p-6 shadow-lg border border-brand-navy-100 dark:border-brand-navy-700 flex-1"
+                   :class="{'opacity-0 translate-x-4': activeStep < 1, 'opacity-100 translate-x-0 transition-all duration-700': activeStep >= 1}">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-2xl font-bold text-brand-navy-900 dark:text-white">1. Collect</h3>
+                  <span class="text-xs text-brand-gold-500 font-bold uppercase tracking-wider">Phase One</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300">
+                  We scour estate sales, auctions, and private donations to find hidden gems with potential. Each piece is carefully selected for its craftsmanship, era, and restoration possibilities.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative flex items-start" x-ref="step2">
+              <div class="flex-shrink-0 w-12 h-12 bg-brand-gold-500 rounded-full flex items-center justify-center z-10 shadow-lg">
+                <i class="ti ti-tools-kitchen-2 text-white text-xl"></i>
+              </div>
+              <div class="ml-8 bg-white dark:bg-brand-navy-800 rounded-2xl p-6 shadow-lg border border-brand-navy-100 dark:border-brand-navy-700 flex-1"
+                   :class="{'opacity-0 translate-x-4': activeStep < 2, 'opacity-100 translate-x-0 transition-all duration-700': activeStep >= 2}">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-2xl font-bold text-brand-navy-900 dark:text-white">2. Restore</h3>
+                  <span class="text-xs text-brand-gold-500 font-bold uppercase tracking-wider">Phase Two</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300">
+                  Our master craftsmen assess, repair, and refinish each piece using traditional techniques. We strip old finishes, repair structural damage, replace worn components, and apply new stains or paints.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative flex items-start" x-ref="step3">
+              <div class="flex-shrink-0 w-12 h-12 bg-brand-gold-500 rounded-full flex items-center justify-center z-10 shadow-lg">
+                <i class="ti ti-paint text-white text-xl"></i>
+              </div>
+              <div class="ml-8 bg-white dark:bg-brand-navy-800 rounded-2xl p-6 shadow-lg border border-brand-navy-100 dark:border-brand-navy-700 flex-1"
+                   :class="{'opacity-0 translate-x-4': activeStep < 3, 'opacity-100 translate-x-0 transition-all duration-700': activeStep >= 3}">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-2xl font-bold text-brand-navy-900 dark:text-white">3. Style</h3>
+                  <span class="text-xs text-brand-gold-500 font-bold uppercase tracking-wider">Phase Three</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300">
+                  Professional staging brings out each piece's character. We add new hardware, reupholster with premium fabrics, and style accessories to showcase the furniture's full potential.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="relative flex items-start" x-ref="step4">
+              <div class="flex-shrink-0 w-12 h-12 bg-brand-gold-500 rounded-full flex items-center justify-center z-10 shadow-lg">
+                <i class="ti ti-truck-delivery text-white text-xl"></i>
+              </div>
+              <div class="ml-8 bg-white dark:bg-brand-navy-800 rounded-2xl p-6 shadow-lg border border-brand-navy-100 dark:border-brand-navy-700 flex-1"
+                   :class="{'opacity-0 translate-x-4': activeStep < 4, 'opacity-100 translate-x-0 transition-all duration-700': activeStep >= 4}">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-2xl font-bold text-brand-navy-900 dark:text-white">4. Sell</h3>
+                  <span class="text-xs text-brand-gold-500 font-bold uppercase tracking-wider">Phase Four</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300">
+                  Ready for its second life! Each restored piece is photographed, listed, and delivered to its new home with care instructions and a satisfaction guarantee.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before/After Transformations (MAIN FEATURE) -->
+    <section id="transformations" class="py-24 bg-brand-navy-50 dark:bg-brand-navy-800 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="font-heading text-4xl text-brand-navy-900 dark:text-white mb-4">Watch the Magic Happen</h2>
+          <div class="w-24 h-1 bg-brand-gold-500 mx-auto mb-4"></div>
+          <p class="text-brand-navy-600 dark:text-brand-navy-300 text-lg max-w-2xl mx-auto">
+            Drag the slider to see our incredible before and after transformations
+          </p>
+        </div>
+
+        <!-- Before/After Slider Container -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Transformation 1: Chair -->
+          <div class="lg:col-span-1" x-data="beforeAfterSlider(30)">
+            <div class="relative w-full aspect-square overflow-hidden rounded-2xl shadow-xl before-after-slider group"
+                 @mousemove="updateSlider($event)"
+                 @touchmove="updateSlider($event)">
+              
+              <!-- Before Image (Background) -->
+              <img src="https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=600&q=80" 
+                   alt="Before restoration" 
+                   loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover" />
+              
+              <!-- After Image (Foreground, clipped) -->
+              <div class="absolute inset-0 overflow-hidden" :style="{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }">
+                <img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?w=600&q=80" 
+                     alt="After restoration" 
+                     loading="lazy"
+                     class="w-full h-full object-cover" />
+              </div>
+              
+              <!-- Divider Line -->
+              <div class="absolute inset-y-0 w-1 bg-brand-gold-500 cursor-col-resize shadow-lg"
+                   :style="{ left: sliderPosition + '%' }">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-gold-500 text-white px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                  BEFORE ↔ AFTER
+                </div>
+              </div>
+              
+              <!-- Labels -->
+              <div class="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-bold">BEFORE</div>
+              <div class="absolute top-4 right-4 bg-brand-gold-500 text-brand-navy-900 px-3 py-1 rounded-full text-xs font-bold">AFTER</div>
+            </div>
+            <div class="text-center mt-4">
+              <h4 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white">Victorian Dining Chair</h4>
+              <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm">Complete reupholstery & refinishing</p>
+            </div>
+          </div>
+
+          <!-- Transformation 2: Desk -->
+          <div class="lg:col-span-1" x-data="beforeAfterSlider(50)">
+            <div class="relative w-full aspect-square overflow-hidden rounded-2xl shadow-xl before-after-slider group"
+                 @mousemove="updateSlider($event)"
+                 @touchmove="updateSlider($event)">
+              
+              <img src="https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=600&q=80" 
+                   alt="Before restoration" 
+                   loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover" />
+              
+              <div class="absolute inset-0 overflow-hidden" :style="{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }">
+                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=80" 
+                     alt="After restoration" 
+                     loading="lazy"
+                     class="w-full h-full object-cover" />
+              </div>
+              
+              <div class="absolute inset-y-0 w-1 bg-brand-gold-500 cursor-col-resize shadow-lg"
+                   :style="{ left: sliderPosition + '%' }">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-gold-500 text-brand-navy-900 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                  BEFORE ↔ AFTER
+                </div>
+              </div>
+              
+              <div class="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-bold">BEFORE</div>
+              <div class="absolute top-4 right-4 bg-brand-gold-500 text-brand-navy-900 px-3 py-1 rounded-full text-xs font-bold">AFTER</div>
+            </div>
+            <div class="text-center mt-4">
+              <h4 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white">Mid-Century Writing Desk</h4>
+              <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm">Wood repair & natural stain</p>
+            </div>
+          </div>
+
+          <!-- Transformation 3: Cabinet -->
+          <div class="lg:col-span-1" x-data="beforeAfterSlider(70)">
+            <div class="relative w-full aspect-square overflow-hidden rounded-2xl shadow-xl before-after-slider group"
+                 @mousemove="updateSlider($event)"
+                 @touchmove="updateSlider($event)">
+              
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" 
+                   alt="Before restoration" 
+                   loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover" />
+              
+              <div class="absolute inset-0 overflow-hidden" :style="{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }">
+                <img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=600&q=80" 
+                     alt="After restoration" 
+                     loading="lazy"
+                     class="w-full h-full object-cover" />
+              </div>
+              
+              <div class="absolute inset-y-0 w-1 bg-brand-gold-500 cursor-col-resize shadow-lg"
+                   :style="{ left: sliderPosition + '%' }">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-gold-500 text-brand-navy-900 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                  BEFORE ↔ AFTER
+                </div>
+              </div>
+              
+              <div class="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-bold">BEFORE</div>
+              <div class="absolute top-4 right-4 bg-brand-gold-500 text-brand-navy-900 px-3 py-1 rounded-full text-xs font-bold">AFTER</div>
+            </div>
+            <div class="text-center mt-4">
+              <h4 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white">Art Deco Display Cabinet</h4>
+              <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm">Glass replacement & paint restoration</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Inventory -->
+    <section id="inventory" class="py-24 bg-brand-cream dark:bg-brand-navy-900 transition-colors duration-300" x-data="{ filter: 'all' }">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+          <div>
+            <h2 class="font-heading text-4xl text-brand-navy-900 dark:text-white mb-4">Available Now</h2>
+            <div class="w-24 h-1 bg-brand-gold-500 mb-4"></div>
+            <p class="text-brand-navy-600 dark:text-brand-navy-300 text-lg">Each piece is one-of-a-kind and ready for its new home</p>
+          </div>
+          <div class="mt-4 md:mt-0 flex gap-2">
+            <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-brand-gold-500 text-brand-navy-900' : 'bg-brand-navy-100 dark:bg-brand-navy-800 text-brand-navy-600 dark:text-brand-navy-300'" class="px-4 py-2 rounded-full text-sm font-medium transition-colors">All</button>
+            <button @click="filter = 'chairs'" :class="filter === 'chairs' ? 'bg-brand-gold-500 text-brand-navy-900' : 'bg-brand-navy-100 dark:bg-brand-navy-800 text-brand-navy-600 dark:text-brand-navy-300'" class="px-4 py-2 rounded-full text-sm font-medium transition-colors">Chairs</button>
+            <button @click="filter = 'tables'" :class="filter === 'tables' ? 'bg-brand-gold-500 text-brand-navy-900' : 'bg-brand-navy-100 dark:bg-brand-navy-800 text-brand-navy-600 dark:text-brand-navy-300'" class="px-4 py-2 rounded-full text-sm font-medium transition-colors">Tables</button>
+            <button @click="filter = 'storage'" :class="filter === 'storage' ? 'bg-brand-gold-500 text-brand-navy-900' : 'bg-brand-navy-100 dark:bg-brand-navy-800 text-brand-navy-600 dark:text-brand-navy-300'" class="px-4 py-2 rounded-full text-sm font-medium transition-colors">Storage</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Item 1 -->
+          <template x-if="filter === 'all' || filter === 'chairs'">
+            <div class="group bg-white dark:bg-brand-navy-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+              <div class="relative overflow-hidden aspect-w-4 aspect-h-3">
+                <img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?w=600&q=80" alt="Victorian Chair" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">AVAILABLE</div>
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white">Victorian Dining Chair</h3>
+                  <span class="text-brand-gold-500 font-bold text-xl">$450</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm mb-4">Fully restored with premium velvet upholstery in emerald green.</p>
+                <button @click="notify('Inquiry sent for Victorian Chair!')" class="w-full bg-brand-navy-900 dark:bg-brand-gold-500 text-white dark:text-brand-navy-900 font-medium py-3 rounded-full hover:bg-brand-navy-800 dark:hover:bg-brand-gold-400 transition-colors">
+                  Inquire Now
+                </button>
+              </div>
+            </div>
+          </template>
+
+          <!-- Item 2 -->
+          <template x-if="filter === 'all' || filter === 'tables'">
+            <div class="group bg-white dark:bg-brand-navy-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+              <div class="relative overflow-hidden aspect-w-4 aspect-h-3">
+                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=80" alt="Writing Desk" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">AVAILABLE</div>
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white">Mid-Century Writing Desk</h3>
+                  <span class="text-brand-gold-500 font-bold text-xl">$890</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm mb-4">Walnut veneer restored to original glory with brass hardware.</p>
+                <button @click="notify('Inquiry sent for Writing Desk!')" class="w-full bg-brand-navy-900 dark:bg-brand-gold-500 text-white dark:text-brand-navy-900 font-medium py-3 rounded-full hover:bg-brand-navy-800 dark:hover:bg-brand-gold-400 transition-colors">
+                  Inquire Now
+                </button>
+              </div>
+            </div>
+          </template>
+
+          <!-- Item 3 -->
+          <template x-if="filter === 'all' || filter === 'storage'">
+            <div class="group bg-white dark:bg-brand-navy-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+              <div class="relative overflow-hidden aspect-w-4 aspect-h-3">
+                <img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=600&q=80" alt="Display Cabinet" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">SOLD</div>
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white line-through">Art Deco Display Cabinet</h3>
+                  <span class="text-brand-navy-400 font-bold text-xl">$1,200</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm mb-4">Original glass panels restored with LED interior lighting.</p>
+                <button disabled class="w-full bg-brand-navy-200 dark:bg-brand-navy-700 text-brand-navy-500 dark:text-brand-navy-400 font-medium py-3 rounded-full cursor-not-allowed">
+                  Sold Out
+                </button>
+              </div>
+            </div>
+          </template>
+
+          <!-- Item 4 -->
+          <template x-if="filter === 'all' || filter === 'chairs'">
+            <div class="group bg-white dark:bg-brand-navy-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+              <div class="relative overflow-hidden aspect-w-4 aspect-h-3">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Accent Chair" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">AVAILABLE</div>
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white">Art Deco Accent Chair</h3>
+                  <span class="text-brand-gold-500 font-bold text-xl">$675</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm mb-4">Geometric pattern fabric with restored chrome frame.</p>
+                <button @click="notify('Inquiry sent for Accent Chair!')" class="w-full bg-brand-navy-900 dark:bg-brand-gold-500 text-white dark:text-brand-navy-900 font-medium py-3 rounded-full hover:bg-brand-navy-800 dark:hover:bg-brand-gold-400 transition-colors">
+                  Inquire Now
+                </button>
+              </div>
+            </div>
+          </template>
+
+          <!-- Item 5 -->
+          <template x-if="filter === 'all' || filter === 'tables'">
+            <div class="group bg-white dark:bg-brand-navy-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+              <div class="relative overflow-hidden aspect-w-4 aspect-h-3">
+                <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600&q=80" alt="Coffee Table" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">AVAILABLE</div>
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white">Industrial Coffee Table</h3>
+                  <span class="text-brand-gold-500 font-bold text-xl">$520</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm mb-4">Reclaimed wood top with original metal base restored.</p>
+                <button @click="notify('Inquiry sent for Coffee Table!')" class="w-full bg-brand-navy-900 dark:bg-brand-gold-500 text-white dark:text-brand-navy-900 font-medium py-3 rounded-full hover:bg-brand-navy-800 dark:hover:bg-brand-gold-400 transition-colors">
+                  Inquire Now
+                </button>
+              </div>
+            </div>
+          </template>
+
+          <!-- Item 6 -->
+          <template x-if="filter === 'all' || filter === 'storage'">
+            <div class="group bg-white dark:bg-brand-navy-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+              <div class="relative overflow-hidden aspect-w-4 aspect-h-3">
+                <img src="https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=600&q=80" alt="Bookshelf" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">AVAILABLE</div>
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-heading text-xl font-bold text-brand-navy-900 dark:text-white">Vintage Bookshelf</h3>
+                  <span class="text-brand-gold-500 font-bold text-xl">$780</span>
+                </div>
+                <p class="text-brand-navy-600 dark:text-brand-navy-300 text-sm mb-4">Five-tier oak bookshelf with adjustable shelves.</p>
+                <button @click="notify('Inquiry sent for Bookshelf!')" class="w-full bg-brand-navy-900 dark:bg-brand-gold-500 text-white dark:text-brand-navy-900 font-medium py-3 rounded-full hover:bg-brand-navy-800 dark:hover:bg-brand-gold-400 transition-colors">
+                  Inquire Now
+                </button>
+              </div>
+            </div>
+          </template>
+
+        </div>
+
+        <div class="text-center mt-12">
+          <a href="#" @click.prevent="notify('Full inventory coming soon!')" class="inline-flex items-center text-brand-gold-500 font-bold hover:text-brand-gold-400 transition-colors">
+            View Full Inventory <i class="ti ti-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sell Your Furniture Section -->
+    <section id="sell" class="py-24 bg-brand-navy-900 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-brand-gold-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-navy-700 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          
+          <div>
+            <h2 class="font-heading text-4xl md:text-5xl mb-6">We Buy Vintage Furniture</h2>
+            <p class="text-brand-navy-200 text-lg mb-8">
+              Have a vintage piece that needs a new home? We purchase quality furniture from estate sales, downsizing homeowners, and collectors. Get a fair offer within 48 hours.
+            </p>
+            
+            <div class="space-y-4 mb-8">
+              <div class="flex items-center space-x-3">
+                <i class="ti ti-check text-brand-gold-400 text-xl"></i>
+                <span>Free pickup for large items</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="ti ti-check text-brand-gold-400 text-xl"></i>
+                <span>Fair market value offers</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="ti ti-check text-brand-gold-400 text-xl"></i>
+                <span>Quick response within 48 hours</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="ti ti-check text-brand-gold-400 text-xl"></i>
+                <span>We handle all transportation</span>
+              </div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+              <h4 class="font-bold text-brand-gold-400 mb-2">What We Look For:</h4>
+              <ul class="text-brand-navy-200 text-sm space-y-1">
+                <li>• Pre-1980 solid wood furniture</li>
+                <li>• Mid-century modern pieces</li>
+                <li>• Victorian, Art Deco, Arts & Crafts styles</li>
+                <li>• Quality craftsmanship & joinery</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Sell Form -->
+          <div class="bg-white dark:bg-brand-navy-800 rounded-2xl p-8 shadow-2xl" x-data="{
+            form: { 
+              name: '', 
+              email: '', 
+              phone: '',
+              description: '', 
+              condition: '', 
+              era: '',
+              photos: []
+            },
+            errors: {},
+            success: false,
+            photoPreview: null,
+            handleFileUpload(e) {
+              const files = Array.from(e.target.files);
+              this.form.photos = files.map(f => f.name);
+              if (files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = (e) => { this.photoPreview = e.target.result; };
+                reader.readAsDataURL(files[0]);
+              }
+            },
+            submitForm() {
+              this.errors = {};
+              if (!this.form.name.trim()) this.errors.name = 'Name is required.';
+              if (!this.form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) this.errors.email = 'Valid email required.';
+              if (!this.form.description.trim()) this.errors.description = 'Please describe your item.';
+              if (!this.form.condition) this.errors.condition = 'Please select condition.';
+              if (Object.keys(this.errors).length === 0) {
+                this.success = true;
+                Alpine.store('app').notify('Submission received! We will contact you within 48 hours.');
+                this.form = { name: '', email: '', phone: '', description: '', condition: '', era: '', photos: [] };
+                this.photoPreview = null;
+                setTimeout(() => this.success = false, 8000);
+              }
+            }
+          }">
+            
+            <div x-show="success" x-cloak class="mb-6 p-4 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-xl border border-green-200 dark:border-green-800">
+              <div class="flex items-center space-x-2">
+                <i class="ti ti-check-circle text-xl"></i>
+                <div>
+                  <p class="font-bold">Thank you for your submission!</p>
+                  <p class="text-sm">Our team will review your item and contact you within 48 hours with an offer.</p>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="font-heading text-2xl font-bold text-brand-navy-900 dark:text-white mb-6">Submit Your Item</h3>
+            
+            <form @submit.prevent="submitForm()" class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Full Name *</label>
+                  <input type="text" x-model="form.name" 
+                         class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-900 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors"
+                         :class="errors.name ? 'border-red-500' : ''">
+                  <p x-show="errors.name" x-text="errors.name" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Email *</label>
+                  <input type="email" x-model="form.email" 
+                         class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-900 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors"
+                         :class="errors.email ? 'border-red-500' : ''">
+                  <p x-show="errors.email" x-text="errors.email" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Phone (Optional)</label>
+                <input type="tel" x-model="form.phone" 
+                       class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-900 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Item Description *</label>
+                <textarea x-model="form.description" rows="3" 
+                          class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-900 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors resize-none"
+                          placeholder="Describe the piece: type, dimensions, style, any damage..."></textarea>
+                <p x-show="errors.description" x-text="errors.description" class="text-red-500 text-xs mt-1" x-cloak></p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Condition *</label>
+                  <select x-model="form.condition" 
+                          class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-900 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors"
+                          :class="errors.condition ? 'border-red-500' : ''">
+                    <option value="">Select condition...</option>
+                    <option value="excellent">Excellent - Like new</option>
+                    <option value="good">Good - Minor wear</option>
+                    <option value="fair">Fair - Needs some work</option>
+                    <option value="poor">Poor - Needs restoration</option>
+                  </select>
+                  <p x-show="errors.condition" x-text="errors.condition" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Era/Period</label>
+                  <select x-model="form.era" 
+                          class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-900 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors">
+                    <option value="">Unknown</option>
+                    <option value="victorian">Victorian (1837-1901)</option>
+                    <option value="art-deco">Art Deco (1920s-1930s)</option>
+                    <option value="mid-century">Mid-Century (1940s-1960s)</option>
+                    <option value="modern">Modern (1970s+)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Photos</label>
+                <div class="border-2 border-dashed border-brand-navy-200 dark:border-brand-navy-700 rounded-xl p-6 text-center">
+                  <input type="file" @change="handleFileUpload" accept="image/*" multiple class="hidden" id="photo-upload">
+                  <label for="photo-upload" class="cursor-pointer">
+                    <i class="ti ti-photo text-3xl text-brand-gold-400 mb-2"></i>
+                    <p class="text-sm text-brand-navy-600 dark:text-brand-navy-300">Click to upload photos</p>
+                    <p class="text-xs text-brand-navy-500 dark:text-brand-navy-400 mt-1">or drag and drop</p>
+                  </label>
+                  <div x-show="form.photos.length > 0" class="mt-4">
+                    <p class="text-sm text-brand-navy-600 dark:text-brand-navy-300" x-text="form.photos.length + ' file(s) selected'"></p>
+                  </div>
+                </div>
+                <div x-show="photoPreview" class="mt-4">
+                  <img :src="photoPreview" alt="Preview" class="w-32 h-32 object-cover rounded-lg">
+                </div>
+              </div>
+
+              <button type="submit" class="w-full bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-navy-900 font-bold py-4 rounded-xl transition-colors flex items-center justify-center space-x-2">
+                <span>Submit for Evaluation</span>
+                <i class="ti ti-send"></i>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-brand-cream dark:bg-brand-navy-900 transition-colors duration-300">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <i class="ti ti-quote text-5xl text-brand-gold-400 mb-8 inline-block"></i>
+        
+        <div x-data="{ 
+            active: 0, 
+            items: [
+              { quote: 'They transformed my grandmother\'s antique chair into a stunning centerpiece. The craftsmanship is incredible and they preserved all the original character.', name: 'Margaret Thompson', role: 'Interior Designer' },
+              { quote: 'Sold my late father\'s desk to them and got a fair price. They handled everything professionally and even picked it up from my home.', name: 'Robert Chen', role: 'Homeowner' },
+              { quote: 'The before and after is unbelievable! My dining set looked like it came from a museum after their restoration. Highly recommend!', name: 'Elena Rodriguez', role: 'Restaurant Owner' }
+            ] 
+          }" 
+          class="relative overflow-hidden">
+          
+          <template x-for="(t, i) in items" :key="i">
+            <div x-show="active === i" 
+                 x-transition:enter="transition ease-out duration-500"
+                 x-transition:enter-start="opacity-0 transform translate-x-8"
+                 x-transition:enter-end="opacity-100 transform translate-x-0"
+                 class="px-4">
+              <p class="text-2xl md:text-3xl font-heading text-brand-navy-900 dark:text-white mb-8 leading-relaxed" x-text="`&quot;${t.quote}&quot;`"></p>
+              <div>
+                <p class="font-bold text-brand-navy-800 dark:text-brand-navy-200" x-text="t.name"></p>
+                <p class="text-brand-gold-500 text-sm uppercase tracking-wider mt-1" x-text="t.role"></p>
+              </div>
+            </div>
+          </template>
+          
+          <div class="flex justify-center mt-12 space-x-4">
+            <button @click="active = (active - 1 + items.length) % items.length" class="w-12 h-12 rounded-full border-2 border-brand-navy-200 dark:border-brand-navy-700 flex items-center justify-center text-brand-navy-500 hover:text-brand-gold-500 hover:border-brand-gold-500 transition-colors" aria-label="Previous testimonial">
+              <i class="ti ti-arrow-left"></i>
+            </button>
+            <button @click="active = (active + 1) % items.length" class="w-12 h-12 rounded-full border-2 border-brand-navy-200 dark:border-brand-navy-700 flex items-center justify-center text-brand-navy-500 hover:text-brand-gold-500 hover:border-brand-gold-500 transition-colors" aria-label="Next testimonial">
+              <i class="ti ti-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-brand-navy-50 dark:bg-brand-navy-800 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          <div>
+            <h2 class="font-heading text-4xl text-brand-navy-900 dark:text-white mb-4">Visit Our Showroom</h2>
+            <div class="w-16 h-1 bg-brand-gold-500 mb-8"></div>
+            <p class="text-brand-navy-600 dark:text-brand-navy-300 mb-10 text-lg">
+              Come see our restored pieces in person. We're open by appointment or walk-in during showroom hours.
+            </p>
+            
+            <div class="space-y-6">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-brand-gold-100 dark:bg-brand-gold-900/30 text-brand-gold-500 rounded-full flex items-center justify-center shrink-0">
+                  <i class="ti ti-map-pin text-2xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-navy-900 dark:text-white mb-1">Showroom & Workshop</h4>
+                  <p class="text-brand-navy-600 dark:text-brand-navy-300">245 Heritage Lane<br>Portland, OR 97204</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-brand-gold-100 dark:bg-brand-gold-900/30 text-brand-gold-500 rounded-full flex items-center justify-center shrink-0">
+                  <i class="ti ti-clock text-2xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-navy-900 dark:text-white mb-1">Hours</h4>
+                  <p class="text-brand-navy-600 dark:text-brand-navy-300">Tue-Sat: 10am - 6pm<br>Sun-Mon: By Appointment</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-brand-gold-100 dark:bg-brand-gold-900/30 text-brand-gold-500 rounded-full flex items-center justify-center shrink-0">
+                  <i class="ti ti-phone text-2xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-navy-900 dark:text-white mb-1">Contact</h4>
+                  <p class="text-brand-navy-600 dark:text-brand-navy-300">(555) 847-2930<br>hello@vintagerestoration.co</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simple Contact Form -->
+          <div class="bg-white dark:bg-brand-navy-900 p-8 rounded-2xl shadow-lg border border-brand-navy-100 dark:border-brand-navy-700">
+            <form @submit.prevent="notify('Message sent! We will respond within 24 hours.')" x-data="{
+              form: { name: '', email: '', message: '' },
+              errors: {},
+              submitForm() {
+                this.errors = {};
+                if (!this.form.name.trim()) this.errors.name = 'Name is required.';
+                if (!this.form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+                  this.errors.email = 'A valid email is required.';
+                if (!this.form.message.trim()) this.errors.message = 'Message cannot be empty.';
+                if (Object.keys(this.errors).length === 0) {
+                  Alpine.store('app').notify('Message sent! We will respond within 24 hours.');
+                  this.form = { name: '', email: '', message: '' };
+                }
+              }
+            }">
+              
+              <div class="space-y-4">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Name</label>
+                  <input type="text" id="name" x-model="form.name" 
+                         class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-800 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors"
+                         :class="errors.name ? 'border-red-500' : ''">
+                  <p x-show="errors.name" x-text="errors.name" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+
+                <div>
+                  <label for="email" class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Email</label>
+                  <input type="email" id="email" x-model="form.email" 
+                         class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-800 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors"
+                         :class="errors.email ? 'border-red-500' : ''">
+                  <p x-show="errors.email" x-text="errors.email" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+
+                <div>
+                  <label for="message" class="block text-sm font-medium text-brand-navy-600 dark:text-brand-navy-300 mb-1">Message</label>
+                  <textarea id="message" x-model="form.message" rows="4" 
+                            class="w-full px-4 py-3 rounded-xl border border-brand-navy-200 dark:border-brand-navy-700 bg-white dark:bg-brand-navy-800 dark:text-white focus:ring-2 focus:ring-brand-gold-500 focus:border-brand-gold-500 outline-none transition-colors resize-none"
+                            :class="errors.message ? 'border-red-500' : ''"></textarea>
+                  <p x-show="errors.message" x-text="errors.message" class="text-red-500 text-xs mt-1" x-cloak></p>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-navy-900 dark:bg-brand-gold-500 hover:bg-brand-navy-800 dark:hover:bg-brand-gold-400 text-white dark:text-brand-navy-900 font-bold py-4 rounded-xl transition-colors">
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-brand-navy-900 text-brand-navy-300 py-12 border-t border-brand-navy-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="col-span-1 md:col-span-1">
+          <div class="flex items-center space-x-2 mb-4">
+             <div class="bg-brand-gold-500 text-white p-2 rounded-lg">
+               <i class="ti ti-chair text-xl"></i>
+             </div>
+             <div>
+               <span class="font-heading text-lg font-bold text-white block leading-none">Vintage</span>
+               <span class="text-xs uppercase tracking-widest text-brand-gold-400 font-medium">Restoration Co.</span>
+             </div>
+          </div>
+          <p class="text-sm mb-4">Bringing forgotten furniture back to life since 2014. Each piece tells a story.</p>
+          <div class="flex space-x-4">
+            <a href="#" @click.prevent="notify('Social link')" aria-label="Facebook" class="text-brand-navy-400 hover:text-brand-gold-400 transition-colors"><i class="ti ti-brand-facebook text-xl"></i></a>
+            <a href="#" @click.prevent="notify('Social link')" aria-label="Instagram" class="text-brand-navy-400 hover:text-brand-gold-400 transition-colors"><i class="ti ti-brand-instagram text-xl"></i></a>
+            <a href="#" @click.prevent="notify('Social link')" aria-label="Pinterest" class="text-brand-navy-400 hover:text-brand-gold-400 transition-colors"><i class="ti ti-brand-pinterest text-xl"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Shop</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#inventory" @click.prevent="notify('Link')" class="hover:text-brand-gold-400 transition-colors">All Items</a></li>
+            <li><a href="#inventory" @click.prevent="notify('Link')" class="hover:text-brand-gold-400 transition-colors">Chairs</a></li>
+            <li><a href="#inventory" @click.prevent="notify('Link')" class="hover:text-brand-gold-400 transition-colors">Tables</a></li>
+            <li><a href="#inventory" @click.prevent="notify('Link')" class="hover:text-brand-gold-400 transition-colors">Storage</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Services</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#process" @click.prevent="notify('Link')" class="hover:text-brand-gold-400 transition-colors">Restoration</a></li>
+            <li><a href="#sell" @click.prevent="notify('Link')" class="hover:text-brand-gold-400 transition-colors">We Buy Furniture</a></li>
+            <li><a href="#" @click.prevent="notify('Link')" class="hover:text-brand-gold-400 transition-colors">Custom Work</a></li>
+            <li><a href="#contact" @click.prevent="notify('Link')" class="hover:text-brand-gold-400 transition-colors">Appraisals</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Newsletter</h4>
+          <p class="text-sm mb-4">Get notified when new pieces arrive.</p>
+          <form @submit.prevent="notify('Subscribed!')" class="flex">
+            <input type="email" placeholder="Email address" required class="w-full px-3 py-2 rounded-l-lg bg-brand-navy-800 border border-brand-navy-700 text-white focus:outline-none focus:border-brand-gold-500 text-sm">
+            <button type="submit" class="bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-navy-900 px-4 py-2 rounded-r-lg transition-colors font-bold text-sm">
+              <i class="ti ti-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+      
+      <div class="pt-8 border-t border-brand-navy-800 flex flex-col md:flex-row justify-between items-center text-xs">
+        <p>&copy; 2026 Vintage Furniture Restoration Co. All rights reserved.</p>
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          <a href="#" @click.prevent="notify('Link')" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" @click.prevent="notify('Link')" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div x-show="toast.show" x-transition x-cloak
+       class="fixed bottom-6 right-6 z-50 bg-brand-navy-900 dark:bg-white text-white dark:text-brand-navy-900 px-5 py-3 rounded-xl shadow-2xl text-sm font-medium flex items-center space-x-2 border-l-4 border-brand-gold-500">
+    <i class="ti ti-check-circle"></i>
+    <span x-text="toast.message"></span>
+  </div>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      // Global app state
+      Alpine.data('appState', () => ({
+        darkMode: false,
+        mobileMenuOpen: false,
+        toast: { show: false, message: '' },
+
+        init() {
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            this.darkMode = true;
+          }
+          Alpine.store('app', this);
+        },
+
+        toggleDark() { 
+          this.darkMode = !this.darkMode; 
+        },
+        toggleMenu() { 
+          this.mobileMenuOpen = !this.mobileMenuOpen; 
+        },
+
+        notify(msg) {
+          this.toast.message = msg;
+          this.toast.show = true;
+          setTimeout(() => { this.toast.show = false; }, 3000);
+        }
+      }));
+
+      // Counter animation component
+      Alpine.data('counterAnimation', () => ({
+        itemsRestored: 0,
+        satisfactionRate: 0,
+        yearsInBusiness: 0,
+        piecesSold: 0,
+        
+        init() {
+          this.animateValue('itemsRestored', 0, 342, 2000);
+          this.animateValue('satisfactionRate', 0, 98, 2000);
+          this.animateValue('yearsInBusiness', 0, 12, 2000);
+          this.animateValue('piecesSold', 0, 289, 2000);
+        },
+        
+        animateValue(key, start, end, duration) {
+          const range = end - start;
+          const increment = range / (duration / 16);
+          let current = start;
+          
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= end) {
+              current = end;
+              clearInterval(timer);
+            }
+            this[key] = Math.floor(current);
+          }, 16);
+        },
+        
+        formatNumber(num) {
+          return num + '+';
+        }
+      }));
+
+      // Before/After slider component
+      Alpine.data('beforeAfterSlider', (initialPosition = 50) => ({
+        sliderPosition: initialPosition,
+        
+        updateSlider(e) {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+          const position = ((x - rect.left) / rect.width) * 100;
+          this.sliderPosition = Math.max(0, Math.min(100, position));
+        }
+      }));
+
+      // Timeline animation component
+      Alpine.data('timelineAnimation', () => ({
+        activeStep: 0,
+        
+        init() {
+          // Animate steps sequentially when section comes into view
+          const observer = new IntersectionObserver(
+            (entries) => {
+              if (entries[0].isIntersecting) {
+                // Activate steps one by one
+                for (let i = 1; i <= 4; i++) {
+                  setTimeout(() => {
+                    this.activeStep = i;
+                  }, (i - 1) * 400);
+                }
+                observer.disconnect();
+              }
+            },
+            { threshold: 0.3 }
+          );
+          
+          this.$nextTick(() => {
+            if (this.$refs.step1) observer.observe(this.$refs.step1);
+          });
+        }
+      }));
+    });
+  </script>
+</body>
+</html>

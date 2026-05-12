@@ -6,5 +6,10 @@
   },
   "dependencies": {
     "sharp": "^0.34.5"
+  },
+  "scripts": {
+    "capture": "node script-screenshot/capture.js",
+    "capture:all": "node script-screenshot/capture.js --all",
+    "install:browsers": "playwright install"
   }
 }
